@@ -24,14 +24,6 @@
 #include "cutoff.h"
 #include "biquad.h"
 
-typedef enum {
-  CUTOFF_INPUT = 0,
-  CUTOFF_OUTPUT,
-  CUTOFF_TYPE,
-  CUTOFF_FREQ,
-  
-} PortIndex;
-
 typedef struct {
   // nessisary to generate a sin wave of the correct frequency
   double sample_rate;

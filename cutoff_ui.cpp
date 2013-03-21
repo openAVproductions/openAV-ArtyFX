@@ -25,14 +25,35 @@
 #include "lv2/lv2plug.in/ns/extensions/ui/ui.h"
 
 #include "avtk/avtk_filter_lowpass.h"
+#include "avtk/avtk_dial.h"
+#include "avtk/avtk_image.h"
+#include "avtk/avtk_background.h"
 
 using namespace std;
 
 typedef struct {
     CutoffUI* widget;
     Fl_Window* win;
+    
+    LV2UI_Write_Function write_function;
+    LV2UI_Controller controller;
+    
+    AvtkDial *freq;
+    AvtkFilterLowpass *graph;
 } CutoffGUI;
 
+static CutoffGUI* static_self;
+
+void dialCallback(Fl_Dial* o, void* v) {
+  cout << o->value() << endl;
+}
+
+void cb_freq_i(Fl_Dial* o, void* s) {
+  float tmp = o->value() * 2000 + 200;
+  cout << "Controller " << static_self->controller << "   write_function " << static_self->write_function << endl;
+  static_self->write_function( static_self->controller, CUTOFF_FREQ, sizeof(float), 0, (const void*)&tmp);
+  static_self->graph->value(o->value());
+}
 
 static LV2UI_Handle instantiate(const struct _LV2UI_Descriptor * descriptor,
                 const char * plugin_uri,
@@ -53,7 +74,11 @@ static LV2UI_Handle instantiate(const struct _LV2UI_Descriptor * descriptor,
     int width  = 160;
     int height = 220;
     
-
+    static_self = self;
+    self->controller     = controller;
+    self->write_function = write_function;
+    
+    cout << "Controller " << controller << "   write_function " << write_function << endl;
     
     void* parentXwindow = 0;
     LV2UI_Resize* resize = NULL;
@@ -90,31 +115,36 @@ static LV2UI_Handle instantiate(const struct _LV2UI_Descriptor * descriptor,
     self->win->show();
     * */
     
-    
+    self->win->user_data((void*)self);
     
     
     self->win->begin();
     
     Fl_Double_Window *win = (Fl_Double_Window*)self->win;
     Fl_Group *contents;
-    Fl_Box *master;
+    AvtkBackground *master;
     
-    Fl_Dial *freq;
+    AvtkDial *freq;
     AvtkFilterLowpass *graph;
     
-    { contents = new Fl_Group(0, 0, 160, 220, "contents");
-      { master = new Fl_Box(15, 37, 140, 178, "Master");
+    
+    
+    { contents = new Fl_Group(0, 0, 160, 220, "");
+      { 
+        master = new AvtkBackground(10, 37, 140, 178, "BiQuad");
         master->box(FL_UP_BOX);
         //master->callback((Fl_Callback*)cb_master);
         //#include "avtk_background.h"
       } // Fl_Box* master
-      { //headerImage = new Fl_Box(5, 5, 895, 36, "cutoff.png");
+      { 
+        //headerImage = new AvtkImage(5, 5, 160, 36, "cutoff.png");
         //headerImage->callback((Fl_Callback*)cb_headerImage);
         //#include "avtk_image.h"
       } // Fl_Box* headerImage
-      { freq = new Fl_Dial(55, 130, 55, 50, "freq");
+      { freq = new AvtkDial(55, 140, 50, 50, "");
+        freq->callback( (Fl_Callback*)cb_freq_i );
       } // Fl_Dial* freq
-      { graph = new AvtkFilterLowpass(25, 65, 115, 60, "graph");
+      { graph = new AvtkFilterLowpass(25, 65, 115, 60, "");
         graph->box(FL_OVAL_BOX);
         graph->color(FL_BACKGROUND_COLOR);
         graph->selection_color(FL_INACTIVE_COLOR);
@@ -125,11 +155,13 @@ static LV2UI_Handle instantiate(const struct _LV2UI_Descriptor * descriptor,
         graph->align(Fl_Align(FL_ALIGN_BOTTOM));
         graph->when(FL_WHEN_CHANGED);
       } // AvtkFilterLowpass* graph
+      
       contents->end();
     } // Fl_Group* contents
     
     
-    
+    self->freq = freq;
+    self->graph = graph;
     
     self->win->end();
     
@@ -147,6 +179,8 @@ static LV2UI_Handle instantiate(const struct _LV2UI_Descriptor * descriptor,
     
     return (LV2UI_Handle)self;
 }
+
+
 
 static void cleanup(LV2UI_Handle ui) {
     //printf("cleanup()\n");

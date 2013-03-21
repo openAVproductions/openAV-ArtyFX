@@ -28,6 +28,7 @@ class CutoffUI {open
         }
         Fl_Dial freq {
           label freq
+          callback {cout << "stuff" << endl;}
           xywh {54 130 55 50}
         }
         Fl_Dial graph {
