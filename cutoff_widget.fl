@@ -1,0 +1,46 @@
+# data file for the Fltk User Interface Designer (fluid)
+version 1.0302 
+header_name {.h} 
+code_name {.cxx}
+class CutoffUI {open
+} {
+  Function {CutoffUI()} {open
+  } {
+    Fl_Window {} {
+      label Cutoff open
+      xywh {603 375 160 220} type Double resizable
+      code0 {\#include "lv2/lv2plug.in/ns/extensions/ui/ui.h"} visible
+    } {
+      Fl_Box master {
+        label Master
+        callback {//AvtkBackground}
+        xywh {10 32 140 178} box UP_BOX
+        code0 {//\#include "avtk_background.h"}
+      }
+      Fl_Box headerImage {
+        label {cutoff.png}
+        callback {//AvtkImage}
+        xywh {0 0 895 36}
+        code0 {//\#include "avtk_image.h"}
+      }
+      Fl_Dial freq {
+        label freq
+        xywh {50 125 55 50}
+      }
+      Fl_Dial graph {
+        label graph selected
+        xywh {20 60 115 60}
+        code0 {\#include "avtk/avtk_filter_lowpass.h"}
+        class AvtkFilterLowpass
+      }
+    }
+  }
+  decl {LV2UI_Write_Function write_function;} {public local
+  }
+  decl {LV2UI_Controller controller;} {public local
+  }
+  Function {idle()} {open return_type void
+  } {
+    code {printf("idle!\\n");} {}
+  }
+} 

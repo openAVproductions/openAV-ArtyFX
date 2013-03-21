@@ -1,0 +1,3 @@
+[submodule "avtk"]
+	path = avtk
+	url = git@bitbucket.org:harryhaaren/avtk.git

@@ -85,15 +85,15 @@ def build(bld):
               uselib       = 'LV2CORE',
               includes     = includes)
     
-    '''
+    
     # Build UI library
     obj = bld(features     = 'cxx cshlib',
               env          = penv,
-              source       = 'widget.cpp sinsynth_gui.cpp',
-              name         = 'sinsynth_gui',
-              target       = '%s/fltksynth_gui' % bundle,
+              source       = 'cutoff_widget.cxx cutoff_ui.cpp',
+              name         = 'cutoff_gui',
+              target       = '%s/cutoff_gui' % bundle,
               install_path = '${LV2DIR}/%s' % bundle,
               uselib       = 'LV2CORE NTK',
               includes     = includes)
-    '''
+    
 
