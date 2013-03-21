@@ -15,9 +15,10 @@
 #include <stdint.h>
 
 #define FL_INTERNALS
-#include <FL/Fl_Window.H>
-#include <FL/Fl.H>
+
 #include <FL/x.H>
+#include <FL/Fl.H>
+#include <FL/Fl_Window.H>
 
 #include "xembed.hh"
 
@@ -103,7 +104,7 @@ void Xembed::show() {
 }
 
 void Xembed::createInternal(uint32_t parent) {
-   Fl_Window *window = this;
+   Fl_Double_Window *window = this;
    Colormap colormap = fl_colormap;
 
    XSetWindowAttributes attr;
@@ -125,7 +126,7 @@ void Xembed::createInternal(uint32_t parent) {
       | ButtonPressMask | ButtonReleaseMask
       | EnterWindowMask | LeaveWindowMask
       | PointerMotionMask;
-
+  
    Fl_X::set_xid(window,
       XCreateWindow(fl_display,
          parent,

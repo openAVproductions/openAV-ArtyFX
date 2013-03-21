@@ -4,34 +4,38 @@ header_name {.h}
 code_name {.cxx}
 class CutoffUI {open
 } {
-  Function {CutoffUI()} {open
+  Function {setup()} {open
   } {
-    Fl_Window {} {
-      label Cutoff open
-      xywh {603 375 160 220} type Double resizable
+    Fl_Window garbage {open
+      xywh {1295 247 160 220} type Double resizable
       code0 {\#include "lv2/lv2plug.in/ns/extensions/ui/ui.h"} visible
     } {
-      Fl_Box master {
-        label Master
-        callback {//AvtkBackground}
-        xywh {10 32 140 178} box UP_BOX
-        code0 {//\#include "avtk_background.h"}
-      }
-      Fl_Box headerImage {
-        label {cutoff.png}
-        callback {//AvtkImage}
-        xywh {0 0 895 36}
-        code0 {//\#include "avtk_image.h"}
-      }
-      Fl_Dial freq {
-        label freq
-        xywh {50 125 55 50}
-      }
-      Fl_Dial graph {
-        label graph selected
-        xywh {20 60 115 60}
-        code0 {\#include "avtk/avtk_filter_lowpass.h"}
-        class AvtkFilterLowpass
+      Fl_Group contents {
+        label contents open
+        xywh {0 0 900 220}
+      } {
+        Fl_Box master {
+          label Master
+          callback {//AvtkBackground}
+          xywh {10 37 140 178} box UP_BOX
+          code0 {//\#include "avtk_background.h"}
+        }
+        Fl_Box headerImage {
+          label {cutoff.png}
+          callback {//AvtkImage}
+          xywh {5 5 895 36}
+          code0 {//\#include "avtk_image.h"}
+        }
+        Fl_Dial freq {
+          label freq
+          xywh {54 130 55 50}
+        }
+        Fl_Dial graph {
+          label graph
+          xywh {23 65 115 60}
+          code0 {\#include "avtk/avtk_filter_lowpass.h"}
+          class AvtkFilterLowpass
+        }
       }
     }
   }
@@ -41,6 +45,7 @@ class CutoffUI {open
   }
   Function {idle()} {open return_type void
   } {
-    code {printf("idle!\\n");} {}
+    code {Fl::check();
+Fl::flush();} {}
   }
 } 

@@ -28,7 +28,7 @@ def configure(conf):
     else:
         conf.env.append_unique('CFLAGS', '-std=c99')
         
-    conf.env.append_unique('CXXFLAGS', '-std=c++11')
+    conf.env.append_unique('CXXFLAGS', '-std=c++0x')
     conf.env.append_unique('CXXFLAGS', '-fPIC')
     conf.env.append_unique('CXXFLAGS', '-g')
 
@@ -85,15 +85,13 @@ def build(bld):
               uselib       = 'LV2CORE',
               includes     = includes)
     
-    
     # Build UI library
     obj = bld(features     = 'cxx cshlib',
               env          = penv,
-              source       = 'cutoff_widget.cxx cutoff_ui.cpp',
+              source       = 'cutoff_widget.cxx xembed.cc cutoff_ui.cpp',
               name         = 'cutoff_gui',
               target       = '%s/cutoff_gui' % bundle,
               install_path = '${LV2DIR}/%s' % bundle,
               uselib       = 'LV2CORE NTK',
               includes     = includes)
     
-

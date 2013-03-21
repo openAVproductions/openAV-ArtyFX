@@ -12,6 +12,9 @@
 // include the URI and global data of this plugin
 #include "cutoff.h"
 
+// include the FLTK embedding helper class
+#include "xembed.hh"
+
 // this is our custom widget include
 #include "cutoff_widget.h"
 
@@ -21,10 +24,13 @@
 // GUI
 #include "lv2/lv2plug.in/ns/extensions/ui/ui.h"
 
+#include "avtk/avtk_filter_lowpass.h"
+
 using namespace std;
 
 typedef struct {
     CutoffUI* widget;
+    Fl_Window* win;
 } CutoffGUI;
 
 
@@ -44,8 +50,12 @@ static LV2UI_Handle instantiate(const struct _LV2UI_Descriptor * descriptor,
     CutoffGUI* self = (CutoffGUI*)malloc(sizeof(CutoffGUI));
     if (self == NULL) return NULL;
     
-    void* parentXwindow = 0;
+    int width  = 160;
+    int height = 220;
     
+
+    
+    void* parentXwindow = 0;
     LV2UI_Resize* resize = NULL;
     
     for (int i = 0; features[i]; ++i) {
@@ -58,21 +68,82 @@ static LV2UI_Handle instantiate(const struct _LV2UI_Descriptor * descriptor,
       }
     }
     
+    // reparent the window,
+    fl_open_display();
+    self->win = new Xembed((uintptr_t)parentXwindow, width,height);
     
-    
-    if (resize) {
-      resize->ui_resize(resize->handle, 1024, 768);
-    }
-    
+    /*
     //cout << "Creating UI!" << endl;
     self->widget = new CutoffUI();
+    self->widget->setup();
     
-    //cout << "Writing controller f(x)!" << endl;
+    // move all the contents of the FLUID window into this embedded window
+    self->win->add_resizable( *self->widget->contents );
     
+    // write functions into the widget
     self->widget->controller = controller;
     self->widget->write_function = write_function;
     
-    //cout << "returning..." << int(self->widget->getXID()) << endl;
+    self->win = self->widget->win;
+    
+    //self->win->size(width,height);
+    self->win->show();
+    * */
+    
+    
+    
+    
+    self->win->begin();
+    
+    Fl_Double_Window *win = (Fl_Double_Window*)self->win;
+    Fl_Group *contents;
+    Fl_Box *master;
+    
+    Fl_Dial *freq;
+    AvtkFilterLowpass *graph;
+    
+    { contents = new Fl_Group(0, 0, 160, 220, "contents");
+      { master = new Fl_Box(15, 37, 140, 178, "Master");
+        master->box(FL_UP_BOX);
+        //master->callback((Fl_Callback*)cb_master);
+        //#include "avtk_background.h"
+      } // Fl_Box* master
+      { //headerImage = new Fl_Box(5, 5, 895, 36, "cutoff.png");
+        //headerImage->callback((Fl_Callback*)cb_headerImage);
+        //#include "avtk_image.h"
+      } // Fl_Box* headerImage
+      { freq = new Fl_Dial(55, 130, 55, 50, "freq");
+      } // Fl_Dial* freq
+      { graph = new AvtkFilterLowpass(25, 65, 115, 60, "graph");
+        graph->box(FL_OVAL_BOX);
+        graph->color(FL_BACKGROUND_COLOR);
+        graph->selection_color(FL_INACTIVE_COLOR);
+        graph->labeltype(FL_NORMAL_LABEL);
+        graph->labelfont(0);
+        graph->labelsize(14);
+        graph->labelcolor(FL_FOREGROUND_COLOR);
+        graph->align(Fl_Align(FL_ALIGN_BOTTOM));
+        graph->when(FL_WHEN_CHANGED);
+      } // AvtkFilterLowpass* graph
+      contents->end();
+    } // Fl_Group* contents
+    
+    
+    
+    
+    self->win->end();
+    
+    win->size(width,height);
+    win->show();
+    
+    
+    XMapRaised(fl_display, fl_xid( self->win ));
+    
+    
+    // set host to change size of the window
+    if (resize) {
+      resize->ui_resize(resize->handle, width, height);
+    }
     
     return (LV2UI_Handle)self;
 }
