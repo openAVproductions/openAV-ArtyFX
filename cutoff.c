@@ -20,7 +20,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-
 #include "cutoff.h"
 #include "biquad.h"
 
@@ -93,15 +92,22 @@ run(LV2_Handle instance, uint32_t n_samples)
 {
   Cutoff* self = (Cutoff*)instance;
   
+  const int          type   = *(self->type);
   const float        freq   = *(self->freq);
   const float*       input  = self->input;
   float* const       output = self->output;
   
-    
+  // convert linear "freq" [0,1] to frequency (hertz)
+  float noteFreq = (float)(24.f + (freq * 105.f));
+  
+  const float frequency = pow(2,((noteFreq-69)/12.f)) * 440.f;
+  
+  printf("type %d, f %f  noteFreq %f  freq %f\n", type,  freq, noteFreq, frequency );
+  
   BiQuad_setup( self->filter,
-                (int)*self->type,   // type
+                type,               // type
                 0,                  // dB gain
-                freq,               // significant freq
+                frequency,          // significant freq
                 self->sample_rate,  // sampling rate
                 0.5     );          // bandwidth / octave
   

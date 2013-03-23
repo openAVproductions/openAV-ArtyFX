@@ -12,7 +12,6 @@ typedef enum {
   CUTOFF_OUTPUT,
   CUTOFF_TYPE,
   CUTOFF_FREQ,
-  
 } PortIndex;
 
 #endif // OPENAV_CUTOFF

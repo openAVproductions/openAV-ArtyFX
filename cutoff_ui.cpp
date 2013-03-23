@@ -98,81 +98,22 @@ static LV2UI_Handle instantiate(const struct _LV2UI_Descriptor * descriptor,
     
     //cout << "Creating UI!" << endl;
     self->widget = new CutoffUI();
-    self->widget->setup();
+    
+    self->widget->window->border(0);
     
     
     // write functions into the widget
     self->widget->controller = controller;
     self->widget->write_function = write_function;
     
-    
-    
-    
-    /*
-    self->win = new Fl_Double_Window(160, 220);
-    
-    self->win->user_data((void*)self);
-    
-    
-    self->win->begin();
-    
-    Fl_Double_Window *win = (Fl_Double_Window*)self->win;
-    Fl_Group *contents;
-    AvtkBackground *master;
-    
-    AvtkDial *freq;
-    AvtkFilterLowpass *graph;
-    
-    
-    
-    { contents = new Fl_Group(0, 0, 160, 220, "");
-      { 
-        master = new AvtkBackground(10, 37, 140, 178, "BiQuad");
-        master->box(FL_UP_BOX);
-        //master->callback((Fl_Callback*)cb_master);
-        //#include "avtk_background.h"
-      } // Fl_Box* master
-      { 
-        //headerImage = new AvtkImage(5, 5, 160, 36, "cutoff.png");
-        //headerImage->callback((Fl_Callback*)cb_headerImage);
-        //#include "avtk_image.h"
-      } // Fl_Box* headerImage
-      { freq = new AvtkDial(55, 140, 50, 50, "");
-        freq->callback( (Fl_Callback*)cb_freq_i );
-      } // Fl_Dial* freq
-      { graph = new AvtkFilterLowpass(25, 65, 115, 60, "");
-        graph->box(FL_OVAL_BOX);
-        graph->color(FL_BACKGROUND_COLOR);
-        graph->selection_color(FL_INACTIVE_COLOR);
-        graph->labeltype(FL_NORMAL_LABEL);
-        graph->labelfont(0);
-        graph->labelsize(14);
-        graph->labelcolor(FL_FOREGROUND_COLOR);
-        graph->align(Fl_Align(FL_ALIGN_BOTTOM));
-        graph->when(FL_WHEN_CHANGED);
-      } // AvtkFilterLowpass* graph
-      
-      contents->end();
-    } // Fl_Group* contents
-    
-    
-    self->freq = freq;
-    self->graph = graph;
-    
-    self->win->end();
-    
-    win->size(width,height);
-    //win->show();
-    */
-    
-    
+    // set host to change size of the window
+    if (resize) {
+      //cout << "resizing Jalv window to : " << self->widget->getWidth() << " " << self->widget->getHeight() << endl;
+      resize->ui_resize(resize->handle, self->widget->getWidth(), self->widget->getHeight());
+    }
     
     fl_embed( self->widget->window, (Window)parentXwindow );
     
-    // set host to change size of the window
-    if (resize) {
-      resize->ui_resize(resize->handle, self->widget->getWidth(), self->widget->getWidth());
-    }
     
     return (LV2UI_Handle)self;
 }

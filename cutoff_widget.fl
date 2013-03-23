@@ -4,20 +4,39 @@ header_name {.h}
 code_name {.cxx}
 class CutoffUI {open
 } {
-  Function {setup()} {open
+  Function {update_button(int button)} {
+    comment {if the type of filter changes, this function will highlight the right button} open return_type void
+  } {
+    code {lpf->value(0);
+hpf->value(0);
+bpf->value(0);
+lsf->value(0);
+hsf->value(0);
+
+switch(button)
+{
+  case 0: lpf->value(1); break;
+  case 1: hpf->value(1); break;
+  case 2: bpf->value(1); break;
+  case 3: lsf->value(1); break;
+  case 4: hsf->value(1); break;
+}} {}
+  }
+  Function {CutoffUI()} {open
   } {
     Fl_Window window {open
-      xywh {734 309 160 220} type Double color 32 resizable
+      xywh {948 425 160 240} type Double color 32 resizable
       code0 {\#include "lv2/lv2plug.in/ns/extensions/ui/ui.h"}
-      code1 {\#include <iostream>;}
-      code2 {using namespace std;} visible
+      code1 {\#include <iostream>}
+      code2 {using namespace std;}
+      code3 {\#include "cutoff.h"} visible
     } {
       Fl_Group contents {
         label contents open
         xywh {-1 0 901 220} color 0
       } {
         Fl_Box master {
-          label {Lowpass 12dB} selected
+          label {Lowpass 12dB}
           xywh {10 37 140 178} box UP_BOX color 37 labeltype NO_LABEL
           code0 {\#include "avtk/avtk_background.h"}
           class AvtkBackground
@@ -30,18 +49,73 @@ class CutoffUI {open
         }
         Fl_Dial freq {
           label freq
-          callback {cout << "stuff" << endl;}
-          xywh {54 130 55 50} color 90 labeltype NO_LABEL
+          callback {float tmp = o->value();
+graph->value( tmp ); // update graph
+write_function(controller, CUTOFF_FREQ, sizeof(float), 0, &tmp);}
+          xywh {85 155 55 55} color 90 labeltype NO_LABEL
           code0 {\#include "avtk/avtk_dial.h"}
           class AvtkDial
         }
         Fl_Dial graph {
           label graph
-          xywh {23 65 115 60} box UP_BOX color 179 labeltype NO_LABEL
+          xywh {20 65 120 60} box UP_BOX color 179 labeltype NO_LABEL
           code0 {\#include "avtk/avtk_filter_lowpass.h"}
           class AvtkFilterLowpass
         }
+        Fl_Button lpf {
+          label L
+          callback {float tmp = 0;
+cout << "writing LSF" << endl;
+write_function(controller, CUTOFF_TYPE, sizeof(float), 0, &tmp);
+update_button(tmp);}
+          xywh {20 130 20 20}
+          code0 {\#include "avtk/avtk_light_button.h"}
+          class AvtkLightButton
+        }
+        Fl_Button hpf {
+          label H
+          callback {float tmp = 1;
+cout << "writing HSF" << endl;
+write_function(controller, CUTOFF_TYPE, sizeof(float), 0, &tmp);
+update_button(tmp);}
+          xywh {45 130 20 20}
+          code0 {\#include "avtk/avtk_button.h"}
+          class AvtkLightButton
+        }
+        Fl_Button bpf {
+          label B
+          callback {float tmp = 2;
+cout << "writing BPF" << endl;
+write_function(controller, CUTOFF_TYPE, sizeof(float), 0, &tmp);
+update_button(tmp);}
+          xywh {70 130 20 20}
+          code0 {\#include "avtk/avtk_button.h"}
+          class AvtkLightButton
+        }
+        Fl_Button lsf {
+          label LS
+          callback {float tmp = 3;
+cout << "writing LSF" << endl;
+write_function(controller, CUTOFF_TYPE, sizeof(float), 0, &tmp);
+update_button(tmp);}
+          xywh {95 130 20 20}
+          code0 {\#include "avtk/avtk_button.h"}
+          class AvtkLightButton
+        }
+        Fl_Button hsf {
+          label HS
+          callback {float tmp = 4;
+cout << "writing HSF" << endl;
+write_function(controller, CUTOFF_TYPE, sizeof(float), 0, &tmp);
+update_button(tmp);}
+          xywh {120 130 20 20}
+          code0 {\#include "avtk/avtk_button.h"}
+          code1 {\#include <iostream>}
+          class AvtkLightButton
+        }
       }
+    }
+    code {lpf->value( 1 );} {selected
     }
   }
   decl {LV2UI_Write_Function write_function;} {public local

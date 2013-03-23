@@ -88,10 +88,15 @@ def build(bld):
     # Build UI library
     obj = bld(features     = 'cxx cshlib',
               env          = penv,
-              source       = 'cutoff_widget.cxx xembed.cc cutoff_ui.cpp',
+              source       = 'cutoff_widget.cxx cutoff_ui.cpp',
               name         = 'cutoff_gui',
               target       = '%s/cutoff_gui' % bundle,
               install_path = '${LV2DIR}/%s' % bundle,
               uselib       = 'LV2CORE NTK',
               includes     = includes)
     
+    bld(rule='cp ${SRC} ${TGT}',
+        source='header.png',
+        target='%s/header.png' %bundle,
+        install_path = '${LV2DIR}/%s' % bundle,)
+  
