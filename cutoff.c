@@ -102,7 +102,7 @@ run(LV2_Handle instance, uint32_t n_samples)
   
   const float frequency = pow(2,((noteFreq-69)/12.f)) * 440.f;
   
-  printf("type %d, f %f  noteFreq %f  freq %f\n", type,  freq, noteFreq, frequency );
+  //printf("type %d, f %f  noteFreq %f  freq %f\n", type,  freq, noteFreq, frequency );
   
   BiQuad_setup( self->filter,
                 type,               // type

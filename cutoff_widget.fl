@@ -25,7 +25,7 @@ switch(button)
   Function {CutoffUI()} {open
   } {
     Fl_Window window {open
-      xywh {948 425 160 240} type Double color 32 resizable
+      xywh {936 422 160 240} type Double color 32 resizable
       code0 {\#include "lv2/lv2plug.in/ns/extensions/ui/ui.h"}
       code1 {\#include <iostream>}
       code2 {using namespace std;}
@@ -35,8 +35,8 @@ switch(button)
         label contents open
         xywh {-1 0 901 220} color 0
       } {
-        Fl_Box master {
-          label {Lowpass 12dB}
+        Fl_Box background {
+          label Lowpass selected
           xywh {10 37 140 178} box UP_BOX color 37 labeltype NO_LABEL
           code0 {\#include "avtk/avtk_background.h"}
           class AvtkBackground
@@ -59,15 +59,20 @@ write_function(controller, CUTOFF_FREQ, sizeof(float), 0, &tmp);}
         Fl_Dial graph {
           label graph
           xywh {20 65 120 60} box UP_BOX color 179 labeltype NO_LABEL
-          code0 {\#include "avtk/avtk_filter_lowpass.h"}
-          class AvtkFilterLowpass
+          code0 {\#include "avtk/avtk_filtergraph.h"}
+          class AvtkFiltergraph
         }
         Fl_Button lpf {
           label L
           callback {float tmp = 0;
 cout << "writing LSF" << endl;
 write_function(controller, CUTOFF_TYPE, sizeof(float), 0, &tmp);
-update_button(tmp);}
+update_button(tmp);
+AvtkFiltergraph::Type t = static_cast<AvtkFiltergraph::Type>(tmp);
+graph->setType(t);
+static const char* lowpass = "Lowpass";
+background->label = lowpass;
+background->redraw();}
           xywh {20 130 20 20}
           code0 {\#include "avtk/avtk_light_button.h"}
           class AvtkLightButton
@@ -77,7 +82,12 @@ update_button(tmp);}
           callback {float tmp = 1;
 cout << "writing HSF" << endl;
 write_function(controller, CUTOFF_TYPE, sizeof(float), 0, &tmp);
-update_button(tmp);}
+update_button(tmp);
+AvtkFiltergraph::Type t = static_cast<AvtkFiltergraph::Type>(tmp);
+graph->setType(t);
+static const char* highpass = "Highpass";
+background->label = highpass;
+background->redraw();}
           xywh {45 130 20 20}
           code0 {\#include "avtk/avtk_button.h"}
           class AvtkLightButton
@@ -87,7 +97,12 @@ update_button(tmp);}
           callback {float tmp = 2;
 cout << "writing BPF" << endl;
 write_function(controller, CUTOFF_TYPE, sizeof(float), 0, &tmp);
-update_button(tmp);}
+update_button(tmp);
+AvtkFiltergraph::Type t = static_cast<AvtkFiltergraph::Type>(tmp);
+graph->setType(t);
+static const char* bandpass = "Bandpass";
+background->label = bandpass;
+background->redraw();}
           xywh {70 130 20 20}
           code0 {\#include "avtk/avtk_button.h"}
           class AvtkLightButton
@@ -97,7 +112,12 @@ update_button(tmp);}
           callback {float tmp = 3;
 cout << "writing LSF" << endl;
 write_function(controller, CUTOFF_TYPE, sizeof(float), 0, &tmp);
-update_button(tmp);}
+update_button(tmp);
+AvtkFiltergraph::Type t = static_cast<AvtkFiltergraph::Type>(tmp);
+graph->setType(t);
+static const char* lowshelf = "Lowshelf";
+background->label = lowshelf;
+background->redraw();}
           xywh {95 130 20 20}
           code0 {\#include "avtk/avtk_button.h"}
           class AvtkLightButton
@@ -107,7 +127,12 @@ update_button(tmp);}
           callback {float tmp = 4;
 cout << "writing HSF" << endl;
 write_function(controller, CUTOFF_TYPE, sizeof(float), 0, &tmp);
-update_button(tmp);}
+update_button(tmp);
+AvtkFiltergraph::Type t = static_cast<AvtkFiltergraph::Type>(tmp);
+graph->setType(t);
+static const char* highshelf = "Highshelf";
+background->label = highshelf;
+background->redraw();}
           xywh {120 130 20 20}
           code0 {\#include "avtk/avtk_button.h"}
           code1 {\#include <iostream>}
@@ -115,8 +140,7 @@ update_button(tmp);}
         }
       }
     }
-    code {lpf->value( 1 );} {selected
-    }
+    code {lpf->value( 1 );} {}
   }
   decl {LV2UI_Write_Function write_function;} {public local
   }
