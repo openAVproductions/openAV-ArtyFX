@@ -6,34 +6,38 @@ class CutoffUI {open
 } {
   Function {setup()} {open
   } {
-    Fl_Window garbage {open
-      xywh {1295 247 160 220} type Double resizable
-      code0 {\#include "lv2/lv2plug.in/ns/extensions/ui/ui.h"} visible
+    Fl_Window window {open
+      xywh {734 309 160 220} type Double color 32 resizable
+      code0 {\#include "lv2/lv2plug.in/ns/extensions/ui/ui.h"}
+      code1 {\#include <iostream>;}
+      code2 {using namespace std;} visible
     } {
       Fl_Group contents {
         label contents open
-        xywh {0 0 900 220}
+        xywh {-1 0 901 220} color 0
       } {
         Fl_Box master {
-          label Master
-          callback {//AvtkBackground}
-          xywh {10 37 140 178} box UP_BOX
-          code0 {//\#include "avtk_background.h"}
+          label {Lowpass 12dB} selected
+          xywh {10 37 140 178} box UP_BOX color 37 labeltype NO_LABEL
+          code0 {\#include "avtk/avtk_background.h"}
+          class AvtkBackground
         }
         Fl_Box headerImage {
-          label {cutoff.png}
-          callback {//AvtkImage}
-          xywh {5 5 895 36}
-          code0 {//\#include "avtk_image.h"}
+          label {header.png}
+          xywh {0 0 160 36} labelcolor 20
+          code0 {\#include "avtk/avtk_image.h"}
+          class AvtkImage
         }
         Fl_Dial freq {
           label freq
           callback {cout << "stuff" << endl;}
-          xywh {54 130 55 50}
+          xywh {54 130 55 50} color 90 labeltype NO_LABEL
+          code0 {\#include "avtk/avtk_dial.h"}
+          class AvtkDial
         }
         Fl_Dial graph {
           label graph
-          xywh {23 65 115 60}
+          xywh {23 65 115 60} box UP_BOX color 179 labeltype NO_LABEL
           code0 {\#include "avtk/avtk_filter_lowpass.h"}
           class AvtkFilterLowpass
         }
@@ -48,5 +52,13 @@ class CutoffUI {open
   } {
     code {Fl::check();
 Fl::flush();} {}
+  }
+  Function {getWidth()} {open return_type int
+  } {
+    code {return window->w();} {}
+  }
+  Function {getHeight()} {open return_type int
+  } {
+    code {return window->h();} {}
   }
 } 

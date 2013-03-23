@@ -7,13 +7,11 @@
 #include <iostream>
 
 // X window ID
+#define FL_INTERNALS 1
 #include <FL/x.H>
 
 // include the URI and global data of this plugin
 #include "cutoff.h"
-
-// include the FLTK embedding helper class
-#include "xembed.hh"
 
 // this is our custom widget include
 #include "cutoff_widget.h"
@@ -26,6 +24,7 @@
 
 #include "avtk/avtk_filter_lowpass.h"
 #include "avtk/avtk_dial.h"
+#include <FL/Fl_Dial.H>
 #include "avtk/avtk_image.h"
 #include "avtk/avtk_background.h"
 
@@ -93,27 +92,24 @@ static LV2UI_Handle instantiate(const struct _LV2UI_Descriptor * descriptor,
       }
     }
     
-    // reparent the window,
+    // in case FLTK hasn't opened it yet
     fl_open_display();
-    self->win = new Xembed((uintptr_t)parentXwindow, width,height);
     
-    /*
+    
     //cout << "Creating UI!" << endl;
     self->widget = new CutoffUI();
     self->widget->setup();
     
-    // move all the contents of the FLUID window into this embedded window
-    self->win->add_resizable( *self->widget->contents );
     
     // write functions into the widget
     self->widget->controller = controller;
     self->widget->write_function = write_function;
     
-    self->win = self->widget->win;
     
-    //self->win->size(width,height);
-    self->win->show();
-    * */
+    
+    
+    /*
+    self->win = new Fl_Double_Window(160, 220);
     
     self->win->user_data((void*)self);
     
@@ -166,15 +162,16 @@ static LV2UI_Handle instantiate(const struct _LV2UI_Descriptor * descriptor,
     self->win->end();
     
     win->size(width,height);
-    win->show();
+    //win->show();
+    */
     
     
-    XMapRaised(fl_display, fl_xid( self->win ));
     
+    fl_embed( self->widget->window, (Window)parentXwindow );
     
     // set host to change size of the window
     if (resize) {
-      resize->ui_resize(resize->handle, width, height);
+      resize->ui_resize(resize->handle, self->widget->getWidth(), self->widget->getWidth());
     }
     
     return (LV2UI_Handle)self;
