@@ -1,5 +1,5 @@
 /*
-  Cutoff LV2 filter
+  Cutoff BiQuad LV2 filter
   
   Copyright 2012 Harry van Haaren <harryhaaren@gmail.com>
   
@@ -24,16 +24,14 @@
 #include "biquad.h"
 
 typedef struct {
-  // nessisary to generate a sin wave of the correct frequency
-  double sample_rate;
-  
   biquad* filter;
   
-  // used internally to keep track of where we are in the wave
-  float phase;
+  double sr;
   
+  float* Q;
   float* type;
   float* freq;
+  float* gain;
   float* input;
   float* output;
 } Cutoff;
@@ -50,11 +48,7 @@ instantiate(const LV2_Descriptor*     descriptor,
   
   BiQuad_init( self->filter );
   
-  // store the sample rate in "self" so we can retrieve it in run()
-  self->sample_rate = rate;
-  
-  // initialize the phase so we start at the beginning of the wave
-  self->phase = 0.f;
+  self->sr = rate;
   
   return (LV2_Handle)self;
 }
@@ -67,6 +61,12 @@ connect_port(LV2_Handle instance,
   Cutoff* self = (Cutoff*)instance;
 
   switch ((PortIndex)port) {
+  case CUTOFF_GAIN:
+    self->gain = (float*)data;
+    break;
+  case CUTOFF_Q:
+    self->Q = (float*)data;
+    break;
   case CUTOFF_TYPE:
     self->type = (float*)data;
     break;
@@ -92,26 +92,36 @@ run(LV2_Handle instance, uint32_t n_samples)
 {
   Cutoff* self = (Cutoff*)instance;
   
-  const int          type   = *(self->type);
+  int                type   = *(self->type);
+  const float        Q      = 0.5+(1-*(self->Q)) * 2.95;
   const float        freq   = *(self->freq);
+  const float        gain   = (*(self->gain) - 0.5)  * 12;
   const float*       input  = self->input;
   float* const       output = self->output;
   
+  // range check the possible filter types
+  if ( type > 4 ) type = 4;
+  if ( type < 0 ) type = 0;
+  
+  // change the frequency ranges based on type if needed
+  int lowMidi = 24.f;
+  int topMidi =105.f;
+  
+  if ( type == HPF )
+    topMidi = 90;
+  
   // convert linear "freq" [0,1] to frequency (hertz)
-  float noteFreq = (float)(24.f + (freq * 105.f));
+  float noteFreq = (float)( lowMidi + (freq * topMidi));
   
   const float frequency = pow(2,((noteFreq-69)/12.f)) * 440.f;
   
-  //printf("type %d, f %f  noteFreq %f  freq %f\n", type,  freq, noteFreq, frequency );
-  
   BiQuad_setup( self->filter,
                 type,               // type
-                0,                  // dB gain
+                gain,               // dB gain
                 frequency,          // significant freq
-                self->sample_rate,  // sampling rate
-                0.5     );          // bandwidth / octave
+                self->sr,           // sampling rate
+                Q );                // bandwidth / octave
   
-  // synthesize the sinwave here
   for (uint32_t i = 0; i < n_samples; i++)
   {
     output[i] = BiQuad( input[i], self->filter );

@@ -25,7 +25,7 @@ switch(button)
   Function {CutoffUI()} {open
   } {
     Fl_Window window {open
-      xywh {936 422 160 240} type Double color 32 resizable
+      xywh {635 217 160 220} type Double color 32 resizable
       code0 {\#include "lv2/lv2plug.in/ns/extensions/ui/ui.h"}
       code1 {\#include <iostream>}
       code2 {using namespace std;}
@@ -36,7 +36,7 @@ switch(button)
         xywh {-1 0 901 220} color 0
       } {
         Fl_Box background {
-          label Lowpass selected
+          label Lowpass
           xywh {10 37 140 178} box UP_BOX color 37 labeltype NO_LABEL
           code0 {\#include "avtk/avtk_background.h"}
           class AvtkBackground
@@ -49,16 +49,22 @@ switch(button)
         }
         Fl_Dial freq {
           label freq
-          callback {float tmp = o->value();
-graph->value( tmp ); // update graph
-write_function(controller, CUTOFF_FREQ, sizeof(float), 0, &tmp);}
-          xywh {85 155 55 55} color 90 labeltype NO_LABEL
+          callback {cutoff = o->value();
+graph->value( cutoff ); // update graph
+writePort(CUTOFF_FREQ, cutoff);}
+          xywh {87 163 54 54} color 90 labeltype NO_LABEL
           code0 {\#include "avtk/avtk_dial.h"}
           class AvtkDial
         }
         Fl_Dial graph {
           label graph
-          xywh {20 65 120 60} box UP_BOX color 179 labeltype NO_LABEL
+          callback {cutoff = o->value();
+float g = o->getGain();
+gainDial->value( g );
+freq->value( cutoff ); // update dial
+writePort(CUTOFF_FREQ, cutoff);
+writePort(CUTOFF_GAIN, g);}
+          xywh {20 63 120 70} box UP_BOX color 179 labeltype NO_LABEL
           code0 {\#include "avtk/avtk_filtergraph.h"}
           class AvtkFiltergraph
         }
@@ -73,7 +79,7 @@ graph->setType(t);
 static const char* lowpass = "Lowpass";
 background->label = lowpass;
 background->redraw();}
-          xywh {20 130 20 20}
+          xywh {20 139 20 20}
           code0 {\#include "avtk/avtk_light_button.h"}
           class AvtkLightButton
         }
@@ -88,7 +94,7 @@ graph->setType(t);
 static const char* highpass = "Highpass";
 background->label = highpass;
 background->redraw();}
-          xywh {45 130 20 20}
+          xywh {45 139 20 20}
           code0 {\#include "avtk/avtk_button.h"}
           class AvtkLightButton
         }
@@ -103,7 +109,7 @@ graph->setType(t);
 static const char* bandpass = "Bandpass";
 background->label = bandpass;
 background->redraw();}
-          xywh {70 130 20 20}
+          xywh {70 139 20 20}
           code0 {\#include "avtk/avtk_button.h"}
           class AvtkLightButton
         }
@@ -118,7 +124,7 @@ graph->setType(t);
 static const char* lowshelf = "Lowshelf";
 background->label = lowshelf;
 background->redraw();}
-          xywh {95 130 20 20}
+          xywh {95 139 20 20}
           code0 {\#include "avtk/avtk_button.h"}
           class AvtkLightButton
         }
@@ -133,10 +139,28 @@ graph->setType(t);
 static const char* highshelf = "Highshelf";
 background->label = highshelf;
 background->redraw();}
-          xywh {120 130 20 20}
+          xywh {120 139 20 20}
           code0 {\#include "avtk/avtk_button.h"}
           code1 {\#include <iostream>}
           class AvtkLightButton
+        }
+        Fl_Dial gainDial {
+          label gain
+          callback {gain = o->value();
+graph->setGain( gain ); // update graph
+writePort(CUTOFF_GAIN, gain);}
+          xywh {19 176 30 25} color 90 labeltype NO_LABEL
+          code0 {\#include "avtk/avtk_dial.h"}
+          class AvtkDial
+        }
+        Fl_Dial q {
+          label Q
+          callback {Q = o->value();
+graph->setBandwidth( Q );
+writePort(CUTOFF_Q, Q);} selected
+          xywh {53 176 30 25} color 90 labeltype NO_LABEL
+          code0 {\#include "avtk/avtk_dial.h"}
+          class AvtkDial
         }
       }
     }
@@ -158,5 +182,16 @@ Fl::flush();} {}
   Function {getHeight()} {open return_type int
   } {
     code {return window->h();} {}
+  }
+  decl {float gain;} {private local
+  }
+  decl {float cutoff;} {private local
+  }
+  decl {float Q;} {private local
+  }
+  Function {writePort(int port, float& value)} {open
+  } {
+    code {cout << "port " << port << " value " << value << endl;
+write_function(controller, port, sizeof(float), 0, &value);} {}
   }
 } 

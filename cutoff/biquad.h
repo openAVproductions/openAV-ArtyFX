@@ -26,6 +26,8 @@ typedef struct {
 }
 biquad;
 
+void BiQuad_init( biquad* b );
+
 extern smp_type BiQuad(smp_type sample, biquad * b);
 extern void BiQuad_setup( biquad* b,
                           int type, smp_type dbGain, /* gain of filter */
@@ -38,10 +40,11 @@ enum {
     LPF, /* low pass filter */
     HPF, /* High pass filter */
     BPF, /* band pass filter */
+    LSH, /* Low shelf filter */
+    HSH, /* High shelf filter */
     NOTCH, /* Notch Filter */
     //PEQ, /* Peaking band EQ filter */
-    LSH, /* Low shelf filter */
-    HSH /* High shelf filter */
+    
 };
 
 #endif // OPENAV_BIQUAD_H

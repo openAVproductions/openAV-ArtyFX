@@ -22,37 +22,19 @@
 // GUI
 #include "lv2/lv2plug.in/ns/extensions/ui/ui.h"
 
-#include "avtk/avtk_filter_lowpass.h"
 #include "avtk/avtk_dial.h"
-#include <FL/Fl_Dial.H>
 #include "avtk/avtk_image.h"
 #include "avtk/avtk_background.h"
+#include "avtk/avtk_filtergraph.h"
 
 using namespace std;
 
 typedef struct {
     CutoffUI* widget;
-    Fl_Window* win;
     
     LV2UI_Write_Function write_function;
     LV2UI_Controller controller;
-    
-    AvtkDial *freq;
-    AvtkFilterLowpass *graph;
 } CutoffGUI;
-
-static CutoffGUI* static_self;
-
-void dialCallback(Fl_Dial* o, void* v) {
-  cout << o->value() << endl;
-}
-
-void cb_freq_i(Fl_Dial* o, void* s) {
-  float tmp = o->value() * 2000 + 200;
-  cout << "Controller " << static_self->controller << "   write_function " << static_self->write_function << endl;
-  static_self->write_function( static_self->controller, CUTOFF_FREQ, sizeof(float), 0, (const void*)&tmp);
-  static_self->graph->value(o->value());
-}
 
 static LV2UI_Handle instantiate(const struct _LV2UI_Descriptor * descriptor,
                 const char * plugin_uri,
@@ -73,7 +55,6 @@ static LV2UI_Handle instantiate(const struct _LV2UI_Descriptor * descriptor,
     int width  = 160;
     int height = 220;
     
-    static_self = self;
     self->controller     = controller;
     self->write_function = write_function;
     

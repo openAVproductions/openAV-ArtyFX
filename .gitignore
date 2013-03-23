@@ -1,5 +1,5 @@
 .lock-waf_linux_build
-build/*
+cutoff/build/*
 .waf*
-/cutoff_widget.cxx
-/cutoff_widget.h
+cutoff/cutoff_widget.cxx
+cutoff/cutoff_widget.h
