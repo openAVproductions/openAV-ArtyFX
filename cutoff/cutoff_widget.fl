@@ -25,7 +25,7 @@ switch(button)
   Function {CutoffUI()} {open
   } {
     Fl_Window window {open
-      xywh {635 217 160 220} type Double color 32 resizable
+      xywh {508 327 160 220} type Double color 32 resizable
       code0 {\#include "lv2/lv2plug.in/ns/extensions/ui/ui.h"}
       code1 {\#include <iostream>}
       code2 {using namespace std;}
@@ -43,8 +43,11 @@ switch(button)
         }
         Fl_Box headerImage {
           label {header.png}
+          callback {printf("system() xdg-open now");
+system("xdg-open www.openavproductions.com/artyFX/cutoff");} selected
           xywh {0 0 160 36} labelcolor 20
-          code0 {\#include "avtk/avtk_image.h"}
+          code0 {\#include "../avtk/avtk_image.h"}
+          code1 {\#include <stdio.h>}
           class AvtkImage
         }
         Fl_Dial freq {
@@ -157,7 +160,7 @@ writePort(CUTOFF_GAIN, gain);}
           label Q
           callback {Q = o->value();
 graph->setBandwidth( Q );
-writePort(CUTOFF_Q, Q);} selected
+writePort(CUTOFF_Q, Q);}
           xywh {53 176 30 25} color 90 labeltype NO_LABEL
           code0 {\#include "avtk/avtk_dial.h"}
           class AvtkDial
