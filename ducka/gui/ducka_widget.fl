@@ -1,0 +1,107 @@
+# data file for the Fltk User Interface Designer (fluid)
+version 1.0300 
+header_name {.h} 
+code_name {.cxx}
+class DuckaUI {open
+} {
+  Function {update_button(int button)} {
+    comment {if the type of filter changes, this function will highlight the right button} open return_type void
+  } {
+    code {} {}
+  }
+  Function {DuckaUI()} {open
+  } {
+    Fl_Window window {open
+      xywh {1917 340 160 220} type Double color 32 resizable
+      code0 {\#include "lv2/lv2plug.in/ns/extensions/ui/ui.h"}
+      code1 {\#include <iostream>}
+      code2 {using namespace std;}
+      code3 {\#include "../dsp/ducka.hxx"} visible
+    } {
+      Fl_Group contents {
+        label contents open
+        xywh {-1 0 901 220} color 0
+      } {
+        Fl_Box headerImage {
+          label {header.png}
+          callback {system("xdg-open http://www.openavproductions.com/ducka");} selected
+          xywh {0 0 160 36} labelcolor 20 when 6
+          code0 {\#include "avtk/avtk.h"}
+          code1 {\#include <stdio.h>}
+          class {Avtk::Image}
+        }
+        Fl_Dial graph {
+          label graph
+          callback {//cutoff = o->value();
+//float g = o->getGain();
+//gainDial->value( g );
+//freq->value( cutoff ); // update dial
+//writePort(CUTOFF_FREQ, cutoff);
+//writePort(CUTOFF_GAIN, g);}
+          xywh {5 43 150 120} box UP_BOX color 179 labeltype NO_LABEL
+          class {Avtk::Compressor}
+        }
+        Fl_Dial gainDial {
+          label gain
+          callback {gain = o->value();
+//graph->setGain( gain ); // update graph
+//writePort(CUTOFF_GAIN, gain);}
+          xywh {5 170 35 35} color 90 labeltype NO_LABEL
+          class {Avtk::Dial}
+        }
+        Fl_Dial b {
+          label Q
+          callback {//Q = o->value();
+//graph->setBandwidth( Q );
+//writePort(CUTOFF_Q, Q);}
+          xywh {44 170 35 35} color 90 labeltype NO_LABEL
+          class {Avtk::Dial}
+        }
+        Fl_Dial c {
+          label Q
+          callback {//Q = o->value();
+//graph->setBandwidth( Q );
+//writePort(CUTOFF_Q, Q);}
+          xywh {82 170 35 35} color 90 labeltype NO_LABEL
+          class {Avtk::Dial}
+        }
+        Fl_Dial d {
+          label Q
+          callback {//Q = o->value();
+//graph->setBandwidth( Q );
+//writePort(CUTOFF_Q, Q);}
+          xywh {120 170 35 35} color 90 labeltype NO_LABEL
+          class {Avtk::Dial}
+        }
+      }
+    }
+  }
+  decl {LV2UI_Write_Function write_function;} {public local
+  }
+  decl {LV2UI_Controller controller;} {public local
+  }
+  Function {idle()} {open return_type void
+  } {
+    code {Fl::check();
+Fl::flush();} {}
+  }
+  Function {getWidth()} {open return_type int
+  } {
+    code {return window->w();} {}
+  }
+  Function {getHeight()} {open return_type int
+  } {
+    code {return window->h();} {}
+  }
+  decl {float gain;} {private local
+  }
+  decl {float cutoff;} {private local
+  }
+  decl {float Q;} {private local
+  }
+  Function {writePort(int port, float& value)} {open
+  } {
+    code {cout << "port " << port << " value " << value << endl;
+write_function(controller, port, sizeof(float), 0, &value);} {}
+  }
+} 

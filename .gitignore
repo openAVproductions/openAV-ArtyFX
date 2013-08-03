@@ -4,3 +4,4 @@ cutoff/build/*
 cutoff/cutoff_widget.cxx
 cutoff/cutoff_widget.h
 /ducka/ducka.lv2/ducka.so
+/ducka/ducka.lv2/ducka_ui.so

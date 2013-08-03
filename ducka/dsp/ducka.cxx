@@ -38,8 +38,9 @@ class Ducka
     /// filter state
     float w, a, b, g1, g2;
     
-    /// sidechain peak state
-    float sidechainPeak;
+    /// last peak history
+    bool nowIsAPeak;
+    long peakFrameCounter;
 };
 
 
@@ -79,7 +80,7 @@ Ducka::Ducka(int rate) :
   g1(0.0f),
   g2(0.0f),
   
-  sidechainPeak(0.f)
+  peakFrameCounter(0)
 {
 }
 
@@ -134,8 +135,6 @@ void Ducka::run(LV2_Handle instance, uint32_t n_samples)
 {
   Ducka* self = (Ducka*) instance;
   
-  float currentTarget = 0.f;
-  
   /// audio inputs
   float* inL  = self->audioInputL;
   float* inR  = self->audioInputR;
@@ -144,18 +143,47 @@ void Ducka::run(LV2_Handle instance, uint32_t n_samples)
   float* outR = self->audioOutputR;
   
   /// control inputs
-  float* threshold   = self->controlThreshold;
-  float* target      = self->controlTarget;
-  float* reduction   = self->controlReduction;
-  float* releaseTime = self->controlReleaseTime;
+  float threshold   = *self->controlThreshold;
+  float target      = *self->controlTarget;
+  float reduction   = *self->controlReduction;
+  float releaseTime = *self->controlReleaseTime;
+  
+  
+  /// analyse sidechain input for peak
+  float sum = 0.f;
+  for( int i = 0; i < n_samples; i++ )
+  {
+    if ( *side > 0.000001 )
+      sum += *side++;
+    else
+      sum += -*side++;
+  }
+  
+  /// used to set the current state for the filter
+  float currentTarget = 0.f;
+  
+  /// check for peak level (offset to avoid "always on" peak)
+  if ( sum / n_samples > threshold + 0.1 )
+  {
+    self->peakFrameCounter = 11025 * releaseTime;
+    currentTarget = target - reduction;
+  }
+  else if ( self->peakFrameCounter < 0 )
+  {
+    currentTarget = target;
+  }
+  else
+  {
+    currentTarget = target - reduction;
+  }
+  
+  if ( currentTarget < 0.f )
+      currentTarget = 0.f;
+  
+  self->peakFrameCounter -= n_samples;
   
   for( int i = 0; i < n_samples; i++ )
   {
-    /// analyse sidechain input here
-    
-    self->sidechainPeak = 0.f;
-    
-    
     /// smoothing algo is a lowpass, to de-zip the fades
     /// x^^4 approximates linear volume increase for human ears
     self->g1 += self->w * ( pow ( currentTarget, 4.f ) - self->g1 - self->a * self->g2 - 1e-20f);

@@ -1,3 +1,3 @@
 #!/bin/bash
 
-jalv.gtk http://www.openavproductions.com/ducka
+jalv.gtk http://www.openavproductions.com/artyfx#ducka
