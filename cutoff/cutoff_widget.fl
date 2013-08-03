@@ -1,5 +1,5 @@
 # data file for the Fltk User Interface Designer (fluid)
-version 1.0302 
+version 1.0300 
 header_name {.h} 
 code_name {.cxx}
 class CutoffUI {open
@@ -25,7 +25,7 @@ switch(button)
   Function {CutoffUI()} {open
   } {
     Fl_Window window {open
-      xywh {508 327 160 220} type Double color 32 resizable
+      xywh {575 327 160 220} type Double color 32 resizable
       code0 {\#include "lv2/lv2plug.in/ns/extensions/ui/ui.h"}
       code1 {\#include <iostream>}
       code2 {using namespace std;}
@@ -45,7 +45,7 @@ switch(button)
           label {header.png}
           callback {printf("system() xdg-open now");
 system("xdg-open www.openavproductions.com/artyFX/cutoff");} selected
-          xywh {0 0 160 36} labelcolor 20
+          xywh {0 0 160 36} labelcolor 20 when 6
           code0 {\#include "../avtk/avtk_image.h"}
           code1 {\#include <stdio.h>}
           class AvtkImage

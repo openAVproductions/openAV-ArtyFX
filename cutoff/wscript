@@ -35,6 +35,7 @@ def configure(conf):
     if not autowaf.is_child():
         autowaf.check_pkg(conf, 'lv2core', uselib_store='LV2CORE')
         autowaf.check_pkg(conf, 'ntk', uselib_store='NTK')
+        #autowaf.check_pkg(conf, 'ntk_images', uselib_store='NTKIMAGES')
 
     # Set env['pluginlib_PATTERN']
     pat = conf.env['cshlib_PATTERN']
@@ -92,7 +93,7 @@ def build(bld):
               name         = 'cutoff_gui',
               target       = '%s/cutoff_gui' % bundle,
               install_path = '${LV2DIR}/%s' % bundle,
-              uselib       = 'LV2CORE NTK',
+              uselib       = 'LV2CORE NTK NTKIMAGES',
               includes     = includes)
     
     bld(rule='cp ${SRC} ${TGT}',

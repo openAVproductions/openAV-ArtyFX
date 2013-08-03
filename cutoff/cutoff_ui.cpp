@@ -76,7 +76,6 @@ static LV2UI_Handle instantiate(const struct _LV2UI_Descriptor * descriptor,
     // in case FLTK hasn't opened it yet
     fl_open_display();
     
-    
     //cout << "Creating UI!" << endl;
     self->widget = new CutoffUI();
     
@@ -88,11 +87,17 @@ static LV2UI_Handle instantiate(const struct _LV2UI_Descriptor * descriptor,
     self->widget->write_function = write_function;
     
     // set host to change size of the window
-    if (resize) {
-      //cout << "resizing Jalv window to : " << self->widget->getWidth() << " " << self->widget->getHeight() << endl;
+    if (resize)
+    {
       resize->ui_resize(resize->handle, self->widget->getWidth(), self->widget->getHeight());
     }
+    else
+    {
+      cout << "Cutoff: Warning, host doesn't support resize extension.\n\
+      Please ask the developers of the host to support this extension. "<< endl;
+    }
     
+    cout << "window ID = " << self->widget->window << endl;
     fl_embed( self->widget->window, (Window)parentXwindow );
     
     
