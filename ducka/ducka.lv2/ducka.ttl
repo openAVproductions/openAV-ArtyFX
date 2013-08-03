@@ -82,15 +82,6 @@
     a lv2:InputPort ,
       lv2:ControlPort ;
     lv2:index 6 ;
-    lv2:symbol "target" ;
-    lv2:name "Target";
-    lv2:default 1.0 ;
-    lv2:minimum 0.0 ;
-    lv2:maximum 1.0 ;
-  ] , [
-    a lv2:InputPort ,
-      lv2:ControlPort ;
-    lv2:index 7 ;
     lv2:symbol "reduction" ;
     lv2:name "Reduction";
     lv2:default 1.0 ;
@@ -99,10 +90,23 @@
   ] , [
     a lv2:InputPort ,
       lv2:ControlPort ;
-    lv2:index 8 ;
+    lv2:index 7 ;
     lv2:symbol "release_time" ;
     lv2:name "Release Time";
     lv2:default 0.5 ;
+    lv2:minimum 0.0 ;
+    lv2:maximum 1.0 ;
+  ]
+  
+  ,
+  
+  [
+    a lv2:OutputPort ,
+      lv2:ControlPort ;
+    lv2:index 8 ;
+    lv2:symbol "sidechain_amp" ;
+    lv2:name "Sidechain Amplitude";
+    lv2:default 0.0 ;
     lv2:minimum 0.0 ;
     lv2:maximum 1.0 ;
   ]  .

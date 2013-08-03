@@ -1,6 +1,6 @@
 
 CC=g++
-CFLAGS=-g -Wall
+CFLAGS=-O3 -Wall
 
 INCLUDES=$(shell pkg-config --cflags sndfile cairomm-1.0 ntk ntk_images)
 LDFLAGS=$(shell pkg-config --libs sndfile cairomm-1.0 ntk ntk_images) -fPIC -shared -Wl,-z,nodelete

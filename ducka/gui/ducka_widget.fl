@@ -12,7 +12,7 @@ class DuckaUI {open
   Function {DuckaUI()} {open
   } {
     Fl_Window window {open
-      xywh {2040 457 160 220} type Double resizable
+      xywh {2005 377 160 220} type Double
       code0 {\#include "lv2/lv2plug.in/ns/extensions/ui/ui.h"}
       code1 {\#include <iostream>}
       code2 {using namespace std;}
@@ -36,39 +36,31 @@ class DuckaUI {open
 //freq->value( cutoff ); // update dial
 //writePort(CUTOFF_FREQ, cutoff);
 //writePort(CUTOFF_GAIN, g);}
-        xywh {5 36 150 129} box UP_BOX color 179 labeltype NO_LABEL
-        class {Avtk::Compressor}
+        xywh {5 36 150 126} box UP_BOX color 179 labeltype NO_LABEL
+        class {Avtk::SidechainGain}
       }
-      Fl_Dial gainDial {
+      Fl_Dial threshold {
         label Thres
-        callback {gain = o->value();
-//graph->setGain( gain ); // update graph
-//writePort(CUTOFF_GAIN, gain);} selected
-        xywh {5 170 35 35} color 90 labelsize 10
+        callback {float tmp = o->value();
+graph->threshold( tmp );
+writePort( int(DUCKA_THRESHOLD), tmp );}
+        xywh {10 169 37 37} color 90 labelsize 10
         class {Avtk::Dial}
       }
-      Fl_Dial b {
-        label Full
-        callback {//Q = o->value();
-//graph->setBandwidth( Q );
-//writePort(CUTOFF_Q, Q);} selected
-        xywh {44 170 35 35} color 90 labelsize 10
-        class {Avtk::Dial}
-      }
-      Fl_Dial c {
+      Fl_Dial drop {
         label Drop
-        callback {//Q = o->value();
-//graph->setBandwidth( Q );
-//writePort(CUTOFF_Q, Q);} selected
-        xywh {82 170 35 35} color 90 labelsize 10
+        callback {float tmp = o->value();
+graph->reduce( tmp );
+writePort( int(DUCKA_REDUCTION), tmp );}
+        xywh {62 170 37 37} color 90 labelsize 10
         class {Avtk::Dial}
       }
-      Fl_Dial d {
+      Fl_Dial time {
         label Time
-        callback {//Q = o->value();
-//graph->setBandwidth( Q );
-//writePort(CUTOFF_Q, Q);} selected
-        xywh {120 170 35 35} color 90 labelsize 10
+        callback {float tmp = o->value();
+graph->release( tmp );
+writePort( int(DUCKA_RELEASE_TIME),tmp );} selected
+        xywh {113 169 37 37} color 90 labelsize 10
         class {Avtk::Dial}
       }
     }

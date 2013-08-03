@@ -24,6 +24,8 @@ using namespace std;
 typedef struct {
     DuckaUI* widget;
     
+    float sidechainAmp;
+    
     LV2UI_Write_Function write_function;
     LV2UI_Controller controller;
 } DuckaGUI;
@@ -113,9 +115,6 @@ static void port_event(LV2UI_Handle ui,
 {
     DuckaGUI *self = (DuckaGUI *) ui;
     
-    cout << "Port event on index " << port_index << "  Format is " << format << endl;
-    
-      
     /*
     Fl::lock();
     ui->filterLowpass->value( argv[0]->f );
@@ -123,37 +122,41 @@ static void port_event(LV2UI_Handle ui,
     Fl::awake();
     */
     
-    /*
     if ( format == 0 )
     {
       float value =  *(float *)buffer;
       switch ( port_index )
       {
-        case REFRACTOR_CONTROL_RETRIGGER:
-            cout << "Refractor: Retrigger control event, value = " << value << endl;
-            //self->guiState->retrigger = value;
-            //self->widget->redraw();
+        case DUCKA_THRESHOLD:
+            {
+              self->widget->graph->threshold( value );
+              self->widget->threshold->value( value );
+            }
             break;
-        case REFRACTOR_MASTER_VOLUME:
-            cout << "Refractor: Master volume event, value = " << value << endl;
-            self->guiState->masterVol = value;
-            self->widget->redraw();
+        case DUCKA_REDUCTION:
+            {
+              self->widget->graph->reduce( value );
+              self->widget->drop->value( value );
+            }
+            break;
+        case DUCKA_RELEASE_TIME:
+            {
+              self->widget->graph->release( value );
+              self->widget->time->value( value );
+            }
+            break;
+        case DUCKA_SIDECHAIN_AMP:
+            {
+              /// only update when value changes?
+              if ( int(self->sidechainAmp) != int(value) )
+              {
+                self->widget->graph->sidechain( value );
+                self->sidechainAmp = value;
+              }
+            }
+            break;
       }
     }
-    else
-    {
-      LV2_ATOM_SEQUENCE_FOREACH( (LV2_Atom_Sequence*)buffer, ev)
-      {
-        //self->frame_offset = ev->time.frames;
-        
-        if (ev->body.type == self->guiState->uris.midiEvent)
-        {
-          cout << "Refractor GUI got MIDI event!" << endl;
-          //uint8_t* const data = (uint8_t* const)(ev + 1);
-        }
-      }
-    }
-    */
     
     return;
 }
