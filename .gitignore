@@ -3,3 +3,4 @@ cutoff/build/*
 .waf*
 cutoff/cutoff_widget.cxx
 cutoff/cutoff_widget.h
+/ducka/ducka.lv2/ducka.so
