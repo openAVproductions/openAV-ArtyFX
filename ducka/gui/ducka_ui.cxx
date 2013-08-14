@@ -46,9 +46,6 @@ static LV2UI_Handle instantiate(const struct _LV2UI_Descriptor * descriptor,
     DuckaGUI* self = (DuckaGUI*)malloc(sizeof(DuckaGUI));
     if (self == NULL) return NULL;
     
-    int width  = 160;
-    int height = 220;
-    
     self->controller     = controller;
     self->write_function = write_function;
     

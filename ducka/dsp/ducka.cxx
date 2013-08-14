@@ -159,7 +159,7 @@ void Ducka::run(LV2_Handle instance, uint32_t n_samples)
   
   /// analyse sidechain input for peak
   float sum = 0.f;
-  for( int i = 0; i < n_samples; i++ )
+  for( unsigned int i = 0; i < n_samples; i++ )
   {
     if ( *side > 0.000001 )
       sum += *side++;
@@ -189,7 +189,7 @@ void Ducka::run(LV2_Handle instance, uint32_t n_samples)
   
   self->peakFrameCounter -= n_samples;
   
-  for( int i = 0; i < n_samples; i++ )
+  for( unsigned int i = 0; i < n_samples; i++ )
   {
     /// smoothing algo is a lowpass, to de-zip the fades
     /// x^^4 approximates linear volume increase for human ears
