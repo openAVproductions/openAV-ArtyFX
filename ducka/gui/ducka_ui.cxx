@@ -49,7 +49,7 @@ static LV2UI_Handle instantiate(const struct _LV2UI_Descriptor * descriptor,
     self->controller     = controller;
     self->write_function = write_function;
     
-    cout << "Controller " << controller << "   write_function " << write_function << endl;
+    //cout << "Controller " << controller << "   write_function " << write_function << endl;
     
     void* parentXwindow = 0;
     LV2UI_Resize* resize = NULL;
@@ -58,7 +58,7 @@ static LV2UI_Handle instantiate(const struct _LV2UI_Descriptor * descriptor,
       //cout << "feature " << features[i]->URI << endl;
       if (!strcmp(features[i]->URI, LV2_UI__parent)) {
         parentXwindow = features[i]->data;
-        cout << "got parent UI feature: X11 id = " << (Window)parentXwindow << endl;
+        //cout << "got parent UI feature: X11 id = " << (Window)parentXwindow << endl;
       } else if (!strcmp(features[i]->URI, LV2_UI__resize)) {
         resize = (LV2UI_Resize*)features[i]->data;
       }
@@ -88,7 +88,7 @@ static LV2UI_Handle instantiate(const struct _LV2UI_Descriptor * descriptor,
       Please ask the developers of the host to support this extension. "<< endl;
     }
     
-    cout << "window ID = " << self->widget->window << endl;
+    //cout << "window ID = " << self->widget->window << endl;
     fl_embed( self->widget->window, (Window)parentXwindow );
     
     
@@ -175,9 +175,9 @@ static const LV2UI_Idle_Interface idle_iface = { idle };
 static const void*
 extension_data(const char* uri)
 {
-  cout << "UI extension data!" << endl;
+  //cout << "UI extension data!" << endl;
 	if (!strcmp(uri, LV2_UI__idleInterface)) {
-    cout << "giving host idle interface!" << endl;
+    //cout << "giving host idle interface!" << endl;
 		return &idle_iface;
 	}
 	return NULL;
@@ -188,7 +188,7 @@ static LV2UI_Descriptor descriptors[] = {
 };
 
 const LV2UI_Descriptor * lv2ui_descriptor(uint32_t index) {
-    printf("lv2ui_descriptor(%u) called\n", (unsigned int)index); 
+    //printf("lv2ui_descriptor(%u) called\n", (unsigned int)index); 
     if (index >= sizeof(descriptors) / sizeof(descriptors[0])) {
         return NULL;
     }

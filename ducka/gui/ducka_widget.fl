@@ -12,7 +12,7 @@ class DuckaUI {open
   Function {DuckaUI()} {open
   } {
     Fl_Window window {open
-      xywh {2005 377 160 220} type Double
+      xywh {1734 413 160 220} type Double
       code0 {\#include "lv2/lv2plug.in/ns/extensions/ui/ui.h"}
       code1 {\#include <iostream>}
       code2 {using namespace std;}
@@ -20,7 +20,7 @@ class DuckaUI {open
     } {
       Fl_Box headerImage {
         label {header.png}
-        callback {//system("xdg-open http://www.openavproductions.com/artyfx\#ducka");} selected
+        callback {//system("xdg-open http://www.openavproductions.com/artyfx\#ducka");}
         xywh {0 0 160 29} labelcolor 20 when 6
         code0 {\#include "../../avtk/avtk.h"}
         code1 {\#include <stdio.h>}
@@ -35,7 +35,7 @@ class DuckaUI {open
 //gainDial->value( g );
 //freq->value( cutoff ); // update dial
 //writePort(CUTOFF_FREQ, cutoff);
-//writePort(CUTOFF_GAIN, g);}
+//writePort(CUTOFF_GAIN, g);} selected
         xywh {5 36 150 126} box UP_BOX color 179 labeltype NO_LABEL
         class {Avtk::SidechainGain}
       }
@@ -52,7 +52,7 @@ writePort( int(DUCKA_THRESHOLD), tmp );}
         callback {float tmp = o->value();
 graph->reduce( tmp );
 writePort( int(DUCKA_REDUCTION), tmp );}
-        xywh {62 170 37 37} color 90 labelsize 10
+        xywh {62 169 37 37} color 90 labelsize 10
         class {Avtk::Dial}
       }
       Fl_Dial time {
@@ -60,7 +60,7 @@ writePort( int(DUCKA_REDUCTION), tmp );}
         callback {float tmp = o->value();
 graph->release( tmp );
 writePort( int(DUCKA_RELEASE_TIME),tmp );}
-        xywh {113 169 37 37} color 90 labelsize 10
+        xywh {113 168 37 37} color 90 labelsize 10
         class {Avtk::Dial}
       }
     }
