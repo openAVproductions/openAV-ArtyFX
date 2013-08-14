@@ -20,9 +20,9 @@ class DuckaUI {open
     } {
       Fl_Box headerImage {
         label {header.png}
-        callback {system("xdg-open http://www.openavproductions.com/artyfx\#ducka");}
+        callback {//system("xdg-open http://www.openavproductions.com/artyfx\#ducka");} selected
         xywh {0 0 160 29} labelcolor 20 when 6
-        code0 {\#include "avtk/avtk.h"}
+        code0 {\#include "../../avtk/avtk.h"}
         code1 {\#include <stdio.h>}
         code2 {\#include "header.c"}
         code3 {headerImage->setPixbuf(header.pixel_data,4);}
@@ -59,7 +59,7 @@ writePort( int(DUCKA_REDUCTION), tmp );}
         label Time
         callback {float tmp = o->value();
 graph->release( tmp );
-writePort( int(DUCKA_RELEASE_TIME),tmp );} selected
+writePort( int(DUCKA_RELEASE_TIME),tmp );}
         xywh {113 169 37 37} color 90 labelsize 10
         class {Avtk::Dial}
       }

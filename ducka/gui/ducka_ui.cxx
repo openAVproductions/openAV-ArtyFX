@@ -17,7 +17,7 @@
 // GUI
 #include "lv2/lv2plug.in/ns/extensions/ui/ui.h"
 
-#include "avtk/avtk.h"
+#include "../../avtk/avtk.h"
 
 using namespace std;
 
@@ -148,7 +148,8 @@ static void port_event(LV2UI_Handle ui,
         case DUCKA_SIDECHAIN_AMP:
             {
               /// only update when value changes?
-              if ( int(self->sidechainAmp) != int(value) )
+              if ( self->sidechainAmp > value + 0.1 ||
+                   self->sidechainAmp < value - 0.1)
               {
                 self->widget->graph->sidechain( value );
                 self->sidechainAmp = value;
