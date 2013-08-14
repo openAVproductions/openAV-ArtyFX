@@ -25,137 +25,114 @@ switch(button)
   Function {CutoffUI()} {open
   } {
     Fl_Window window {open
-      xywh {2449 463 160 220} type Double color 32 resizable
+      xywh {1572 413 160 220} type Double resizable
       code0 {\#include "lv2/lv2plug.in/ns/extensions/ui/ui.h"}
       code1 {\#include <iostream>}
       code2 {using namespace std;}
       code3 {\#include "cutoff.h"} visible
     } {
-      Fl_Group contents {
-        label contents open
-        xywh {-1 0 901 220} color 0
-      } {
-        Fl_Box background {
-          label Lowpass
-          xywh {10 37 140 178} box UP_BOX color 37 labeltype NO_LABEL
-          class Background
-        }
-        Fl_Box headerImage {
-          label {header.png}
-          callback {//printf("system() xdg-open now");
-//system("xdg-open www.openavproductions.com/artyFX/cutoff");} selected
-          xywh {0 0 160 36} labelcolor 20 when 6
-          code0 {\#include "../avtk/avtk.h"}
-          code1 {\#include <stdio.h>}
-          code2 {using namespace Avtk;}
-          class Image
-        }
-        Fl_Dial freq {
-          label freq
-          callback {cutoff = o->value();
+      Fl_Box headerImage {
+        label {header.png}
+        callback {//printf("system() xdg-open now");
+//system("xdg-open www.openavproductions.com/artyFX/cutoff");}
+        xywh {0 0 160 29} labelcolor 20 when 6
+        code0 {\#include "header.c"}
+        code1 {headerImage->setPixbuf(header.pixel_data,4);}
+        class Image
+      }
+      Fl_Dial freq {
+        label Freq
+        callback {cutoff = o->value();
 graph->value( cutoff ); // update graph
 writePort(CUTOFF_FREQ, cutoff);}
-          xywh {87 163 54 54} color 90 labeltype NO_LABEL
-          class Dial
-        }
-        Fl_Dial graph {
-          label graph
-          callback {cutoff = o->value();
+        xywh {113 169 37 37} color 90 labelsize 10
+        code0 {\#include "../avtk/avtk.h"}
+        code1 {\#include <stdio.h>}
+        code2 {using namespace Avtk;}
+        class Dial
+      }
+      Fl_Dial graph {
+        label graph
+        callback {cutoff = o->value();
 float g = o->getGain();
 gainDial->value( g );
 freq->value( cutoff ); // update dial
 writePort(CUTOFF_FREQ, cutoff);
 writePort(CUTOFF_GAIN, g);}
-          xywh {20 63 120 70} box UP_BOX color 179 labeltype NO_LABEL
-          class Filtergraph
-        }
-        Fl_Button lpf {
-          label L
-          callback {float tmp = 0;
+        xywh {5 36 150 100} box UP_BOX color 179 labeltype NO_LABEL
+        class Filtergraph
+      }
+      Fl_Button lpf {
+        label Lo
+        callback {float tmp = 0;
 cout << "writing LSF" << endl;
 write_function(controller, CUTOFF_TYPE, sizeof(float), 0, &tmp);
 update_button(tmp);
 Filtergraph::Type t = static_cast<Filtergraph::Type>(tmp);
-graph->setType(t);
-static const char* lowpass = "Lowpass";
-background->label = lowpass;
-background->redraw();}
-          xywh {20 139 20 20}
-          class LightButton
-        }
-        Fl_Button hpf {
-          label H
-          callback {float tmp = 1;
+graph->setType(t);}
+        xywh {5 140 26 21}
+        class LightButton
+      }
+      Fl_Button hpf {
+        label Hi
+        callback {float tmp = 1;
 cout << "writing HSF" << endl;
 write_function(controller, CUTOFF_TYPE, sizeof(float), 0, &tmp);
 update_button(tmp);
 Filtergraph::Type t = static_cast<Filtergraph::Type>(tmp);
-graph->setType(t);
-static const char* highpass = "Highpass";
-background->label = highpass;
-background->redraw();}
-          xywh {45 139 20 20}
-          class LightButton
-        }
-        Fl_Button bpf {
-          label B
-          callback {float tmp = 2;
+graph->setType(t);}
+        xywh {37 140 26 21}
+        class LightButton
+      }
+      Fl_Button bpf {
+        label Ba
+        callback {float tmp = 2;
 cout << "writing BPF" << endl;
 write_function(controller, CUTOFF_TYPE, sizeof(float), 0, &tmp);
 update_button(tmp);
 Filtergraph::Type t = static_cast<Filtergraph::Type>(tmp);
-graph->setType(t);
-static const char* bandpass = "Bandpass";
-background->label = bandpass;
-background->redraw();}
-          xywh {70 139 20 20}
-          class LightButton
-        }
-        Fl_Button lsf {
-          label LS
-          callback {float tmp = 3;
+graph->setType(t);}
+        xywh {67 140 26 21}
+        class LightButton
+      }
+      Fl_Button lsf {
+        label LS
+        callback {float tmp = 3;
 cout << "writing LSF" << endl;
 write_function(controller, CUTOFF_TYPE, sizeof(float), 0, &tmp);
 update_button(tmp);
 Filtergraph::Type t = static_cast<Filtergraph::Type>(tmp);
-graph->setType(t);
-static const char* lowshelf = "Lowshelf";
-background->label = lowshelf;
-background->redraw();}
-          xywh {95 139 20 20}
-          class LightButton
-        }
-        Fl_Button hsf {
-          label HS
-          callback {float tmp = 4;
+graph->setType(t);}
+        xywh {97 140 26 21}
+        class LightButton
+      }
+      Fl_Button hsf {
+        label HS
+        callback {float tmp = 4;
 cout << "writing HSF" << endl;
 write_function(controller, CUTOFF_TYPE, sizeof(float), 0, &tmp);
 update_button(tmp);
 Filtergraph::Type t = static_cast<Filtergraph::Type>(tmp);
-graph->setType(t);
-static const char* highshelf = "Highshelf";
-background->label = highshelf;
-background->redraw();}
-          xywh {120 139 20 20}
-          code1 {\#include <iostream>}
-          class LightButton
-        }
-        Fl_Dial gainDial {
-          label gain
-          callback {gain = o->value();
+graph->setType(t);}
+        xywh {128 140 26 21}
+        code1 {\#include <iostream>}
+        class LightButton
+      }
+      Fl_Dial gainDial {
+        label Gain
+        callback {gain = o->value();
 graph->setGain( gain ); // update graph
-writePort(CUTOFF_GAIN, gain);}
-          xywh {19 176 30 25} color 90 labeltype NO_LABEL
-          class Dial
-        }
-        Fl_Dial q {
-          label Q
-          callback {Q = o->value();
+writePort(CUTOFF_GAIN, gain);} selected
+        xywh {10 169 37 37} color 90 labelsize 10
+        class Dial
+      }
+      Fl_Dial q {
+        label Q
+        callback {Q = o->value();
 graph->setBandwidth( Q );
 writePort(CUTOFF_Q, Q);}
-          xywh {53 176 30 25} color 90 labeltype NO_LABEL
-          class Dial
-        }
+        xywh {62 169 37 37} color 90 labelsize 10
+        class Dial
       }
     }
     code {lpf->value( 1 );} {}
