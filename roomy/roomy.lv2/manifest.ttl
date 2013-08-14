@@ -1,0 +1,14 @@
+@prefix lv2:  <http://lv2plug.in/ns/lv2core#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix ui:   <http://lv2plug.in/ns/extensions/ui#> .
+
+<http://www.openavproductions.com/artyfx#roomy>
+  a lv2:Plugin ;
+  lv2:binary <roomy.so> ;
+  rdfs:seeAlso <roomy.ttl> .
+
+<http://www.openavproductions.com/artyfx#roomy/gui>
+  a ui:X11UI;
+  ui:binary <roomy_ui.so> ;
+  lv2:extensionData ui:idle;
+  rdfs:seeAlso <roomy.ttl> .
