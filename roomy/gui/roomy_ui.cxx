@@ -49,16 +49,12 @@ static LV2UI_Handle instantiate(const struct _LV2UI_Descriptor * descriptor,
     self->controller     = controller;
     self->write_function = write_function;
     
-    //cout << "Controller " << controller << "   write_function " << write_function << endl;
-    
     void* parentXwindow = 0;
     LV2UI_Resize* resize = NULL;
     
     for (int i = 0; features[i]; ++i) {
-      //cout << "feature " << features[i]->URI << endl;
       if (!strcmp(features[i]->URI, LV2_UI__parent)) {
         parentXwindow = features[i]->data;
-        //cout << "got parent UI feature: X11 id = " << (Window)parentXwindow << endl;
       } else if (!strcmp(features[i]->URI, LV2_UI__resize)) {
         resize = (LV2UI_Resize*)features[i]->data;
       }
@@ -67,7 +63,6 @@ static LV2UI_Handle instantiate(const struct _LV2UI_Descriptor * descriptor,
     // in case FLTK hasn't opened it yet
     fl_open_display();
     
-    //cout << "Creating UI!" << endl;
     self->widget = new RoomyUI();
     
     self->widget->window->border(0);
@@ -84,11 +79,10 @@ static LV2UI_Handle instantiate(const struct _LV2UI_Descriptor * descriptor,
     }
     else
     {
-      cout << "Ducka: Warning, host doesn't support resize extension.\n\
+      cout << "RoomyUI: Warning, host doesn't support resize extension.\n\
       Please ask the developers of the host to support this extension. "<< endl;
     }
     
-    //cout << "window ID = " << self->widget->window << endl;
     fl_embed( self->widget->window, (Window)parentXwindow );
     
     
@@ -98,7 +92,6 @@ static LV2UI_Handle instantiate(const struct _LV2UI_Descriptor * descriptor,
 
 
 static void cleanup(LV2UI_Handle ui) {
-    //printf("cleanup()\n");
     RoomyGUI *pluginGui = (RoomyGUI *) ui;
     delete pluginGui->widget;
     free( pluginGui);
@@ -112,47 +105,32 @@ static void port_event(LV2UI_Handle ui,
 {
     RoomyGUI *self = (RoomyGUI *) ui;
     
-    /*
-    Fl::lock();
-    ui->filterLowpass->value( argv[0]->f );
-    Fl::unlock();
-    Fl::awake();
-    */
-    
     if ( format == 0 )
     {
       float value =  *(float *)buffer;
       switch ( port_index )
       {
-        case ROOMY_THRESHOLD:
+        
+        case ROOMY_TIME:
             {
-              self->widget->graph->threshold( value );
-              self->widget->threshold->value( value );
-            }
-            break;
-        case ROOMY_REDUCTION:
-            {
-              self->widget->graph->reduce( value );
-              self->widget->drop->value( value );
-            }
-            break;
-        case ROOMY_RELEASE_TIME:
-            {
-              self->widget->graph->release( value );
+              self->widget->graph->size( value );
               self->widget->time->value( value );
             }
             break;
-        case ROOMY_SIDECHAIN_AMP:
+        case ROOMY_DAMPING:
             {
-              /// only update when value changes?
-              if ( self->sidechainAmp > value + 0.1 ||
-                   self->sidechainAmp < value - 0.1)
-              {
-                self->widget->graph->sidechain( value );
-                self->sidechainAmp = value;
-              }
+              self->widget->graph->damping( value );
+              self->widget->damping->value( value );
             }
             break;
+        case ROOMY_DRY_WET:
+            {
+              self->widget->graph->wet( value );
+              self->widget->dryWet->value( value );
+            }
+            break;
+            break;
+        
       }
     }
     
@@ -163,11 +141,11 @@ static void port_event(LV2UI_Handle ui,
 static int
 idle(LV2UI_Handle handle)
 {
-	RoomyGUI* self = (RoomyGUI*)handle;
+  RoomyGUI* self = (RoomyGUI*)handle;
   
   self->widget->idle();
   
-	return 0;
+  return 0;
 }
 
 static const LV2UI_Idle_Interface idle_iface = { idle };
@@ -175,12 +153,10 @@ static const LV2UI_Idle_Interface idle_iface = { idle };
 static const void*
 extension_data(const char* uri)
 {
-  //cout << "UI extension data!" << endl;
-	if (!strcmp(uri, LV2_UI__idleInterface)) {
-    //cout << "giving host idle interface!" << endl;
-		return &idle_iface;
-	}
-	return NULL;
+  if (!strcmp(uri, LV2_UI__idleInterface)) {
+    return &idle_iface;
+  }
+  return NULL;
 }
 
 static LV2UI_Descriptor descriptors[] = {
@@ -188,7 +164,6 @@ static LV2UI_Descriptor descriptors[] = {
 };
 
 const LV2UI_Descriptor * lv2ui_descriptor(uint32_t index) {
-    //printf("lv2ui_descriptor(%u) called\n", (unsigned int)index); 
     if (index >= sizeof(descriptors) / sizeof(descriptors[0])) {
         return NULL;
     }

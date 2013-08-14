@@ -12,11 +12,11 @@ class RoomyUI {open
   Function {RoomyUI()} {open
   } {
     Fl_Window window {open
-      xywh {1847 351 160 220} type Double
+      xywh {1024 378 160 220} type Double hide
       code0 {\#include "lv2/lv2plug.in/ns/extensions/ui/ui.h"}
       code1 {\#include <iostream>}
       code2 {using namespace std;}
-      code3 {\#include "../dsp/roomy.hxx"} visible
+      code3 {\#include "../dsp/roomy.hxx"}
     } {
       Fl_Box headerImage {
         label {header.png}
@@ -37,29 +37,29 @@ class RoomyUI {open
 //writePort(CUTOFF_FREQ, cutoff);
 //writePort(CUTOFF_GAIN, g);}
         xywh {5 36 150 126} box UP_BOX color 179 labeltype NO_LABEL
-        class {Avtk::SidechainGain}
-      }
-      Fl_Dial threshold {
-        label Thres
-        callback {float tmp = o->value();
-graph->threshold( tmp );
-writePort( int(ROOMY_THRESHOLD), tmp );} selected
-        xywh {10 169 37 37} color 90 labelsize 10
-        class {Avtk::Dial}
-      }
-      Fl_Dial drop {
-        label Drop
-        callback {float tmp = o->value();
-graph->reduce( tmp );
-writePort( int(ROOMY_REDUCTION), tmp );}
-        xywh {62 169 37 37} color 90 labelsize 10
-        class {Avtk::Dial}
+        class {Avtk::Reverb}
       }
       Fl_Dial time {
         label Time
         callback {float tmp = o->value();
-graph->release( tmp );
-writePort( int(ROOMY_RELEASE_TIME),tmp );}
+graph->size( tmp );
+writePort( int(ROOMY_TIME), tmp );}
+        xywh {10 169 37 37} color 90 labelsize 10
+        class {Avtk::Dial}
+      }
+      Fl_Dial damping {
+        label Damping
+        callback {float tmp = o->value();
+graph->damping( tmp );
+writePort( int(ROOMY_DAMPING), tmp );}
+        xywh {62 169 37 37} color 90 labelsize 10
+        class {Avtk::Dial}
+      }
+      Fl_Dial dryWet {
+        label {Dry / Wet}
+        callback {float tmp = o->value();
+graph->wet( tmp );
+writePort( int(ROOMY_DRY_WET),tmp );} selected
         xywh {113 168 37 37} color 90 labelsize 10
         class {Avtk::Dial}
       }

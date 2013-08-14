@@ -49,20 +49,14 @@
     lv2:name "In Right";
   ] , [
     a lv2:AudioPort ,
-      lv2:InputPort ;
-    lv2:index 2 ;
-    lv2:symbol "sidechain_input" ;
-    lv2:name "Sidechain Input";
-  ] , [
-    a lv2:AudioPort ,
       lv2:OutputPort ;
-    lv2:index 3 ;
+    lv2:index 2 ;
     lv2:symbol "out_left" ;
     lv2:name "Output Left";
   ] , [
     a lv2:AudioPort ,
       lv2:OutputPort ;
-    lv2:index 4 ;
+    lv2:index 3 ;
     lv2:symbol "out_right" ;
     lv2:name "Output Right";
   ]
@@ -72,41 +66,29 @@
   [
     a lv2:InputPort ,
       lv2:ControlPort ;
+    lv2:index 4 ;
+    lv2:symbol "time" ;
+    lv2:name "Time";
+    lv2:default 0.5 ;
+    lv2:minimum 0.0 ;
+    lv2:maximum 1.0 ;
+  ] , [
+    a lv2:InputPort ,
+      lv2:ControlPort ;
     lv2:index 5 ;
-    lv2:symbol "threshold" ;
-    lv2:name "Threshold";
-    lv2:default 0.25 ;
+    lv2:symbol "damping" ;
+    lv2:name "Damping";
+    lv2:default 0.5 ;
     lv2:minimum 0.0 ;
     lv2:maximum 1.0 ;
   ] , [
     a lv2:InputPort ,
       lv2:ControlPort ;
     lv2:index 6 ;
-    lv2:symbol "reduction" ;
-    lv2:name "Reduction";
-    lv2:default 1.0 ;
-    lv2:minimum 0.0 ;
-    lv2:maximum 1.0 ;
-  ] , [
-    a lv2:InputPort ,
-      lv2:ControlPort ;
-    lv2:index 7 ;
-    lv2:symbol "release_time" ;
-    lv2:name "Release Time";
+    lv2:symbol "dry_wet" ;
+    lv2:name "Dry Wet Mix";
     lv2:default 0.5 ;
     lv2:minimum 0.0 ;
     lv2:maximum 1.0 ;
   ]
-  
-  ,
-  
-  [
-    a lv2:OutputPort ,
-      lv2:ControlPort ;
-    lv2:index 8 ;
-    lv2:symbol "sidechain_amp" ;
-    lv2:name "Sidechain Amplitude";
-    lv2:default 0.0 ;
-    lv2:minimum 0.0 ;
-    lv2:maximum 1.0 ;
-  ]  .
+  .
