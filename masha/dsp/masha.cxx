@@ -135,13 +135,12 @@ void Masha::run(LV2_Handle instance, uint32_t n_samples)
   float amp    = *self->controlAmp;
   float dryWet = *self->controlDryWet;
   
-  /*
-  self->dspMasher.rt60    ( time    );
-  self->dspMasher.damping ( damping );
-  self->dspMasher.dryWet  ( dryWet  );
+  
+  self->dspMasher.amplitude( amp    );
+  self->dspMasher.duration ( time   );
+  self->dspMasher.dryWet   ( dryWet );
   
   self->dspMasher.process( n_samples, &buf[0], &buf[2] );
-  */
 }
 
 void Masha::cleanup(LV2_Handle instance)

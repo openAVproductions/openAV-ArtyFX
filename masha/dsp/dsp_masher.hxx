@@ -21,6 +21,20 @@ class Masher // : Effect
     {
     }
     
+    void amplitude(float a)
+    {
+      _amplitude = a;
+    }
+    void duration(float d)
+    {
+      _duration = d;
+    }
+    void dryWet(float d)
+    {
+      _dryWet = d;
+    }
+    
+    
     void bpm(int b)
     {
       framesPerBeat = sampleRate / b * 60;
@@ -38,6 +52,10 @@ class Masher // : Effect
     const int sampleRate;
     const float* history;
     int framesPerBeat;
+    
+    float _amplitude;
+    float _duration;
+    float _dryWet;
 };
 
 #endif // OPENAV_DSP_REVERB_H

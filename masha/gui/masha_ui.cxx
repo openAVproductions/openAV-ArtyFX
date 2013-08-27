@@ -105,7 +105,7 @@ static void port_event(LV2UI_Handle ui,
 {
   MashaGUI *self = (MashaGUI *) ui;
   
-  /*
+  
   if ( format == 0 )
   {
     float value =  *(float *)buffer;
@@ -113,27 +113,27 @@ static void port_event(LV2UI_Handle ui,
     {
       case MASHA_TIME:
           {
-            self->widget->graph->size( value );
+            self->widget->graph->duration( value );
             self->widget->time->value( value );
           }
           break;
-      case MASHA_DAMPING:
+      case MASHA_AMP:
           {
-            self->widget->graph->damping( value );
-            self->widget->damping->value( value );
+            self->widget->graph->volume( value );
+            self->widget->volume->value( value );
           }
           break;
       case MASHA_DRY_WET:
           {
-            self->widget->graph->wet( value );
-            self->widget->dryWet->value( value );
+            self->widget->graph->replace( value );
+            self->widget->replace->value( value );
           }
           break;
+      default:
           break;
-      
     }
   }
-  */
+  
   
   return;
 }
