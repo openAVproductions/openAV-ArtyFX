@@ -35,7 +35,9 @@ class MashaUI {open
 //gainDial->value( g );
 //freq->value( cutoff ); // update dial
 //writePort(CUTOFF_FREQ, cutoff);
-//writePort(CUTOFF_GAIN, g);}
+float tmp = o->getActive();
+writePort(MASHA_ACTIVE, tmp );
+printf("masha UI active %f\\n" , tmp);}
         xywh {5 36 150 126} box UP_BOX color 179 labeltype NO_LABEL
         class {Avtk::Masher}
       }
@@ -52,7 +54,7 @@ writePort( int(MASHA_TIME), tmp );}
         label Vol
         callback {float tmp = o->value();
 graph->volume( tmp );
-writePort( int(MASHA_AMP), tmp );} selected
+writePort( int(MASHA_AMP), tmp );}
         xywh {62 169 37 37} color 90 labelsize 10
         code0 {volume->value(1);}
         class {Avtk::Dial}

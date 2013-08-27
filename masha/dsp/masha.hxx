@@ -18,6 +18,8 @@ typedef enum
   MASHA_TIME,
   MASHA_AMP,
   MASHA_DRY_WET,
+  
+  MASHA_ACTIVE,
 } PortIndex;
 
 #endif // OPENAV_MASHA

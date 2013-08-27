@@ -34,6 +34,7 @@ class Masha
     float* controlTime;
     float* controlAmp;
     float* controlDryWet;
+    float* controlActive;
     
   private:
     Masher dspMasher;
@@ -108,9 +109,12 @@ void Masha::connect_port(LV2_Handle instance, uint32_t port, void *data)
       case MASHA_AMP:
           self->controlAmp     = (float*)data;
           break;
-      
       case MASHA_DRY_WET:
           self->controlDryWet  = (float*)data;
+          break;
+      
+      case MASHA_ACTIVE:
+          self->controlActive  = (float*)data;
           break;
   }
 }
@@ -135,10 +139,13 @@ void Masha::run(LV2_Handle instance, uint32_t n_samples)
   float amp    = *self->controlAmp;
   float dryWet = *self->controlDryWet;
   
+  float active = *self->controlActive;
   
   self->dspMasher.amplitude( amp    );
   self->dspMasher.duration ( time   );
   self->dspMasher.dryWet   ( dryWet );
+  
+  self->dspMasher.active   ( active );
   
   self->dspMasher.process( n_samples, &buf[0], &buf[2] );
 }
