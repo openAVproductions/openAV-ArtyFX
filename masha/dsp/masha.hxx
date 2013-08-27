@@ -16,7 +16,7 @@ typedef enum
   MASHA_OUTPUT_R,
   
   MASHA_TIME,
-  MASHA_DAMPING,
+  MASHA_AMP,
   MASHA_DRY_WET,
 } PortIndex;
 

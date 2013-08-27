@@ -32,7 +32,7 @@ class Masha
     
     /// control signals
     float* controlTime;
-    float* controlDamping;
+    float* controlAmp;
     float* controlDryWet;
     
   private:
@@ -105,8 +105,8 @@ void Masha::connect_port(LV2_Handle instance, uint32_t port, void *data)
       case MASHA_TIME:
           self->controlTime    = (float*)data;
           break;
-      case MASHA_DAMPING:
-          self->controlDamping = (float*)data;
+      case MASHA_AMP:
+          self->controlAmp     = (float*)data;
           break;
       
       case MASHA_DRY_WET:
@@ -131,9 +131,9 @@ void Masha::run(LV2_Handle instance, uint32_t n_samples)
   };
   
   /// control inputs
-  float time    = *self->controlTime;
-  float damping = *self->controlDamping;
-  float dryWet  = *self->controlDryWet;
+  float time   = *self->controlTime;
+  float amp    = *self->controlAmp;
+  float dryWet = *self->controlDryWet;
   
   /*
   self->dspMasher.rt60    ( time    );

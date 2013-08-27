@@ -52,16 +52,18 @@ writePort( int(MASHA_TIME), tmp );}
         label Vol
         callback {float tmp = o->value();
 graph->volume( tmp );
-writePort( int(MASHA_DAMPING), tmp );}
+writePort( int(MASHA_AMP), tmp );} selected
         xywh {62 169 37 37} color 90 labelsize 10
+        code0 {volume->value(1);}
         class {Avtk::Dial}
       }
       Fl_Dial replace {
         label Replace
         callback {float tmp = o->value();
 graph->replace( tmp );
-writePort( int(MASHA_DRY_WET),tmp );} selected
+writePort( int(MASHA_DRY_WET),tmp );}
         xywh {113 168 37 37} color 90 labelsize 10
+        code0 {replace->value(1);}
         class {Avtk::Dial}
       }
     }
