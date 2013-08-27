@@ -19,37 +19,37 @@ class Masher // : Effect
       sampleRate ( sr ),
       history( new float[ sr * 2 ] ),
       framesPerBeat(22050),
-      _active(false)
+      activ(false)
     {
-      _playhead   = 0;
-      _recordHead = sr * 2;
+      playhead   = 0;
+      recordHead = sr * 2;
     }
     
     void active(bool a)
     {
-      _active = a;
-      //printf("active() int %i\n", _active );
-      if ( _active )
+      activ = a;
+      //printf("active() int %i\n", active );
+      if ( activ )
       {
-        _playhead = 0;
+        playhead = 0;
       }
       else
       {
-        _recordHead = 0;
+        recordHead = sampleRate * 2;
       }
       
     }
     void amplitude(float a)
     {
-      _amplitude = a;
+      amp = a;
     }
     void duration(float d)
     {
-      _duration = d;
+      durat = d;
     }
     void dryWet(float d)
     {
-      _dryWet = 1-d;
+      dryWe = 1-d;
     }
     
     void bpm(int b)
@@ -62,10 +62,10 @@ class Masher // : Effect
     
     void process (int count, float** input, float** output)
     {
-      if ( _active )
+      if ( activ )
       {
         // playback
-        int newDuration = int( _duration * 4.9f);
+        int newDuration = int( durat * 4.9f);
         float beats = 0.f;
         if ( newDuration == 0 )
           beats = 1;
@@ -80,32 +80,38 @@ class Masher // : Effect
         
         int loopFrames = (framesPerBeat * beats) / 16;
         
-        printf("playback, loopframes = %i, _playhead %f\n", loopFrames, _playhead);
+        printf("playback, loopframes = %i, playhead %i\n", loopFrames, playhead);
         
         for(int i = 0; i < count; i++ )
         {
-          if ( _playhead >= loopFrames )
+          /*
+          if ( playhead >= loopFrames )
           {
-            _playhead = 0;
-            printf("playback, resetting _playhead\n");
+            playhead = 0;
+            printf("playback, resetting playhead\n");
           }
+          */
           
-          output[0][i] = input[0][i] * _dryWet + _amplitude * history[ _recordHead + int(_playhead) ];
-          _playhead++;
+          output[0][i] = input[0][i] * dryWe + amp * history[ (recordHead + playhead ) % sampleRate * 2 ];
+          playhead++;
+          
+          printf("playback, loopframes = %i, playhead %i\n", loopFrames, playhead);
         }
       }
       else
       {
-        std::cout << "Record " << _recordHead << std::endl;
+        std::cout << "Record " << recordHead << std::endl;
         // record *backwards*, so playing is forwards trough the buffer
         for(int i = 0; i < count; i++ )
         {
-          if ( _recordHead < 0 )
+          if ( recordHead < 0 )
           {
-            _recordHead = sampleRate * 2;
+            recordHead = sampleRate * 2;
           }
           
-          history[ _recordHead-- ] = input[0][i];
+          history[ recordHead ] = input[0][i];
+          
+          recordHead = recordHead - 1;
           
           output[0][i] = input[0][i];
         }
@@ -118,14 +124,14 @@ class Masher // : Effect
     float* history;
     int framesPerBeat;
     
-    float _playhead;
-    long _recordHead;
+    int playhead;
+    long recordHead;
     
-    int _active;
+    int activ;
     
-    float _amplitude;
-    float _duration;
-    float _dryWet;
+    float amp;
+    float durat;
+    float dryWe;
 };
 
 #endif // OPENAV_DSP_REVERB_H
