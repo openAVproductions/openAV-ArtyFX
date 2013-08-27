@@ -105,6 +105,7 @@ static void port_event(LV2UI_Handle ui,
 {
   MashaGUI *self = (MashaGUI *) ui;
   
+  /*
   if ( format == 0 )
   {
     float value =  *(float *)buffer;
@@ -132,6 +133,7 @@ static void port_event(LV2UI_Handle ui,
       
     }
   }
+  */
   
   return;
 }

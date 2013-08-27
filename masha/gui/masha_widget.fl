@@ -37,29 +37,30 @@ class MashaUI {open
 //writePort(CUTOFF_FREQ, cutoff);
 //writePort(CUTOFF_GAIN, g);}
         xywh {5 36 150 126} box UP_BOX color 179 labeltype NO_LABEL
-        class {Avtk::Reverb}
+        class {Avtk::Masher}
       }
       Fl_Dial time {
         label Time
         callback {float tmp = o->value();
-graph->size( tmp );
-writePort( int(MASHA_TIME), tmp );} selected
+graph->duration( tmp );
+writePort( int(MASHA_TIME), tmp );}
         xywh {10 169 37 37} color 90 labelsize 10
+        code0 {time->value(0.5);}
         class {Avtk::Dial}
       }
-      Fl_Dial damping {
-        label Damping
+      Fl_Dial volume {
+        label Vol
         callback {float tmp = o->value();
-graph->damping( tmp );
+graph->volume( tmp );
 writePort( int(MASHA_DAMPING), tmp );}
         xywh {62 169 37 37} color 90 labelsize 10
         class {Avtk::Dial}
       }
-      Fl_Dial dryWet {
-        label {Dry / Wet}
+      Fl_Dial replace {
+        label Replace
         callback {float tmp = o->value();
-graph->wet( tmp );
-writePort( int(MASHA_DRY_WET),tmp );}
+graph->replace( tmp );
+writePort( int(MASHA_DRY_WET),tmp );} selected
         xywh {113 168 37 37} color 90 labelsize 10
         class {Avtk::Dial}
       }

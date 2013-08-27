@@ -28,8 +28,8 @@
 
 <http://www.openavproductions.com/artyfx#masha>
   a lv2:Plugin ,
-    lv2:ReverbPlugin ;
-  doap:name "Roomy";
+    lv2:DelayPlugin ;
+  doap:name "Masha";
   doap:maintainer <http://www.openavproductions.com/> ;
   lv2:optionalFeature lv2:hardRTCapable ;
   
