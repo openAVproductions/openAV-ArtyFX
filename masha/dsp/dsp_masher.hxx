@@ -69,9 +69,25 @@ class Masher // : Effect
     {
       amp = a;
     }
+    
     void duration(float d)
     {
       durat = d;
+      
+      float beats = 0.f;
+      int newDuration = int( durat * 4.9f);
+      if ( newDuration == 0 )
+        beats = 1;
+      if ( newDuration == 1 )
+        beats = 2;
+      if ( newDuration == 2 )
+        beats = 4;
+      if ( newDuration == 3 )
+        beats = 8;
+      if ( newDuration == 4 )
+        beats = 16;
+      
+      newSmashSize = (beats * framesPerBar) / 8;
     }
     void dryWet(float d)
     {
@@ -88,19 +104,8 @@ class Masher // : Effect
     
     void process (long count, float* input, float* output)
     {
-      float beats = 0.f;
-      int newDuration = int( durat * 4.9f);
-      if ( newDuration == 0 )
-        beats = 1;
-      if ( newDuration == 1 )
-        beats = 2;
-      if ( newDuration == 2 )
-        beats = 4;
-      if ( newDuration == 3 )
-        beats = 8;
-      if ( newDuration == 4 )
-        beats = 16;
-      long smashSize = (beats * framesPerBar) / 8;
+      
+      long totalSmashSize = (16 * framesPerBar) / 8;
       
       for(long i = 0; i < count; i++ )
       {
@@ -115,11 +120,12 @@ class Masher // : Effect
           history[ recordHead++ ] = input[i];
         }
         
-        if ( recordHead > smashSize ) // then playback
+        if ( recordHead > totalSmashSize ) // then playback
         {
-          if ( playhead >= smashSize )
+          if ( playhead >= currentSmashSize )
           {
             playhead = 0;
+            currentSmashSize = newSmashSize;
           }
           tmp = history[ playhead++ ];
         }
@@ -139,6 +145,9 @@ class Masher // : Effect
     const int sampleRate;
     float* history;
     long framesPerBar;
+    
+    long newSmashSize;
+    long currentSmashSize;
     
     long playhead;
     long recordHead;
