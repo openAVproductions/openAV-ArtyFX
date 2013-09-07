@@ -26,9 +26,9 @@ make install
 
 == RUNNING
 After the INSTALL step Ardour3, QTractor, and any other LV2 host should
-automatically find Fabla, and be able to use it.
+automatically find all plugins, and be able to use them.
 
 If you have the JALV LV2 host installed, the "run.sh" script can be used to
-launch Fabla as a standalone JACK client.
+launch each plugin as a standalone JACK client.
 
-$  ./run.sh
+$  ./run_<roomy|masha|ducka>.sh
