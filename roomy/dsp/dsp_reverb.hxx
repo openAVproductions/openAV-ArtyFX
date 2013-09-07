@@ -1,3 +1,53 @@
+/*
+ * Author: Harry van Haaren 2013
+ *         harryhaaren@gmail.com
+ * 
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+ * MA 02110-1301, USA.
+ */
+
+/*
+  The DSP code in this file was generated using FAUST.
+  The FAUST code used is under the following licenses:
+  
+  effect.lib/name       Faust Audio Effect Library
+  effect.lib/author     Julius O. Smith (jos at ccrma.stanford.edu)
+  effect.lib/copyright  Julius O. Smith III
+  effect.lib/version    1.33
+  effect.lib/license    STK-4.3
+  effect.lib/reference  https://ccrma.stanford.edu/realsimple/faust_strings/
+      
+  filter.lib/author     Julius O. Smith (jos at ccrma.stanford.edu)
+  filter.lib/name       Faust Filter Library
+  filter.lib/copyright  Julius O. Smith III
+  filter.lib/version    1.29
+  filter.lib/license    STK-4.3
+  filter.lib/reference  https://ccrma.stanford.edu/~jos/filters/
+      
+  music.lib/name        Music Library
+  music.lib/author      GRAME
+  music.lib/copyright   GRAME
+  music.lib/version     1.0
+  music.lib/license     LGPL
+
+  math.lib/name         Math Library
+  math.lib/author       GRAME
+  math.lib/copyright    GRAME
+  math.lib/version      1.0
+  math.lib/license      LGPL
+*/
 
 
 #ifndef OPENAV_DSP_REVERB_H

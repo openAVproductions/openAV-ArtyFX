@@ -59,7 +59,7 @@ writePort( int(ROOMY_DAMPING), tmp );}
         label {Dry / Wet}
         callback {float tmp = o->value();
 graph->wet( tmp );
-writePort( int(ROOMY_DRY_WET),tmp );} selected
+writePort( int(ROOMY_DRY_WET),tmp );}
         xywh {113 168 37 37} color 90 labelsize 10
         class {Avtk::Dial}
       }
@@ -90,7 +90,8 @@ Fl::flush();} {}
   }
   Function {writePort(int port, float& value)} {open
   } {
-    code {cout << "port " << port << " value " << value << endl;
-write_function(controller, port, sizeof(float), 0, &value);} {}
+    code {//cout << "port " << port << " value " << value << endl;
+write_function(controller, port, sizeof(float), 0, &value);} {selected
+    }
   }
 } 
