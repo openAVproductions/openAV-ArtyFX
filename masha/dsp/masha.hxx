@@ -39,6 +39,8 @@ typedef enum
   MASHA_DRY_WET,
   
   MASHA_ACTIVE,
+  
+  MASHA_ATOM_IN,
 } PortIndex;
 
 #endif // OPENAV_MASHA

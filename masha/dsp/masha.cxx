@@ -27,10 +27,16 @@
 
 #include "dsp_masher.hxx"
 
+#include "lv2/lv2plug.in/ns/ext/atom/atom.h"
+#include "lv2/lv2plug.in/ns/ext/atom/util.h"
+#include "lv2/lv2plug.in/ns/ext/urid/urid.h"
+#include "lv2/lv2plug.in/ns/ext/time/time.h"
+
 class Masha
 {
   public:
     Masha(int rate);
+    Masha(int rate, LV2_URID_Map* map);
     ~Masha(){}
     static LV2_Handle instantiate(const LV2_Descriptor* descriptor,
                                   double samplerate,
@@ -54,6 +60,24 @@ class Masha
     float* controlAmp;
     float* controlDryWet;
     float* controlActive;
+    
+    /// Atom port
+    LV2_URID time_Position;
+    LV2_URID time_barBeat;
+    LV2_URID time_beatsPerMinute;
+    LV2_URID time_speed;
+    
+    LV2_URID atom_Blank;
+    LV2_URID atom_Float;
+    
+    LV2_URID_Map* map;
+    LV2_URID_Unmap* unmap;
+    LV2_Atom_Sequence* atom_port;
+    
+    void setUnmap( LV2_URID_Unmap* um )
+    {
+      unmap = um;
+    }
     
   private:
     Masher* dspMasherL;
@@ -86,13 +110,66 @@ LV2_Handle Masha::instantiate(const LV2_Descriptor* descriptor,
                               const char* bundle_path,
                               const LV2_Feature* const* features)
 {
-  return (LV2_Handle) new Masha( samplerate );
+  LV2_URID_Map*   m  = 0;
+  LV2_URID_Unmap* un = 0;
+  
+  // act on host features
+  for (int i = 0; features[i]; ++i) {
+    if (!strcmp(features[i]->URI, LV2_URID__map)) {
+      m = (LV2_URID_Map*)features[i]->data;
+    }
+    if (!strcmp(features[i]->URI, LV2_URID__unmap)) {
+      un = (LV2_URID_Unmap*)features[i]->data;
+    }
+  }
+  
+  Masha* masha = 0;
+  
+  if ( m )
+  {
+    masha = new Masha( samplerate, m );
+  }
+  else
+  {
+    printf("Masha: Warning, your host does NOT support LV2_URID_Map. Masha is\
+            therefore unable to auto-sync to you're hosts BPM.");
+    masha = new Masha( samplerate );
+  }
+  
+  if ( un )
+  {
+    masha->setUnmap(un);
+  }
+  
+  return (LV2_Handle) masha;
 }
 
+// allow instantiate without URID Map, but print warning
 Masha::Masha(int rate)
 {
   dspMasherL = new Masher( rate );
   dspMasherR = new Masher( rate );
+  
+  dspMasherL->bpm( 120 );
+  dspMasherR->bpm( 120 );
+}
+
+Masha::Masha(int rate, LV2_URID_Map* map)
+{
+  dspMasherL = new Masher( rate );
+  dspMasherR = new Masher( rate );
+  
+  dspMasherL->bpm( 120 );
+  dspMasherR->bpm( 120 );
+  
+  time_Position      = map->map(map->handle, LV2_TIME__Position);
+  time_barBeat       = map->map(map->handle, LV2_TIME__barBeat);
+  time_beatsPerMinute= map->map(map->handle, LV2_TIME__beatsPerMinute);
+  time_speed         = map->map(map->handle, LV2_TIME__speed);
+  
+  atom_Blank         = map->map(map->handle, LV2_ATOM__Blank);
+  
+  atom_Float         = map->map(map->handle, LV2_ATOM__Float);
 }
 
 
@@ -137,6 +214,10 @@ void Masha::connect_port(LV2_Handle instance, uint32_t port, void *data)
       case MASHA_ACTIVE:
           self->controlActive  = (float*)data;
           break;
+      
+      case MASHA_ATOM_IN:
+          self->atom_port      = (LV2_Atom_Sequence*)data;
+          break;
   }
 }
 
@@ -156,6 +237,32 @@ void Masha::run(LV2_Handle instance, uint32_t n_samples)
   float dryWet = *self->controlDryWet;
   
   float active = *self->controlActive;
+  
+  /// handle Atom messages
+  LV2_ATOM_SEQUENCE_FOREACH(self->atom_port, ev)
+  {
+    if ( ev->body.type == self->atom_Blank )
+    {
+      const LV2_Atom_Object* obj = (LV2_Atom_Object*)&ev->body;
+      printf("time_Position message\n" );
+      LV2_Atom* bpm = 0;
+      lv2_atom_object_get( (LV2_Atom_Object*)obj, self->time_beatsPerMinute, &bpm, NULL);
+      
+      if ( bpm ) //&& bpm->type == self->atom_Float) {
+      {
+        // Tempo changed, update BPM
+        float bpmValue = ((LV2_Atom_Float*)bpm)->body;
+        self->dspMasherL->bpm( bpmValue );
+        self->dspMasherR->bpm( bpmValue );
+        printf("set bpm of %f\n", bpmValue );
+      }
+      
+    }
+    else
+    {
+      printf("atom message: %s\n", self->unmap->unmap( self->unmap->handle, ev->body.type ) );
+    }
+  }
   
   self->dspMasherL->amplitude( amp    );
   self->dspMasherL->duration ( time   );
