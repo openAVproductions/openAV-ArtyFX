@@ -8,6 +8,10 @@
 #include <cstdlib>
 #include <iostream>
 
+using namespace std;
+
+#define BUFFER_SIZE 44100*2
+
 /** Masher
  * This class mashes a stream of audio by keeping a history, and re-looping the
  * previous X frames when the effect is enabled.
@@ -17,27 +21,31 @@ class Masher // : Effect
   public:
     Masher(int sr) :
       sampleRate ( sr ),
-      history( new float[ sr * 2 ] ),
-      framesPerBeat(22050),
-      activ(false)
+      framesPerBar(22050),
+      _activated(false)
     {
+      history = (float*)malloc( sizeof(float) * BUFFER_SIZE ),
+      
+      _recording = false;
       playhead   = 0;
       recordHead = sr * 2;
     }
     
     void active(bool a)
     {
-      activ = a;
-      //printf("active() int %i\n", active );
-      if ( activ )
+      if ( _activated == false && a == true )
       {
         playhead = 0;
+        recordHead = 0;
+        _recording = true;
       }
-      else
+      if ( _activated == true && a == false )
       {
-        recordHead = sampleRate * 2;
+        _activated = false;
+        _recording = false;
       }
       
+      _activated = a;
     }
     void amplitude(float a)
     {
@@ -54,67 +62,57 @@ class Masher // : Effect
     
     void bpm(int b)
     {
-      framesPerBeat = sampleRate / b * 60;
+      framesPerBar = sampleRate / b * 60;
     }
     
     int getNumInputs() { return 1; }
     int getNumOutputs(){ return 1; }
     
-    void process (int count, float** input, float** output)
+    void process (long count, float* input, float* output)
     {
-      if ( activ )
+      float beats = 0.f;
+      int newDuration = int( durat * 4.9f);
+      if ( newDuration == 0 )
+        beats = 1;
+      if ( newDuration == 1 )
+        beats = 2;
+      if ( newDuration == 2 )
+        beats = 4;
+      if ( newDuration == 3 )
+        beats = 8;
+      if ( newDuration == 4 )
+        beats = 16;
+      long smashSize = (beats * framesPerBar) / 8;
+      
+      for(long i = 0; i < count; i++ )
       {
-        // playback
-        int newDuration = int( durat * 4.9f);
-        float beats = 0.f;
-        if ( newDuration == 0 )
-          beats = 1;
-        if ( newDuration == 1 )
-          beats = 2;
-        if ( newDuration == 2 )
-          beats = 4;
-        if ( newDuration == 3 )
-          beats = 8;
-        if ( newDuration == 4 )
-          beats = 16;
-        
-        int loopFrames = (framesPerBeat * beats) / 16;
-        
-        printf("playback, loopframes = %i, playhead %i\n", loopFrames, playhead);
-        
-        for(int i = 0; i < count; i++ )
+        float tmp = 0.f;
+        if ( _recording )
         {
-          /*
-          if ( playhead >= loopFrames )
+          if ( recordHead >= (16 * framesPerBar) / 8 )
+          {
+            _recording = false;
+          }
+          
+          history[ recordHead++ ] = input[i];
+        }
+        
+        if ( recordHead > smashSize ) // then playback
+        {
+          if ( playhead >= smashSize )
           {
             playhead = 0;
-            printf("playback, resetting playhead\n");
           }
-          */
-          
-          output[0][i] = input[0][i] * dryWe + amp * history[ (recordHead + playhead ) % sampleRate * 2 ];
-          playhead++;
-          
-          printf("playback, loopframes = %i, playhead %i\n", loopFrames, playhead);
+          tmp = history[ playhead++ ];
         }
-      }
-      else
-      {
-        std::cout << "Record " << recordHead << std::endl;
-        // record *backwards*, so playing is forwards trough the buffer
-        for(int i = 0; i < count; i++ )
+        
+        if ( !_activated )
         {
-          if ( recordHead < 0 )
-          {
-            recordHead = sampleRate * 2;
-          }
-          
-          history[ recordHead ] = input[0][i];
-          
-          recordHead = recordHead - 1;
-          
-          output[0][i] = input[0][i];
+          tmp = 0;
+          dryWe = 0;
         }
+        
+        output[i] = tmp * amp + input[i] * (1-dryWe);
       }
       
     }
@@ -122,12 +120,13 @@ class Masher // : Effect
   private:
     const int sampleRate;
     float* history;
-    int framesPerBeat;
+    long framesPerBar;
     
-    int playhead;
+    long playhead;
     long recordHead;
     
-    int activ;
+    bool _activated;
+    bool _recording;
     
     float amp;
     float durat;

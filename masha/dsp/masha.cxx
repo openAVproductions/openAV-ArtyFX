@@ -37,7 +37,8 @@ class Masha
     float* controlActive;
     
   private:
-    Masher dspMasher;
+    Masher* dspMasherL;
+    Masher* dspMasherR;
 };
 
 
@@ -69,9 +70,10 @@ LV2_Handle Masha::instantiate(const LV2_Descriptor* descriptor,
   return (LV2_Handle) new Masha( samplerate );
 }
 
-Masha::Masha(int rate) :
-  dspMasher( rate )
+Masha::Masha(int rate)
 {
+  dspMasherL = new Masher( rate );
+  dspMasherR = new Masher( rate );
 }
 
 
@@ -129,11 +131,6 @@ void Masha::run(LV2_Handle instance, uint32_t n_samples)
   float* outL = self->audioOutputL;
   float* outR = self->audioOutputR;
   
-  float* buf[4] = {
-    inL, inR,
-    outL, outR
-  };
-  
   /// control inputs
   float time   = *self->controlTime;
   float amp    = *self->controlAmp;
@@ -141,13 +138,18 @@ void Masha::run(LV2_Handle instance, uint32_t n_samples)
   
   float active = *self->controlActive;
   
-  self->dspMasher.amplitude( amp    );
-  self->dspMasher.duration ( time   );
-  self->dspMasher.dryWet   ( dryWet );
+  self->dspMasherL->amplitude( amp    );
+  self->dspMasherL->duration ( time   );
+  self->dspMasherL->dryWet   ( dryWet );
+  self->dspMasherL->active   ( active );
   
-  self->dspMasher.active   ( active );
+  self->dspMasherR->amplitude( amp    );
+  self->dspMasherR->duration ( time   );
+  self->dspMasherR->dryWet   ( dryWet );
+  self->dspMasherR->active   ( active );
   
-  self->dspMasher.process( n_samples, &buf[0], &buf[2] );
+  self->dspMasherL->process( n_samples, inL, outL );
+  self->dspMasherR->process( n_samples, inR, outR );
 }
 
 void Masha::cleanup(LV2_Handle instance)

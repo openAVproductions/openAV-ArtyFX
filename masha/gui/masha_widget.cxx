@@ -84,7 +84,7 @@ MashaUI::MashaUI() {
       graph->align(Fl_Align(FL_ALIGN_BOTTOM));
       graph->when(FL_WHEN_CHANGED);
     } // Avtk::Masher* graph
-    { time = new Avtk::Dial(10, 169, 37, 37, "Time");
+    { time = new Avtk::Dial(113, 169, 37, 37, "Time");
       time->box(FL_NO_BOX);
       time->color((Fl_Color)90);
       time->selection_color(FL_INACTIVE_COLOR);
@@ -97,7 +97,7 @@ MashaUI::MashaUI() {
       time->when(FL_WHEN_CHANGED);
       time->value(0.5);
     } // Avtk::Dial* time
-    { volume = new Avtk::Dial(62, 169, 37, 37, "Vol");
+    { volume = new Avtk::Dial(10, 169, 37, 37, "Vol");
       volume->box(FL_NO_BOX);
       volume->color((Fl_Color)90);
       volume->selection_color(FL_INACTIVE_COLOR);
@@ -110,7 +110,7 @@ MashaUI::MashaUI() {
       volume->when(FL_WHEN_CHANGED);
       volume->value(1);
     } // Avtk::Dial* volume
-    { replace = new Avtk::Dial(113, 168, 37, 37, "Replace");
+    { replace = new Avtk::Dial(62, 169, 37, 37, "PassThru");
       replace->box(FL_NO_BOX);
       replace->color((Fl_Color)90);
       replace->selection_color(FL_INACTIVE_COLOR);

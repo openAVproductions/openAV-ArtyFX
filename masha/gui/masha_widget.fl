@@ -12,7 +12,7 @@ class MashaUI {open
   Function {MashaUI()} {open
   } {
     Fl_Window window {open
-      xywh {1024 378 160 220} type Double
+      xywh {1870 459 160 220} type Double
       code0 {\#include "lv2/lv2plug.in/ns/extensions/ui/ui.h"}
       code1 {\#include <iostream>}
       code2 {using namespace std;}
@@ -46,7 +46,7 @@ printf("masha UI active %f\\n" , tmp);}
         callback {float tmp = o->value();
 graph->duration( tmp );
 writePort( int(MASHA_TIME), tmp );}
-        xywh {10 169 37 37} color 90 labelsize 10
+        xywh {113 169 37 37} color 90 labelsize 10
         code0 {time->value(0.5);}
         class {Avtk::Dial}
       }
@@ -54,17 +54,17 @@ writePort( int(MASHA_TIME), tmp );}
         label Vol
         callback {float tmp = o->value();
 graph->volume( tmp );
-writePort( int(MASHA_AMP), tmp );}
-        xywh {62 169 37 37} color 90 labelsize 10
+writePort( int(MASHA_AMP), tmp );} selected
+        xywh {10 169 37 37} color 90 labelsize 10
         code0 {volume->value(1);}
         class {Avtk::Dial}
       }
       Fl_Dial replace {
-        label Replace
+        label PassThru
         callback {float tmp = o->value();
 graph->replace( tmp );
 writePort( int(MASHA_DRY_WET),tmp );}
-        xywh {113 168 37 37} color 90 labelsize 10
+        xywh {62 169 37 37} color 90 labelsize 10
         code0 {replace->value(1);}
         class {Avtk::Dial}
       }
