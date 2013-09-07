@@ -35,7 +35,7 @@
 // GUI
 #include "lv2/lv2plug.in/ns/extensions/ui/ui.h"
 
-#include "../../avtk/avtk.h"
+//#include "../../avtk/avtk.h"
 
 using namespace std;
 

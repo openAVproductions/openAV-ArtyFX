@@ -20,9 +20,9 @@ class MashaUI {open
     } {
       Fl_Box headerImage {
         label {header.png}
-        callback {//system("xdg-open http://www.openavproductions.com/artyfx\#ducka");}
+        callback {//system("xdg-open http://www.openavproductions.com/artyfx\#ducka");} selected
         xywh {0 0 160 29} labelcolor 20 when 6
-        code0 {\#include "../../avtk/avtk.h"}
+        code0 {\#include "avtk.h"}
         code1 {\#include <stdio.h>}
         code2 {\#include "header.c"}
         code3 {headerImage->setPixbuf(header.pixel_data,4);}
@@ -54,7 +54,7 @@ writePort( int(MASHA_TIME), tmp );}
         label Vol
         callback {float tmp = o->value();
 graph->volume( tmp );
-writePort( int(MASHA_AMP), tmp );} selected
+writePort( int(MASHA_AMP), tmp );}
         xywh {10 169 37 37} color 90 labelsize 10
         code0 {volume->value(1);}
         class {Avtk::Dial}

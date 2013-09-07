@@ -8,7 +8,7 @@
 #include <iostream>
 using namespace std;
 #include "../dsp/masha.hxx"
-#include "../../avtk/avtk.h"
+#include "avtk.h"
 #include <stdio.h>
 #include "header.c"
 

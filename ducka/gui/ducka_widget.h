@@ -5,10 +5,9 @@
 #include <FL/Fl.H>
 #include <FL/Fl_Double_Window.H>
 #include "lv2/lv2plug.in/ns/extensions/ui/ui.h"
-#include <iostream>
+#include "avtk.h"
 using namespace std;
 #include "../dsp/ducka.hxx"
-#include "../../avtk/avtk.h"
 #include <stdio.h>
 #include "header.c"
 

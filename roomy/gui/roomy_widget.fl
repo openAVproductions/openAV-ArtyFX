@@ -12,17 +12,17 @@ class RoomyUI {open
   Function {RoomyUI()} {open
   } {
     Fl_Window window {open
-      xywh {1024 378 160 220} type Double hide
+      xywh {1024 378 160 220} type Double
       code0 {\#include "lv2/lv2plug.in/ns/extensions/ui/ui.h"}
       code1 {\#include <iostream>}
       code2 {using namespace std;}
-      code3 {\#include "../dsp/roomy.hxx"}
+      code3 {\#include "../dsp/roomy.hxx"} visible
     } {
       Fl_Box headerImage {
         label {header.png}
-        callback {//system("xdg-open http://www.openavproductions.com/artyfx\#ducka");}
+        callback {//system("xdg-open http://www.openavproductions.com/artyfx\#ducka");} selected
         xywh {0 0 160 29} labelcolor 20 when 6
-        code0 {\#include "../../avtk/avtk.h"}
+        code0 {\#include "avtk.h"}
         code1 {\#include <stdio.h>}
         code2 {\#include "header.c"}
         code3 {headerImage->setPixbuf(header.pixel_data,4);}
@@ -91,7 +91,6 @@ Fl::flush();} {}
   Function {writePort(int port, float& value)} {open
   } {
     code {//cout << "port " << port << " value " << value << endl;
-write_function(controller, port, sizeof(float), 0, &value);} {selected
-    }
+write_function(controller, port, sizeof(float), 0, &value);} {}
   }
 } 
