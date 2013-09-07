@@ -1,0 +1,34 @@
+
+    Arty FX - OpenAV Productions
+
+  http://openavproductions.com/artyfx
+
+This is the repository of a sampler LV2 plugin called Fabla.
+
+
+== DEPENDENCIES
+These plugins use NTK for thier interfaces. NTK can be obtained using
+git clone git://git.tuxfamily.org/gitroot/non/fltk.git ntk
+
+Most other deps will already be installed on most systems:
+cairo
+cairomm-1.0
+lv2
+
+
+== INSTALL
+Once deps are satisfied, building and installing into ~/.lv2/ is easy,
+just run make as usual:
+
+make
+make install
+
+
+== RUNNING
+After the INSTALL step Ardour3, QTractor, and any other LV2 host should
+automatically find Fabla, and be able to use it.
+
+If you have the JALV LV2 host installed, the "run.sh" script can be used to
+launch Fabla as a standalone JACK client.
+
+$  ./run.sh
