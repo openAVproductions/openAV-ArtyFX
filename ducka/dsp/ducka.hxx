@@ -41,6 +41,8 @@ typedef enum
   DUCKA_RELEASE_TIME,
   
   DUCKA_SIDECHAIN_AMP,
+  
+  DUCKA_ATOM_IN,
 } PortIndex;
 
 #endif // OPENAV_DUCKA

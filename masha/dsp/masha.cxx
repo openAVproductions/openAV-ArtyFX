@@ -113,7 +113,7 @@ LV2_Handle Masha::instantiate(const LV2_Descriptor* descriptor,
   LV2_URID_Map*   m  = 0;
   LV2_URID_Unmap* un = 0;
   
-  // act on host features
+  // get URID_map and unmap
   for (int i = 0; features[i]; ++i) {
     if (!strcmp(features[i]->URI, LV2_URID__map)) {
       m = (LV2_URID_Map*)features[i]->data;

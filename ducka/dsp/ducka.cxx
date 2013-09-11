@@ -25,10 +25,16 @@
 #include <string.h>
 #include <math.h>
 
+#include "lv2/lv2plug.in/ns/ext/atom/atom.h"
+#include "lv2/lv2plug.in/ns/ext/atom/util.h"
+#include "lv2/lv2plug.in/ns/ext/urid/urid.h"
+#include "lv2/lv2plug.in/ns/ext/time/time.h"
+
 class Ducka
 {
   public:
     Ducka(int rate);
+    Ducka(int rate, LV2_URID_Map* map);
     ~Ducka(){}
     static LV2_Handle instantiate(const LV2_Descriptor* descriptor,
                                   double samplerate,
@@ -47,6 +53,24 @@ class Ducka
     float* audioSidechain;
     float* audioOutputL;
     float* audioOutputR;
+    
+    /// Atom port
+    LV2_URID time_Position;
+    LV2_URID time_barBeat;
+    LV2_URID time_beatsPerMinute;
+    LV2_URID time_speed;
+    
+    LV2_URID atom_Blank;
+    LV2_URID atom_Float;
+    
+    LV2_URID_Map* map;
+    LV2_URID_Unmap* unmap;
+    LV2_Atom_Sequence* atom_port;
+    
+    void setUnmap( LV2_URID_Unmap* um )
+    {
+      unmap = um;
+    }
     
     /// control signals
     float* controlThreshold;
@@ -94,7 +118,39 @@ LV2_Handle Ducka::instantiate(const LV2_Descriptor* descriptor,
                               const char* bundle_path,
                               const LV2_Feature* const* features)
 {
-  return (LV2_Handle) new Ducka( samplerate );
+  LV2_URID_Map*   m  = 0;
+  LV2_URID_Unmap* un = 0;
+  
+  // get URID_map and unmap
+  for (int i = 0; features[i]; ++i) {
+    if (!strcmp(features[i]->URI, LV2_URID__map)) {
+      m = (LV2_URID_Map*)features[i]->data;
+    }
+    if (!strcmp(features[i]->URI, LV2_URID__unmap)) {
+      un = (LV2_URID_Unmap*)features[i]->data;
+    }
+  }
+  
+  Ducka* ducka = 0;
+  
+  if ( m )
+  {
+    ducka = new Ducka( samplerate, m );
+  }
+  else
+  {
+    printf("Ducka: Warning, your host does NOT support LV2_URID_Map. Ducka is\
+            therefore unable to auto-sync to you're hosts BPM.");
+    ducka = new Ducka( samplerate );
+  }
+  
+  if ( un )
+  {
+    ducka->setUnmap(un);
+  }
+  
+  
+  return (LV2_Handle) ducka;
 }
 
 Ducka::Ducka(int rate) :
@@ -110,6 +166,28 @@ Ducka::Ducka(int rate) :
   
   currentTarget(0)
 {
+}
+
+Ducka::Ducka(int rate, LV2_URID_Map* map) :
+  /// filter state init
+  w(10.0f / (rate * 0.02)),
+  a(0.07f),
+  b(1.0f / (1.0f - a)),
+  g1(0.0f),
+  g2(0.0f),
+  
+  peakFrameCounter(0),
+  peakCountDuration( rate / 4 ),
+  
+  currentTarget(0)
+{
+  time_Position      = map->map(map->handle, LV2_TIME__Position);
+  time_barBeat       = map->map(map->handle, LV2_TIME__barBeat);
+  time_beatsPerMinute= map->map(map->handle, LV2_TIME__beatsPerMinute);
+  time_speed         = map->map(map->handle, LV2_TIME__speed);
+  
+  atom_Blank         = map->map(map->handle, LV2_ATOM__Blank);
+  atom_Float         = map->map(map->handle, LV2_ATOM__Float);
 }
 
 
@@ -156,6 +234,10 @@ void Ducka::connect_port(LV2_Handle instance, uint32_t port, void *data)
       case DUCKA_SIDECHAIN_AMP:
           self->controlSidechainAmp = (float*)data;
           break;
+      
+      case DUCKA_ATOM_IN:
+          self->atom_port = (LV2_Atom_Sequence*)data;
+          break;
   }
 }
 
@@ -174,6 +256,33 @@ void Ducka::run(LV2_Handle instance, uint32_t n_samples)
   float threshold   = *self->controlThreshold;
   float reduction   = *self->controlReduction;
   float releaseTime = *self->controlReleaseTime;
+  
+  
+  /// handle Atom messages
+  LV2_ATOM_SEQUENCE_FOREACH(self->atom_port, ev)
+  {
+    //printf("atom, %i\n", ev->body.type );
+    if ( ev->body.type == self->atom_Blank ||
+         ev->body.type == self->time_Position )
+    {
+      const LV2_Atom_Object* obj = (LV2_Atom_Object*)&ev->body;
+      //printf("time_Position message\n" );
+      LV2_Atom* bpm = 0;
+      lv2_atom_object_get( (LV2_Atom_Object*)obj, self->time_beatsPerMinute, &bpm, NULL);
+      
+      if ( bpm ) //&& bpm->type == self->atom_Float) {
+      { 
+        // Tempo changed, update BPM
+        float bpmValue = ((LV2_Atom_Float*)bpm)->body;
+        printf("set bpm of %f\n", bpmValue );
+      }
+      
+    }
+    else
+    {
+      //printf("atom message: %s\n", self->unmap->unmap( self->unmap->handle, ev->body.type ) );
+    }
+  }
   
   
   /// analyse sidechain input for peak
