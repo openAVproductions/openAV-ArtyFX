@@ -82,6 +82,7 @@ class Ducka
     float w, a, b, g1, g2;
     
     /// last peak history
+    long samplerate;
     bool nowIsAPeak;
     long peakFrameCounter;
     
@@ -161,6 +162,7 @@ Ducka::Ducka(int rate) :
   g1(0.0f),
   g2(0.0f),
   
+  samplerate( rate ),
   peakFrameCounter(0),
   peakCountDuration( rate / 4 ),
   
@@ -176,6 +178,7 @@ Ducka::Ducka(int rate, LV2_URID_Map* map) :
   g1(0.0f),
   g2(0.0f),
   
+  samplerate( rate ),
   peakFrameCounter(0),
   peakCountDuration( rate / 4 ),
   
@@ -270,17 +273,18 @@ void Ducka::run(LV2_Handle instance, uint32_t n_samples)
       LV2_Atom* bpm = 0;
       lv2_atom_object_get( (LV2_Atom_Object*)obj, self->time_beatsPerMinute, &bpm, NULL);
       
-      if ( bpm ) //&& bpm->type == self->atom_Float) {
+      if ( bpm )
       { 
         // Tempo changed, update BPM
         float bpmValue = ((LV2_Atom_Float*)bpm)->body;
-        printf("set bpm of %f\n", bpmValue );
+        
+        if ( bpmValue > 1 ) //protect against divide-by-zero segfault on host tempo 0 bpm
+        {
+          // set the new peakCountDuration, which is counted down from until fade up
+          self->peakCountDuration = self->samplerate / ( bpmValue / 60.f);
+        }
       }
       
-    }
-    else
-    {
-      //printf("atom message: %s\n", self->unmap->unmap( self->unmap->handle, ev->body.type ) );
     }
   }
   
@@ -330,7 +334,7 @@ void Ducka::run(LV2_Handle instance, uint32_t n_samples)
   }
   
   /// update output value
-  *self->controlSidechainAmp = self->currentTarget;
+  *self->controlSidechainAmp = 1-self->currentTarget;
 }
 
 void Ducka::cleanup(LV2_Handle instance)
