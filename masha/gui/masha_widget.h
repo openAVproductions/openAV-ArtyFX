@@ -5,12 +5,12 @@
 #include <FL/Fl.H>
 #include <FL/Fl_Double_Window.H>
 #include "lv2/lv2plug.in/ns/extensions/ui/ui.h"
-#include <iostream>
 using namespace std;
 #include "../dsp/masha.hxx"
 #include "avtk.h"
 #include <stdio.h>
 #include "header.c"
+#include <iostream>
 
 class MashaUI {
 public:

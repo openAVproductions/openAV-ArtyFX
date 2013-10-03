@@ -11,16 +11,16 @@ class MashaUI {open
   }
   Function {MashaUI()} {open
   } {
-    Fl_Window window {open
+    Fl_Window window {open selected
       xywh {1870 459 160 220} type Double
       code0 {\#include "lv2/lv2plug.in/ns/extensions/ui/ui.h"}
-      code1 {\#include <iostream>}
+      code1 {window->color( fl_rgb_color( 17,17,17) );}
       code2 {using namespace std;}
       code3 {\#include "../dsp/masha.hxx"} visible
     } {
       Fl_Box headerImage {
         label {header.png}
-        callback {//system("xdg-open http://www.openavproductions.com/artyfx\#ducka");} selected
+        callback {//system("xdg-open http://www.openavproductions.com/artyfx\#ducka");}
         xywh {0 0 160 29} labelcolor 20 when 6
         code0 {\#include "avtk.h"}
         code1 {\#include <stdio.h>}
@@ -39,6 +39,7 @@ float tmp = o->getActive();
 writePort(MASHA_ACTIVE, tmp );
 printf("masha UI active %f\\n" , tmp);}
         xywh {5 36 150 126} box UP_BOX color 179 labeltype NO_LABEL
+        code1 {\#include <iostream>}
         class {Avtk::Masher}
       }
       Fl_Dial time {

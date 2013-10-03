@@ -47,6 +47,10 @@ class Masher // : Effect
       _recording = false;
       playhead   = 0;
       recordHead = sr * 2;
+      
+      
+      duration( 0.5 );
+      currentSmashSize = newSmashSize;
     }
     
     void active(bool a)
@@ -120,13 +124,14 @@ class Masher // : Effect
           history[ recordHead++ ] = input[i];
         }
         
-        if ( recordHead > totalSmashSize ) // then playback
+        if ( recordHead > currentSmashSize ) // then playback
         {
           if ( playhead >= currentSmashSize )
           {
             playhead = 0;
             currentSmashSize = newSmashSize;
           }
+          
           tmp = history[ playhead++ ];
         }
         

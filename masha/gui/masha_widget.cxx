@@ -123,6 +123,7 @@ MashaUI::MashaUI() {
       replace->when(FL_WHEN_CHANGED);
       replace->value(1);
     } // Avtk::Dial* replace
+    window->color( fl_rgb_color( 17,17,17) );
     window->end();
   } // Fl_Double_Window* window
 }

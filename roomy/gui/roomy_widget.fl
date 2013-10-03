@@ -11,16 +11,16 @@ class RoomyUI {open
   }
   Function {RoomyUI()} {open
   } {
-    Fl_Window window {open
+    Fl_Window window {open selected
       xywh {1024 378 160 220} type Double
       code0 {\#include "lv2/lv2plug.in/ns/extensions/ui/ui.h"}
-      code1 {\#include <iostream>}
+      code1 {window->color( fl_rgb_color( 17, 17, 17) );}
       code2 {using namespace std;}
       code3 {\#include "../dsp/roomy.hxx"} visible
     } {
       Fl_Box headerImage {
         label {header.png}
-        callback {//system("xdg-open http://www.openavproductions.com/artyfx\#ducka");} selected
+        callback {//system("xdg-open http://www.openavproductions.com/artyfx\#ducka");}
         xywh {0 0 160 29} labelcolor 20 when 6
         code0 {\#include "avtk.h"}
         code1 {\#include <stdio.h>}
@@ -37,6 +37,7 @@ class RoomyUI {open
 //writePort(CUTOFF_FREQ, cutoff);
 //writePort(CUTOFF_GAIN, g);}
         xywh {5 36 150 126} box UP_BOX color 179 labeltype NO_LABEL
+        code2 {\#include <iostream>}
         class {Avtk::Reverb}
       }
       Fl_Dial time {

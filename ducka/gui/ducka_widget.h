@@ -6,8 +6,8 @@
 #include <FL/Fl_Double_Window.H>
 #include "lv2/lv2plug.in/ns/extensions/ui/ui.h"
 #include "avtk.h"
-using namespace std;
 #include "../dsp/ducka.hxx"
+using namespace std;
 #include <stdio.h>
 #include "header.c"
 

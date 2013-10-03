@@ -127,6 +127,11 @@ static void port_event(LV2UI_Handle ui,
     float value =  *(float *)buffer;
     switch ( port_index )
     {
+      case MASHA_ACTIVE:
+          {
+            self->widget->graph->setActive( value );
+          }
+          break;
       case MASHA_TIME:
           {
             self->widget->graph->duration( value );

@@ -118,6 +118,7 @@ RoomyUI::RoomyUI() {
       dryWet->align(Fl_Align(FL_ALIGN_BOTTOM));
       dryWet->when(FL_WHEN_CHANGED);
     } // Avtk::Dial* dryWet
+    window->color( fl_rgb_color( 17, 17, 17) );
     window->end();
   } // Fl_Double_Window* window
 }

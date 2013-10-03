@@ -118,6 +118,7 @@ DuckaUI::DuckaUI() {
       time->align(Fl_Align(FL_ALIGN_BOTTOM));
       time->when(FL_WHEN_CHANGED);
     } // Avtk::Dial* time
+    window->color( fl_rgb_color( 17,17,17) );
     window->end();
   } // Fl_Double_Window* window
 }
