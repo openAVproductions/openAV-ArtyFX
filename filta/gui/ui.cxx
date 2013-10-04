@@ -38,13 +38,13 @@
 using namespace std;
 
 typedef struct {
-  RoomyUI* widget;
+  Widget* widget;
   
   float sidechainAmp;
   
   LV2UI_Write_Function write_function;
   LV2UI_Controller controller;
-} RoomyGUI;
+} GUI;
 
 static LV2UI_Handle instantiate(const struct _LV2UI_Descriptor * descriptor,
                 const char * plugin_uri,
@@ -54,12 +54,12 @@ static LV2UI_Handle instantiate(const struct _LV2UI_Descriptor * descriptor,
                 LV2UI_Widget * widget,
                 const LV2_Feature * const * features)
 {
-  if (strcmp(plugin_uri, ROOMY_URI) != 0) {
-      fprintf(stderr, "ROOMY_URI error: this GUI does not support plugin with URI %s\n", plugin_uri);
+  if (strcmp(plugin_uri, FILTA_URI) != 0) {
+      fprintf(stderr, "FILTA_URI error: this GUI does not support plugin with URI %s\n", plugin_uri);
       return NULL;
   }
   
-  RoomyGUI* self = (RoomyGUI*)malloc(sizeof(RoomyGUI));
+  GUI* self = (GUI*)malloc(sizeof(GUI));
   if (self == NULL) return NULL;
   
   self->controller     = controller;
@@ -79,7 +79,7 @@ static LV2UI_Handle instantiate(const struct _LV2UI_Descriptor * descriptor,
   // in case FLTK hasn't opened it yet
   fl_open_display();
   
-  self->widget = new RoomyUI();
+  self->widget = new Widget();
   
   self->widget->window->border(0);
   
@@ -108,7 +108,7 @@ static LV2UI_Handle instantiate(const struct _LV2UI_Descriptor * descriptor,
 
 
 static void cleanup(LV2UI_Handle ui) {
-  RoomyGUI *pluginGui = (RoomyGUI *) ui;
+  GUI *pluginGui = (GUI *) ui;
   delete pluginGui->widget;
   free( pluginGui);
 }
@@ -119,31 +119,18 @@ static void port_event(LV2UI_Handle ui,
                uint32_t format,
                const void * buffer)
 {
-  RoomyGUI *self = (RoomyGUI *) ui;
+  GUI *self = (GUI *) ui;
   
   if ( format == 0 )
   {
     float value =  *(float *)buffer;
     switch ( port_index )
     {
-      case ROOMY_TIME:
+      case FILTA_FREQ_CONTROL:
           {
-            self->widget->graph->size( value );
-            self->widget->time->value( value );
+            //self->widget->graph->freq( value );
+            self->widget->freq->value( value );
           }
-          break;
-      case ROOMY_DAMPING:
-          {
-            self->widget->graph->damping( value );
-            self->widget->damping->value( value );
-          }
-          break;
-      case ROOMY_DRY_WET:
-          {
-            self->widget->graph->wet( value );
-            self->widget->dryWet->value( value );
-          }
-          break;
           break;
       
     }
@@ -156,7 +143,7 @@ static void port_event(LV2UI_Handle ui,
 static int
 idle(LV2UI_Handle handle)
 {
-  RoomyGUI* self = (RoomyGUI*)handle;
+  GUI* self = (GUI*)handle;
   
   self->widget->idle();
   
@@ -176,7 +163,7 @@ extension_data(const char* uri)
 }
 
 static LV2UI_Descriptor descriptors[] = {
-    {ROOMY_UI_URI, instantiate, cleanup, port_event, extension_data}
+    {FILTA_UI_URI, instantiate, cleanup, port_event, extension_data}
 };
 
 const LV2UI_Descriptor * lv2ui_descriptor(uint32_t index)

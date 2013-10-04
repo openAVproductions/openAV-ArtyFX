@@ -2,59 +2,38 @@
 
 #include "widget.h"
 
-void RoomyUI::cb_headerImage_i(Avtk::Image*, void*) {
+void Widget::cb_headerImage_i(Avtk::Image*, void*) {
   //system("xdg-open http://www.openavproductions.com/artyfx#ducka");
 }
-void RoomyUI::cb_headerImage(Avtk::Image* o, void* v) {
-  ((RoomyUI*)(o->parent()->user_data()))->cb_headerImage_i(o,v);
+void Widget::cb_headerImage(Avtk::Image* o, void* v) {
+  ((Widget*)(o->parent()->user_data()))->cb_headerImage_i(o,v);
 }
 
-void RoomyUI::cb_graph_i(Avtk::Filtergraph* o, void*) {
-  //cutoff = o->value();
-//float g = o->getGain();
-//gainDial->value( g );
-//freq->value( cutoff ); // update dial
-//writePort(CUTOFF_FREQ, cutoff);
-//writePort(CUTOFF_GAIN, g);
-}
-void RoomyUI::cb_graph(Avtk::Filtergraph* o, void* v) {
-  ((RoomyUI*)(o->parent()->user_data()))->cb_graph_i(o,v);
-}
-
-void RoomyUI::cb_time_i(Avtk::Dial* o, void*) {
+void Widget::cb_graph_i(Avtk::Filtergraph* o, void*) {
   float tmp = o->value();
-graph->size( tmp );
-writePort( int(ROOMY_TIME), tmp );
+freq->value( tmp );
+writePort(FILTA_FREQ_CONTROL, tmp);
 }
-void RoomyUI::cb_time(Avtk::Dial* o, void* v) {
-  ((RoomyUI*)(o->parent()->user_data()))->cb_time_i(o,v);
-}
-
-void RoomyUI::cb_damping_i(Avtk::Dial* o, void*) {
-  float tmp = o->value();
-graph->damping( tmp );
-writePort( int(ROOMY_DAMPING), tmp );
-}
-void RoomyUI::cb_damping(Avtk::Dial* o, void* v) {
-  ((RoomyUI*)(o->parent()->user_data()))->cb_damping_i(o,v);
+void Widget::cb_graph(Avtk::Filtergraph* o, void* v) {
+  ((Widget*)(o->parent()->user_data()))->cb_graph_i(o,v);
 }
 
-void RoomyUI::cb_dryWet_i(Avtk::Dial* o, void*) {
+void Widget::cb_freq_i(Avtk::Dial* o, void*) {
   float tmp = o->value();
-graph->wet( tmp );
-writePort( int(ROOMY_DRY_WET),tmp );
+graph->value( tmp );
+writePort(FILTA_FREQ_CONTROL, tmp);
 }
-void RoomyUI::cb_dryWet(Avtk::Dial* o, void* v) {
-  ((RoomyUI*)(o->parent()->user_data()))->cb_dryWet_i(o,v);
+void Widget::cb_freq(Avtk::Dial* o, void* v) {
+  ((Widget*)(o->parent()->user_data()))->cb_freq_i(o,v);
 }
 
 /**
    if the type of filter changes, this function will highlight the right button
 */
-void RoomyUI::update_button(int button) {
+void Widget::update_button(int button) {
 }
 
-RoomyUI::RoomyUI() {
+Widget::Widget() {
   { window = new Fl_Double_Window(160, 220);
     window->user_data((void*)(this));
     { headerImage = new Avtk::Image(0, 0, 160, 29, "header.png");
@@ -82,61 +61,37 @@ RoomyUI::RoomyUI() {
       graph->align(Fl_Align(FL_ALIGN_BOTTOM));
       graph->when(FL_WHEN_CHANGED);
     } // Avtk::Filtergraph* graph
-    { time = new Avtk::Dial(10, 169, 37, 37, "Time");
-      time->box(FL_NO_BOX);
-      time->color((Fl_Color)90);
-      time->selection_color(FL_INACTIVE_COLOR);
-      time->labeltype(FL_NORMAL_LABEL);
-      time->labelfont(0);
-      time->labelsize(10);
-      time->labelcolor(FL_FOREGROUND_COLOR);
-      time->callback((Fl_Callback*)cb_time);
-      time->align(Fl_Align(FL_ALIGN_BOTTOM));
-      time->when(FL_WHEN_CHANGED);
-    } // Avtk::Dial* time
-    { damping = new Avtk::Dial(62, 169, 37, 37, "Damping");
-      damping->box(FL_NO_BOX);
-      damping->color((Fl_Color)90);
-      damping->selection_color(FL_INACTIVE_COLOR);
-      damping->labeltype(FL_NORMAL_LABEL);
-      damping->labelfont(0);
-      damping->labelsize(10);
-      damping->labelcolor(FL_FOREGROUND_COLOR);
-      damping->callback((Fl_Callback*)cb_damping);
-      damping->align(Fl_Align(FL_ALIGN_BOTTOM));
-      damping->when(FL_WHEN_CHANGED);
-    } // Avtk::Dial* damping
-    { dryWet = new Avtk::Dial(113, 168, 37, 37, "Dry / Wet");
-      dryWet->box(FL_NO_BOX);
-      dryWet->color((Fl_Color)90);
-      dryWet->selection_color(FL_INACTIVE_COLOR);
-      dryWet->labeltype(FL_NORMAL_LABEL);
-      dryWet->labelfont(0);
-      dryWet->labelsize(10);
-      dryWet->labelcolor(FL_FOREGROUND_COLOR);
-      dryWet->callback((Fl_Callback*)cb_dryWet);
-      dryWet->align(Fl_Align(FL_ALIGN_BOTTOM));
-      dryWet->when(FL_WHEN_CHANGED);
-    } // Avtk::Dial* dryWet
+    { freq = new Avtk::Dial(62, 169, 37, 37, "Frequency");
+      freq->box(FL_NO_BOX);
+      freq->color((Fl_Color)90);
+      freq->selection_color(FL_INACTIVE_COLOR);
+      freq->labeltype(FL_NORMAL_LABEL);
+      freq->labelfont(0);
+      freq->labelsize(10);
+      freq->labelcolor(FL_FOREGROUND_COLOR);
+      freq->callback((Fl_Callback*)cb_freq);
+      freq->align(Fl_Align(FL_ALIGN_BOTTOM));
+      freq->when(FL_WHEN_CHANGED);
+    } // Avtk::Dial* freq
     window->color( fl_rgb_color( 17, 17, 17) );
     window->end();
   } // Fl_Double_Window* window
 }
 
-void RoomyUI::idle() {
+void Widget::idle() {
   Fl::check();
   Fl::flush();
 }
 
-int RoomyUI::getWidth() {
+int Widget::getWidth() {
   return window->w();
 }
 
-int RoomyUI::getHeight() {
+int Widget::getHeight() {
   return window->h();
 }
 
-void RoomyUI::writePort(int port, float& value) {
+void Widget::writePort(int port, float& value) {
   //cout << "port " << port << " value " << value << endl;
   write_function(controller, port, sizeof(float), 0, &value);
 }

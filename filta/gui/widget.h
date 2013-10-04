@@ -12,10 +12,10 @@ using namespace std;
 #include "header.c"
 #include <iostream>
 
-class RoomyUI {
+class Widget {
 public:
   void update_button(int button);
-  RoomyUI();
+  Widget();
   Fl_Double_Window *window;
   Avtk::Image *headerImage;
 private:
@@ -27,20 +27,10 @@ private:
   void cb_graph_i(Avtk::Filtergraph*, void*);
   static void cb_graph(Avtk::Filtergraph*, void*);
 public:
-  Avtk::Dial *time;
+  Avtk::Dial *freq;
 private:
-  void cb_time_i(Avtk::Dial*, void*);
-  static void cb_time(Avtk::Dial*, void*);
-public:
-  Avtk::Dial *damping;
-private:
-  void cb_damping_i(Avtk::Dial*, void*);
-  static void cb_damping(Avtk::Dial*, void*);
-public:
-  Avtk::Dial *dryWet;
-private:
-  void cb_dryWet_i(Avtk::Dial*, void*);
-  static void cb_dryWet(Avtk::Dial*, void*);
+  void cb_freq_i(Avtk::Dial*, void*);
+  static void cb_freq(Avtk::Dial*, void*);
 public:
   LV2UI_Write_Function write_function; 
   LV2UI_Controller controller; 
