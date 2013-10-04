@@ -88,6 +88,7 @@ LV2_Handle Filta::instantiate(const LV2_Descriptor* descriptor,
 Filta::Filta(int rate) :
   dspFilters( rate )
 {
+  dspFilters.active( true );
 }
 
 

@@ -78,18 +78,17 @@ class Filters // : Effect
         if ( value > 0.5 )
         {
           float zeroOne = (value-0.5)*2.f;
-          hipcutoff = 60 + pow(zeroOne,4) * 10000;
+          hipcutoff = 10 + pow(zeroOne,4) * 6000;
         }
         else
         {
           float zeroOne = (value)*2.f;
-          lopcutoff = 60 + pow(zeroOne,4) * 10000;
+          lopcutoff = 100 + pow(zeroOne,4) * 20000;
         }
-        //printf("%f, hi %f, lo %f\n", value, hipcutoff, lopcutoff );
       }
       else
       {
-        hipcutoff = 60;
+        hipcutoff = 10;
         lopcutoff = 10000;
       }
     }
