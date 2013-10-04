@@ -83,6 +83,11 @@ class Filtergraph : public Fl_Slider
       redraw();
     }
     
+    bool getActive()
+    {
+      return active;
+    }
+    
     Type graphType;
     bool active;
     bool highlight;
@@ -212,6 +217,8 @@ class Filtergraph : public Fl_Slider
           if ( Fl::event_button() == FL_RIGHT_MOUSE )
           {
             active = !active;
+            redraw();
+            do_callback();
           }
           redraw();
           return 1;
@@ -325,9 +332,6 @@ class Filtergraph : public Fl_Slider
     
     void drawFlat(cairo_t* cr)
     {
-      // draw the cutoff line:
-      float cutoff = 0.95 - (freq*0.8);
-      
       // move to bottom right
       cairo_move_to( cr, x + w, y + h );
       cairo_line_to( cr, x + w, y + (h*0.47));

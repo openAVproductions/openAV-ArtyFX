@@ -35,6 +35,7 @@ typedef enum
   FILTA_OUTPUT_R,
   
   FILTA_FREQ_CONTROL,
+  FILTA_ACTIVE,
 } PortIndex;
 
 #endif // OPENAV_FILTA

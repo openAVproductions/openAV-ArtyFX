@@ -83,7 +83,7 @@ class Filters // : Effect
         else
         {
           float zeroOne = (value)*2.f;
-          lopcutoff = 100 + pow(zeroOne,4) * 20000;
+          lopcutoff = 100 + pow(zeroOne,4) * ((fSamplingFreq/2.f)-100);
         }
       }
       else
@@ -97,8 +97,9 @@ class Filters // : Effect
     {
       _active = a;
       
-      // re-check the values
-      setValue( value );
+      // uncomment to re-calc frequency values on enable / disable
+      // commented because the LV2 calls setValue() on *every* process()
+      //setValue( value );
     }
     
     int getNumInputs() { return 2; }

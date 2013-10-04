@@ -128,8 +128,13 @@ static void port_event(LV2UI_Handle ui,
     {
       case FILTA_FREQ_CONTROL:
           {
-            //self->widget->graph->freq( value );
+            self->widget->graph->value( value );
             self->widget->freq->value( value );
+          }
+          break;
+      case FILTA_ACTIVE:
+          {
+            self->widget->graph->setActive( value );
           }
           break;
       

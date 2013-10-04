@@ -51,6 +51,7 @@ class Filta
     
     /// control signals
     float* freqControl;
+    float* activeControl;
     
   private:
     Filters dspFilters;
@@ -123,6 +124,9 @@ void Filta::connect_port(LV2_Handle instance, uint32_t port, void *data)
       case FILTA_FREQ_CONTROL:
           self->freqControl  = (float*)data;
           break;
+      case FILTA_ACTIVE:
+          self->activeControl  = (float*)data;
+          break;
   }
 }
 
@@ -142,7 +146,13 @@ void Filta::run(LV2_Handle instance, uint32_t n_samples)
   };
   
   /// control inputs
+  float active = *self->activeControl;
   float freqControl = *self->freqControl;
+  
+  if ( active > 0.5 )
+    self->dspFilters.active( true  );
+  else
+    self->dspFilters.active( false );
   
   self->dspFilters.setValue( freqControl );
   
