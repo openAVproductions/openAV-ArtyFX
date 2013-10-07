@@ -23,6 +23,6 @@
 
 #include "../../ui/dial.h"
 #include "../../ui/image.h"
-#include "../ui/filtergraph.h"
+#include "../../ui/filtergraph.h"
 
 #endif
