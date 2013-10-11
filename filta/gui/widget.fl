@@ -11,11 +11,11 @@ class Widget {open
   }
   Function {Widget()} {open
   } {
-    Fl_Window window {open
-      xywh {320 238 160 220} type Double
+    Fl_Window window {open selected
+      xywh {684 91 160 220} type Double
       code0 {\#include "lv2/lv2plug.in/ns/extensions/ui/ui.h"}
       code1 {window->color( fl_rgb_color( 17, 17, 17) );}
-      code2 {using namespace std;}
+      code2 {close_cb( o, 0 );}
       code3 {\#include "../dsp/shared.hxx"} visible
     } {
       Fl_Box headerImage {
@@ -36,8 +36,9 @@ writePort(FILTA_FREQ_CONTROL, tmp);
 
 float a = o->getActive();
 writePort(FILTA_ACTIVE, a);
-printf("active %f\\n", a );} selected
+printf("active %f\\n", a );}
         xywh {5 36 150 126} box UP_BOX color 179 labeltype NO_LABEL
+        code1 {using namespace std;}
         code2 {\#include <iostream>}
         class {Avtk::Filtergraph}
       }
@@ -78,5 +79,16 @@ Fl::flush();} {}
   } {
     code {//cout << "port " << port << " value " << value << endl;
 write_function(controller, port, sizeof(float), 0, &value);} {}
+  }
+  Function {close_cb(Fl_Widget* o, void*)} {open
+  } {
+    code {if ((Fl::event() == FL_KEYDOWN || Fl::event() == FL_SHORTCUT) && Fl::event_key() == FL_Escape)
+  {
+    return; // ignore ESC
+  }
+  else
+  {
+    o->hide();
+  }} {}
   }
 } 

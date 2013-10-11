@@ -55,7 +55,7 @@ void DuckaUI::update_button(int button) {
 }
 
 DuckaUI::DuckaUI() {
-  { window = new Fl_Double_Window(160, 220);
+  { Fl_Double_Window* o = window = new Fl_Double_Window(160, 220);
     window->user_data((void*)(this));
     { headerImage = new Avtk::Image(0, 0, 160, 29, "header.png");
       headerImage->box(FL_NO_BOX);
@@ -119,6 +119,7 @@ DuckaUI::DuckaUI() {
       time->when(FL_WHEN_CHANGED);
     } // Avtk::Dial* time
     window->color( fl_rgb_color( 17,17,17) );
+    close_cb( o, 0 );
     window->end();
   } // Fl_Double_Window* window
 }
@@ -139,4 +140,15 @@ int DuckaUI::getHeight() {
 void DuckaUI::writePort(int port, float& value) {
   //cout << "port " << port << " value " << value << endl;
   write_function(controller, port, sizeof(float), 0, &value);
+}
+
+void DuckaUI::close_cb(Fl_Widget* o, void*) {
+  if ((Fl::event() == FL_KEYDOWN || Fl::event() == FL_SHORTCUT) && Fl::event_key() == FL_Escape)
+    {
+      return; // ignore ESC
+    }
+    else
+    {
+      o->hide();
+    }
 }

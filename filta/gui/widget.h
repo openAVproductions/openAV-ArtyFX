@@ -5,11 +5,11 @@
 #include <FL/Fl.H>
 #include <FL/Fl_Double_Window.H>
 #include "lv2/lv2plug.in/ns/extensions/ui/ui.h"
-using namespace std;
 #include "../dsp/shared.hxx"
 #include "avtk.h"
 #include <stdio.h>
 #include "header.c"
+using namespace std;
 #include <iostream>
 
 class Widget {
@@ -43,5 +43,6 @@ private:
   float Q; 
 public:
   void writePort(int port, float& value);
+  void close_cb(Fl_Widget* o, void*);
 };
 #endif

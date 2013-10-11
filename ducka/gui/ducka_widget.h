@@ -6,10 +6,10 @@
 #include <FL/Fl_Double_Window.H>
 #include "lv2/lv2plug.in/ns/extensions/ui/ui.h"
 #include "avtk.h"
-#include "../dsp/ducka.hxx"
 using namespace std;
 #include <stdio.h>
 #include "header.c"
+#include "../dsp/ducka.hxx"
 
 class DuckaUI {
 public:
@@ -52,5 +52,6 @@ private:
   float Q; 
 public:
   void writePort(int port, float& value);
+  void close_cb(Fl_Widget* o, void*);
 };
 #endif
