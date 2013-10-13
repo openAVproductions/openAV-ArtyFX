@@ -5,7 +5,6 @@
 #include <FL/Fl.H>
 #include <FL/Fl_Double_Window.H>
 #include "lv2/lv2plug.in/ns/extensions/ui/ui.h"
-using namespace std;
 #include "../dsp/masha.hxx"
 #include "avtk.h"
 #include <stdio.h>
@@ -54,4 +53,5 @@ private:
 public:
   void writePort(int port, float& value);
 };
+void close_cb(Fl_Widget* o, void*);
 #endif

@@ -12,10 +12,10 @@ class MashaUI {open
   Function {MashaUI()} {open
   } {
     Fl_Window window {open selected
-      xywh {1870 459 160 220} type Double
+      xywh {617 299 160 220} type Double
       code0 {\#include "lv2/lv2plug.in/ns/extensions/ui/ui.h"}
       code1 {window->color( fl_rgb_color( 17,17,17) );}
-      code2 {using namespace std;}
+      code2 {close_cb( o, 0 );}
       code3 {\#include "../dsp/masha.hxx"} visible
     } {
       Fl_Box headerImage {
@@ -99,4 +99,16 @@ Fl::flush();} {}
     code {//cout << "port " << port << " value " << value << endl;
 write_function(controller, port, sizeof(float), 0, &value);} {}
   }
+} 
+
+Function {close_cb(Fl_Widget* o, void*)} {open
+} {
+  code {if ((Fl::event() == FL_KEYDOWN || Fl::event() == FL_SHORTCUT) && Fl::event_key() == FL_Escape)
+  {
+    return; // ignore ESC
+  }
+  else
+  {
+    o->hide();
+  }} {}
 } 

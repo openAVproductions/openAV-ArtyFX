@@ -15,7 +15,7 @@ class RoomyUI {open
       xywh {1024 378 160 220} type Double
       code0 {\#include "lv2/lv2plug.in/ns/extensions/ui/ui.h"}
       code1 {window->color( fl_rgb_color( 17, 17, 17) );}
-      code2 {using namespace std;}
+      code2 {close_cb(o, 0);}
       code3 {\#include "../dsp/roomy.hxx"} visible
     } {
       Fl_Box headerImage {
@@ -37,6 +37,7 @@ class RoomyUI {open
 //writePort(CUTOFF_FREQ, cutoff);
 //writePort(CUTOFF_GAIN, g);}
         xywh {5 36 150 126} box UP_BOX color 179 labeltype NO_LABEL
+        code1 {using namespace std;}
         code2 {\#include <iostream>}
         class {Avtk::Reverb}
       }
@@ -94,4 +95,16 @@ Fl::flush();} {}
     code {//cout << "port " << port << " value " << value << endl;
 write_function(controller, port, sizeof(float), 0, &value);} {}
   }
+} 
+
+Function {close_cb(Fl_Widget* o, void*)} {open
+} {
+  code {if ((Fl::event() == FL_KEYDOWN || Fl::event() == FL_SHORTCUT) && Fl::event_key() == FL_Escape)
+  {
+    return; // ignore ESC
+  }
+  else
+  {
+    o->hide();
+  }} {}
 } 
