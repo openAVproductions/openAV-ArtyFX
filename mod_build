@@ -13,4 +13,5 @@ fi
 
 
 make
+mkdir ${LV2_PATH}
 make INSTALL_PATH=${LV2_PATH} install
