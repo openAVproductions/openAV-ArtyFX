@@ -1,8 +1,3 @@
-/ducka/ducka.lv2/ducka.so
-/ducka/ducka.lv2/ducka_ui.so
-/roomy/roomy.lv2/roomy.so
-/roomy/roomy.lv2/roomy_ui.so
-/masha/masha.lv2/masha.so
-/masha/masha.lv2/masha_ui.so
-/filta/filta.lv2/filta.so
-/filta/filta.lv2/filta_ui.so
+*.so
+*.png
+*.o

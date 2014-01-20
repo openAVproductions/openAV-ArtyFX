@@ -22,6 +22,7 @@
 @prefix atom:  <http://lv2plug.in/ns/ext/atom#> .
 @prefix ui: <http://lv2plug.in/ns/extensions/ui#>.
 @prefix time: <http://lv2plug.in/ns/ext/time#> .
+@prefix mod: <http://portalmod.com/ns/modgui#>.
 
 #<http://www.openavproductions.com/artyfx#ducka/gui>
 #  a ui:X11UI;
@@ -142,6 +143,12 @@ source: http://openavproductions.com/artyfx/
     lv2:index 9 ;
     lv2:symbol "control" ;
     lv2:name "Control"
-  ]
-  .
-
+  ];
+  mod:gui [
+    a mod:Gui;
+    mod:resourcesDirectory <modgui>;
+    mod:iconTemplate <modgui/icon-ducka.html>;
+    mod:templateData <modgui/data-ducka.json>;
+    mod:screenshot <modgui/screenshot-ducka.png>;
+    mod:thumbnail <modgui/thumb-ducka.png>;
+  ] .
