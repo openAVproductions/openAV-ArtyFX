@@ -2,8 +2,10 @@
 CC=g++
 CFLAGS=-O3 -Wall
 
-INCLUDES=$(shell pkg-config --cflags sndfile cairomm-1.0 ntk ntk_images)
-LDFLAGS=$(shell pkg-config --libs sndfile cairomm-1.0 ntk ntk_images) -fPIC -shared -Wl,-z,nodelete
+INCLUDES=$(shell pkg-config --cflags sndfile cairomm-1.0)
+# INCLUDES=$(shell pkg-config --cflags sndfile cairomm-1.0 ntk ntk_images)
+LDFLAGS=$(shell pkg-config --libs sndfile cairomm-1.0) -fPIC -shared -Wl,-z,nodelete
+# LDFLAGS=$(shell pkg-config --libs sndfile cairomm-1.0 ntk ntk_images) -fPIC -shared -Wl,-z,nodelete
 
 UISOURCES=gui/ducka_widget.cxx gui/ducka_ui.cxx
 UIOBJECTS=$(UISOURCES:.cpp=.o)
@@ -13,7 +15,8 @@ DSPSOURCES=dsp/ducka.cxx
 DSPOBJECTS=$(DSPSOURCES:.cpp=.o)
 DSP=ducka.lv2/ducka.so
 
-all: folder dsp ui
+all: folder dsp
+# all: folder dsp ui
 
 
 folder:

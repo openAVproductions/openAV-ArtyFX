@@ -21,19 +21,38 @@
 @prefix epp: <http://lv2plug.in/ns/ext/port-props#> .
 @prefix ui: <http://lv2plug.in/ns/extensions/ui#>.
 
-<http://www.openavproductions.com/artyfx#roomy/gui>
-  a ui:X11UI;
-  ui:binary <roomy_ui.so>;
-  ui:requiredFeature ui:makeResident.
+#<http://www.openavproductions.com/artyfx#roomy/gui>
+#  a ui:X11UI;
+#  ui:binary <roomy_ui.so>;
+#  ui:requiredFeature ui:makeResident.
 
-<http://www.openavproductions.com/artyfx#roomy>
+<http://portalmod.com/plugins/artyfx/roomy>
   a lv2:Plugin ,
     lv2:ReverbPlugin ;
   doap:name "Roomy";
-  doap:maintainer <http://www.openavproductions.com/> ;
+  doap:developer [ 
+      foaf:homepage <http://openavproductions.com/artyfx/>; 
+      foaf:mbox <mailto:harryhaaren@gmail.com>;
+      foaf:name "Harry van Haaren" 
+  ];
+  doap:maintainer [ 
+      foaf:homepage <http://portalmod.com>;
+      foaf:mbox <mailto:devel@portalmod.com>;
+      foaf:name "MOD Team" 
+  ];
+
   lv2:optionalFeature lv2:hardRTCapable ;
-  
-  ui:ui <http://www.openavproductions.com/artyfx#roomy/gui>;
+
+lv2:microVersion 0;
+lv2:minorVersion 0;
+
+#  ui:ui <http://www.openavproductions.com/artyfx#roomy/gui>;
+
+rdfs:comment """
+Roomy is a reverb effect, with simple automatable controls. Perfect as an insert on the master bus, for those epic reverb builds before the drop.
+
+source: http://openavproductions.com/artyfx/
+""";
   
   lv2:port [
     a lv2:AudioPort ,

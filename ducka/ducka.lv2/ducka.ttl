@@ -23,19 +23,38 @@
 @prefix ui: <http://lv2plug.in/ns/extensions/ui#>.
 @prefix time: <http://lv2plug.in/ns/ext/time#> .
 
-<http://www.openavproductions.com/artyfx#ducka/gui>
-  a ui:X11UI;
-  ui:binary <ducka_ui.so>;
-  ui:requiredFeature ui:makeResident.
+#<http://www.openavproductions.com/artyfx#ducka/gui>
+#  a ui:X11UI;
+#  ui:binary <ducka_ui.so>;
+#  ui:requiredFeature ui:makeResident.
 
-<http://www.openavproductions.com/artyfx#ducka>
+<http://portalmod.com/plugins/artyfx/ducka>
   a lv2:Plugin ,
     lv2:EnvelopePlugin ;
   doap:name "Ducka";
-  doap:maintainer <http://www.openavproductions.com/> ;
+  doap:developer [ 
+      foaf:homepage <http://openavproductions.com/artyfx/>; 
+      foaf:mbox <mailto:harryhaaren@gmail.com>;
+      foaf:name "Harry van Haaren" 
+  ];
+  doap:maintainer [ 
+      foaf:homepage <http://portalmod.com>;
+      foaf:mbox <mailto:devel@portalmod.com>;
+      foaf:name "MOD Team" 
+  ];
+
   lv2:optionalFeature lv2:hardRTCapable ;
-  
-  ui:ui <http://www.openavproductions.com/artyfx#ducka/gui>;
+
+lv2:microVersion 0;
+lv2:minorVersion 0;
+
+#  ui:ui <http://www.openavproductions.com/artyfx#ducka/gui>;
+
+rdfs:comment """
+Ducka is a sidechain-volume envelope. Perfect for pumping basslines, or fading adding some interest to a synth. The “Time” control allows pushing and pulling those pumps just off beat for extra energy!
+
+source: http://openavproductions.com/artyfx/
+""";
   
   lv2:port [
     a lv2:AudioPort ,

@@ -23,7 +23,7 @@
 
 #include "lv2/lv2plug.in/ns/lv2core/lv2.h"
 
-#define ROOMY_URI    "http://www.openavproductions.com/artyfx#roomy"
+#define ROOMY_URI    "http://portalmod.com/plugins/artyfx/roomy"
 #define ROOMY_UI_URI "http://www.openavproductions.com/artyfx#roomy/gui"
 
 typedef enum

@@ -23,7 +23,7 @@
 
 #include "lv2/lv2plug.in/ns/lv2core/lv2.h"
 
-#define FILTA_URI    "http://www.openavproductions.com/artyfx#filta"
+#define FILTA_URI    "http://portalmod.com/plugins/artyfx/filta"
 #define FILTA_UI_URI "http://www.openavproductions.com/artyfx#filta/gui"
 
 typedef enum

@@ -24,19 +24,39 @@
 @prefix ui: <http://lv2plug.in/ns/extensions/ui#>.
 @prefix time: <http://lv2plug.in/ns/ext/time#> .
 
-<http://www.openavproductions.com/artyfx#masha/gui>
-  a ui:X11UI;
-  ui:binary <masha_ui.so>;
-  ui:requiredFeature ui:makeResident.
+#<http://www.openavproductions.com/artyfx#masha/gui>
+#  a ui:X11UI;
+#  ui:binary <masha_ui.so>;
+#  ui:requiredFeature ui:makeResident.
 
-<http://www.openavproductions.com/artyfx#masha>
+<http://portalmod.com/plugins/artyfx/masha>
   a lv2:Plugin ,
     lv2:DelayPlugin ;
   doap:name "Masha";
-  doap:maintainer [ foaf:name "OpenAV Productions" ] ;
+  doap:developer [ 
+      foaf:homepage <http://openavproductions.com/artyfx/>; 
+      foaf:mbox <mailto:harryhaaren@gmail.com>;
+      foaf:name "Harry van Haaren" 
+  ];
+  doap:maintainer [ 
+      foaf:homepage <http://portalmod.com>;
+      foaf:mbox <mailto:devel@portalmod.com>;
+      foaf:name "MOD Team" 
+  ];
+
   lv2:optionalFeature lv2:hardRTCapable ;
+
+
+lv2:microVersion 0;
+lv2:minorVersion 0;
+
+#  ui:ui <http://www.openavproductions.com/artyfx#masha/gui>;
   
-  ui:ui <http://www.openavproductions.com/artyfx#masha/gui>;
+rdfs:comment """
+Masha is a beat smasher. Once enabled, Masha samples a beat of audio, and loop plays it back. Play with the “Time” dial for the classic stutter build.
+
+source: http://openavproductions.com/artyfx/
+""";
   
   lv2:port [
     a lv2:AudioPort ,

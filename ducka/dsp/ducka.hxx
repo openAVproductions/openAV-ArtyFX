@@ -23,7 +23,7 @@
 
 #include "lv2/lv2plug.in/ns/lv2core/lv2.h"
 
-#define DUCKA_URI    "http://www.openavproductions.com/artyfx#ducka"
+#define DUCKA_URI    "http://portalmod.com/plugins/artyfx/ducka"
 #define DUCKA_UI_URI "http://www.openavproductions.com/artyfx#ducka/gui"
 
 typedef enum

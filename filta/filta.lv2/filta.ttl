@@ -21,19 +21,38 @@
 @prefix epp: <http://lv2plug.in/ns/ext/port-props#> .
 @prefix ui: <http://lv2plug.in/ns/extensions/ui#>.
 
-<http://www.openavproductions.com/artyfx#filta/gui>
-  a ui:X11UI;
-  ui:binary <filta_ui.so>;
-  ui:requiredFeature ui:makeResident.
+#<http://www.openavproductions.com/artyfx#filta/gui>
+#  a ui:X11UI;
+#  ui:binary <filta_ui.so>;
+#  ui:requiredFeature ui:makeResident.
 
-<http://www.openavproductions.com/artyfx#filta>
+<http://portalmod.com/plugins/artyfx/filta>
   a lv2:Plugin ,
     lv2:FilterPlugin ;
   doap:name "Filta";
-  doap:maintainer <http://www.openavproductions.com/> ;
+  doap:developer [ 
+      foaf:homepage <http://openavproductions.com/artyfx/>; 
+      foaf:mbox <mailto:harryhaaren@gmail.com>;
+      foaf:name "Harry van Haaren" 
+  ];
+  doap:maintainer [ 
+      foaf:homepage <http://portalmod.com>;
+      foaf:mbox <mailto:devel@portalmod.com>;
+      foaf:name "MOD Team" 
+  ];
+
   lv2:optionalFeature lv2:hardRTCapable ;
-  
-  ui:ui <http://www.openavproductions.com/artyfx#filta/gui>;
+ 
+lv2:microVersion 0;
+lv2:minorVersion 0;
+
+#  ui:ui <http://www.openavproductions.com/artyfx#filta/gui>;
+
+rdfs:comment """
+Filta is a highpass / lowpass filter combo. Working on a trance build, or just need some frequencies gone? Filta is the tool for the job, one dial for flexibilty but keeping simplicity!
+
+source: http://openavproductions.com/artyfx/
+""";
   
   lv2:port [
     a lv2:AudioPort ,

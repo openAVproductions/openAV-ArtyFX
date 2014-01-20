@@ -23,7 +23,7 @@
 
 #include "lv2/lv2plug.in/ns/lv2core/lv2.h"
 
-#define MASHA_URI    "http://www.openavproductions.com/artyfx#masha"
+#define MASHA_URI    "http://portalmod.com/plugins/artyfx/masha"
 #define MASHA_UI_URI "http://www.openavproductions.com/artyfx#masha/gui"
 
 typedef enum
