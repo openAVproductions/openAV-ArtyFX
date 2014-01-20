@@ -1,0 +1,16 @@
+#!/bin/bash
+
+if [ "x${1}x" == "x-lx" ]; then
+    prefix=`basename $(pwd)`
+    for lv2 in `ls -d */`; do test -f ${lv2}makefile && echo ${prefix}-${lv2%/}.lv2; done
+    exit 0
+fi
+
+if [ "x${LV2_PATH}x" == "xx" ]; then
+	export LV2_PATH=${HOME}/.lv2/
+fi
+
+
+
+make
+make INSTALL_PATH=${LV2_PATH} install

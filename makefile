@@ -10,7 +10,7 @@ all:
 	cd filta && make
 
 install:
-	cd roomy && make install
-	cd masha && make install
-	cd ducka && make install
-	cd filta && make install
+	cd roomy && make INSTALL_PATH=${LV2_PATH} install
+	cd masha && make INSTALL_PATH=${LV2_PATH} install
+	cd ducka && make INSTALL_PATH=${LV2_PATH} install
+	cd filta && make INSTALL_PATH=${LV2_PATH} install

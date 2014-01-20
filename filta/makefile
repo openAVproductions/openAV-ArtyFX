@@ -1,3 +1,4 @@
+INSTALL_PATH=~/.lv2
 
 CC=g++
 CFLAGS=-O3 -Wall
@@ -23,7 +24,7 @@ folder:
 	mkdir -p filta.lv2/
 
 install:
-	cp -r filta.lv2 ~/.lv2/
+	cp -r filta.lv2 $(INSTALL_PATH)
 
 ui: $(UISOURCES) $(UI)
 dsp: $(DSPSOURCES) $(DSP)
