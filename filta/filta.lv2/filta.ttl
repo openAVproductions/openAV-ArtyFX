@@ -19,13 +19,7 @@
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix epp: <http://lv2plug.in/ns/ext/port-props#> .
-#@prefix ui: <http://lv2plug.in/ns/extensions/ui#>.
 @prefix mod: <http://portalmod.com/ns/modgui#>.
-
-#<http://www.openavproductions.com/artyfx#filta/gui>
-#  a ui:X11UI;
-#  ui:binary <filta_ui.so>;
-#  ui:requiredFeature ui:makeResident.
 
 <http://portalmod.com/plugins/artyfx/filta>
   a lv2:Plugin ,
@@ -46,8 +40,6 @@
  
 lv2:microVersion 0;
 lv2:minorVersion 0;
-
-#ui:ui <http://www.openavproductions.com/artyfx#filta/gui>;
 
 rdfs:comment """
 Filta is a highpass / lowpass filter combo. Working on a trance build, or just need some frequencies gone? Filta is the tool for the job, one dial for flexibilty but keeping simplicity!
@@ -79,15 +71,11 @@ source: http://openavproductions.com/artyfx/
     lv2:index 3 ;
     lv2:symbol "out_right" ;
     lv2:name "Output Right";
-  ]
-  
-  ,
-  
-  [
+  ] , [
     a lv2:InputPort ,
       lv2:ControlPort ;
     lv2:index 4 ;
-    lv2:symbol "frequency_control" ;
+    lv2:symbol "freq" ;
     lv2:name "Frequency Control";
     lv2:default 0.5 ;
     lv2:minimum 0.0 ;

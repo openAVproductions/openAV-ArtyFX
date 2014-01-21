@@ -19,13 +19,7 @@
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix epp: <http://lv2plug.in/ns/ext/port-props#> .
-#@prefix ui: <http://lv2plug.in/ns/extensions/ui#>.
 @prefix mod: <http://portalmod.com/ns/modgui#>.
-
-#<http://www.openavproductions.com/artyfx#roomy/gui>
-#  a ui:X11UI;
-#  ui:binary <roomy_ui.so>;
-#  ui:requiredFeature ui:makeResident.
 
 <http://portalmod.com/plugins/artyfx/roomy>
   a lv2:Plugin ,
@@ -46,8 +40,6 @@
 
 lv2:microVersion 0;
 lv2:minorVersion 0;
-
-#ui:ui <http://www.openavproductions.com/artyfx#roomy/gui>;
 
 rdfs:comment """
 Roomy is a reverb effect, with simple automatable controls. Perfect as an insert on the master bus, for those epic reverb builds before the drop.
@@ -79,11 +71,7 @@ source: http://openavproductions.com/artyfx/
     lv2:index 3 ;
     lv2:symbol "out_right" ;
     lv2:name "Output Right";
-  ]
-  
-  ,
-  
-  [
+  ] , [
     a lv2:InputPort ,
       lv2:ControlPort ;
     lv2:index 4 ;

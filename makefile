@@ -14,3 +14,9 @@ install:
 	cd masha && make INSTALL_PATH=${LV2_PATH} install
 	cd ducka && make INSTALL_PATH=${LV2_PATH} install
 	cd filta && make INSTALL_PATH=${LV2_PATH} install
+
+clean:
+	cd roomy && make clean
+	cd masha && make clean
+	cd ducka && make clean
+	cd filta && make clean
