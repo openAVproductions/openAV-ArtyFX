@@ -3,9 +3,9 @@ INSTALL_PATH=~/.lv2
 CC=g++
 CFLAGS=-O3 -Wall
 
-INCLUDES=$(shell pkg-config --cflags sndfile cairomm-1.0)
+INCLUDES=$(shell pkg-config --cflags sndfile )
 # INCLUDES=$(shell pkg-config --cflags sndfile cairomm-1.0 ntk ntk_images)
-LDFLAGS=$(shell pkg-config --libs sndfile cairomm-1.0) -fPIC -shared -Wl,-z,nodelete
+LDFLAGS=$(shell pkg-config --libs sndfile ) -fPIC -shared -Wl,-z,nodelete
 # LDFLAGS=$(shell pkg-config --libs sndfile cairomm-1.0 ntk ntk_images) -fPIC -shared -Wl,-z,nodelete
 
 UISOURCES=gui/roomy_widget.cxx gui/roomy_ui.cxx
