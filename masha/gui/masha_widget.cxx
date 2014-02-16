@@ -17,7 +17,7 @@ void MashaUI::cb_graph_i(Avtk::Masher* o, void*) {
 //writePort(CUTOFF_FREQ, cutoff);
 float tmp = o->getActive();
 writePort(MASHA_ACTIVE, tmp );
-printf("masha UI active %f\n" , tmp);
+//printf("masha UI active %f\n" , tmp);
 }
 void MashaUI::cb_graph(Avtk::Masher* o, void* v) {
   ((MashaUI*)(o->parent()->user_data()))->cb_graph_i(o,v);
