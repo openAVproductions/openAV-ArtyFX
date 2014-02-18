@@ -68,17 +68,20 @@ class Delay // : Effect
       
       // FIXME: get BPM & use BPM to calculate delay time
       //int bpm = 120;
-      int delTimeQuantized = int(v * 3.8f);
+      int delTimeQuantized = int(v * 3.99f);
       
       switch( delTimeQuantized )
       {
         case 0:
-          delayTimeSamps = samplerate * 0.25;
+          delayTimeSamps = samplerate * 0.125;
           break;
         case 1:
-          delayTimeSamps = samplerate * 0.5;
+          delayTimeSamps = samplerate * 0.25;
           break;
         case 2:
+          delayTimeSamps = samplerate * 0.5;
+          break;
+        case 3:
           delayTimeSamps = samplerate * 1;
           break;
       }

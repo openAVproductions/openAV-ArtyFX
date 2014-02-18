@@ -159,7 +159,23 @@ class Delaygraph : public Fl_Slider
         cairo_stroke(cr);
         */
         
-        float delay = value();
+        float delay = 0;
+        int delTimeQuantized = int(value() * 3.99f);
+        switch( delTimeQuantized )
+        {
+          case 0:
+            delay = 0.125;
+            break;
+          case 1:
+            delay = 0.25;
+            break;
+          case 2:
+            delay = 0.5;
+            break;
+          case 3:
+            delay = 1;
+            break;
+        }
         
         // Actual audio bar
         cairo_move_to( cr, x + w/4, y + h - 2 );
