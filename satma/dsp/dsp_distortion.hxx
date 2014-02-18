@@ -22,8 +22,8 @@
 
 // 
 
-#ifndef OPENAV_DSP_FILTERS_H
-#define OPENAV_DSP_FILTERS_H
+#ifndef OPENAV_DSP_DISTORTION_H
+#define OPENAV_DSP_DISTORTION_H
 
 #include <cstring>
 #include <cmath>
@@ -168,4 +168,4 @@ class Distortion // : Effect
     float knee_point;
 };
 
-#endif // OPENAV_DSP_FILTERS_H
+#endif // OPENAV_DSP_DISTORTION_H
