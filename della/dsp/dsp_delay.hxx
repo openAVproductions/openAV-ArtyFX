@@ -44,11 +44,13 @@ class Delay // : Effect
     Delay(int sr) :
       samplerate( sr )
     {
-      _active = false;
+      _active = true;
       
       writeHead = 0;
       
       delayVolume = 0.7;
+      
+      delayTimeSamps = sr / 2;
       
       // allocate 1 second max buffer length
       buffer = new float[ sr ];
@@ -63,7 +65,32 @@ class Delay // : Effect
     {
       if ( v < 0.f ) v = 0.f;
       if ( v > 1.f ) v = 1.f;
+      
+      // FIXME: get BPM & use BPM to calculate delay time
+      //int bpm = 120;
+      int delTimeQuantized = int(v * 3.8f);
+      
+      switch( delTimeQuantized )
+      {
+        case 0:
+          delayTimeSamps = samplerate * 0.25;
+          break;
+        case 1:
+          delayTimeSamps = samplerate * 0.5;
+          break;
+        case 2:
+          delayTimeSamps = samplerate * 1;
+          break;
+      }
+    }
+    
+    void setVolume( float v )
+    {
       delayVolume = v;
+    }
+    float getVolume()
+    {
+      return delayVolume;
     }
     
     void active(bool a)
@@ -92,6 +119,9 @@ class Delay // : Effect
             readPos += delayTimeSamps;
           
           output[i] += buffer[readPos];
+          
+          buffer[writeHead] = input[i];
+          writeHead++;
         }
       }
       else

@@ -144,7 +144,8 @@ void Della::run(LV2_Handle instance, uint32_t n_samples)
     self->delay->active( false );
   
   self->delay->setValue( delay );
-  //self->delay->setEnvelope( tone );
+  
+  //self->delay->setVolume( tone );
   
   self->delay->process( n_samples, in, out );
 }

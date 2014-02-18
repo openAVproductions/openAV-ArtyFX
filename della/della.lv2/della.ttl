@@ -30,7 +30,7 @@
   a lv2:Plugin ,
     lv2:DistortionPlugin ;
   
-  doap:name "Satma";
+  doap:name "Della";
   doap:maintainer <http://www.openavproductions.com/> ;
   lv2:optionalFeature lv2:hardRTCapable ;
   
