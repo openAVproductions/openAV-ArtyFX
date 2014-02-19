@@ -1,0 +1,9 @@
+
+Please note that the DSP filter code for this plugin is
+re-purposed from the FIL-plugins by Fons Adriaensen.
+
+The original source for the FIL-plugins is currently
+available from the following webpage.
+http://kokkinizita.linuxaudio.org/linuxaudio/downloads/index.html
+
+Many thanks to Fons for sharing his filter implementation.
