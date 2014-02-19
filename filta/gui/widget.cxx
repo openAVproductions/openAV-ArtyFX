@@ -16,7 +16,7 @@ writePort(FILTA_FREQ_CONTROL, tmp);
 
 float a = o->getActive();
 writePort(FILTA_ACTIVE, a);
-printf("active %f\n", a );
+//printf("active %f\n", a );
 }
 void Widget::cb_graph(Avtk::Filtergraph* o, void* v) {
   ((Widget*)(o->parent()->user_data()))->cb_graph_i(o,v);
