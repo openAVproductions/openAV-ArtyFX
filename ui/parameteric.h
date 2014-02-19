@@ -1,5 +1,5 @@
 /*
- * Author: Harry van Haaren 2013
+ * Author: Harry van Haaren 2014
  *         harryhaaren@gmail.com
  * 
  * This program is free software; you can redistribute it and/or modify
@@ -20,8 +20,8 @@
  */
 
 
-#ifndef AVTK_DELAY_GRAPH_H
-#define AVTK_DELAY_GRAPH_H
+#ifndef AVTK_PARAMETERIC_H
+#define AVTK_PARAMETERIC_H
 
 #include <FL/Fl_Widget.H>
 #include <FL/Fl_Slider.H>
@@ -34,10 +34,10 @@
 namespace Avtk
 {
   
-class Delaygraph : public Fl_Slider
+class Parameteric : public Fl_Slider
 {
   public:
-    Delaygraph(int _x, int _y, int _w, int _h, const char *_label = 0):
+    Parameteric(int _x, int _y, int _w, int _h, const char *_label = 0):
         Fl_Slider(_x, _y, _w, _h, _label)
     {
       x = _x;
@@ -54,14 +54,12 @@ class Delaygraph : public Fl_Slider
       active = true;
       highlight = false;
       
-      volume = 0.5;
-      waveshapeType = 0.f;
+      gains[0] = 0.f;
+      gains[1] = 0.f;
+      gains[2] = 0.f;
+      gains[3] = 0.f;
+      gains[4] = 0.f;
     }
-    
-    /// holds the preset: used from callback() to write value
-    float waveshapeType;
-    
-    void type(float t) {waveshapeType = t; redraw();}
     
     bool active;
     bool highlight;
@@ -73,17 +71,17 @@ class Delaygraph : public Fl_Slider
     bool mouseClicked;
     bool mouseRightClicked;
     
-    float volume;
+    float gains[5];
     
-    void setVolume(float e)
+    void setGain( int s, float g)
     {
-      volume = e;
+      gains[s] = g;
       redraw();
     }
     
     float getVolume()
     {
-      return volume;
+      return gains[0];
     }
     
     void setActive(bool a)
@@ -140,62 +138,28 @@ class Delaygraph : public Fl_Slider
         cairo_stroke(cr);
         cairo_set_dash ( cr, dashes, 0, 0.0);
         
-        
-        // curved waveshape
-        /*
-        float distort = value();
-        cairo_move_to( cr, x , y + h );
-        cairo_curve_to( cr, x +  w * distort,      y+h,    // control point 1
-                        x + w - (w * distort),       y,    // control point 2
-                        x + w,                       y );  // end of curve 1, start curve 2
-        
-        cairo_line_to ( cr, x + w, y + h );
-        cairo_close_path(cr);
-        
-        cairo_set_source_rgba( cr, 0 / 255.f, 153 / 255.f , 255 / 255.f , 0.21 );
-        cairo_fill_preserve(cr);
-        cairo_set_line_width(cr, 2.0);
-        cairo_set_source_rgba( cr, 0 / 255.f, 153 / 255.f , 255 / 255.f , 1 );
-        cairo_stroke(cr);
-        */
-        
-        float delay = 0;
-        int delTimeQuantized = int(value() * 3.99f);
-        switch( delTimeQuantized )
+        // draw frequency/amplitude rectangles
+        for(int i = 0; i < 4; i ++)
         {
-          case 0:
-            delay = 0.125;
-            break;
-          case 1:
-            delay = 0.25;
-            break;
-          case 2:
-            delay = 0.5;
-            break;
-          case 3:
-            delay = 1;
-            break;
+          int startY = y + h/2;
+          int heightY = h/4 * ( ( (1-gains[i+1])*2)-1 );
+          
+          cairo_rectangle( cr, x + (w/4)*i, startY, w/4, heightY );
         }
         
-        // Actual audio bar
-        cairo_move_to( cr, x + w/4, y + h - 2 );
-        cairo_line_to( cr, x + w/4, y + h - h * 0.75 );
-        
-        cairo_set_line_width(cr, 18);
-        cairo_set_line_cap( cr, CAIRO_LINE_CAP_ROUND );
-        cairo_set_source_rgba( cr, 0 / 255.f, 153 / 255.f , 255 / 255.f , 0.21 );
-        //cairo_set_source_rgba( cr, 0 / 255.f, 153 / 255.f , 255 / 255.f , 1 );
-        cairo_stroke(cr);
-        
-        // changing delay bar
-        cairo_move_to( cr, x + w/4 + w/2*delay, y + h - 2 );
-        cairo_line_to( cr, x + w/4 + w/2*delay, y + h*3/4 - (h / 2 * volume) );
-        
         cairo_set_line_cap( cr, CAIRO_LINE_CAP_ROUND );
         cairo_set_source_rgba( cr, 0 / 255.f, 153 / 255.f , 255 / 255.f , 0.21 );
         cairo_fill_preserve(cr);
-        cairo_set_line_width(cr, 18);
+        cairo_set_line_width(cr, 1.8);
         cairo_set_source_rgba( cr, 0 / 255.f, 153 / 255.f , 255 / 255.f , 1 );
+        cairo_stroke(cr);
+        
+        // draw "master gain line
+        
+        cairo_move_to( cr, x  , y + h/2 + (h/4 *-(gains[0]*2-1)) );
+        cairo_line_to( cr, x+w, y + h/2 + (h/4 *-(gains[0]*2-1)) );
+        cairo_set_line_width(cr, 2.1);
+        cairo_set_source_rgba( cr, 255 / 255.f, 0 / 255.f , 0 / 255.f , 1 );
         cairo_stroke(cr);
         
         // stroke outline
@@ -264,23 +228,23 @@ class Delaygraph : public Fl_Slider
                 mouseClicked = true;
               }
               
-              float deltaX = mouseClickedX - Fl::event_x();
+              //float deltaX = mouseClickedX - Fl::event_x();
               float deltaY = mouseClickedY - Fl::event_y();
               
-              float valX = value() ;
-              valX -= deltaX / 100.f;
-              float valY = volume;
+              //float valX = value() ;
+              //valX -= deltaX / 100.f;
+              float valY = gains[0];
               valY += deltaY / 100.f;
               
-              if ( valX > 1.0 ) valX = 1.0;
-              if ( valX < 0.0 ) valX = 0.0;
+              //if ( valX > 1.0 ) valX = 1.0;
+              //if ( valX < 0.0 ) valX = 0.0;
               
               if ( valY > 1.0 ) valY = 1.0;
               if ( valY < 0.0 ) valY = 0.0;
               
               //handle_drag( value + deltaY );
-              set_value( valX );
-              volume = valY;
+              //set_value( valX );
+              gains[0] = valY;
               
               mouseClickedX = Fl::event_x();
               mouseClickedY = Fl::event_y();
@@ -317,4 +281,4 @@ class Delaygraph : public Fl_Slider
 
 } // Avtk
 
-#endif // AVTK_DELAY_GRAPH_H
+#endif // AVTK_WAVESHAPER_H
