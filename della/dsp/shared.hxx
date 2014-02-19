@@ -35,6 +35,7 @@ typedef enum
   // controls
   DELLA_TIME,
   DELLA_VOLUME,
+  DELLA_FEEDBACK,
   DELLA_ACTIVE,
 } PortIndex;
 

@@ -12,7 +12,7 @@ class Widget {open
   Function {Widget()} {open
   } {
     Fl_Window window {open
-      xywh {364 218 160 220} type Double
+      xywh {596 296 160 220} type Double
       code0 {\#include "lv2/lv2plug.in/ns/extensions/ui/ui.h"}
       code1 {window->color( fl_rgb_color( 17, 17, 17) );}
       code2 {close_cb( o, 0 );}
@@ -38,7 +38,7 @@ volume->value( o->getVolume() );
 
 float a = o->getActive();
 writePort(DELLA_ACTIVE, a);
-//printf("active %f\\n", a );} selected
+//printf("active %f\\n", a );}
         xywh {5 36 150 126} box UP_BOX color 179 labeltype NO_LABEL
         code1 {using namespace std;}
         code2 {\#include <iostream>}
@@ -49,7 +49,15 @@ writePort(DELLA_ACTIVE, a);
         callback {float tmp = o->value();
 graph->setVolume( tmp );
 writePort(DELLA_VOLUME, tmp);}
-        xywh {93 169 38 37} color 90 labelsize 10
+        xywh {64 169 38 37} color 90 labelsize 10
+        class {Avtk::Dial}
+      }
+      Fl_Dial feedback {
+        label Feedback
+        callback {float tmp = o->value();
+graph->setFeedback( tmp );
+writePort(DELLA_FEEDBACK, tmp);} selected
+        xywh {14 169 37 37} color 90 labelsize 10
         class {Avtk::Dial}
       }
       Fl_Dial time {
@@ -57,7 +65,7 @@ writePort(DELLA_VOLUME, tmp);}
         callback {float tmp = o->value();
 graph->value( tmp );
 writePort(DELLA_TIME, tmp);}
-        xywh {31 169 37 37} color 90 labelsize 10
+        xywh {111 169 37 37} color 90 labelsize 10
         class {Avtk::Dial}
       }
     }

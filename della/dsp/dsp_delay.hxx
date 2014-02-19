@@ -52,8 +52,20 @@ class Delay // : Effect
       
       delayTimeSamps = sr / 2;
       
+      feedback = 0.0f;
+      
       // allocate 1 second max buffer length
       buffer = new float[ sr ];
+    }
+    
+    float getFeedback()
+    {
+      return feedback;
+    }
+    
+    void setFeedback(float f)
+    {
+      feedback = f;
     }
     
     float getValue()
@@ -77,12 +89,16 @@ class Delay // : Effect
           break;
         case 1:
           delayTimeSamps = samplerate * 0.25;
+          // clear existing content from buffer
+          //memset( &buffer[int(samplerate*0.125)], 0, samplerate-samplerate*0.125);
           break;
         case 2:
           delayTimeSamps = samplerate * 0.5;
+          //memset( &buffer[int(samplerate*0.25)], 0, samplerate-samplerate*0.25);
           break;
         case 3:
           delayTimeSamps = samplerate * 1;
+          //memset( &buffer[int(samplerate*0.5)], 0, samplerate-samplerate*0.5);
           break;
       }
     }
@@ -99,6 +115,12 @@ class Delay // : Effect
     void active(bool a)
     {
       _active = a;
+      
+      if ( _active == false )
+      {
+        // clear the existing buffer
+        memset( buffer, 0, sizeof(float)*samplerate );
+      }
     }
     
     int getNumInputs() { return 1; }
@@ -121,15 +143,11 @@ class Delay // : Effect
           if ( readPos < 0 )
             readPos += delayTimeSamps;
           
-          output[i] += buffer[readPos];
+          output[i] += buffer[readPos] * delayVolume;
           
-          buffer[writeHead] = input[i];
+          buffer[writeHead] = input[i] + buffer[readPos] * feedback;
           writeHead++;
         }
-      }
-      else
-      {
-        // not active, so forward writeHead with 0.f's?
       }
       
     }
@@ -147,6 +165,8 @@ class Delay // : Effect
     int timeUnit;
     
     float delayVolume;
+    
+    float feedback;
 };
 
 #endif // OPENAV_DSP_DELAY_H

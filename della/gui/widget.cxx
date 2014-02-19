@@ -33,6 +33,15 @@ void Widget::cb_volume(Avtk::Dial* o, void* v) {
   ((Widget*)(o->parent()->user_data()))->cb_volume_i(o,v);
 }
 
+void Widget::cb_feedback_i(Avtk::Dial* o, void*) {
+  float tmp = o->value();
+graph->setFeedback( tmp );
+writePort(DELLA_FEEDBACK, tmp);
+}
+void Widget::cb_feedback(Avtk::Dial* o, void* v) {
+  ((Widget*)(o->parent()->user_data()))->cb_feedback_i(o,v);
+}
+
 void Widget::cb_time_i(Avtk::Dial* o, void*) {
   float tmp = o->value();
 graph->value( tmp );
@@ -76,7 +85,7 @@ Widget::Widget() {
       graph->align(Fl_Align(FL_ALIGN_BOTTOM));
       graph->when(FL_WHEN_CHANGED);
     } // Avtk::Delaygraph* graph
-    { volume = new Avtk::Dial(93, 169, 38, 37, "Volume");
+    { volume = new Avtk::Dial(64, 169, 38, 37, "Volume");
       volume->box(FL_NO_BOX);
       volume->color((Fl_Color)90);
       volume->selection_color(FL_INACTIVE_COLOR);
@@ -88,7 +97,19 @@ Widget::Widget() {
       volume->align(Fl_Align(FL_ALIGN_BOTTOM));
       volume->when(FL_WHEN_CHANGED);
     } // Avtk::Dial* volume
-    { time = new Avtk::Dial(31, 169, 37, 37, "Time");
+    { feedback = new Avtk::Dial(14, 169, 37, 37, "Feedback");
+      feedback->box(FL_NO_BOX);
+      feedback->color((Fl_Color)90);
+      feedback->selection_color(FL_INACTIVE_COLOR);
+      feedback->labeltype(FL_NORMAL_LABEL);
+      feedback->labelfont(0);
+      feedback->labelsize(10);
+      feedback->labelcolor(FL_FOREGROUND_COLOR);
+      feedback->callback((Fl_Callback*)cb_feedback);
+      feedback->align(Fl_Align(FL_ALIGN_BOTTOM));
+      feedback->when(FL_WHEN_CHANGED);
+    } // Avtk::Dial* feedback
+    { time = new Avtk::Dial(111, 169, 37, 37, "Time");
       time->box(FL_NO_BOX);
       time->color((Fl_Color)90);
       time->selection_color(FL_INACTIVE_COLOR);

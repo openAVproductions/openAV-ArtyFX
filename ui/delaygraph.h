@@ -56,6 +56,8 @@ class Delaygraph : public Fl_Slider
       
       volume = 0.5;
       waveshapeType = 0.f;
+      
+      feedback = 0.5;
     }
     
     /// holds the preset: used from callback() to write value
@@ -73,7 +75,15 @@ class Delaygraph : public Fl_Slider
     bool mouseClicked;
     bool mouseRightClicked;
     
+    float feedback;
+    
     float volume;
+    
+    void setFeedback(float f)
+    {
+      feedback = f;
+      redraw();
+    }
     
     void setVolume(float e)
     {
@@ -187,9 +197,26 @@ class Delaygraph : public Fl_Slider
         //cairo_set_source_rgba( cr, 0 / 255.f, 153 / 255.f , 255 / 255.f , 1 );
         cairo_stroke(cr);
         
+        // feedback pointer
+        cairo_move_to( cr, x + w/4 + w/2*delay, y + h * 3.5 / 4 );
+        cairo_line_to( cr, x + w*3.5/4        , y + h * 3.5 / 4 );
+        cairo_line_to( cr, x + w*3.5/4        , y + h * 1.0 / 4 );
+        
+        cairo_line_to( cr, x + w*3.5/4 - ((w/2.)*feedback), y + h * 1.0 / 4 );
+        
+        cairo_set_source_rgba( cr, 255 / 255.f, 0 / 255.f , 0 / 255.f , 1 );
+        cairo_set_line_width(cr, 1.5);
+        cairo_stroke( cr );
+        
+        cairo_line_to( cr, x + w*3.5/4 - ((w/2)*feedback)-10, y + h * 1.0 / 4 );
+        cairo_line_to( cr, x + w*3.5/4 - ((w/2)*feedback)-2 , (y + h * 1.0 / 4)+8 );
+        cairo_line_to( cr, x + w*3.5/4 - ((w/2)*feedback)-2 , (y + h * 1.0 / 4)-8 );
+        cairo_close_path( cr );
+        cairo_fill( cr );
+        
         // changing delay bar
         cairo_move_to( cr, x + w/4 + w/2*delay, y + h - 2 );
-        cairo_line_to( cr, x + w/4 + w/2*delay, y + h*7/8 - (h*2/3.3 * volume) );
+        cairo_line_to( cr, x + w/4 + w/2*delay, y + h*7/8 - (h*1.5/3.0 * volume) );
         
         cairo_set_line_cap( cr, CAIRO_LINE_CAP_ROUND );
         cairo_set_source_rgba( cr, 0 / 255.f, 153 / 255.f , 255 / 255.f , 0.21 );
@@ -197,6 +224,8 @@ class Delaygraph : public Fl_Slider
         cairo_set_line_width(cr, 18);
         cairo_set_source_rgba( cr, 0 / 255.f, 153 / 255.f , 255 / 255.f , 1 );
         cairo_stroke(cr);
+        
+        
         
         // stroke outline
         cairo_rectangle(cr, x+1, y+1, w-2, h-2);

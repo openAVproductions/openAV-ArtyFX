@@ -50,6 +50,7 @@ class Della
     /// control signals
     float* controlDelay;
     float* controlVolume;
+    float* controlFeedback;
     float* controlActive;
     
   private:
@@ -119,6 +120,9 @@ void Della::connect_port(LV2_Handle instance, uint32_t port, void *data)
       case DELLA_VOLUME:
           self->controlVolume = (float*)data;
           break;
+      case DELLA_FEEDBACK:
+          self->controlFeedback = (float*)data;
+          break;
       case DELLA_ACTIVE:
           self->controlActive = (float*)data;
           break;
@@ -134,9 +138,9 @@ void Della::run(LV2_Handle instance, uint32_t n_samples)
   float* out = self->audioOutput;
   
   /// control inputs
-  float active     = *self->controlActive;
-  float delay = *self->controlDelay;
-  //float tone       = *self->controlTone;
+  float active    = *self->controlActive;
+  float delay     = *self->controlDelay;
+  float feedback  = *self->controlFeedback;
   
   if ( active > 0.5 )
     self->delay->active( true  );
@@ -145,7 +149,7 @@ void Della::run(LV2_Handle instance, uint32_t n_samples)
   
   self->delay->setValue( delay );
   
-  //self->delay->setVolume( tone );
+  self->delay->setFeedback( feedback );
   
   self->delay->process( n_samples, in, out );
 }

@@ -32,6 +32,11 @@ private:
   void cb_volume_i(Avtk::Dial*, void*);
   static void cb_volume(Avtk::Dial*, void*);
 public:
+  Avtk::Dial *feedback;
+private:
+  void cb_feedback_i(Avtk::Dial*, void*);
+  static void cb_feedback(Avtk::Dial*, void*);
+public:
   Avtk::Dial *time;
 private:
   void cb_time_i(Avtk::Dial*, void*);
