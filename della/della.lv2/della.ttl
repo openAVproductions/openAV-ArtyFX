@@ -28,7 +28,7 @@
 
 <http://www.openavproductions.com/artyfx#della>
   a lv2:Plugin ,
-    lv2:DistortionPlugin ;
+    lv2:DelayPlugin ;
   
   doap:name "Della";
   doap:maintainer <http://www.openavproductions.com/> ;
