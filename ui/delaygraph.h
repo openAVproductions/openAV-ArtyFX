@@ -57,7 +57,7 @@ class Delaygraph : public Fl_Slider
       volume = 0.5;
       waveshapeType = 0.f;
       
-      feedback = 0.5;
+      feedback = 0.0;
     }
     
     /// holds the preset: used from callback() to write value

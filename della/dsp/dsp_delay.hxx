@@ -143,7 +143,7 @@ class Delay // : Effect
           if ( readPos < 0 )
             readPos += delayTimeSamps;
           
-          output[i] += buffer[readPos] * delayVolume;
+          output[i] += buffer[readPos] * DB_CO( (delayVolume-1)*40 );
           
           buffer[writeHead] = input[i] + buffer[readPos] * feedback;
           writeHead++;

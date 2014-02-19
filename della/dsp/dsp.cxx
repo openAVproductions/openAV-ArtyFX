@@ -140,6 +140,7 @@ void Della::run(LV2_Handle instance, uint32_t n_samples)
   /// control inputs
   float active    = *self->controlActive;
   float delay     = *self->controlDelay;
+  float volume    = *self->controlVolume;
   float feedback  = *self->controlFeedback;
   
   if ( active > 0.5 )
@@ -148,7 +149,7 @@ void Della::run(LV2_Handle instance, uint32_t n_samples)
     self->delay->active( false );
   
   self->delay->setValue( delay );
-  
+  self->delay->setVolume( volume );
   self->delay->setFeedback( feedback );
   
   self->delay->process( n_samples, in, out );
