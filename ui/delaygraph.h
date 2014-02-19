@@ -189,7 +189,7 @@ class Delaygraph : public Fl_Slider
         
         // changing delay bar
         cairo_move_to( cr, x + w/4 + w/2*delay, y + h - 2 );
-        cairo_line_to( cr, x + w/4 + w/2*delay, y + h*3/4 - (h / 2 * volume) );
+        cairo_line_to( cr, x + w/4 + w/2*delay, y + h*7/8 - (h*2/3.3 * volume) );
         
         cairo_set_line_cap( cr, CAIRO_LINE_CAP_ROUND );
         cairo_set_source_rgba( cr, 0 / 255.f, 153 / 255.f , 255 / 255.f , 0.21 );
