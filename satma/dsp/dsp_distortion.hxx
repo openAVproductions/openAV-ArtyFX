@@ -105,10 +105,14 @@ class Distortion // : Effect
     
     void process (long count, float* input, float* output)
     {
-      if ( !_active )
+      if ( true ) // !_active )
       {
         // pass audio trough from in -> out
         memcpy( output, input, count * sizeof(float) );
+      }
+      
+      if ( !_active )
+      {
         return;
       }
       
@@ -119,7 +123,7 @@ class Distortion // : Effect
       
       if (env_time < 2.0f)
       {
-              env_time = 2.0f;
+        env_time = 2.0f;
       }
       
       float kneeRanged = 0 - (knee_point*45);
@@ -149,7 +153,9 @@ class Distortion // : Effect
         
         buffer[buffer_pos] = input[pos];
         float volReduction = 0.1 + pow( 1- 0.9*knee_point, 4);
-        output[pos] = (buffer[(buffer_pos - delay) & BUFFER_MASK] * env_sc ) * volReduction;
+        // add distorion from buffer to input signal
+        output[pos] = output[pos] * 0.9*knee_point
+              + (buffer[(buffer_pos - delay) & BUFFER_MASK] * env_sc ) * volReduction;
         buffer_pos = (buffer_pos + 1) & BUFFER_MASK;
       }
       
