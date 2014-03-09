@@ -37,7 +37,7 @@ using namespace std;
 #include "eq/filters.h"
 
 /** Parameteric Equalizer
- *  A parametrick equalizer based on the parametrick DSP code by Fons Adriaensen
+ *  A parameteric equalizer based on the parameteric DSP code by Fons Adriaensen
  *  
 **/
 class Parameteric
@@ -110,7 +110,11 @@ class Parameteric
     
     void active(bool a)
     {
-      _active = a;
+      if ( a != _active )
+      {
+        printf("active = %i\n", int(a) );
+        _active = a;
+      }
     }
     
     int getNumInputs() { return 1; }
@@ -118,6 +122,12 @@ class Parameteric
     
     void process (long count, float* input, float* output)
     {
+      if ( !_active )
+      {
+        memcpy( output, input, sizeof(float)*count );
+        return;
+      }
+      
       // connect audio buffers
       filter->setport( 0, input );
       filter->setport( 1, output );
