@@ -37,6 +37,8 @@ typedef enum
   DELLA_VOLUME,
   DELLA_FEEDBACK,
   DELLA_ACTIVE,
+  
+  DELLA_ATOM_IN,
 } PortIndex;
 
 #endif // OPENAV_DELLA

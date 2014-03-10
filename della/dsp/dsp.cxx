@@ -27,6 +27,11 @@
 
 #include "dsp_delay.hxx"
 
+#include "lv2/lv2plug.in/ns/ext/atom/atom.h"
+#include "lv2/lv2plug.in/ns/ext/atom/util.h"
+#include "lv2/lv2plug.in/ns/ext/urid/urid.h"
+#include "lv2/lv2plug.in/ns/ext/time/time.h"
+
 class Della
 {
   public:
@@ -52,6 +57,18 @@ class Della
     float* controlVolume;
     float* controlFeedback;
     float* controlActive;
+    
+    /// Atom port
+    LV2_URID time_Position;
+    LV2_URID time_barBeat;
+    LV2_URID time_beatsPerMinute;
+    LV2_URID time_speed;
+    
+    LV2_URID atom_Blank;
+    LV2_URID atom_Float;
+    
+    LV2_URID_Map* map;
+    LV2_Atom_Sequence* atom_port;
     
   private:
     /// runtime variables
@@ -85,7 +102,36 @@ LV2_Handle Della::instantiate(const LV2_Descriptor* descriptor,
                               const char* bundle_path,
                               const LV2_Feature* const* features)
 {
-  return (LV2_Handle) new Della( samplerate );
+  Della* d = new Della( samplerate );
+  d->map = 0;
+  
+  // get URID_map and unmap
+  for (int i = 0; features[i]; i++)
+  {
+    if (!strcmp(features[i]->URI, LV2_URID__map))
+    {
+      d->map = (LV2_URID_Map*)features[i]->data;
+    }
+  }
+  
+  // we don't have the map extension: print warning
+  if( !d->map )
+  {
+    printf("Della: Error: host doesn't provide Lv2 URID map, cannot sync BPM!\n");
+    delete d;
+    return 0;
+  }
+  
+  // Get URID's for Lv2 TIME / ATOM extensions
+  d->time_Position      = d->map->map(d->map->handle, LV2_TIME__Position);
+  d->time_barBeat       = d->map->map(d->map->handle, LV2_TIME__barBeat);
+  d->time_beatsPerMinute= d->map->map(d->map->handle, LV2_TIME__beatsPerMinute);
+  d->time_speed         = d->map->map(d->map->handle, LV2_TIME__speed);
+  
+  d->atom_Blank         = d->map->map(d->map->handle, LV2_ATOM__Blank);
+  d->atom_Float         = d->map->map(d->map->handle, LV2_ATOM__Float);
+  
+  return (LV2_Handle) d;
 }
 
 Della::Della(int rate)
@@ -126,6 +172,10 @@ void Della::connect_port(LV2_Handle instance, uint32_t port, void *data)
       case DELLA_ACTIVE:
           self->controlActive = (float*)data;
           break;
+      
+      case DELLA_ATOM_IN:
+          self->atom_port      = (LV2_Atom_Sequence*)data;
+          break;
   }
 }
 
@@ -142,6 +192,34 @@ void Della::run(LV2_Handle instance, uint32_t n_samples)
   float delay     = *self->controlDelay;
   float volume    = *self->controlVolume;
   float feedback  = *self->controlFeedback;
+  
+  /// handle Atom messages
+  LV2_ATOM_SEQUENCE_FOREACH(self->atom_port, ev)
+  {
+    if ( ev->body.type == self->atom_Blank )
+    {
+      const LV2_Atom_Object* obj = (LV2_Atom_Object*)&ev->body;
+      printf("time_Position message\n" );
+      LV2_Atom* bpm = 0;
+      lv2_atom_object_get(obj,
+                          self->time_beatsPerMinute, &bpm,
+                          NULL);
+      
+      if ( bpm ) //&& bpm->type == self->atom_Float) {
+      {
+        // Tempo changed, update BPM
+        float bpmValue = ((LV2_Atom_Float*)bpm)->body;
+        //self->dspMasherL->bpm( bpmValue );
+        printf("set bpm of %f\n", bpmValue );
+        self->delay->setBPM( bpmValue );
+      }
+      
+    }
+    else
+    {
+      //printf("atom message: %s\n", self->unmap->unmap( self->unmap->handle, ev->body.type ) );
+    }
+  }
   
   if ( active > 0.5 )
     self->delay->active( true  );

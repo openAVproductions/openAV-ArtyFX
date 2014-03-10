@@ -54,8 +54,16 @@ class Delay // : Effect
       
       feedback = 0.0f;
       
+      timeValue = 0.f;
+      
       // allocate 1 second max buffer length
       buffer = new float[ sr ];
+    }
+    
+    void setBPM(float b)
+    {
+      bpm = b;
+      framesPerBeat = samplerate / b * 60;
     }
     
     float getFeedback()
@@ -78,26 +86,28 @@ class Delay // : Effect
       if ( v < 0.f ) v = 0.f;
       if ( v > 1.f ) v = 1.f;
       
+      timeValue = v;
+      
       // FIXME: get BPM & use BPM to calculate delay time
       //int bpm = 120;
-      int delTimeQuantized = int(v * 3.99f);
+      int delTimeQuantized = int(timeValue * 3.99f);
       
       switch( delTimeQuantized )
       {
         case 0:
-          delayTimeSamps = samplerate * 0.125;
+          delayTimeSamps = framesPerBeat * 0.125;
           break;
         case 1:
-          delayTimeSamps = samplerate * 0.25;
+          delayTimeSamps = framesPerBeat * 0.25;
           // clear existing content from buffer
           //memset( &buffer[int(samplerate*0.125)], 0, samplerate-samplerate*0.125);
           break;
         case 2:
-          delayTimeSamps = samplerate * 0.5;
+          delayTimeSamps = framesPerBeat * 0.5;
           //memset( &buffer[int(samplerate*0.25)], 0, samplerate-samplerate*0.25);
           break;
         case 3:
-          delayTimeSamps = samplerate * 1;
+          delayTimeSamps = framesPerBeat * 1;
           //memset( &buffer[int(samplerate*0.5)], 0, samplerate-samplerate*0.5);
           break;
       }
@@ -156,7 +166,8 @@ class Delay // : Effect
     int samplerate;
     bool _active;
     
-    int bpm;
+    float bpm;
+    int framesPerBeat;
     int delayTimeSamps;
     
     float* buffer;
@@ -165,8 +176,8 @@ class Delay // : Effect
     int timeUnit;
     
     float delayVolume;
-    
     float feedback;
+    float timeValue;
 };
 
 #endif // OPENAV_DSP_DELAY_H
