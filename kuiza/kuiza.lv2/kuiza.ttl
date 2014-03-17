@@ -31,7 +31,7 @@
     lv2:FilterPlugin ;
   
   doap:name "Kuiza";
-  doap:maintainer <http://www.openavproductions.com/> ;
+  doap:maintainer [ foaf:name "OpenAV Productions" ] ;
   lv2:optionalFeature lv2:hardRTCapable ;
   
   ui:ui <http://www.openavproductions.com/artyfx#kuiza/gui>;
