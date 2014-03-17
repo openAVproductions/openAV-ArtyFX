@@ -12,6 +12,15 @@ all:
 	cd satma && make
 	cd kuiza && make
 
+clean:
+	cd roomy && make clean
+	cd masha && make clean
+	cd ducka && make clean
+	cd filta && make clean
+	cd della && make clean
+	cd satma && make clean
+	cd kuiza && make clean
+
 install:
 	cd roomy && make install
 	cd masha && make install
