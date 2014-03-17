@@ -31,4 +31,4 @@ automatically find all plugins, and be able to use them.
 If you have the JALV LV2 host installed, the "run.sh" script can be used to
 launch each plugin as a standalone JACK client.
 
-$  ./run_<roomy|masha|ducka>.sh
+$  ./run_<roomy|masha|ducka|della|satma|kuiza>.sh
