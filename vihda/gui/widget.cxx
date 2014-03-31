@@ -11,8 +11,8 @@ void Widget::cb_headerImage(Avtk::Image* o, void* v) {
 
 void Widget::cb_graph_i(Avtk::Widener* o, void*) {
   float tmp = o->value();
-time->value( tmp );
-writePort(VIHDA_TIME, tmp);
+width->value( tmp );
+writePort(VIHDA_WIDTH, tmp);
 
 //volume->value( o->getVolume() );
 
@@ -24,13 +24,13 @@ void Widget::cb_graph(Avtk::Widener* o, void* v) {
   ((Widget*)(o->parent()->user_data()))->cb_graph_i(o,v);
 }
 
-void Widget::cb_time_i(Avtk::Dial* o, void*) {
+void Widget::cb_width_i(Avtk::Dial* o, void*) {
   float tmp = o->value();
 graph->value( tmp );
-writePort(VIHDA_TIME, tmp);
+writePort(VIHDA_WIDTH, tmp);
 }
-void Widget::cb_time(Avtk::Dial* o, void* v) {
-  ((Widget*)(o->parent()->user_data()))->cb_time_i(o,v);
+void Widget::cb_width(Avtk::Dial* o, void* v) {
+  ((Widget*)(o->parent()->user_data()))->cb_width_i(o,v);
 }
 
 /**
@@ -67,18 +67,18 @@ Widget::Widget() {
       graph->align(Fl_Align(FL_ALIGN_BOTTOM));
       graph->when(FL_WHEN_CHANGED);
     } // Avtk::Widener* graph
-    { time = new Avtk::Dial(29, 167, 41, 40, "Width");
-      time->box(FL_NO_BOX);
-      time->color((Fl_Color)90);
-      time->selection_color(FL_INACTIVE_COLOR);
-      time->labeltype(FL_NORMAL_LABEL);
-      time->labelfont(0);
-      time->labelsize(10);
-      time->labelcolor(FL_FOREGROUND_COLOR);
-      time->callback((Fl_Callback*)cb_time);
-      time->align(Fl_Align(FL_ALIGN_BOTTOM));
-      time->when(FL_WHEN_CHANGED);
-    } // Avtk::Dial* time
+    { width = new Avtk::Dial(29, 167, 41, 40, "Width");
+      width->box(FL_NO_BOX);
+      width->color((Fl_Color)90);
+      width->selection_color(FL_INACTIVE_COLOR);
+      width->labeltype(FL_NORMAL_LABEL);
+      width->labelfont(0);
+      width->labelsize(10);
+      width->labelcolor(FL_FOREGROUND_COLOR);
+      width->callback((Fl_Callback*)cb_width);
+      width->align(Fl_Align(FL_ALIGN_BOTTOM));
+      width->when(FL_WHEN_CHANGED);
+    } // Avtk::Dial* width
     window->color( fl_rgb_color( 17, 17, 17) );
     close_cb( o, 0 );
     window->end();

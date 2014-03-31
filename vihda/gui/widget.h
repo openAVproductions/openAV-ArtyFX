@@ -27,10 +27,10 @@ private:
   void cb_graph_i(Avtk::Widener*, void*);
   static void cb_graph(Avtk::Widener*, void*);
 public:
-  Avtk::Dial *time;
+  Avtk::Dial *width;
 private:
-  void cb_time_i(Avtk::Dial*, void*);
-  static void cb_time(Avtk::Dial*, void*);
+  void cb_width_i(Avtk::Dial*, void*);
+  static void cb_width(Avtk::Dial*, void*);
 public:
   LV2UI_Write_Function write_function; 
   LV2UI_Controller controller; 

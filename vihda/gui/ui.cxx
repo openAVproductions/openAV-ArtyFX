@@ -126,13 +126,13 @@ static void port_event(LV2UI_Handle ui,
     float value =  *(float *)buffer;
     switch ( port_index )
     {
-      case VIHDA_TIME:
+      case VIHDA_WIDTH:
           {
             self->widget->graph->value( value );
-            self->widget->time->value( value );
+            self->widget->width->value( value );
           }
           break;
-      case VIHDA_VOLUME:
+      case VIHDA_INVERT:
           {
             self->widget->graph->setVolume( value );
             //self->widget->volume->value( value );

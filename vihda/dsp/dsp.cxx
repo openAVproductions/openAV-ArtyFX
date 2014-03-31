@@ -56,7 +56,7 @@ class Vihda
     
     /// control signals
     float* controlWidener;
-    float* controlVolume;
+    float* controlInvert;
     float* controlFeedback;
     float* controlActive;
     
@@ -75,7 +75,7 @@ class Vihda
   private:
     /// runtime variables
     bool active;
-    Widener* delay;
+    Widener* widener;
 };
 
 
@@ -138,7 +138,7 @@ LV2_Handle Vihda::instantiate(const LV2_Descriptor* descriptor,
 
 Vihda::Vihda(int rate)
 {
-  delay = new Widener( rate );
+  widener = new Widener( rate );
 }
 
 void Vihda::activate(LV2_Handle instance)
@@ -168,14 +168,11 @@ void Vihda::connect_port(LV2_Handle instance, uint32_t port, void *data)
           self->audioOutputR = (float*)data;
           break;
       
-      case VIHDA_TIME:
+      case VIHDA_WIDTH:
           self->controlWidener  = (float*)data;
           break;
-      case VIHDA_VOLUME:
-          self->controlVolume = (float*)data;
-          break;
-      case VIHDA_FEEDBACK:
-          self->controlFeedback = (float*)data;
+      case VIHDA_INVERT:
+          self->controlInvert = (float*)data;
           break;
       case VIHDA_ACTIVE:
           self->controlActive = (float*)data;
@@ -199,9 +196,8 @@ void Vihda::run(LV2_Handle instance, uint32_t n_samples)
   
   /// control inputs
   float active    = *self->controlActive;
-  float delay     = *self->controlWidener;
-  float volume    = *self->controlVolume;
-  float feedback  = *self->controlFeedback;
+  float width     = *self->controlWidener;
+  float invert    = *self->controlInvert;
   
   /// handle Atom messages
   LV2_ATOM_SEQUENCE_FOREACH(self->atom_port, ev)
@@ -221,7 +217,7 @@ void Vihda::run(LV2_Handle instance, uint32_t n_samples)
         float bpmValue = ((LV2_Atom_Float*)bpm)->body;
         //self->dspMasherL->bpm( bpmValue );
         printf("set bpm of %f\n", bpmValue );
-        //self->delay->setBPM( bpmValue );
+        //self->widener->setBPM( bpmValue );
       }
       
     }
@@ -232,20 +228,20 @@ void Vihda::run(LV2_Handle instance, uint32_t n_samples)
   }
   
   if ( active > 0.5 )
-    self->delay->active( true  );
+    self->widener->active( true  );
   else
-    self->delay->active( false );
+    self->widener->active( false );
   
-  self->delay->setValue( delay );
-  //self->delay->setVolume( volume );
-  //self->delay->setFeedback( feedback );
+  self->widener->setValue( width );
+  //self->widener->setVolume( volume );
+  //self->widener->setFeedback( feedback );
   
-  self->delay->process( n_samples, inL, inR, outL, outR );
+  self->widener->process( n_samples, inL, inR, outL, outR );
 }
 
 void Vihda::cleanup(LV2_Handle instance)
 {
-  delete ((Vihda*)instance)->delay;
+  delete ((Vihda*)instance)->widener;
   
   delete ((Vihda*) instance);
 }

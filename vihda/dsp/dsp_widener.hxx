@@ -58,7 +58,8 @@ class Widener // : Effect
       if ( v < 0.f ) v = 0.f;
       if ( v > 1.f ) v = 1.f;
       
-      width = v;
+      // width parameters ranges from 0 (mono), to 2 (very-wide)
+      width = v*2;
     }
     
     void setInvert( bool i )

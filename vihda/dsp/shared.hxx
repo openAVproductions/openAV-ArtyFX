@@ -35,9 +35,8 @@ typedef enum
   VIHDA_OUTPUT_R,
   
   // controls
-  VIHDA_TIME,
-  VIHDA_VOLUME,
-  VIHDA_FEEDBACK,
+  VIHDA_WIDTH,
+  VIHDA_INVERT,
   VIHDA_ACTIVE,
   
   VIHDA_ATOM_IN,

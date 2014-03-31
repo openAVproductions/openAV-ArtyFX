@@ -12,7 +12,7 @@ class Widget {open
   Function {Widget()} {open
   } {
     Fl_Window window {open
-      xywh {596 296 160 220} type Double
+      xywh {437 324 160 220} type Double
       code0 {\#include "lv2/lv2plug.in/ns/extensions/ui/ui.h"}
       code1 {window->color( fl_rgb_color( 17, 17, 17) );}
       code2 {close_cb( o, 0 );}
@@ -31,8 +31,8 @@ class Widget {open
       Fl_Dial graph {
         label graph
         callback {float tmp = o->value();
-time->value( tmp );
-writePort(VIHDA_TIME, tmp);
+width->value( tmp );
+writePort(VIHDA_WIDTH, tmp);
 
 //volume->value( o->getVolume() );
 
@@ -44,11 +44,11 @@ writePort(VIHDA_ACTIVE, a);
         code2 {\#include <iostream>}
         class {Avtk::Widener}
       }
-      Fl_Dial time {
+      Fl_Dial width {
         label Width
         callback {float tmp = o->value();
 graph->value( tmp );
-writePort(VIHDA_TIME, tmp);}
+writePort(VIHDA_WIDTH, tmp);}
         xywh {29 167 41 40} color 90 labelsize 10
         class {Avtk::Dial}
       }
