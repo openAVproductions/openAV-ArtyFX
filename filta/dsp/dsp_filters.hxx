@@ -79,17 +79,19 @@ class Filters // : Effect
         {
           float zeroOne = (value-0.5)*2.f;
           hipcutoff = 10 + pow(zeroOne,4) * 6000;
+          lopcutoff = fSamplingFreq / 2.0;
         }
         else
         {
           float zeroOne = (value)*2.f;
           lopcutoff = 100 + pow(zeroOne,4) * ((fSamplingFreq/2.f)-100);
+          hipcutoff = 10;
         }
       }
       else
       {
         hipcutoff = 10;
-        lopcutoff = 10000;
+        lopcutoff = fSamplingFreq / 2.0;
       }
     }
     
