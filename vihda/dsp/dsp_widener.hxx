@@ -86,7 +86,9 @@ class Widener // : Effect
         // do mid-side width calculations
         float tmp = 1 / max( 1 + width , 2.f );
         float mid  = 1     * tmp;
+        
         float side = width * tmp;
+        
         
         for (int i = 0; i < count; i++)
         {
@@ -96,7 +98,13 @@ class Widener // : Effect
           
           // write output
           *outL = m - s;
+          
           *outR = m + s;
+          
+          if ( invertRight )
+          {
+            *outR = *outR * -1;
+          }
           
           // move buffer pointers to next sample
           inL++;

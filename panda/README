@@ -1,0 +1,9 @@
+
+      Panda - OpenAV ArtyFX compressor / expander
+
+The DSP code that causes Panda to do its thing is derived from "Qompander",
+a compressor/expander/gate, which was was authored in FAUST by Bart Brouns.
+
+See dsp/qompander/README.md for details.
+
+

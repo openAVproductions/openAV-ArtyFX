@@ -25,18 +25,18 @@
 #include <string.h>
 #include <math.h>
 
-#include "dsp_widener.hxx"
+#include "dsp_compander.hxx"
 
 #include "lv2/lv2plug.in/ns/ext/atom/atom.h"
 #include "lv2/lv2plug.in/ns/ext/atom/util.h"
 #include "lv2/lv2plug.in/ns/ext/urid/urid.h"
 #include "lv2/lv2plug.in/ns/ext/time/time.h"
 
-class Vihda
+class Panda
 {
   public:
-    Vihda(int rate);
-    ~Vihda(){}
+    Panda(int rate);
+    ~Panda(){}
     static LV2_Handle instantiate(const LV2_Descriptor* descriptor,
                                   double samplerate,
                                   const char* bundle_path,
@@ -50,14 +50,12 @@ class Vihda
     
     /// audio buffers
     float* audioInputL;
-    float* audioInputR;
     float* audioOutputL;
-    float* audioOutputR;
     
     /// control signals
-    float* controlWidener;
-    float* controlInvert;
-    float* controlFeedback;
+    float* controlThreshold;
+    float* controlFactor;
+    float* controlRelease;
     float* controlActive;
     
     /// Atom port
@@ -75,20 +73,20 @@ class Vihda
   private:
     /// runtime variables
     bool active;
-    Widener* widener;
+    Compander* compander;
 };
 
 
 static const LV2_Descriptor descriptor =
 {
-  VIHDA_URI,
-  Vihda::instantiate,
-  Vihda::connect_port,
-  Vihda::activate,
-  Vihda::run,
-  Vihda::deactivate,
-  Vihda::cleanup,
-  Vihda::extension_data
+  PANDA_URI,
+  Panda::instantiate,
+  Panda::connect_port,
+  Panda::activate,
+  Panda::run,
+  Panda::deactivate,
+  Panda::cleanup,
+  Panda::extension_data
 };
 
 
@@ -99,12 +97,12 @@ LV2_SYMBOL_EXPORT const LV2_Descriptor* lv2_descriptor(uint32_t index)
 }
 
 
-LV2_Handle Vihda::instantiate(const LV2_Descriptor* descriptor,
+LV2_Handle Panda::instantiate(const LV2_Descriptor* descriptor,
                               double samplerate,
                               const char* bundle_path,
                               const LV2_Feature* const* features)
 {
-  Vihda* d = new Vihda( samplerate );
+  Panda* d = new Panda( samplerate );
   d->map = 0;
   
   // get URID_map and unmap
@@ -119,7 +117,7 @@ LV2_Handle Vihda::instantiate(const LV2_Descriptor* descriptor,
   // we don't have the map extension: print warning
   if( !d->map )
   {
-    printf("Vihda: Error: host doesn't provide Lv2 URID map, cannot sync BPM!\n");
+    printf("Panda: Error: host doesn't provide Lv2 URID map, cannot sync BPM!\n");
     delete d;
     return 0;
   }
@@ -136,68 +134,64 @@ LV2_Handle Vihda::instantiate(const LV2_Descriptor* descriptor,
   return (LV2_Handle) d;
 }
 
-Vihda::Vihda(int rate)
+Panda::Panda(int rate)
 {
-  widener = new Widener( rate );
+  compander = new Compander( rate );
 }
 
-void Vihda::activate(LV2_Handle instance)
-{
-}
-
-void Vihda::deactivate(LV2_Handle instance)
+void Panda::activate(LV2_Handle instance)
 {
 }
 
-void Vihda::connect_port(LV2_Handle instance, uint32_t port, void *data)
+void Panda::deactivate(LV2_Handle instance)
 {
-  Vihda* self = (Vihda*) instance;
+}
+
+void Panda::connect_port(LV2_Handle instance, uint32_t port, void *data)
+{
+  Panda* self = (Panda*) instance;
   
   switch (port)
   {
-      case VIHDA_INPUT_L:
+      case PANDA_INPUT_L:
           self->audioInputL  = (float*)data;
           break;
-      case VIHDA_INPUT_R:
-          self->audioInputR  = (float*)data;
-          break;
-      case VIHDA_OUTPUT_L:
+      case PANDA_OUTPUT_L:
           self->audioOutputL = (float*)data;
           break;
-      case VIHDA_OUTPUT_R:
-          self->audioOutputR = (float*)data;
-          break;
       
-      case VIHDA_WIDTH:
-          self->controlWidener  = (float*)data;
+      case PANDA_THRESHOLD:
+          self->controlThreshold  = (float*)data;
           break;
-      case VIHDA_INVERT:
-          self->controlInvert = (float*)data;
+      case PANDA_FACTOR:
+          self->controlFactor  = (float*)data;
           break;
-      case VIHDA_ACTIVE:
+      case PANDA_RELEASE:
+          self->controlRelease  = (float*)data;
+          break;
+      case PANDA_ACTIVE:
           self->controlActive = (float*)data;
           break;
       
-      case VIHDA_ATOM_IN:
+      case PANDA_ATOM_IN:
           self->atom_port      = (LV2_Atom_Sequence*)data;
           break;
   }
 }
 
-void Vihda::run(LV2_Handle instance, uint32_t n_samples)
+void Panda::run(LV2_Handle instance, uint32_t n_samples)
 {
-  Vihda* self = (Vihda*) instance;
+  Panda* self = (Panda*) instance;
   
   /// audio inputs
   float* inL  = self->audioInputL;
-  float* inR  = self->audioInputR;
   float* outL = self->audioOutputL;
-  float* outR = self->audioOutputR;
   
   /// control inputs
   float active    = *self->controlActive;
-  float width     = *self->controlWidener;
-  float invert    = *self->controlInvert;
+  float factor    = *self->controlFactor;
+  float threshold = *self->controlThreshold;
+  float release   = *self->controlRelease;
   
   /// handle Atom messages
   LV2_ATOM_SEQUENCE_FOREACH(self->atom_port, ev)
@@ -217,7 +211,7 @@ void Vihda::run(LV2_Handle instance, uint32_t n_samples)
         float bpmValue = ((LV2_Atom_Float*)bpm)->body;
         //self->dspMasherL->bpm( bpmValue );
         printf("set bpm of %f\n", bpmValue );
-        //self->widener->setBPM( bpmValue );
+        //self->compander->setBPM( bpmValue );
       }
       
     }
@@ -228,25 +222,25 @@ void Vihda::run(LV2_Handle instance, uint32_t n_samples)
   }
   
   if ( active > 0.5 )
-    self->widener->active( true  );
+    self->compander->active( true  );
   else
-    self->widener->active( false );
+    self->compander->active( false );
   
-  self->widener->setValue( width );
-  self->widener->setInvert( invert );
+  self->compander->setValue( factor );
+  self->compander->setThreshold( threshold );
+  self->compander->setRelease( release );
   
-  
-  self->widener->process( n_samples, inL, inR, outL, outR );
+  self->compander->process( n_samples, inL, outL );
 }
 
-void Vihda::cleanup(LV2_Handle instance)
+void Panda::cleanup(LV2_Handle instance)
 {
-  delete ((Vihda*)instance)->widener;
+  delete ((Panda*)instance)->compander;
   
-  delete ((Vihda*) instance);
+  delete ((Panda*) instance);
 }
 
-const void* Vihda::extension_data(const char* uri)
+const void* Panda::extension_data(const char* uri)
 {
     return NULL;
 }
