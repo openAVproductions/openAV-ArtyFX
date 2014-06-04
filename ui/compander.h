@@ -258,9 +258,9 @@ class Compander : public Fl_Slider
               float deltaX = mouseClickedX - Fl::event_x();
               float deltaY = mouseClickedY - Fl::event_y();
               
-              float valX = value();
+              float valX = point;
               valX -= deltaX / 100.f;
-              float valY = point;
+              float valY = value();
               valY += deltaY / 100.f;
               
               if ( valX > 1.0 ) valX = 1.0;
@@ -270,8 +270,8 @@ class Compander : public Fl_Slider
               if ( valY < 0.0 ) valY = 0.0;
               
               //handle_drag( value + deltaY );
-              set_value( valX );
-              point = valY;
+              set_value( valY );
+              point = valX;
               
               mouseClickedX = Fl::event_x();
               mouseClickedY = Fl::event_y();

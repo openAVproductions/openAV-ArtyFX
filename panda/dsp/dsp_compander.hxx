@@ -43,6 +43,12 @@ class Compander // : Effect
       _active = true;
       
       init();
+      
+      attack = 2.f;
+      release = 20;
+      
+      threshold = -60.f;
+      factor = 3.f;
     }
     
     float getValue()
@@ -64,7 +70,7 @@ class Compander // : Effect
       if ( v > 1.f ) v = 1.f;
       
       // -20 to -80dB range
-      threshold = (v * 70) - 80;
+      threshold = (v * 60.f) - 80;
     }
     
     void setRelease( float v)
@@ -173,7 +179,8 @@ class Compander // : Effect
   
     void init()
     {
-      attack = 1.0f;
+      attack = 2.0f;
+      
       for (int i=0; i<2; i++) fRec1[i] = 0;
       fConst0 = (1e+03f / float(min(192000, max(1, samplerate))));
       for (int i=0; i<2; i++) fVec0[i] = 0;
