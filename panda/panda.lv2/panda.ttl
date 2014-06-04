@@ -37,7 +37,7 @@
   doap:maintainer <http://www.openavproductions.com/> ;
   lv2:optionalFeature lv2:hardRTCapable ;
   
-  #ui:ui <http://www.openavproductions.com/artyfx#panda/gui>;
+  ui:ui <http://www.openavproductions.com/artyfx#panda/gui>;
   
   lv2:requiredFeature <http://lv2plug.in/ns/ext/urid#map> ;
 

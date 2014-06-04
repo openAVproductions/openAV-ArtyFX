@@ -126,10 +126,10 @@ static void port_event(LV2UI_Handle ui,
     float value =  *(float *)buffer;
     switch ( port_index )
     {
-      case PANDA_CRUSH:
+      case PANDA_THRESHOLD:
           {
-            self->widget->graph->value( value );
-            self->widget->width->value( value );
+            self->widget->graph->setThreshold( value );
+            self->widget->threshold->value( value );
           }
           break;
       case PANDA_ACTIVE:

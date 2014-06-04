@@ -71,7 +71,7 @@ class Compander // : Effect
     {
       if ( v < 0.f ) v = 0.f;
       if ( v > 1.f ) v = 1.f;
-      release = v * 180 + 20;
+      release = v * 980 + 20;
     }
     
     
@@ -111,7 +111,6 @@ class Compander // : Effect
           
           //float fTemp4 = fabsf(min((float)100, max(1e-05f, sqrtf( (faustpower<2>(fTemp3) + faustpower<2>(fTemp2))))));
           float fTemp4 = fabsf(min((float)100, max(1e-05f, sqrtf( ( pow( fTemp3, 2 ) + pow( fTemp2, 2 ) ) ) ) ) );
-          
           
           fRec11[0] = (fSlow1 + (0.999f * fRec11[1]));
           float fTemp5 = expf((0 - (fConst0 / fRec11[0])));

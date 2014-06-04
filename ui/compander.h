@@ -65,7 +65,7 @@ class Compander : public Fl_Slider
     float amount;
     float release;
     
-    void setPoint(float p) {point = p; redraw();}
+    void setThreshold(float p) {point = p; redraw();}
     void setRelease(float r) {release = r; redraw();}
     
     void setActive(bool a)
@@ -77,6 +77,11 @@ class Compander : public Fl_Slider
     bool getActive()
     {
       return active;
+    }
+    
+    float getThreshold()
+    {
+      return point;
     }
     
     bool active;
@@ -142,121 +147,48 @@ class Compander : public Fl_Slider
         
         cairo_set_dash ( cr, dashes, 0, 0.0);
         
+        // release line
+        cairo_move_to( cr, x + w/4, y + h*3.6/4 );
+        cairo_line_to( cr, x + w/4 + w/2*release, y + h*3.6/4 );
+        cairo_set_source_rgba(cr, 1.0, 0.48,   0, 0.9);
+        cairo_set_line_width( cr, 2.4 );
+        cairo_stroke( cr );
+        // dickie-bow graph
         int pointX = x + w/4 + w/2*point;
         int pointY = y + h*3/4 - h/2*point;
         
-        // point
-        cairo_arc( cr, pointX, pointY, 6, 0, 6.28 );
-        cairo_set_source_rgba( cr, 0 / 255.f, 153 / 255.f , 255 / 255.f , 0.8 );
-        cairo_fill_preserve(cr);
-        cairo_set_source_rgba( cr, 0 / 255.f, 153 / 255.f , 255 / 255.f , 1 );
-        cairo_set_line_width(cr, 1.5);
-        cairo_set_line_join( cr, CAIRO_LINE_JOIN_ROUND);
-        cairo_set_line_cap ( cr, CAIRO_LINE_CAP_ROUND);
-        cairo_stroke( cr );
-        
         // lower attenuation arc
         cairo_move_to( cr, x, y + h );
+        cairo_set_line_width( cr, 1.9 );
         
-        // amt fades between linear & "max" attenuation curve
-        float amt = value();
-        
-        printf("amt %f, pointX %i, pointY %i\n", amt, pointX, pointY );
-        
-        int cp1x = x + w/4 * (amt*3);
-        int cp1y = y+h;
-        
-        int cp2x = x + w/4 * (-amt*3);
-        int cp2y = y+h*1/4;
-        
-        float offset = value() * w/2;
-        
-        // #########
-        {
-          float x1 = x;
-          float y1 = y + h;
-          
-          float x2 = x+pointX;
-          float y2 = y+h-pointY;
-          
-          float distX = sqrt( ((x2 - x1)*(x2 - x1)) ) / 3.f;
-          float distY = sqrt( ((y2 - y1)*(y2 - y1)) ) / 3.f;
-          
-          std::cout << "a = " << value() << "  dX = " << distX << " dY = " << distY << std::endl;
-          
-          cairo_move_to( cr, x1, y1 );
-          
-          float tx1 = x1 + distX * sin(value());
-          float ty1 = y1 - distY * cos( value() );
-          //std::cout << "tX1 = " << tx1 - x << "  tY1 = " << ty1 - y << std::endl;
-          
-          float tx2 = x2 - (distX * cos(value()));
-          float ty2 = y2 + (distY * sin(value()));
-          std::cout << "tX2 = " << tx2 - x << "  tY2 = " << ty2 - y << std::endl;
-          
-          cairo_curve_to( cr, tx1, ty1,
-                              tx2, ty2,
-                              pointX, pointY );
-          
-          if ( true )
-          {
-            cairo_arc( cr, tx1, ty1, 2, 0, 6.28 );
-            cairo_arc( cr, tx2, ty2, 2, 0, 6.28 );
-            cairo_stroke( cr );
-          }
-          
-        }
-        // ##########
-        /*
-        cairo_curve_to( cr, x + (w * point)      + offset,      y+h,    // control point 1
-                            x + (w -(w * point)) + offset,       y,    // control point 2
-                            x + w,                       y );  // end of curve 1, start curve 2
-        */
-        
-        /*
-        cairo_curve_to( cr, cp1x, cp1y,
-                            cp2x, cp2y,
-                            x + w*3/4, y+h*1/4 );   // end of curve 2
-        */
-        
-        /*
-        // 100% expander
-        cairo_curve_to( cr, x + w*3/4, y+h,   // control point 1
-                            x + w*3/4, y+h*1/4,     // control point 2
-                            x + w*3/4, y+h*1/4 );   // end of curve
-        */
-        
-        // 100% compressor
-        /*
-        cairo_curve_to( cr, x + w*0/4, y+h,   // control point 1
-                            x + w*0/4, y+h*1/4,     // control point 2
-                            x + w*3/4, y+h*1/4 );   // end of curve
-        */
-        
-        // 50-50%
-        /*
-        cairo_curve_to( cr, x + w*1.5/4, y+h,   // control point 1
-                            x + w*1.5/4, y+h*1/4,     // control point 2
-                            x + w*3/4, y+h*1/4 );   // end of curve
-        
-        cairo_line_to( cr, x + w, y+h*1/4 );
-        cairo_line_to( cr, x + w, y+h );
+        // right curve, compression
+        cairo_move_to( cr, pointX, pointY );
+        cairo_arc_negative( cr, pointX, pointY, 15 + 20 * (1-point), 0, -3.1415 / 2 * value() );
         cairo_close_path( cr );
-        */
+        cairo_set_source_rgba(cr, 1.0, 0.48,   0, 0.2);
+        cairo_fill_preserve( cr );
+        cairo_set_source_rgba(cr, 1.0, 0.48,   0, 0.8);
+        cairo_stroke( cr );
         
-        //cairo_close_path(cr);
+        // left curve, expanding
+        cairo_move_to( cr, pointX, pointY );
+        cairo_arc_negative( cr, pointX, pointY, 15 + 20 * point, 3.1415, 3.1415 + -3.1415 / 2 * value() );
+        cairo_close_path( cr );
+        
         cairo_set_source_rgba( cr, 0 / 255.f, 153 / 255.f , 255 / 255.f , 0.2 );
         cairo_fill_preserve( cr );
         cairo_set_source_rgba( cr, 0 / 255.f, 153 / 255.f , 255 / 255.f , 0.8 );
         cairo_stroke( cr );
         
-        if ( false )
-        {
-          cairo_arc( cr, cp1x, cp1y, 2, 0, 6.28 );
-          cairo_arc( cr, cp2x, cp2y, 2, 0, 6.28 );
-          cairo_stroke( cr );
-        }
-        
+        // point
+        cairo_arc( cr, pointX, pointY, 6, 0, 6.28 );
+        cairo_set_source_rgba( cr, 0, 0, 0, 0.8 );
+        cairo_fill_preserve(cr);
+        cairo_set_source_rgba( cr, 0, 0, 0 , 1 );
+        cairo_set_line_width(cr, 1.5);
+        cairo_set_line_join( cr, CAIRO_LINE_JOIN_ROUND);
+        cairo_set_line_cap ( cr, CAIRO_LINE_CAP_ROUND);
+        cairo_stroke( cr );
         
         // stroke outline
         cairo_rectangle(cr, x, y, w, h);
