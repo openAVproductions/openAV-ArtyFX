@@ -18,12 +18,15 @@
  * MA 02110-1301, USA.
  */
 
+// test compile g++ artyfx.cxx bitta/dsp/dsp.cxx della/dsp/dsp.cxx  -fPIC -shared  -Wl,--no-undefined -o artyfx.lv2/artyfx.so
+
 /// this file compiles into artyfx.so, including all plugins.
 
 #include "lv2/lv2plug.in/ns/lv2core/lv2.h"
 
 // include each plugin
 #include "bitta/dsp/shared.hxx"
+#include "della/dsp/shared.hxx"
 
 static const LV2_Descriptor descriptors[] =
 {
@@ -37,7 +40,6 @@ static const LV2_Descriptor descriptors[] =
     Bitta::cleanup,
     Bitta::extension_data
   },
-  /*
   {
     DELLA_URI,
     Della::instantiate,
@@ -48,15 +50,15 @@ static const LV2_Descriptor descriptors[] =
     Della::cleanup,
     Della::extension_data
   }
-  */
 };
 
 
 LV2_SYMBOL_EXPORT const LV2_Descriptor* lv2_descriptor(uint32_t index)
 {
-  if (index == 0)
-    return &descriptors[0];
-  else
-    return 0;
+  if (index >= sizeof(descriptors) / sizeof(descriptors[0]))
+  {
+      return NULL;
+  }
+  return descriptors + index;
 }
 

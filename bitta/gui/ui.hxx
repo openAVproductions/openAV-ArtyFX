@@ -18,33 +18,24 @@
  * MA 02110-1301, USA.
  */
 
-// test compile g++ artyfx_ui.cxx bitta/gui/ui.cxx `pkg-config --cflags --libs sndfile cairomm-1.0 ntk ntk_images` -fPIC -shared -Wl,-z,nodelete  -Wl,--no-undefined -o artyfx.lv2/artyfx_ui.so
+extern LV2UI_Handle bitta_instantiate(const struct _LV2UI_Descriptor * descriptor,
+                const char * plugin_uri,
+                const char * bundle_path,
+                LV2UI_Write_Function write_function,
+                LV2UI_Controller controller,
+                LV2UI_Widget * widget,
+                const LV2_Feature * const * features);
 
-/// lv2 core / ui includes
-#include "lv2/lv2plug.in/ns/lv2core/lv2.h"
-#include "lv2/lv2plug.in/ns/extensions/ui/ui.h"
+extern void bitta_cleanup(LV2UI_Handle ui);
 
-// this file compiles into artyfx_ui.so, including all plugins' UIs.
-#include "bitta/gui/ui.hxx"
-#include "bitta/dsp/shared.hxx"
+extern void bitta_port_event(LV2UI_Handle ui,
+               uint32_t port_index,
+               uint32_t buffer_size,
+               uint32_t format,
+               const void * buffer);
 
-static LV2UI_Descriptor descriptors[] =
-{
-  {
-    BITTA_UI_URI,
-    bitta_instantiate,
-    bitta_cleanup, 
-    bitta_port_event, 
-    bitta_extension_data
-  },
-    
-};
+extern int bitta_idle(LV2UI_Handle handle);
 
-const LV2UI_Descriptor * lv2ui_descriptor(uint32_t index)
-{
-  if (index >= sizeof(descriptors) / sizeof(descriptors[0]))
-  {
-      return NULL;
-  }
-  return descriptors + index;
-}
+extern const void* bitta_extension_data(const char* uri);
+
+

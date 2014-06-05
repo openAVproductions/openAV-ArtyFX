@@ -37,7 +37,7 @@ typedef enum
   BITTA_ACTIVE,
   
   BITTA_ATOM_IN,
-} PortIndex;
+} BittaPortIndex;
 
 #include "lv2/lv2plug.in/ns/ext/urid/urid.h"
 #include "lv2/lv2plug.in/ns/ext/atom/atom.h"
