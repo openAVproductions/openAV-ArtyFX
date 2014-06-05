@@ -18,10 +18,10 @@
  * MA 02110-1301, USA.
  */
 
-// test compile
-// g++ artyfx.cxx bitta/dsp/dsp.cxx della/dsp/dsp.cxx ducka/dsp/dsp.cxx filta/dsp/dsp.cxx kuiza/dsp/dsp.cxx kuiza/dsp/eq/filters.cc kuiza/dsp/eq/filters_if.cc kuiza/dsp/eq/exp2ap.cc  -fPIC -shared  -Wl,--no-undefined -o artyfx.lv2/artyfx.so
-
 /// this file compiles into artyfx.so, including all plugins.
+
+// test compile
+// g++ artyfx.cxx bitta/dsp/dsp.cxx della/dsp/dsp.cxx ducka/dsp/dsp.cxx filta/dsp/dsp.cxx kuiza/dsp/dsp.cxx kuiza/dsp/eq/filters.cc kuiza/dsp/eq/filters_if.cc kuiza/dsp/eq/exp2ap.cc masha/dsp/masha.cxx panda/dsp/dsp.cxx  -fPIC -shared  -Wl,--no-undefined -o artyfx.lv2/artyfx.so
 
 #include "lv2/lv2plug.in/ns/lv2core/lv2.h"
 
@@ -31,6 +31,8 @@
 #include "ducka/dsp/shared.hxx"
 #include "filta/dsp/shared.hxx"
 #include "kuiza/dsp/shared.hxx"
+#include "masha/dsp/shared.hxx"
+#include "panda/dsp/shared.hxx"
 
 static const LV2_Descriptor descriptors[] =
 {
@@ -83,6 +85,26 @@ static const LV2_Descriptor descriptors[] =
     Kuiza::deactivate,
     Kuiza::cleanup,
     Kuiza::extension_data
+  },
+  {
+    MASHA_URI,
+    Masha::instantiate,
+    Masha::connect_port,
+    Masha::activate,
+    Masha::run,
+    Masha::deactivate,
+    Masha::cleanup,
+    Masha::extension_data
+  },
+  {
+    PANDA_URI,
+    Panda::instantiate,
+    Panda::connect_port,
+    Panda::activate,
+    Panda::run,
+    Panda::deactivate,
+    Panda::cleanup,
+    Panda::extension_data
   }
 };
 

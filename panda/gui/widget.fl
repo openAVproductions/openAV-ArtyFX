@@ -2,14 +2,14 @@
 version 1.0300 
 header_name {.h} 
 code_name {.cxx}
-class Widget {open
+class PandaWidget {open
 } {
   Function {update_button(int button)} {
     comment {if the type of filter changes, this function will highlight the right button} open return_type void
   } {
     code {} {}
   }
-  Function {Widget()} {open
+  Function {PandaWidget()} {open selected
   } {
     Fl_Window window {
       label Panda open
@@ -38,7 +38,7 @@ writePort(PANDA_FACTOR, tmp);
 threshold->value( ((Avtk::Compander*)o)->getThreshold() );
 
 float a = o->getActive();
-writePort(PANDA_ACTIVE, a);} selected
+writePort(PANDA_ACTIVE, a);}
         xywh {5 36 150 126} box UP_BOX color 179 labeltype NO_LABEL
         code1 {using namespace std;}
         code2 {\#include <iostream>}

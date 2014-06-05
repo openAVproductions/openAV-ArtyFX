@@ -1,5 +1,5 @@
 /*
- * Author: Harry van Haaren 2014
+ * Author: Harry van Haaren 2013
  *         harryhaaren@gmail.com
  * 
  * This program is free software; you can redistribute it and/or modify
@@ -18,38 +18,41 @@
  * MA 02110-1301, USA.
  */
 
-#ifndef OPENAV_PANDA
-#define OPENAV_PANDA
+#ifndef OPENAV_MASHA
+#define OPENAV_MASHA
 
 #include "lv2/lv2plug.in/ns/lv2core/lv2.h"
 
-#define PANDA_URI    "http://www.openavproductions.com/artyfx#panda"
-#define PANDA_UI_URI "http://www.openavproductions.com/artyfx#panda/gui"
+#define MASHA_URI    "http://www.openavproductions.com/artyfx#masha"
+#define MASHA_UI_URI "http://www.openavproductions.com/artyfx#masha/gui"
 
 typedef enum
 {
-  // audio
-  PANDA_INPUT_L = 0,
-  PANDA_OUTPUT_L,
+  MASHA_INPUT_L = 0,
+  MASHA_INPUT_R,
   
-  // controls
-  PANDA_FACTOR,
-  PANDA_THRESHOLD,
-  PANDA_RELEASE,
-  PANDA_ACTIVE,
+  MASHA_OUTPUT_L,
+  MASHA_OUTPUT_R,
   
-  PANDA_ATOM_IN,
-} PandaPortIndex;
+  MASHA_TIME,
+  MASHA_AMP,
+  MASHA_DRY_WET,
+  
+  MASHA_ACTIVE,
+  
+  MASHA_ATOM_IN,
+} MashaPortIndex;
 
-class Compander;
 #include "lv2/lv2plug.in/ns/ext/atom/atom.h"
 #include "lv2/lv2plug.in/ns/ext/urid/urid.h"
+class Masher;
 
-class Panda
+class Masha
 {
   public:
-    Panda(int rate);
-    ~Panda(){}
+    Masha(int rate);
+    Masha(int rate, LV2_URID_Map* map);
+    ~Masha(){}
     static LV2_Handle instantiate(const LV2_Descriptor* descriptor,
                                   double samplerate,
                                   const char* bundle_path,
@@ -63,12 +66,14 @@ class Panda
     
     /// audio buffers
     float* audioInputL;
+    float* audioInputR;
     float* audioOutputL;
+    float* audioOutputR;
     
     /// control signals
-    float* controlThreshold;
-    float* controlFactor;
-    float* controlRelease;
+    float* controlTime;
+    float* controlAmp;
+    float* controlDryWet;
     float* controlActive;
     
     /// Atom port
@@ -81,12 +86,17 @@ class Panda
     LV2_URID atom_Float;
     
     LV2_URID_Map* map;
+    LV2_URID_Unmap* unmap;
     LV2_Atom_Sequence* atom_port;
     
+    void setUnmap( LV2_URID_Unmap* um )
+    {
+      unmap = um;
+    }
+    
   private:
-    /// runtime variables
-    bool active;
-    Compander* compander;
+    Masher* dspMasherL;
+    Masher* dspMasherR;
 };
 
-#endif // OPENAV_PANDA
+#endif // OPENAV_MASHA

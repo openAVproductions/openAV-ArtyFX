@@ -18,7 +18,7 @@
  * MA 02110-1301, USA.
  */
 
-#include "masha.hxx"
+#include "shared.hxx"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -31,78 +31,6 @@
 #include "lv2/lv2plug.in/ns/ext/atom/util.h"
 #include "lv2/lv2plug.in/ns/ext/urid/urid.h"
 #include "lv2/lv2plug.in/ns/ext/time/time.h"
-
-class Masha
-{
-  public:
-    Masha(int rate);
-    Masha(int rate, LV2_URID_Map* map);
-    ~Masha(){}
-    static LV2_Handle instantiate(const LV2_Descriptor* descriptor,
-                                  double samplerate,
-                                  const char* bundle_path,
-                                  const LV2_Feature* const* features);
-    static void activate(LV2_Handle instance);
-    static void deactivate(LV2_Handle instance);
-    static void connect_port(LV2_Handle instance, uint32_t port, void *data);
-    static void run(LV2_Handle instance, uint32_t n_samples);
-    static void cleanup(LV2_Handle instance);
-    static const void* extension_data(const char* uri);
-    
-    /// audio buffers
-    float* audioInputL;
-    float* audioInputR;
-    float* audioOutputL;
-    float* audioOutputR;
-    
-    /// control signals
-    float* controlTime;
-    float* controlAmp;
-    float* controlDryWet;
-    float* controlActive;
-    
-    /// Atom port
-    LV2_URID time_Position;
-    LV2_URID time_barBeat;
-    LV2_URID time_beatsPerMinute;
-    LV2_URID time_speed;
-    
-    LV2_URID atom_Blank;
-    LV2_URID atom_Float;
-    
-    LV2_URID_Map* map;
-    LV2_URID_Unmap* unmap;
-    LV2_Atom_Sequence* atom_port;
-    
-    void setUnmap( LV2_URID_Unmap* um )
-    {
-      unmap = um;
-    }
-    
-  private:
-    Masher* dspMasherL;
-    Masher* dspMasherR;
-};
-
-
-static const LV2_Descriptor descriptor =
-{
-  MASHA_URI,
-  Masha::instantiate,
-  Masha::connect_port,
-  Masha::activate,
-  Masha::run,
-  Masha::deactivate,
-  Masha::cleanup,
-  Masha::extension_data
-};
-
-
-LV2_SYMBOL_EXPORT const LV2_Descriptor* lv2_descriptor(uint32_t index)
-{
-  if (index == 0) return &descriptor;
-  else return NULL;
-}
 
 
 LV2_Handle Masha::instantiate(const LV2_Descriptor* descriptor,

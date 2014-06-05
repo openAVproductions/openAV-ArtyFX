@@ -1,5 +1,5 @@
 /*
- * Author: Harry van Haaren 2013
+ * Author: Harry van Haaren 2014
  *         harryhaaren@gmail.com
  * 
  * This program is free software; you can redistribute it and/or modify
@@ -18,29 +18,24 @@
  * MA 02110-1301, USA.
  */
 
-#ifndef OPENAV_MASHA
-#define OPENAV_MASHA
+extern LV2UI_Handle masha_instantiate(const struct _LV2UI_Descriptor * descriptor,
+                const char * plugin_uri,
+                const char * bundle_path,
+                LV2UI_Write_Function write_function,
+                LV2UI_Controller controller,
+                LV2UI_Widget * widget,
+                const LV2_Feature * const * features);
 
-#include "lv2/lv2plug.in/ns/lv2core/lv2.h"
+extern void masha_cleanup(LV2UI_Handle ui);
 
-#define MASHA_URI    "http://www.openavproductions.com/artyfx#masha"
-#define MASHA_UI_URI "http://www.openavproductions.com/artyfx#masha/gui"
+extern void masha_port_event(LV2UI_Handle ui,
+               uint32_t port_index,
+               uint32_t buffer_size,
+               uint32_t format,
+               const void * buffer);
 
-typedef enum
-{
-  MASHA_INPUT_L = 0,
-  MASHA_INPUT_R,
-  
-  MASHA_OUTPUT_L,
-  MASHA_OUTPUT_R,
-  
-  MASHA_TIME,
-  MASHA_AMP,
-  MASHA_DRY_WET,
-  
-  MASHA_ACTIVE,
-  
-  MASHA_ATOM_IN,
-} PortIndex;
+extern int masha_idle(LV2UI_Handle handle);
 
-#endif // OPENAV_MASHA
+extern const void* masha_extension_data(const char* uri);
+
+

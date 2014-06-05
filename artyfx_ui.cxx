@@ -20,7 +20,7 @@
 
 //  bitta/gui/ui.cxx bitta/gui/widget.cxx
 // test compile:
-// g++ artyfx_ui.cxx  bitta/gui/ui.cxx bitta/gui/widget.cxx della/gui/ui.cxx della/gui/widget.cxx  ducka/gui/ducka_ui.cxx ducka/gui/ducka_widget.cxx filta/gui/ui.cxx filta/gui/widget.cxx kuiza/gui/ui.cxx kuiza/gui/widget.cxx `pkg-config --cflags --libs sndfile cairomm-1.0 ntk ntk_images` -fPIC -shared -Wl,-z,nodelete  -Wl,--no-undefined -o artyfx.lv2/artyfx_ui.so
+// g++ artyfx_ui.cxx  bitta/gui/ui.cxx bitta/gui/widget.cxx della/gui/ui.cxx della/gui/widget.cxx  ducka/gui/ducka_ui.cxx ducka/gui/ducka_widget.cxx filta/gui/ui.cxx filta/gui/widget.cxx kuiza/gui/ui.cxx kuiza/gui/widget.cxx masha/gui/masha_widget.cxx masha/gui/masha_ui.cxx panda/gui/ui.cxx panda/gui/widget.cxx `pkg-config --cflags --libs sndfile cairomm-1.0 ntk ntk_images` -fPIC -shared -Wl,-z,nodelete  -Wl,--no-undefined -o artyfx.lv2/artyfx_ui.so
 
 /// lv2 core / ui includes
 #include "lv2/lv2plug.in/ns/lv2core/lv2.h"
@@ -41,6 +41,12 @@
 
 #include "kuiza/gui/ui.hxx"
 #include "kuiza/dsp/shared.hxx"
+
+#include "masha/gui/ui.hxx"
+#include "masha/dsp/shared.hxx"
+
+#include "panda/gui/ui.hxx"
+#include "panda/dsp/shared.hxx"
 
 static LV2UI_Descriptor descriptors[] =
 {
@@ -78,6 +84,20 @@ static LV2UI_Descriptor descriptors[] =
     kuiza_cleanup,
     kuiza_port_event,
     kuiza_extension_data
+  },
+  {
+    MASHA_UI_URI,
+    masha_instantiate,
+    masha_cleanup,
+    masha_port_event,
+    masha_extension_data
+  },
+  {
+    PANDA_UI_URI,
+    panda_instantiate,
+    panda_cleanup,
+    panda_port_event,
+    panda_extension_data
   }
 };
 

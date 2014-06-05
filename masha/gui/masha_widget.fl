@@ -16,7 +16,7 @@ class MashaUI {open
       code0 {\#include "lv2/lv2plug.in/ns/extensions/ui/ui.h"}
       code1 {window->color( fl_rgb_color( 17,17,17) );}
       code2 {close_cb( o, 0 );}
-      code3 {\#include "../dsp/masha.hxx"} visible
+      code3 {\#include "../dsp/shared.hxx"} visible
     } {
       Fl_Box headerImage {
         label {header.png}

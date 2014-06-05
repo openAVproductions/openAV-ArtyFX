@@ -12,10 +12,10 @@
 using namespace std;
 #include <iostream>
 
-class Widget {
+class PandaWidget {
 public:
   void update_button(int button);
-  Widget();
+  PandaWidget();
   Fl_Double_Window *window;
   Avtk::Image *headerImage;
 private:

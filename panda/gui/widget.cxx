@@ -2,14 +2,14 @@
 
 #include "widget.h"
 
-void Widget::cb_headerImage_i(Avtk::Image*, void*) {
+void PandaWidget::cb_headerImage_i(Avtk::Image*, void*) {
   //system("xdg-open http://www.openavproductions.com/artyfx#ducka");
 }
-void Widget::cb_headerImage(Avtk::Image* o, void* v) {
-  ((Widget*)(o->parent()->user_data()))->cb_headerImage_i(o,v);
+void PandaWidget::cb_headerImage(Avtk::Image* o, void* v) {
+  ((PandaWidget*)(o->parent()->user_data()))->cb_headerImage_i(o,v);
 }
 
-void Widget::cb_graph_i(Avtk::Compander* o, void*) {
+void PandaWidget::cb_graph_i(Avtk::Compander* o, void*) {
   float tmp = o->value();
 factor->value( tmp );
 writePort(PANDA_FACTOR, tmp);
@@ -19,47 +19,47 @@ threshold->value( ((Avtk::Compander*)o)->getThreshold() );
 float a = o->getActive();
 writePort(PANDA_ACTIVE, a);
 }
-void Widget::cb_graph(Avtk::Compander* o, void* v) {
-  ((Widget*)(o->parent()->user_data()))->cb_graph_i(o,v);
+void PandaWidget::cb_graph(Avtk::Compander* o, void* v) {
+  ((PandaWidget*)(o->parent()->user_data()))->cb_graph_i(o,v);
 }
 
-void Widget::cb_factor_i(Avtk::Dial* o, void*) {
+void PandaWidget::cb_factor_i(Avtk::Dial* o, void*) {
   float tmp = o->value();
 graph->value( tmp );
 writePort(PANDA_FACTOR, tmp);
 printf("%f\n",tmp);
 }
-void Widget::cb_factor(Avtk::Dial* o, void* v) {
-  ((Widget*)(o->parent()->user_data()))->cb_factor_i(o,v);
+void PandaWidget::cb_factor(Avtk::Dial* o, void* v) {
+  ((PandaWidget*)(o->parent()->user_data()))->cb_factor_i(o,v);
 }
 
-void Widget::cb_threshold_i(Avtk::Dial* o, void*) {
+void PandaWidget::cb_threshold_i(Avtk::Dial* o, void*) {
   float tmp = o->value();
 graph->setThreshold( tmp );
 writePort(PANDA_THRESHOLD, tmp);
 printf("%f\n",tmp);
 }
-void Widget::cb_threshold(Avtk::Dial* o, void* v) {
-  ((Widget*)(o->parent()->user_data()))->cb_threshold_i(o,v);
+void PandaWidget::cb_threshold(Avtk::Dial* o, void* v) {
+  ((PandaWidget*)(o->parent()->user_data()))->cb_threshold_i(o,v);
 }
 
-void Widget::cb_release_i(Avtk::Dial* o, void*) {
+void PandaWidget::cb_release_i(Avtk::Dial* o, void*) {
   float tmp = o->value();
 graph->setRelease( tmp );
 writePort(PANDA_RELEASE, tmp);
 printf("%f\n",tmp);
 }
-void Widget::cb_release(Avtk::Dial* o, void* v) {
-  ((Widget*)(o->parent()->user_data()))->cb_release_i(o,v);
+void PandaWidget::cb_release(Avtk::Dial* o, void* v) {
+  ((PandaWidget*)(o->parent()->user_data()))->cb_release_i(o,v);
 }
 
 /**
    if the type of filter changes, this function will highlight the right button
 */
-void Widget::update_button(int button) {
+void PandaWidget::update_button(int button) {
 }
 
-Widget::Widget() {
+PandaWidget::PandaWidget() {
   { Fl_Double_Window* o = window = new Fl_Double_Window(160, 220, "Panda");
     window->user_data((void*)(this));
     { headerImage = new Avtk::Image(0, 0, 160, 29, "header.png");
@@ -129,25 +129,25 @@ Widget::Widget() {
   } // Fl_Double_Window* window
 }
 
-void Widget::idle() {
+void PandaWidget::idle() {
   Fl::check();
   Fl::flush();
 }
 
-int Widget::getWidth() {
+int PandaWidget::getWidth() {
   return window->w();
 }
 
-int Widget::getHeight() {
+int PandaWidget::getHeight() {
   return window->h();
 }
 
-void Widget::writePort(int port, float& value) {
+void PandaWidget::writePort(int port, float& value) {
   //cout << "port " << port << " value " << value << endl;
   write_function(controller, port, sizeof(float), 0, &value);
 }
 
-void Widget::close_cb(Fl_Widget* o, void*) {
+void PandaWidget::close_cb(Fl_Widget* o, void*) {
   if ((Fl::event() == FL_KEYDOWN || Fl::event() == FL_SHORTCUT) && Fl::event_key() == FL_Escape)
     {
       return; // ignore ESC

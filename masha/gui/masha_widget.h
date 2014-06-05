@@ -5,7 +5,7 @@
 #include <FL/Fl.H>
 #include <FL/Fl_Double_Window.H>
 #include "lv2/lv2plug.in/ns/extensions/ui/ui.h"
-#include "../dsp/masha.hxx"
+#include "../dsp/shared.hxx"
 #include "avtk.h"
 #include <stdio.h>
 #include "header.c"
