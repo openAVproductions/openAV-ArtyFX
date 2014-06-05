@@ -1,0 +1,46 @@
+
+# The manifest file for all OpenAV ArtyFX plugins
+
+@prefix lv2:  <http://lv2plug.in/ns/lv2core#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+<http://www.openavproductions.com/artyfx#bitta> a lv2:Plugin ;
+  lv2:binary <artyfx.so> ;
+  rdfs:seeAlso <bitta.ttl> .
+
+<http://www.openavproductions.com/artyfx#della> a lv2:Plugin ;
+  lv2:binary <della.so> ;
+  rdfs:seeAlso <della.ttl> .
+
+<http://www.openavproductions.com/artyfx#ducka> a lv2:Plugin ;
+  lv2:binary <ducka.so> ;
+  rdfs:seeAlso <ducka.ttl> .
+
+<http://www.openavproductions.com/artyfx#filta> a lv2:Plugin ;
+  lv2:binary <filta.so> ;
+  rdfs:seeAlso <filta.ttl> .
+
+<http://www.openavproductions.com/artyfx#kuiza> a lv2:Plugin ;
+  lv2:binary <kuiza.so> ;
+  rdfs:seeAlso <kuiza.ttl> .
+
+<http://www.openavproductions.com/artyfx#masha> a lv2:Plugin ;
+  lv2:binary <masha.so> ;
+  rdfs:seeAlso <masha.ttl> .
+
+<http://www.openavproductions.com/artyfx#panda> a lv2:Plugin ;
+  lv2:binary <panda.so> ;
+  rdfs:seeAlso <panda.ttl> .
+
+<http://www.openavproductions.com/artyfx#roomy> a lv2:Plugin ;
+  lv2:binary <roomy.so> ;
+  rdfs:seeAlso <roomy.ttl> .
+
+<http://www.openavproductions.com/artyfx#satma> a lv2:Plugin ;
+  lv2:binary <satma.so> ;
+  rdfs:seeAlso <satma.ttl> .
+
+<http://www.openavproductions.com/artyfx#vihda> a lv2:Plugin ;
+  lv2:binary <vihda.so> ;
+  rdfs:seeAlso <vihda.ttl> .
+

@@ -77,26 +77,6 @@ class Della
 };
 
 
-static const LV2_Descriptor descriptor =
-{
-  DELLA_URI,
-  Della::instantiate,
-  Della::connect_port,
-  Della::activate,
-  Della::run,
-  Della::deactivate,
-  Della::cleanup,
-  Della::extension_data
-};
-
-
-LV2_SYMBOL_EXPORT const LV2_Descriptor* lv2_descriptor(uint32_t index)
-{
-  if (index == 0) return &descriptor;
-  else return NULL;
-}
-
-
 LV2_Handle Della::instantiate(const LV2_Descriptor* descriptor,
                               double samplerate,
                               const char* bundle_path,

@@ -32,6 +32,7 @@
 #include "lv2/lv2plug.in/ns/ext/urid/urid.h"
 #include "lv2/lv2plug.in/ns/ext/time/time.h"
 
+/*
 class Bitta
 {
   public:
@@ -73,8 +74,9 @@ class Bitta
     bool active;
     BitCrusher* bitcrusher;
 };
+*/
 
-
+/*
 static const LV2_Descriptor descriptor =
 {
   BITTA_URI,
@@ -93,7 +95,7 @@ LV2_SYMBOL_EXPORT const LV2_Descriptor* lv2_descriptor(uint32_t index)
   if (index == 0) return &descriptor;
   else return NULL;
 }
-
+*/
 
 LV2_Handle Bitta::instantiate(const LV2_Descriptor* descriptor,
                               double samplerate,

@@ -1,5 +1,11 @@
 
 
+1.2 Release :
+New plugins and refactor:
+  -Bitta, Panda, Vihda added
+  -Refactored into one artyfx.so
+
+
 1.1 Release : 17-03-14
 Dot release, added Satma, Kuiza and Della.
 
