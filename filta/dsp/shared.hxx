@@ -36,6 +36,38 @@ typedef enum
   
   FILTA_FREQ_CONTROL,
   FILTA_ACTIVE,
-} PortIndex;
+} FiltaPortIndex;
+
+#include "dsp_filters.hxx"
+
+class Filta
+{
+  public:
+    Filta(int rate);
+    ~Filta(){}
+    static LV2_Handle instantiate(const LV2_Descriptor* descriptor,
+                                  double samplerate,
+                                  const char* bundle_path,
+                                  const LV2_Feature* const* features);
+    static void activate(LV2_Handle instance);
+    static void deactivate(LV2_Handle instance);
+    static void connect_port(LV2_Handle instance, uint32_t port, void *data);
+    static void run(LV2_Handle instance, uint32_t n_samples);
+    static void cleanup(LV2_Handle instance);
+    static const void* extension_data(const char* uri);
+    
+    /// audio buffers
+    float* audioInputL;
+    float* audioInputR;
+    float* audioOutputL;
+    float* audioOutputR;
+    
+    /// control signals
+    float* freqControl;
+    float* activeControl;
+    
+  private:
+    Filters dspFilters;
+};
 
 #endif // OPENAV_FILTA

@@ -26,7 +26,7 @@
 
 <http://www.openavproductions.com/artyfx#masha/gui>
   a ui:X11UI;
-  ui:binary <masha_ui.so>;
+  ui:binary <artyfx_ui.so>;
   ui:requiredFeature ui:makeResident.
 
 <http://www.openavproductions.com/artyfx#masha>

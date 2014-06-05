@@ -23,7 +23,7 @@
 
 <http://www.openavproductions.com/artyfx#roomy/gui>
   a ui:X11UI;
-  ui:binary <roomy_ui.so>;
+  ui:binary <artyfx_ui.so>;
   ui:requiredFeature ui:makeResident.
 
 <http://www.openavproductions.com/artyfx#roomy>

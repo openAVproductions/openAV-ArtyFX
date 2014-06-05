@@ -2,14 +2,14 @@
 version 1.0300 
 header_name {.h} 
 code_name {.cxx}
-class Widget {open
+class KuizaWidget {open
 } {
   Function {update_button(int button)} {
     comment {if the type of filter changes, this function will highlight the right button} open return_type void
   } {
     code {} {}
   }
-  Function {Widget()} {open
+  Function {KuizaWidget()} {open selected
   } {
     Fl_Window window {open
       xywh {423 238 160 220} type Double
@@ -44,7 +44,7 @@ writePort(KUIZA_GAIN, tmp);
 
 float a = o->getActive();
 writePort(KUIZA_ACTIVE, a);
-//printf("active %f\\n", a );} selected
+//printf("active %f\\n", a );}
         xywh {5 36 150 126} box UP_BOX color 179 labeltype NO_LABEL
         code1 {using namespace std;}
         code2 {\#include <iostream>}

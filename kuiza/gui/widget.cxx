@@ -2,23 +2,23 @@
 
 #include "widget.h"
 
-void Widget::cb_headerImage_i(Avtk::Image*, void*) {
+void KuizaWidget::cb_headerImage_i(Avtk::Image*, void*) {
   //system("xdg-open http://www.openavproductions.com/artyfx#ducka");
 }
-void Widget::cb_headerImage(Avtk::Image* o, void* v) {
-  ((Widget*)(o->parent()->user_data()))->cb_headerImage_i(o,v);
+void KuizaWidget::cb_headerImage(Avtk::Image* o, void* v) {
+  ((KuizaWidget*)(o->parent()->user_data()))->cb_headerImage_i(o,v);
 }
 
-void Widget::cb_masterGain_i(Avtk::Dial* o, void*) {
+void KuizaWidget::cb_masterGain_i(Avtk::Dial* o, void*) {
   float tmp = o->value();
 graph->setGain( 0, tmp );
 writePort(KUIZA_GAIN, tmp);
 }
-void Widget::cb_masterGain(Avtk::Dial* o, void* v) {
-  ((Widget*)(o->parent()->user_data()))->cb_masterGain_i(o,v);
+void KuizaWidget::cb_masterGain(Avtk::Dial* o, void* v) {
+  ((KuizaWidget*)(o->parent()->user_data()))->cb_masterGain_i(o,v);
 }
 
-void Widget::cb_graph_i(Avtk::Parameteric* o, void*) {
+void KuizaWidget::cb_graph_i(Avtk::Parameteric* o, void*) {
   float tmp = o->getVolume();
 masterGain->value( tmp );
 writePort(KUIZA_GAIN, tmp);
@@ -27,53 +27,53 @@ float a = o->getActive();
 writePort(KUIZA_ACTIVE, a);
 //printf("active %f\n", a );
 }
-void Widget::cb_graph(Avtk::Parameteric* o, void* v) {
-  ((Widget*)(o->parent()->user_data()))->cb_graph_i(o,v);
+void KuizaWidget::cb_graph(Avtk::Parameteric* o, void* v) {
+  ((KuizaWidget*)(o->parent()->user_data()))->cb_graph_i(o,v);
 }
 
-void Widget::cb_s1gain_i(Avtk::Dial* o, void*) {
+void KuizaWidget::cb_s1gain_i(Avtk::Dial* o, void*) {
   float tmp = o->value();
 graph->setGain( 1, tmp );
 writePort(KUIZA_GAIN_S1, tmp);
 }
-void Widget::cb_s1gain(Avtk::Dial* o, void* v) {
-  ((Widget*)(o->parent()->user_data()))->cb_s1gain_i(o,v);
+void KuizaWidget::cb_s1gain(Avtk::Dial* o, void* v) {
+  ((KuizaWidget*)(o->parent()->user_data()))->cb_s1gain_i(o,v);
 }
 
-void Widget::cb_s2gain_i(Avtk::Dial* o, void*) {
+void KuizaWidget::cb_s2gain_i(Avtk::Dial* o, void*) {
   float tmp = o->value();
 graph->setGain( 2, tmp );
 writePort(KUIZA_GAIN_S2, tmp);
 }
-void Widget::cb_s2gain(Avtk::Dial* o, void* v) {
-  ((Widget*)(o->parent()->user_data()))->cb_s2gain_i(o,v);
+void KuizaWidget::cb_s2gain(Avtk::Dial* o, void* v) {
+  ((KuizaWidget*)(o->parent()->user_data()))->cb_s2gain_i(o,v);
 }
 
-void Widget::cb_s3gain_i(Avtk::Dial* o, void*) {
+void KuizaWidget::cb_s3gain_i(Avtk::Dial* o, void*) {
   float tmp = o->value();
 graph->setGain( 3, tmp );
 writePort(KUIZA_GAIN_S3, tmp);
 }
-void Widget::cb_s3gain(Avtk::Dial* o, void* v) {
-  ((Widget*)(o->parent()->user_data()))->cb_s3gain_i(o,v);
+void KuizaWidget::cb_s3gain(Avtk::Dial* o, void* v) {
+  ((KuizaWidget*)(o->parent()->user_data()))->cb_s3gain_i(o,v);
 }
 
-void Widget::cb_s4gain_i(Avtk::Dial* o, void*) {
+void KuizaWidget::cb_s4gain_i(Avtk::Dial* o, void*) {
   float tmp = o->value();
 graph->setGain( 4, tmp );
 writePort(KUIZA_GAIN_S4, tmp);
 }
-void Widget::cb_s4gain(Avtk::Dial* o, void* v) {
-  ((Widget*)(o->parent()->user_data()))->cb_s4gain_i(o,v);
+void KuizaWidget::cb_s4gain(Avtk::Dial* o, void* v) {
+  ((KuizaWidget*)(o->parent()->user_data()))->cb_s4gain_i(o,v);
 }
 
 /**
    if the type of filter changes, this function will highlight the right button
 */
-void Widget::update_button(int button) {
+void KuizaWidget::update_button(int button) {
 }
 
-Widget::Widget() {
+KuizaWidget::KuizaWidget() {
   { Fl_Double_Window* o = window = new Fl_Double_Window(160, 220);
     window->user_data((void*)(this));
     { headerImage = new Avtk::Image(0, 0, 160, 29, "header.png");
@@ -167,25 +167,25 @@ Widget::Widget() {
   } // Fl_Double_Window* window
 }
 
-void Widget::idle() {
+void KuizaWidget::idle() {
   Fl::check();
   Fl::flush();
 }
 
-int Widget::getWidth() {
+int KuizaWidget::getWidth() {
   return window->w();
 }
 
-int Widget::getHeight() {
+int KuizaWidget::getHeight() {
   return window->h();
 }
 
-void Widget::writePort(int port, float& value) {
+void KuizaWidget::writePort(int port, float& value) {
   //cout << "port " << port << " value " << value << endl;
   write_function(controller, port, sizeof(float), 0, &value);
 }
 
-void Widget::close_cb(Fl_Widget* o, void*) {
+void KuizaWidget::close_cb(Fl_Widget* o, void*) {
   if ((Fl::event() == FL_KEYDOWN || Fl::event() == FL_SHORTCUT) && Fl::event_key() == FL_Escape)
     {
       return; // ignore ESC

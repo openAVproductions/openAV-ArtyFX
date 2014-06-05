@@ -12,10 +12,10 @@
 using namespace std;
 #include <iostream>
 
-class Widget {
+class KuizaWidget {
 public:
   void update_button(int button);
-  Widget();
+  KuizaWidget();
   Fl_Double_Window *window;
   Avtk::Image *headerImage;
 private:

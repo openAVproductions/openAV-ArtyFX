@@ -18,7 +18,8 @@
  * MA 02110-1301, USA.
  */
 
-// test compile g++ artyfx.cxx bitta/dsp/dsp.cxx della/dsp/dsp.cxx ducka/dsp/dsp.cxx  -fPIC -shared  -Wl,--no-undefined -o artyfx.lv2/artyfx.so
+// test compile
+// g++ artyfx.cxx bitta/dsp/dsp.cxx della/dsp/dsp.cxx ducka/dsp/dsp.cxx filta/dsp/dsp.cxx kuiza/dsp/dsp.cxx kuiza/dsp/eq/filters.cc kuiza/dsp/eq/filters_if.cc kuiza/dsp/eq/exp2ap.cc  -fPIC -shared  -Wl,--no-undefined -o artyfx.lv2/artyfx.so
 
 /// this file compiles into artyfx.so, including all plugins.
 
@@ -28,6 +29,8 @@
 #include "bitta/dsp/shared.hxx"
 #include "della/dsp/shared.hxx"
 #include "ducka/dsp/shared.hxx"
+#include "filta/dsp/shared.hxx"
+#include "kuiza/dsp/shared.hxx"
 
 static const LV2_Descriptor descriptors[] =
 {
@@ -60,6 +63,26 @@ static const LV2_Descriptor descriptors[] =
     Ducka::deactivate,
     Ducka::cleanup,
     Ducka::extension_data
+  },
+  {
+    FILTA_URI,
+    Filta::instantiate,
+    Filta::connect_port,
+    Filta::activate,
+    Filta::run,
+    Filta::deactivate,
+    Filta::cleanup,
+    Filta::extension_data
+  },
+  {
+    KUIZA_URI,
+    Kuiza::instantiate,
+    Kuiza::connect_port,
+    Kuiza::activate,
+    Kuiza::run,
+    Kuiza::deactivate,
+    Kuiza::cleanup,
+    Kuiza::extension_data
   }
 };
 

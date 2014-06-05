@@ -20,7 +20,7 @@
 
 //  bitta/gui/ui.cxx bitta/gui/widget.cxx
 // test compile:
-// g++ artyfx_ui.cxx  bitta/gui/ui.cxx bitta/gui/widget.cxx della/gui/ui.cxx della/gui/widget.cxx  ducka/gui/ducka_ui.cxx ducka/gui/ducka_widget.cxx `pkg-config --cflags --libs sndfile cairomm-1.0 ntk ntk_images` -fPIC -shared -Wl,-z,nodelete  -Wl,--no-undefined -o artyfx.lv2/artyfx_ui.so
+// g++ artyfx_ui.cxx  bitta/gui/ui.cxx bitta/gui/widget.cxx della/gui/ui.cxx della/gui/widget.cxx  ducka/gui/ducka_ui.cxx ducka/gui/ducka_widget.cxx filta/gui/ui.cxx filta/gui/widget.cxx kuiza/gui/ui.cxx kuiza/gui/widget.cxx `pkg-config --cflags --libs sndfile cairomm-1.0 ntk ntk_images` -fPIC -shared -Wl,-z,nodelete  -Wl,--no-undefined -o artyfx.lv2/artyfx_ui.so
 
 /// lv2 core / ui includes
 #include "lv2/lv2plug.in/ns/lv2core/lv2.h"
@@ -35,6 +35,12 @@
 
 #include "ducka/gui/ui.hxx"
 #include "ducka/dsp/shared.hxx"
+
+#include "filta/gui/ui.hxx"
+#include "filta/dsp/shared.hxx"
+
+#include "kuiza/gui/ui.hxx"
+#include "kuiza/dsp/shared.hxx"
 
 static LV2UI_Descriptor descriptors[] =
 {
@@ -58,6 +64,20 @@ static LV2UI_Descriptor descriptors[] =
     ducka_cleanup,
     ducka_port_event,
     ducka_extension_data
+  },
+  {
+    FILTA_UI_URI,
+    filta_instantiate,
+    filta_cleanup,
+    filta_port_event,
+    filta_extension_data
+  },
+  {
+    KUIZA_UI_URI,
+    kuiza_instantiate,
+    kuiza_cleanup,
+    kuiza_port_event,
+    kuiza_extension_data
   }
 };
 

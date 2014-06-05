@@ -25,59 +25,6 @@
 #include <string.h>
 #include <math.h>
 
-#include "dsp_filters.hxx"
-
-class Filta
-{
-  public:
-    Filta(int rate);
-    ~Filta(){}
-    static LV2_Handle instantiate(const LV2_Descriptor* descriptor,
-                                  double samplerate,
-                                  const char* bundle_path,
-                                  const LV2_Feature* const* features);
-    static void activate(LV2_Handle instance);
-    static void deactivate(LV2_Handle instance);
-    static void connect_port(LV2_Handle instance, uint32_t port, void *data);
-    static void run(LV2_Handle instance, uint32_t n_samples);
-    static void cleanup(LV2_Handle instance);
-    static const void* extension_data(const char* uri);
-    
-    /// audio buffers
-    float* audioInputL;
-    float* audioInputR;
-    float* audioOutputL;
-    float* audioOutputR;
-    
-    /// control signals
-    float* freqControl;
-    float* activeControl;
-    
-  private:
-    Filters dspFilters;
-};
-
-
-static const LV2_Descriptor descriptor =
-{
-  FILTA_URI,
-  Filta::instantiate,
-  Filta::connect_port,
-  Filta::activate,
-  Filta::run,
-  Filta::deactivate,
-  Filta::cleanup,
-  Filta::extension_data
-};
-
-
-LV2_SYMBOL_EXPORT const LV2_Descriptor* lv2_descriptor(uint32_t index)
-{
-  if (index == 0) return &descriptor;
-  else return NULL;
-}
-
-
 LV2_Handle Filta::instantiate(const LV2_Descriptor* descriptor,
                               double samplerate,
                               const char* bundle_path,

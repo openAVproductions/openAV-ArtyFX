@@ -9,7 +9,7 @@ UISOURCES=gui/ducka_widget.cxx gui/ducka_ui.cxx
 UIOBJECTS=$(UISOURCES:.cpp=.o)
 UI=ducka.lv2/ducka_ui.so
 
-DSPSOURCES=dsp/ducka.cxx
+DSPSOURCES=dsp/dsp.cxx
 DSPOBJECTS=$(DSPSOURCES:.cpp=.o)
 DSP=ducka.lv2/ducka.so
 
