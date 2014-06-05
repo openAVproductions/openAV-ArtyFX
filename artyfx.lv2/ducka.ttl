@@ -25,7 +25,7 @@
 
 <http://www.openavproductions.com/artyfx#ducka/gui>
   a ui:X11UI;
-  ui:binary <ducka_ui.so>;
+  ui:binary <artyfx_ui.so>;
   ui:requiredFeature ui:makeResident.
 
 <http://www.openavproductions.com/artyfx#ducka>

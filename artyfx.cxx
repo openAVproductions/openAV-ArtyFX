@@ -18,7 +18,7 @@
  * MA 02110-1301, USA.
  */
 
-// test compile g++ artyfx.cxx bitta/dsp/dsp.cxx della/dsp/dsp.cxx  -fPIC -shared  -Wl,--no-undefined -o artyfx.lv2/artyfx.so
+// test compile g++ artyfx.cxx bitta/dsp/dsp.cxx della/dsp/dsp.cxx ducka/dsp/dsp.cxx  -fPIC -shared  -Wl,--no-undefined -o artyfx.lv2/artyfx.so
 
 /// this file compiles into artyfx.so, including all plugins.
 
@@ -27,6 +27,7 @@
 // include each plugin
 #include "bitta/dsp/shared.hxx"
 #include "della/dsp/shared.hxx"
+#include "ducka/dsp/shared.hxx"
 
 static const LV2_Descriptor descriptors[] =
 {
@@ -49,6 +50,16 @@ static const LV2_Descriptor descriptors[] =
     Della::deactivate,
     Della::cleanup,
     Della::extension_data
+  },
+  {
+    DUCKA_URI,
+    Ducka::instantiate,
+    Ducka::connect_port,
+    Ducka::activate,
+    Ducka::run,
+    Ducka::deactivate,
+    Ducka::cleanup,
+    Ducka::extension_data
   }
 };
 

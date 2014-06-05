@@ -19,7 +19,8 @@
  */
 
 //  bitta/gui/ui.cxx bitta/gui/widget.cxx
-// test compile g++ artyfx_ui.cxx  bitta/gui/ui.cxx bitta/gui/widget.cxx della/gui/ui.cxx della/gui/widget.cxx `pkg-config --cflags --libs sndfile cairomm-1.0 ntk ntk_images` -fPIC -shared -Wl,-z,nodelete  -Wl,--no-undefined -o artyfx.lv2/artyfx_ui.so
+// test compile:
+// g++ artyfx_ui.cxx  bitta/gui/ui.cxx bitta/gui/widget.cxx della/gui/ui.cxx della/gui/widget.cxx  ducka/gui/ducka_ui.cxx ducka/gui/ducka_widget.cxx `pkg-config --cflags --libs sndfile cairomm-1.0 ntk ntk_images` -fPIC -shared -Wl,-z,nodelete  -Wl,--no-undefined -o artyfx.lv2/artyfx_ui.so
 
 /// lv2 core / ui includes
 #include "lv2/lv2plug.in/ns/lv2core/lv2.h"
@@ -31,6 +32,9 @@
 
 #include "della/gui/ui.hxx"
 #include "della/dsp/shared.hxx"
+
+#include "ducka/gui/ui.hxx"
+#include "ducka/dsp/shared.hxx"
 
 static LV2UI_Descriptor descriptors[] =
 {
@@ -47,6 +51,13 @@ static LV2UI_Descriptor descriptors[] =
     della_cleanup,
     della_port_event,
     della_extension_data
+  },
+  {
+    DUCKA_UI_URI,
+    ducka_instantiate,
+    ducka_cleanup,
+    ducka_port_event,
+    ducka_extension_data
   }
 };
 

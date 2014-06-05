@@ -11,8 +11,8 @@ class DuckaUI {open
   }
   Function {DuckaUI()} {open
   } {
-    Fl_Window window {open selected
-      xywh {1734 413 160 220} type Double
+    Fl_Window window {open
+      xywh {1119 413 160 220} type Double
       code0 {\#include "lv2/lv2plug.in/ns/extensions/ui/ui.h"}
       code1 {\#include "avtk.h"}
       code2 {window->color( fl_rgb_color( 17,17,17) );}
@@ -35,9 +35,9 @@ class DuckaUI {open
 //gainDial->value( g );
 //freq->value( cutoff ); // update dial
 //writePort(CUTOFF_FREQ, cutoff);
-//writePort(CUTOFF_GAIN, g);}
+//writePort(CUTOFF_GAIN, g);} selected
         xywh {5 36 150 126} box UP_BOX color 179 labeltype NO_LABEL
-        code1 {\#include "../dsp/ducka.hxx"}
+        code1 {\#include "../dsp/shared.hxx"}
         class {Avtk::SidechainGain}
       }
       Fl_Dial threshold {

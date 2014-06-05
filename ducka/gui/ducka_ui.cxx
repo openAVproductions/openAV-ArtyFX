@@ -24,7 +24,7 @@
 #include <FL/x.H>
 
 // include the URI and global data of this plugin
-#include "../dsp/ducka.hxx"
+#include "../dsp/shared.hxx"
 
 // this is our custom widget include
 #include "ducka_widget.h"
@@ -48,7 +48,7 @@ typedef struct {
     LV2UI_Controller controller;
 } DuckaGUI;
 
-static LV2UI_Handle instantiate(const struct _LV2UI_Descriptor * descriptor,
+LV2UI_Handle ducka_instantiate(const struct _LV2UI_Descriptor * descriptor,
                 const char * plugin_uri,
                 const char * bundle_path,
                 LV2UI_Write_Function write_function,
@@ -115,14 +115,14 @@ static LV2UI_Handle instantiate(const struct _LV2UI_Descriptor * descriptor,
 
 
 
-static void cleanup(LV2UI_Handle ui) {
+void ducka_cleanup(LV2UI_Handle ui) {
     //printf("cleanup()\n");
     DuckaGUI *pluginGui = (DuckaGUI *) ui;
     delete pluginGui->widget;
     free( pluginGui);
 }
 
-static void port_event(LV2UI_Handle ui,
+void ducka_port_event(LV2UI_Handle ui,
                uint32_t port_index,
                uint32_t buffer_size,
                uint32_t format,
@@ -178,8 +178,7 @@ static void port_event(LV2UI_Handle ui,
 }
 
 
-static int
-idle(LV2UI_Handle handle)
+int ducka_idle(LV2UI_Handle handle)
 {
 	DuckaGUI* self = (DuckaGUI*)handle;
   
@@ -188,10 +187,9 @@ idle(LV2UI_Handle handle)
 	return 0;
 }
 
-static const LV2UI_Idle_Interface idle_iface = { idle };
+static const LV2UI_Idle_Interface idle_iface = { ducka_idle };
 
-static const void*
-extension_data(const char* uri)
+const void* ducka_extension_data(const char* uri)
 {
   //cout << "UI extension data!" << endl;
 	if (!strcmp(uri, LV2_UI__idleInterface)) {
@@ -199,16 +197,4 @@ extension_data(const char* uri)
 		return &idle_iface;
 	}
 	return NULL;
-}
-
-static LV2UI_Descriptor descriptors[] = {
-    {DUCKA_UI_URI, instantiate, cleanup, port_event, extension_data}
-};
-
-const LV2UI_Descriptor * lv2ui_descriptor(uint32_t index) {
-    //printf("lv2ui_descriptor(%u) called\n", (unsigned int)index); 
-    if (index >= sizeof(descriptors) / sizeof(descriptors[0])) {
-        return NULL;
-    }
-    return descriptors + index;
 }

@@ -9,7 +9,7 @@
 using namespace std;
 #include <stdio.h>
 #include "header.c"
-#include "../dsp/ducka.hxx"
+#include "../dsp/shared.hxx"
 
 class DuckaUI {
 public:

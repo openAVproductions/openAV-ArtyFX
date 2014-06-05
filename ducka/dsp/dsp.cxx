@@ -18,7 +18,7 @@
  * MA 02110-1301, USA.
  */
 
-#include "ducka.hxx"
+#include "shared.hxx"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -29,90 +29,6 @@
 #include "lv2/lv2plug.in/ns/ext/atom/util.h"
 #include "lv2/lv2plug.in/ns/ext/urid/urid.h"
 #include "lv2/lv2plug.in/ns/ext/time/time.h"
-
-class Ducka
-{
-  public:
-    Ducka(int rate);
-    Ducka(int rate, LV2_URID_Map* map);
-    ~Ducka(){}
-    static LV2_Handle instantiate(const LV2_Descriptor* descriptor,
-                                  double samplerate,
-                                  const char* bundle_path,
-                                  const LV2_Feature* const* features);
-    static void activate(LV2_Handle instance);
-    static void deactivate(LV2_Handle instance);
-    static void connect_port(LV2_Handle instance, uint32_t port, void *data);
-    static void run(LV2_Handle instance, uint32_t n_samples);
-    static void cleanup(LV2_Handle instance);
-    static const void* extension_data(const char* uri);
-    
-    /// audio buffers
-    float* audioInputL;
-    float* audioInputR;
-    float* audioSidechain;
-    float* audioOutputL;
-    float* audioOutputR;
-    
-    /// Atom port
-    LV2_URID time_Position;
-    LV2_URID time_barBeat;
-    LV2_URID time_beatsPerMinute;
-    LV2_URID time_speed;
-    
-    LV2_URID atom_Blank;
-    LV2_URID atom_Float;
-    
-    LV2_URID_Map* map;
-    LV2_URID_Unmap* unmap;
-    LV2_Atom_Sequence* atom_port;
-    
-    void setUnmap( LV2_URID_Unmap* um )
-    {
-      unmap = um;
-    }
-    
-    /// control signals
-    float* controlThreshold;
-    float* controlReduction;
-    float* controlReleaseTime;
-    float* controlSidechainAmp;
-    
-    /// filter state
-    float w, a, b, g1, g2;
-    
-    /// last peak history
-    long samplerate;
-    bool nowIsAPeak;
-    long peakFrameCounter;
-    
-    /// nframes available for countdown
-    long peakCountDuration;
-    
-    /// control output
-    float currentTarget;
-};
-
-
-static const LV2_Descriptor descriptor =
-{
-  DUCKA_URI,
-  Ducka::instantiate,
-  Ducka::connect_port,
-  Ducka::activate,
-  Ducka::run,
-  Ducka::deactivate,
-  Ducka::cleanup,
-  Ducka::extension_data
-};
-
-
-LV2_SYMBOL_EXPORT const LV2_Descriptor* lv2_descriptor(uint32_t index)
-{
-  if (index == 0) return &descriptor;
-  else return NULL;
-}
-
 
 LV2_Handle Ducka::instantiate(const LV2_Descriptor* descriptor,
                               double samplerate,

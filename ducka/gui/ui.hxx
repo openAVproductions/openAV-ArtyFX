@@ -1,5 +1,5 @@
 /*
- * Author: Harry van Haaren 2013
+ * Author: Harry van Haaren 2014
  *         harryhaaren@gmail.com
  * 
  * This program is free software; you can redistribute it and/or modify
@@ -18,31 +18,24 @@
  * MA 02110-1301, USA.
  */
 
-#ifndef OPENAV_DUCKA
-#define OPENAV_DUCKA
+extern LV2UI_Handle ducka_instantiate(const struct _LV2UI_Descriptor * descriptor,
+                const char * plugin_uri,
+                const char * bundle_path,
+                LV2UI_Write_Function write_function,
+                LV2UI_Controller controller,
+                LV2UI_Widget * widget,
+                const LV2_Feature * const * features);
 
-#include "lv2/lv2plug.in/ns/lv2core/lv2.h"
+extern void ducka_cleanup(LV2UI_Handle ui);
 
-#define DUCKA_URI    "http://www.openavproductions.com/artyfx#ducka"
-#define DUCKA_UI_URI "http://www.openavproductions.com/artyfx#ducka/gui"
+extern void ducka_port_event(LV2UI_Handle ui,
+               uint32_t port_index,
+               uint32_t buffer_size,
+               uint32_t format,
+               const void * buffer);
 
-typedef enum
-{
-  DUCKA_INPUT_L = 0,
-  DUCKA_INPUT_R,
-  
-  DUCKA_SIDECHAIN,
-  
-  DUCKA_OUTPUT_L,
-  DUCKA_OUTPUT_R,
-  
-  DUCKA_THRESHOLD,
-  DUCKA_REDUCTION,
-  DUCKA_RELEASE_TIME,
-  
-  DUCKA_SIDECHAIN_AMP,
-  
-  DUCKA_ATOM_IN,
-} PortIndex;
+extern int ducka_idle(LV2UI_Handle handle);
 
-#endif // OPENAV_DUCKA
+extern const void* ducka_extension_data(const char* uri);
+
+
