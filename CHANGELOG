@@ -3,7 +3,7 @@
 1.2 Release :
 New plugins and refactor:
   -Bitta, Panda, Vihda added
-  -Refactored into one artyfx.so
+  -Refactored all plugins into one artyfx.lv2 bundle
 
 
 1.1 Release : 17-03-14

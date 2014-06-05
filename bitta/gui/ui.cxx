@@ -38,7 +38,7 @@
 using namespace std;
 
 typedef struct {
-  Widget* widget;
+  BittaWidget* widget;
   
   float sidechainAmp;
   
@@ -79,7 +79,7 @@ LV2UI_Handle bitta_instantiate(const struct _LV2UI_Descriptor * descriptor,
   // in case FLTK hasn't opened it yet
   fl_open_display();
   
-  self->widget = new Widget();
+  self->widget = new BittaWidget();
   
   self->widget->window->border(0);
   

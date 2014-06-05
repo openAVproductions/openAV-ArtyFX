@@ -2,14 +2,14 @@
 
 #include "widget.h"
 
-void Widget::cb_headerImage_i(Avtk::Image*, void*) {
+void BittaWidget::cb_headerImage_i(Avtk::Image*, void*) {
   //system("xdg-open http://www.openavproductions.com/artyfx#ducka");
 }
-void Widget::cb_headerImage(Avtk::Image* o, void* v) {
-  ((Widget*)(o->parent()->user_data()))->cb_headerImage_i(o,v);
+void BittaWidget::cb_headerImage(Avtk::Image* o, void* v) {
+  ((BittaWidget*)(o->parent()->user_data()))->cb_headerImage_i(o,v);
 }
 
-void Widget::cb_graph_i(Avtk::Crusher* o, void*) {
+void BittaWidget::cb_graph_i(Avtk::Crusher* o, void*) {
   float tmp = o->value();
 width->value( tmp );
 writePort(BITTA_CRUSH, tmp);
@@ -20,27 +20,27 @@ float a = o->getActive();
 writePort(BITTA_ACTIVE, a);
 //printf("active %f\n", a );
 }
-void Widget::cb_graph(Avtk::Crusher* o, void* v) {
-  ((Widget*)(o->parent()->user_data()))->cb_graph_i(o,v);
+void BittaWidget::cb_graph(Avtk::Crusher* o, void* v) {
+  ((BittaWidget*)(o->parent()->user_data()))->cb_graph_i(o,v);
 }
 
-void Widget::cb_width_i(Avtk::Dial* o, void*) {
+void BittaWidget::cb_width_i(Avtk::Dial* o, void*) {
   float tmp = o->value();
 graph->value( tmp );
 writePort(BITTA_CRUSH, tmp);
 printf("%f\n",tmp);
 }
-void Widget::cb_width(Avtk::Dial* o, void* v) {
-  ((Widget*)(o->parent()->user_data()))->cb_width_i(o,v);
+void BittaWidget::cb_width(Avtk::Dial* o, void* v) {
+  ((BittaWidget*)(o->parent()->user_data()))->cb_width_i(o,v);
 }
 
 /**
    if the type of filter changes, this function will highlight the right button
 */
-void Widget::update_button(int button) {
+void BittaWidget::update_button(int button) {
 }
 
-Widget::Widget() {
+BittaWidget::BittaWidget() {
   { Fl_Double_Window* o = window = new Fl_Double_Window(160, 220);
     window->user_data((void*)(this));
     { headerImage = new Avtk::Image(0, 0, 160, 29, "header.png");
@@ -86,25 +86,25 @@ Widget::Widget() {
   } // Fl_Double_Window* window
 }
 
-void Widget::idle() {
+void BittaWidget::idle() {
   Fl::check();
   Fl::flush();
 }
 
-int Widget::getWidth() {
+int BittaWidget::getWidth() {
   return window->w();
 }
 
-int Widget::getHeight() {
+int BittaWidget::getHeight() {
   return window->h();
 }
 
-void Widget::writePort(int port, float& value) {
+void BittaWidget::writePort(int port, float& value) {
   //cout << "port " << port << " value " << value << endl;
   write_function(controller, port, sizeof(float), 0, &value);
 }
 
-void Widget::close_cb(Fl_Widget* o, void*) {
+void BittaWidget::close_cb(Fl_Widget* o, void*) {
   if ((Fl::event() == FL_KEYDOWN || Fl::event() == FL_SHORTCUT) && Fl::event_key() == FL_Escape)
     {
       return; // ignore ESC

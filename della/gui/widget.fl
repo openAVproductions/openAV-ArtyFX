@@ -2,14 +2,14 @@
 version 1.0300 
 header_name {.h} 
 code_name {.cxx}
-class Widget {open
+class DellaWidget {open selected
 } {
   Function {update_button(int button)} {
     comment {if the type of filter changes, this function will highlight the right button} open return_type void
   } {
     code {} {}
   }
-  Function {Widget()} {open
+  Function {DellaWidget()} {open
   } {
     Fl_Window window {open
       xywh {596 296 160 220} type Double
@@ -56,7 +56,7 @@ writePort(DELLA_VOLUME, tmp);}
         label Feedback
         callback {float tmp = o->value();
 graph->setFeedback( tmp );
-writePort(DELLA_FEEDBACK, tmp);} selected
+writePort(DELLA_FEEDBACK, tmp);}
         xywh {14 169 37 37} color 90 labelsize 10
         class {Avtk::Dial}
       }

@@ -18,7 +18,8 @@
  * MA 02110-1301, USA.
  */
 
-// test compile g++ artyfx_ui.cxx bitta/gui/ui.cxx `pkg-config --cflags --libs sndfile cairomm-1.0 ntk ntk_images` -fPIC -shared -Wl,-z,nodelete  -Wl,--no-undefined -o artyfx.lv2/artyfx_ui.so
+//  bitta/gui/ui.cxx bitta/gui/widget.cxx
+// test compile g++ artyfx_ui.cxx  bitta/gui/ui.cxx bitta/gui/widget.cxx della/gui/ui.cxx della/gui/widget.cxx `pkg-config --cflags --libs sndfile cairomm-1.0 ntk ntk_images` -fPIC -shared -Wl,-z,nodelete  -Wl,--no-undefined -o artyfx.lv2/artyfx_ui.so
 
 /// lv2 core / ui includes
 #include "lv2/lv2plug.in/ns/lv2core/lv2.h"
@@ -27,6 +28,9 @@
 // this file compiles into artyfx_ui.so, including all plugins' UIs.
 #include "bitta/gui/ui.hxx"
 #include "bitta/dsp/shared.hxx"
+
+#include "della/gui/ui.hxx"
+#include "della/dsp/shared.hxx"
 
 static LV2UI_Descriptor descriptors[] =
 {
@@ -37,7 +41,13 @@ static LV2UI_Descriptor descriptors[] =
     bitta_port_event, 
     bitta_extension_data
   },
-    
+  {
+    DELLA_UI_URI,
+    della_instantiate,
+    della_cleanup,
+    della_port_event,
+    della_extension_data
+  }
 };
 
 const LV2UI_Descriptor * lv2ui_descriptor(uint32_t index)

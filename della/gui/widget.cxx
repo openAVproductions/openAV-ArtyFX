@@ -2,14 +2,14 @@
 
 #include "widget.h"
 
-void Widget::cb_headerImage_i(Avtk::Image*, void*) {
+void DellaWidget::cb_headerImage_i(Avtk::Image*, void*) {
   //system("xdg-open http://www.openavproductions.com/artyfx#ducka");
 }
-void Widget::cb_headerImage(Avtk::Image* o, void* v) {
-  ((Widget*)(o->parent()->user_data()))->cb_headerImage_i(o,v);
+void DellaWidget::cb_headerImage(Avtk::Image* o, void* v) {
+  ((DellaWidget*)(o->parent()->user_data()))->cb_headerImage_i(o,v);
 }
 
-void Widget::cb_graph_i(Avtk::Delaygraph* o, void*) {
+void DellaWidget::cb_graph_i(Avtk::Delaygraph* o, void*) {
   float tmp = o->value();
 time->value( tmp );
 writePort(DELLA_TIME, tmp);
@@ -20,44 +20,44 @@ float a = o->getActive();
 writePort(DELLA_ACTIVE, a);
 //printf("active %f\n", a );
 }
-void Widget::cb_graph(Avtk::Delaygraph* o, void* v) {
-  ((Widget*)(o->parent()->user_data()))->cb_graph_i(o,v);
+void DellaWidget::cb_graph(Avtk::Delaygraph* o, void* v) {
+  ((DellaWidget*)(o->parent()->user_data()))->cb_graph_i(o,v);
 }
 
-void Widget::cb_volume_i(Avtk::Dial* o, void*) {
+void DellaWidget::cb_volume_i(Avtk::Dial* o, void*) {
   float tmp = o->value();
 graph->setVolume( tmp );
 writePort(DELLA_VOLUME, tmp);
 }
-void Widget::cb_volume(Avtk::Dial* o, void* v) {
-  ((Widget*)(o->parent()->user_data()))->cb_volume_i(o,v);
+void DellaWidget::cb_volume(Avtk::Dial* o, void* v) {
+  ((DellaWidget*)(o->parent()->user_data()))->cb_volume_i(o,v);
 }
 
-void Widget::cb_feedback_i(Avtk::Dial* o, void*) {
+void DellaWidget::cb_feedback_i(Avtk::Dial* o, void*) {
   float tmp = o->value();
 graph->setFeedback( tmp );
 writePort(DELLA_FEEDBACK, tmp);
 }
-void Widget::cb_feedback(Avtk::Dial* o, void* v) {
-  ((Widget*)(o->parent()->user_data()))->cb_feedback_i(o,v);
+void DellaWidget::cb_feedback(Avtk::Dial* o, void* v) {
+  ((DellaWidget*)(o->parent()->user_data()))->cb_feedback_i(o,v);
 }
 
-void Widget::cb_time_i(Avtk::Dial* o, void*) {
+void DellaWidget::cb_time_i(Avtk::Dial* o, void*) {
   float tmp = o->value();
 graph->value( tmp );
 writePort(DELLA_TIME, tmp);
 }
-void Widget::cb_time(Avtk::Dial* o, void* v) {
-  ((Widget*)(o->parent()->user_data()))->cb_time_i(o,v);
+void DellaWidget::cb_time(Avtk::Dial* o, void* v) {
+  ((DellaWidget*)(o->parent()->user_data()))->cb_time_i(o,v);
 }
 
 /**
    if the type of filter changes, this function will highlight the right button
 */
-void Widget::update_button(int button) {
+void DellaWidget::update_button(int button) {
 }
 
-Widget::Widget() {
+DellaWidget::DellaWidget() {
   { Fl_Double_Window* o = window = new Fl_Double_Window(160, 220);
     window->user_data((void*)(this));
     { headerImage = new Avtk::Image(0, 0, 160, 29, "header.png");
@@ -127,25 +127,25 @@ Widget::Widget() {
   } // Fl_Double_Window* window
 }
 
-void Widget::idle() {
+void DellaWidget::idle() {
   Fl::check();
   Fl::flush();
 }
 
-int Widget::getWidth() {
+int DellaWidget::getWidth() {
   return window->w();
 }
 
-int Widget::getHeight() {
+int DellaWidget::getHeight() {
   return window->h();
 }
 
-void Widget::writePort(int port, float& value) {
+void DellaWidget::writePort(int port, float& value) {
   //cout << "port " << port << " value " << value << endl;
   write_function(controller, port, sizeof(float), 0, &value);
 }
 
-void Widget::close_cb(Fl_Widget* o, void*) {
+void DellaWidget::close_cb(Fl_Widget* o, void*) {
   if ((Fl::event() == FL_KEYDOWN || Fl::event() == FL_SHORTCUT) && Fl::event_key() == FL_Escape)
     {
       return; // ignore ESC

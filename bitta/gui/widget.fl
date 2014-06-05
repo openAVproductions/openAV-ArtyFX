@@ -2,17 +2,17 @@
 version 1.0300 
 header_name {.h} 
 code_name {.cxx}
-class Widget {open
+class BittaWidget {open
 } {
   Function {update_button(int button)} {
     comment {if the type of filter changes, this function will highlight the right button} open return_type void
   } {
     code {} {}
   }
-  Function {Widget()} {open
+  Function {BittaWidget()} {open selected
   } {
     Fl_Window window {open
-      xywh {437 324 160 220} type Double
+      xywh {331 328 160 220} type Double
       code0 {\#include "lv2/lv2plug.in/ns/extensions/ui/ui.h"}
       code1 {window->color( fl_rgb_color( 17, 17, 17) );}
       code2 {close_cb( o, 0 );}
@@ -49,7 +49,7 @@ writePort(BITTA_ACTIVE, a);
         callback {float tmp = o->value();
 graph->value( tmp );
 writePort(BITTA_CRUSH, tmp);
-printf("%f\\n",tmp);} selected
+printf("%f\\n",tmp);}
         xywh {59 167 41 40} color 90 labelsize 10
         class {Avtk::Dial}
       }
