@@ -55,8 +55,8 @@ void RoomyUI::update_button(int button) {
 }
 
 RoomyUI::RoomyUI() {
-  { Fl_Double_Window* o = window = new Fl_Double_Window(160, 220);
-    window->user_data((void*)(this));
+  { Fl_Double_Window* o = roomy_window = new Fl_Double_Window(160, 220);
+    roomy_window->user_data((void*)(this));
     { headerImage = new Avtk::Image(0, 0, 160, 29, "header.png");
       headerImage->box(FL_NO_BOX);
       headerImage->color(FL_BACKGROUND_COLOR);
@@ -118,10 +118,10 @@ RoomyUI::RoomyUI() {
       dryWet->align(Fl_Align(FL_ALIGN_BOTTOM));
       dryWet->when(FL_WHEN_CHANGED);
     } // Avtk::Dial* dryWet
-    window->color( fl_rgb_color( 17, 17, 17) );
-    close_cb(o, 0);
-    window->end();
-  } // Fl_Double_Window* window
+    roomy_window->color( fl_rgb_color( 17, 17, 17) );
+    //close_cb(o, 0);
+    roomy_window->end();
+  } // Fl_Double_Window* roomy_window
 }
 
 void RoomyUI::idle() {
@@ -130,11 +130,11 @@ void RoomyUI::idle() {
 }
 
 int RoomyUI::getWidth() {
-  return window->w();
+  return roomy_window->w();
 }
 
 int RoomyUI::getHeight() {
-  return window->h();
+  return roomy_window->h();
 }
 
 void RoomyUI::writePort(int port, float& value) {
@@ -142,7 +142,7 @@ void RoomyUI::writePort(int port, float& value) {
   write_function(controller, port, sizeof(float), 0, &value);
 }
 
-void close_cb(Fl_Widget* o, void*) {
+void roomy_close_cb(Fl_Widget* o, void*) {
   if ((Fl::event() == FL_KEYDOWN || Fl::event() == FL_SHORTCUT) && Fl::event_key() == FL_Escape)
     {
       return; // ignore ESC

@@ -20,7 +20,7 @@
 
 //  bitta/gui/ui.cxx bitta/gui/widget.cxx
 // test compile:
-// g++ artyfx_ui.cxx  bitta/gui/ui.cxx bitta/gui/widget.cxx della/gui/ui.cxx della/gui/widget.cxx  ducka/gui/ducka_ui.cxx ducka/gui/ducka_widget.cxx filta/gui/ui.cxx filta/gui/widget.cxx kuiza/gui/ui.cxx kuiza/gui/widget.cxx masha/gui/masha_widget.cxx masha/gui/masha_ui.cxx panda/gui/ui.cxx panda/gui/widget.cxx `pkg-config --cflags --libs sndfile cairomm-1.0 ntk ntk_images` -fPIC -shared -Wl,-z,nodelete  -Wl,--no-undefined -o artyfx.lv2/artyfx_ui.so
+// g++ artyfx_ui.cxx  bitta/gui/ui.cxx bitta/gui/widget.cxx della/gui/ui.cxx della/gui/widget.cxx  ducka/gui/ducka_ui.cxx ducka/gui/ducka_widget.cxx filta/gui/ui.cxx filta/gui/widget.cxx kuiza/gui/ui.cxx kuiza/gui/widget.cxx masha/gui/masha_widget.cxx masha/gui/masha_ui.cxx panda/gui/ui.cxx panda/gui/widget.cxx roomy/gui/roomy_ui.cxx roomy/gui/roomy_widget.cxx satma/gui/ui.cxx satma/gui/widget.cxx vihda/gui/ui.cxx vihda/gui/widget.cxx `pkg-config --cflags --libs sndfile cairomm-1.0 ntk ntk_images` -fPIC -shared -Wl,-z,nodelete  -Wl,--no-undefined -o artyfx.lv2/artyfx_ui.so
 
 /// lv2 core / ui includes
 #include "lv2/lv2plug.in/ns/lv2core/lv2.h"
@@ -47,6 +47,15 @@
 
 #include "panda/gui/ui.hxx"
 #include "panda/dsp/shared.hxx"
+
+#include "roomy/gui/ui.hxx"
+#include "roomy/dsp/shared.hxx"
+
+#include "satma/gui/ui.hxx"
+#include "satma/dsp/shared.hxx"
+
+#include "vihda/gui/ui.hxx"
+#include "vihda/dsp/shared.hxx"
 
 static LV2UI_Descriptor descriptors[] =
 {
@@ -98,6 +107,27 @@ static LV2UI_Descriptor descriptors[] =
     panda_cleanup,
     panda_port_event,
     panda_extension_data
+  },
+  {
+    ROOMY_UI_URI,
+    roomy_instantiate,
+    roomy_cleanup,
+    roomy_port_event,
+    roomy_extension_data
+  },
+  {
+    SATMA_UI_URI,
+    satma_instantiate,
+    satma_cleanup,
+    satma_port_event,
+    satma_extension_data
+  },
+  {
+    VIHDA_UI_URI,
+    vihda_instantiate,
+    vihda_cleanup,
+    vihda_port_event,
+    vihda_extension_data
   }
 };
 

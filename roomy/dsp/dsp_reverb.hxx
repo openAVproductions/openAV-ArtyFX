@@ -57,13 +57,9 @@
 #include <cmath>
 #include <cstdlib>
 
-template <class T> const T& max (const T& a, const T& b) {
-  return (a<b)?b:a;
-}
-
-template <class T> const T& min (const T& a, const T& b) {
-  return !(b<a)?a:b;
-}
+#include <algorithm>
+using std::max;
+using std::min;
 
 template <int N> inline float faustpower(float x) 		{ return powf(x,N); } 
 template <int N> inline double faustpower(double x) 	{ return pow(x,N); }
@@ -113,7 +109,8 @@ class Reverb // : Effect
       float 	fSlow3 = (1.0f - fSlow2);
       float 	fSlow4 = cosf((fConst3 * fslider1));
       float 	fSlow5 = (1.0f - (fSlow4 * fSlow2));
-      float 	fSlow6 = sqrtf(max(0.f, ((faustpower<2>(fSlow5) / faustpower<2>(fSlow3)) - 1.0f)));
+      float tmp = max(0.f, float( (faustpower<2>(fSlow5) / faustpower<2>(fSlow3)) - 1.0f) );
+      float 	fSlow6 = sqrtf( tmp );
       float 	fSlow7 = (fSlow5 / fSlow3);
       float 	fSlow8 = (fSlow7 - fSlow6);
       float 	fSlow9 = (fSlow0 - 0.5f);
@@ -409,7 +406,7 @@ class Reverb // : Effect
     void init(int samplingFreq)
     {
       fslider0 = 3.0f;
-      iConst0 = min(192000, max(1, samplingFreq));
+      iConst0 = samplingFreq;
       fConst1 = floorf((0.5f + (0.174713f * iConst0)));
       fConst2 = ((0 - (6.907755278982138f * fConst1)) / iConst0);
       fslider1 = 6e+03f;

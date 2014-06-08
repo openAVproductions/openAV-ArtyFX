@@ -2,17 +2,17 @@
 version 1.0300 
 header_name {.h} 
 code_name {.cxx}
-class Widget {open
+class SatmaWidget {open
 } {
   Function {update_button(int button)} {
     comment {if the type of filter changes, this function will highlight the right button} open return_type void
   } {
     code {} {}
   }
-  Function {Widget()} {open
+  Function {SatmaWidget()} {open selected
   } {
     Fl_Window window {open
-      xywh {485 228 160 220} type Double
+      xywh {184 291 160 220} type Double
       code0 {\#include "lv2/lv2plug.in/ns/extensions/ui/ui.h"}
       code1 {window->color( fl_rgb_color( 17, 17, 17) );}
       code2 {close_cb( o, 0 );}
@@ -38,7 +38,7 @@ envelope->value( o->getEnvelope() );
 
 float a = o->getActive();
 writePort(SATMA_ACTIVE, a);
-//printf("active %f\\n", a );} selected
+//printf("active %f\\n", a );}
         xywh {5 36 150 126} box UP_BOX color 179 labeltype NO_LABEL
         code1 {using namespace std;}
         code2 {\#include <iostream>}

@@ -27,58 +27,6 @@
 
 #include "dsp_distortion.hxx"
 
-class Satma
-{
-  public:
-    Satma(int rate);
-    ~Satma(){}
-    static LV2_Handle instantiate(const LV2_Descriptor* descriptor,
-                                  double samplerate,
-                                  const char* bundle_path,
-                                  const LV2_Feature* const* features);
-    static void activate(LV2_Handle instance);
-    static void deactivate(LV2_Handle instance);
-    static void connect_port(LV2_Handle instance, uint32_t port, void *data);
-    static void run(LV2_Handle instance, uint32_t n_samples);
-    static void cleanup(LV2_Handle instance);
-    static const void* extension_data(const char* uri);
-    
-    /// audio buffers
-    float* audioInput;
-    float* audioOutput;
-    
-    /// control signals
-    float* controlActive;
-    float* controlDistortion;
-    float* controlTone;
-    
-  private:
-    /// runtime variables
-    bool active;
-    Distortion* distortion;
-};
-
-
-static const LV2_Descriptor descriptor =
-{
-  SATMA_URI,
-  Satma::instantiate,
-  Satma::connect_port,
-  Satma::activate,
-  Satma::run,
-  Satma::deactivate,
-  Satma::cleanup,
-  Satma::extension_data
-};
-
-
-LV2_SYMBOL_EXPORT const LV2_Descriptor* lv2_descriptor(uint32_t index)
-{
-  if (index == 0) return &descriptor;
-  else return NULL;
-}
-
-
 LV2_Handle Satma::instantiate(const LV2_Descriptor* descriptor,
                               double samplerate,
                               const char* bundle_path,

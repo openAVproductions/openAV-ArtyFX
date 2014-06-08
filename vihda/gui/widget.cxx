@@ -2,14 +2,14 @@
 
 #include "widget.h"
 
-void Widget::cb_headerImage_i(Avtk::Image*, void*) {
+void VihdaWidget::cb_headerImage_i(Avtk::Image*, void*) {
   //system("xdg-open http://www.openavproductions.com/artyfx#ducka");
 }
-void Widget::cb_headerImage(Avtk::Image* o, void* v) {
-  ((Widget*)(o->parent()->user_data()))->cb_headerImage_i(o,v);
+void VihdaWidget::cb_headerImage(Avtk::Image* o, void* v) {
+  ((VihdaWidget*)(o->parent()->user_data()))->cb_headerImage_i(o,v);
 }
 
-void Widget::cb_graph_i(Avtk::Widener* o, void*) {
+void VihdaWidget::cb_graph_i(Avtk::Widener* o, void*) {
   float tmp = o->value();
 width->value( tmp );
 writePort(VIHDA_WIDTH, tmp);
@@ -20,26 +20,26 @@ float a = o->getActive();
 writePort(VIHDA_ACTIVE, a);
 //printf("active %f\n", a );
 }
-void Widget::cb_graph(Avtk::Widener* o, void* v) {
-  ((Widget*)(o->parent()->user_data()))->cb_graph_i(o,v);
+void VihdaWidget::cb_graph(Avtk::Widener* o, void* v) {
+  ((VihdaWidget*)(o->parent()->user_data()))->cb_graph_i(o,v);
 }
 
-void Widget::cb_width_i(Avtk::Dial* o, void*) {
+void VihdaWidget::cb_width_i(Avtk::Dial* o, void*) {
   float tmp = o->value();
 graph->value( tmp );
 writePort(VIHDA_WIDTH, tmp);
 }
-void Widget::cb_width(Avtk::Dial* o, void* v) {
-  ((Widget*)(o->parent()->user_data()))->cb_width_i(o,v);
+void VihdaWidget::cb_width(Avtk::Dial* o, void* v) {
+  ((VihdaWidget*)(o->parent()->user_data()))->cb_width_i(o,v);
 }
 
 /**
    if the type of filter changes, this function will highlight the right button
 */
-void Widget::update_button(int button) {
+void VihdaWidget::update_button(int button) {
 }
 
-Widget::Widget() {
+VihdaWidget::VihdaWidget() {
   { Fl_Double_Window* o = window = new Fl_Double_Window(160, 220);
     window->user_data((void*)(this));
     { headerImage = new Avtk::Image(0, 0, 160, 29, "header.png");
@@ -85,25 +85,25 @@ Widget::Widget() {
   } // Fl_Double_Window* window
 }
 
-void Widget::idle() {
+void VihdaWidget::idle() {
   Fl::check();
   Fl::flush();
 }
 
-int Widget::getWidth() {
+int VihdaWidget::getWidth() {
   return window->w();
 }
 
-int Widget::getHeight() {
+int VihdaWidget::getHeight() {
   return window->h();
 }
 
-void Widget::writePort(int port, float& value) {
+void VihdaWidget::writePort(int port, float& value) {
   //cout << "port " << port << " value " << value << endl;
   write_function(controller, port, sizeof(float), 0, &value);
 }
 
-void Widget::close_cb(Fl_Widget* o, void*) {
+void VihdaWidget::close_cb(Fl_Widget* o, void*) {
   if ((Fl::event() == FL_KEYDOWN || Fl::event() == FL_SHORTCUT) && Fl::event_key() == FL_Escape)
     {
       return; // ignore ESC

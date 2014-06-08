@@ -1,5 +1,5 @@
 /*
- * Author: Harry van Haaren 2014
+ * Author: Harry van Haaren 2013
  *         harryhaaren@gmail.com
  * 
  * This program is free software; you can redistribute it and/or modify
@@ -18,32 +18,35 @@
  * MA 02110-1301, USA.
  */
 
-#ifndef OPENAV_SATMA
-#define OPENAV_SATMA
+#ifndef OPENAV_ROOMY
+#define OPENAV_ROOMY
 
 #include "lv2/lv2plug.in/ns/lv2core/lv2.h"
 
-#define SATMA_URI    "http://www.openavproductions.com/artyfx#satma"
-#define SATMA_UI_URI "http://www.openavproductions.com/artyfx#satma/gui"
+#define ROOMY_URI    "http://www.openavproductions.com/artyfx#roomy"
+#define ROOMY_UI_URI "http://www.openavproductions.com/artyfx#roomy/gui"
 
 typedef enum
 {
-  SATMA_INPUT = 0,
+  ROOMY_INPUT_L = 0,
+  ROOMY_INPUT_R,
   
-  SATMA_OUTPUT,
+  ROOMY_OUTPUT_L,
+  ROOMY_OUTPUT_R,
   
-  SATMA_DISTORTION,
-  SATMA_TONE,
-  SATMA_ACTIVE,
-} SatmaPortIndex;
+  ROOMY_TIME,
+  ROOMY_DAMPING,
+  ROOMY_DRY_WET,
+} RoomyPortIndex;
 
-class Distortion;
 
-class Satma
+#include "dsp_reverb.hxx"
+
+class Roomy
 {
   public:
-    Satma(int rate);
-    ~Satma(){}
+    Roomy(int rate);
+    ~Roomy(){}
     static LV2_Handle instantiate(const LV2_Descriptor* descriptor,
                                   double samplerate,
                                   const char* bundle_path,
@@ -56,20 +59,18 @@ class Satma
     static const void* extension_data(const char* uri);
     
     /// audio buffers
-    float* audioInput;
-    float* audioOutput;
+    float* audioInputL;
+    float* audioInputR;
+    float* audioOutputL;
+    float* audioOutputR;
     
     /// control signals
-    float* controlActive;
-    float* controlDistortion;
-    float* controlTone;
+    float* controlTime;
+    float* controlDamping;
+    float* controlDryWet;
     
   private:
-    /// runtime variables
-    bool active;
-    Distortion* distortion;
+    Reverb dspReverb;
 };
 
-
-
-#endif // OPENAV_SATMA
+#endif // OPENAV_ROOMY

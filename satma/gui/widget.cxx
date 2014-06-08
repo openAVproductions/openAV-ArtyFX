@@ -2,14 +2,14 @@
 
 #include "widget.h"
 
-void Widget::cb_headerImage_i(Avtk::Image*, void*) {
+void SatmaWidget::cb_headerImage_i(Avtk::Image*, void*) {
   //system("xdg-open http://www.openavproductions.com/artyfx#ducka");
 }
-void Widget::cb_headerImage(Avtk::Image* o, void* v) {
-  ((Widget*)(o->parent()->user_data()))->cb_headerImage_i(o,v);
+void SatmaWidget::cb_headerImage(Avtk::Image* o, void* v) {
+  ((SatmaWidget*)(o->parent()->user_data()))->cb_headerImage_i(o,v);
 }
 
-void Widget::cb_graph_i(Avtk::Waveshaper* o, void*) {
+void SatmaWidget::cb_graph_i(Avtk::Waveshaper* o, void*) {
   float tmp = o->value();
 distortion->value( tmp );
 writePort(SATMA_DISTORTION, tmp);
@@ -20,35 +20,35 @@ float a = o->getActive();
 writePort(SATMA_ACTIVE, a);
 //printf("active %f\n", a );
 }
-void Widget::cb_graph(Avtk::Waveshaper* o, void* v) {
-  ((Widget*)(o->parent()->user_data()))->cb_graph_i(o,v);
+void SatmaWidget::cb_graph(Avtk::Waveshaper* o, void* v) {
+  ((SatmaWidget*)(o->parent()->user_data()))->cb_graph_i(o,v);
 }
 
-void Widget::cb_envelope_i(Avtk::Dial* o, void*) {
+void SatmaWidget::cb_envelope_i(Avtk::Dial* o, void*) {
   float tmp = o->value();
 graph->setEnvelope( tmp );
 writePort(SATMA_TONE, tmp);
 }
-void Widget::cb_envelope(Avtk::Dial* o, void* v) {
-  ((Widget*)(o->parent()->user_data()))->cb_envelope_i(o,v);
+void SatmaWidget::cb_envelope(Avtk::Dial* o, void* v) {
+  ((SatmaWidget*)(o->parent()->user_data()))->cb_envelope_i(o,v);
 }
 
-void Widget::cb_distortion_i(Avtk::Dial* o, void*) {
+void SatmaWidget::cb_distortion_i(Avtk::Dial* o, void*) {
   float tmp = o->value();
 graph->value( tmp );
 writePort(SATMA_DISTORTION, tmp);
 }
-void Widget::cb_distortion(Avtk::Dial* o, void* v) {
-  ((Widget*)(o->parent()->user_data()))->cb_distortion_i(o,v);
+void SatmaWidget::cb_distortion(Avtk::Dial* o, void* v) {
+  ((SatmaWidget*)(o->parent()->user_data()))->cb_distortion_i(o,v);
 }
 
 /**
    if the type of filter changes, this function will highlight the right button
 */
-void Widget::update_button(int button) {
+void SatmaWidget::update_button(int button) {
 }
 
-Widget::Widget() {
+SatmaWidget::SatmaWidget() {
   { Fl_Double_Window* o = window = new Fl_Double_Window(160, 220);
     window->user_data((void*)(this));
     { headerImage = new Avtk::Image(0, 0, 160, 29, "header.png");
@@ -106,25 +106,25 @@ Widget::Widget() {
   } // Fl_Double_Window* window
 }
 
-void Widget::idle() {
+void SatmaWidget::idle() {
   Fl::check();
   Fl::flush();
 }
 
-int Widget::getWidth() {
+int SatmaWidget::getWidth() {
   return window->w();
 }
 
-int Widget::getHeight() {
+int SatmaWidget::getHeight() {
   return window->h();
 }
 
-void Widget::writePort(int port, float& value) {
+void SatmaWidget::writePort(int port, float& value) {
   //cout << "port " << port << " value " << value << endl;
   write_function(controller, port, sizeof(float), 0, &value);
 }
 
-void Widget::close_cb(Fl_Widget* o, void*) {
+void SatmaWidget::close_cb(Fl_Widget* o, void*) {
   if ((Fl::event() == FL_KEYDOWN || Fl::event() == FL_SHORTCUT) && Fl::event_key() == FL_Escape)
     {
       return; // ignore ESC

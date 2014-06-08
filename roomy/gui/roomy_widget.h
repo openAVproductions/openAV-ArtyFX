@@ -5,7 +5,7 @@
 #include <FL/Fl.H>
 #include <FL/Fl_Double_Window.H>
 #include "lv2/lv2plug.in/ns/extensions/ui/ui.h"
-#include "../dsp/roomy.hxx"
+#include "../dsp/shared.hxx"
 #include "avtk.h"
 #include <stdio.h>
 #include "header.c"
@@ -16,7 +16,7 @@ class RoomyUI {
 public:
   void update_button(int button);
   RoomyUI();
-  Fl_Double_Window *window;
+  Fl_Double_Window *roomy_window;
   Avtk::Image *headerImage;
 private:
   void cb_headerImage_i(Avtk::Image*, void*);
@@ -54,5 +54,5 @@ private:
 public:
   void writePort(int port, float& value);
 };
-void close_cb(Fl_Widget* o, void*);
+void roomy_close_cb(Fl_Widget* o, void*);
 #endif

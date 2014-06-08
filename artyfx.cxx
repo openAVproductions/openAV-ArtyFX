@@ -21,7 +21,7 @@
 /// this file compiles into artyfx.so, including all plugins.
 
 // test compile
-// g++ artyfx.cxx bitta/dsp/dsp.cxx della/dsp/dsp.cxx ducka/dsp/dsp.cxx filta/dsp/dsp.cxx kuiza/dsp/dsp.cxx kuiza/dsp/eq/filters.cc kuiza/dsp/eq/filters_if.cc kuiza/dsp/eq/exp2ap.cc masha/dsp/masha.cxx panda/dsp/dsp.cxx  -fPIC -shared  -Wl,--no-undefined -o artyfx.lv2/artyfx.so
+// g++ artyfx.cxx bitta/dsp/dsp.cxx della/dsp/dsp.cxx ducka/dsp/dsp.cxx filta/dsp/dsp.cxx kuiza/dsp/dsp.cxx kuiza/dsp/eq/filters.cc kuiza/dsp/eq/filters_if.cc kuiza/dsp/eq/exp2ap.cc masha/dsp/masha.cxx panda/dsp/dsp.cxx roomy/dsp/dsp.cxx satma/dsp/dsp.cxx vihda/dsp/dsp.cxx  -fPIC -shared  -Wl,--no-undefined -o artyfx.lv2/artyfx.so
 
 #include "lv2/lv2plug.in/ns/lv2core/lv2.h"
 
@@ -33,6 +33,9 @@
 #include "kuiza/dsp/shared.hxx"
 #include "masha/dsp/shared.hxx"
 #include "panda/dsp/shared.hxx"
+#include "roomy/dsp/shared.hxx"
+#include "satma/dsp/shared.hxx"
+#include "vihda/dsp/shared.hxx"
 
 static const LV2_Descriptor descriptors[] =
 {
@@ -105,6 +108,36 @@ static const LV2_Descriptor descriptors[] =
     Panda::deactivate,
     Panda::cleanup,
     Panda::extension_data
+  },
+  {
+    ROOMY_URI,
+    Roomy::instantiate,
+    Roomy::connect_port,
+    Roomy::activate,
+    Roomy::run,
+    Roomy::deactivate,
+    Roomy::cleanup,
+    Roomy::extension_data
+  },
+  {
+    SATMA_URI,
+    Satma::instantiate,
+    Satma::connect_port,
+    Satma::activate,
+    Satma::run,
+    Satma::deactivate,
+    Satma::cleanup,
+    Satma::extension_data
+  },
+  {
+    VIHDA_URI,
+    Vihda::instantiate,
+    Vihda::connect_port,
+    Vihda::activate,
+    Vihda::run,
+    Vihda::deactivate,
+    Vihda::cleanup,
+    Vihda::extension_data
   }
 };
 

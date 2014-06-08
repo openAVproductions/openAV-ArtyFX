@@ -24,7 +24,7 @@
 #include <FL/x.H>
 
 // include the URI and global data of this plugin
-#include "../dsp/roomy.hxx"
+#include "../dsp/shared.hxx"
 
 // this is our custom widget include
 #include "roomy_widget.h"
@@ -46,7 +46,7 @@ typedef struct {
   LV2UI_Controller controller;
 } RoomyGUI;
 
-static LV2UI_Handle instantiate(const struct _LV2UI_Descriptor * descriptor,
+LV2UI_Handle roomy_instantiate(const struct _LV2UI_Descriptor * descriptor,
                 const char * plugin_uri,
                 const char * bundle_path,
                 LV2UI_Write_Function write_function,
@@ -81,7 +81,7 @@ static LV2UI_Handle instantiate(const struct _LV2UI_Descriptor * descriptor,
   
   self->widget = new RoomyUI();
   
-  self->widget->window->border(0);
+  self->widget->roomy_window->border(0);
   
   
   // write functions into the widget
@@ -99,7 +99,7 @@ static LV2UI_Handle instantiate(const struct _LV2UI_Descriptor * descriptor,
     Please ask the developers of the host to support this extension. "<< endl;
   }
   
-  fl_embed( self->widget->window, (Window)parentXwindow );
+  fl_embed( self->widget->roomy_window, (Window)parentXwindow );
   
   
   return (LV2UI_Handle)self;
@@ -107,13 +107,13 @@ static LV2UI_Handle instantiate(const struct _LV2UI_Descriptor * descriptor,
 
 
 
-static void cleanup(LV2UI_Handle ui) {
+void roomy_cleanup(LV2UI_Handle ui) {
   RoomyGUI *pluginGui = (RoomyGUI *) ui;
   delete pluginGui->widget;
   free( pluginGui);
 }
 
-static void port_event(LV2UI_Handle ui,
+void roomy_port_event(LV2UI_Handle ui,
                uint32_t port_index,
                uint32_t buffer_size,
                uint32_t format,
@@ -153,8 +153,7 @@ static void port_event(LV2UI_Handle ui,
 }
 
 
-static int
-idle(LV2UI_Handle handle)
+int roomy_idle(LV2UI_Handle handle)
 {
   RoomyGUI* self = (RoomyGUI*)handle;
   
@@ -163,27 +162,13 @@ idle(LV2UI_Handle handle)
   return 0;
 }
 
-static const LV2UI_Idle_Interface idle_iface = { idle };
+static const LV2UI_Idle_Interface idle_iface = { roomy_idle };
 
-static const void*
-extension_data(const char* uri)
+const void* roomy_extension_data(const char* uri)
 {
   if (!strcmp(uri, LV2_UI__idleInterface))
   {
     return &idle_iface;
   }
   return NULL;
-}
-
-static LV2UI_Descriptor descriptors[] = {
-    {ROOMY_UI_URI, instantiate, cleanup, port_event, extension_data}
-};
-
-const LV2UI_Descriptor * lv2ui_descriptor(uint32_t index)
-{
-  if (index >= sizeof(descriptors) / sizeof(descriptors[0]))
-  {
-      return NULL;
-  }
-  return descriptors + index;
 }

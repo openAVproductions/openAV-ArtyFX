@@ -18,66 +18,12 @@
  * MA 02110-1301, USA.
  */
 
-#include "roomy.hxx"
+#include "shared.hxx"
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
-
-#include "dsp_reverb.hxx"
-
-class Roomy
-{
-  public:
-    Roomy(int rate);
-    ~Roomy(){}
-    static LV2_Handle instantiate(const LV2_Descriptor* descriptor,
-                                  double samplerate,
-                                  const char* bundle_path,
-                                  const LV2_Feature* const* features);
-    static void activate(LV2_Handle instance);
-    static void deactivate(LV2_Handle instance);
-    static void connect_port(LV2_Handle instance, uint32_t port, void *data);
-    static void run(LV2_Handle instance, uint32_t n_samples);
-    static void cleanup(LV2_Handle instance);
-    static const void* extension_data(const char* uri);
-    
-    /// audio buffers
-    float* audioInputL;
-    float* audioInputR;
-    float* audioOutputL;
-    float* audioOutputR;
-    
-    /// control signals
-    float* controlTime;
-    float* controlDamping;
-    float* controlDryWet;
-    
-  private:
-    Reverb dspReverb;
-};
-
-
-static const LV2_Descriptor descriptor =
-{
-  ROOMY_URI,
-  Roomy::instantiate,
-  Roomy::connect_port,
-  Roomy::activate,
-  Roomy::run,
-  Roomy::deactivate,
-  Roomy::cleanup,
-  Roomy::extension_data
-};
-
-
-LV2_SYMBOL_EXPORT const LV2_Descriptor* lv2_descriptor(uint32_t index)
-{
-  if (index == 0) return &descriptor;
-  else return NULL;
-}
-
 
 LV2_Handle Roomy::instantiate(const LV2_Descriptor* descriptor,
                               double samplerate,

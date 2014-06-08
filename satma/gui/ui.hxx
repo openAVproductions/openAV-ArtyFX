@@ -1,5 +1,5 @@
 /*
- * Author: Harry van Haaren 2013
+ * Author: Harry van Haaren 2014
  *         harryhaaren@gmail.com
  * 
  * This program is free software; you can redistribute it and/or modify
@@ -18,25 +18,24 @@
  * MA 02110-1301, USA.
  */
 
-#ifndef OPENAV_ROOMY
-#define OPENAV_ROOMY
+extern LV2UI_Handle satma_instantiate(const struct _LV2UI_Descriptor * descriptor,
+                const char * plugin_uri,
+                const char * bundle_path,
+                LV2UI_Write_Function write_function,
+                LV2UI_Controller controller,
+                LV2UI_Widget * widget,
+                const LV2_Feature * const * features);
 
-#include "lv2/lv2plug.in/ns/lv2core/lv2.h"
+extern void satma_cleanup(LV2UI_Handle ui);
 
-#define ROOMY_URI    "http://www.openavproductions.com/artyfx#roomy"
-#define ROOMY_UI_URI "http://www.openavproductions.com/artyfx#roomy/gui"
+extern void satma_port_event(LV2UI_Handle ui,
+               uint32_t port_index,
+               uint32_t buffer_size,
+               uint32_t format,
+               const void * buffer);
 
-typedef enum
-{
-  ROOMY_INPUT_L = 0,
-  ROOMY_INPUT_R,
-  
-  ROOMY_OUTPUT_L,
-  ROOMY_OUTPUT_R,
-  
-  ROOMY_TIME,
-  ROOMY_DAMPING,
-  ROOMY_DRY_WET,
-} PortIndex;
+extern int satma_idle(LV2UI_Handle handle);
 
-#endif // OPENAV_ROOMY
+extern const void* satma_extension_data(const char* uri);
+
+

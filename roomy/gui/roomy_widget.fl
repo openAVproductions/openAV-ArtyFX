@@ -11,12 +11,12 @@ class RoomyUI {open
   }
   Function {RoomyUI()} {open
   } {
-    Fl_Window window {open selected
-      xywh {1024 378 160 220} type Double
+    Fl_Window roomy_window {open
+      xywh {694 421 160 220} type Double
       code0 {\#include "lv2/lv2plug.in/ns/extensions/ui/ui.h"}
-      code1 {window->color( fl_rgb_color( 17, 17, 17) );}
+      code1 {roomy_window->color( fl_rgb_color( 17, 17, 17) );}
       code2 {close_cb(o, 0);}
-      code3 {\#include "../dsp/roomy.hxx"} visible
+      code3 {\#include "../dsp/shared.hxx"} visible
     } {
       Fl_Box headerImage {
         label {header.png}
@@ -78,11 +78,11 @@ Fl::flush();} {}
   }
   Function {getWidth()} {open return_type int
   } {
-    code {return window->w();} {}
+    code {return roomy_window->w();} {}
   }
   Function {getHeight()} {open return_type int
   } {
-    code {return window->h();} {}
+    code {return roomy_window->h();} {}
   }
   decl {float gain;} {private local
   }
@@ -97,7 +97,7 @@ write_function(controller, port, sizeof(float), 0, &value);} {}
   }
 } 
 
-Function {close_cb(Fl_Widget* o, void*)} {open
+Function {roomy_close_cb(Fl_Widget* o, void*)} {open selected
 } {
   code {if ((Fl::event() == FL_KEYDOWN || Fl::event() == FL_SHORTCUT) && Fl::event_key() == FL_Escape)
   {
