@@ -1,17 +1,19 @@
-<div class="mod-pedal mod-pedal-boxy mod-two-knobs mod-{{color}}">
+<div class="artyfx-filta mod-pedal mod-pedal-boxy ">
     <div mod-role="drag-handle" class="mod-drag-handle"></div>
-    <div class="mod-plugin-author"><h1>{{author}}</h1></div>
-    <div class="mod-plugin-name"><h1>{{label}}</h1></div>
+    <div class="graphics">
+    </div>
     <div class="mod-light on" mod-role="bypass-light"></div>
+
     <div class="mod-control-group clearfix">
-        {{#controls}}
         <div class="mod-knob">
-            <div class="mod-knob-image" mod-role="input-control-port" mod-port-symbol="{{symbol}}"></div>
-            <span class="mod-knob-title">{{name}}</span>
+            <div class="mod-knob-image" mod-role="input-control-port" mod-port-symbol="freq"></div>
         </div>
-        {{/controls}}
+        <div class="mod-knob switch">
+            <div class="mod-knob-image" mod-role="input-control-port" mod-port-symbol="active"></div>
+        </div>
     </div>
     <div class="mod-footswitch" mod-role="bypass"></div>  
+
     <div class="mod-pedal-input">
         {{#effect.ports.audio.input}}
         <div class="mod-input mod-input-disconnected" title="{{name}}" mod-role="input-audio-port" mod-port-symbol="{{symbol}}">
@@ -37,3 +39,77 @@
         {{/effect.ports.midi.output}}
     </div>
 </div>
+<style type="text/css" media="screen">
+    .artyfx-filta * {
+        color: white !important;
+    }
+    .artyfx-filta {
+        background-image:url(/resources/artyfx_filta.png{{{ns}}}) !important;
+        background-size:201px 488px;
+        width: 200px;
+        height: 488px;
+        background-position: 18px top;
+    }
+
+    .artyfx-filta .graphics {
+        display: block;
+        width: 150px;
+        height: 130px;
+        margin: 58px auto 40px auto;
+        outline: 2px solid gray;
+        background: black;
+    }
+    .artyfx-filta .mod-control-group .mod-knob.switch .mod-knob-image {
+        background-image:url(/resources/artyfx-switch.png{{{ns}}}) !important;
+        background-repeat:no-repeat;
+        background-size:200px 30px;
+        height:30px;
+        margin:0 auto;
+        width:100px;
+        cursor: pointer;
+    }
+    .artyfx-filta .mod-control-group .mod-knob {
+        height: 95px !important;
+    }
+    .artyfx-filta .mod-control-group .mod-knob .mod-knob-image {
+      background-image: url(/resources/artyfx-knob.png{{{ns}}});
+      background-position:left center;
+      background-repeat:no-repeat;
+      background-size:auto 60px;
+      height:60px;
+      width:60px;
+      margin:0 auto;
+      cursor: pointer;
+      position:relative;
+      overflow:hidden;
+    }
+    .artyfx-filta .mod-light {
+        top: 15px;
+        left: 155px;
+    }
+    .artyfx-filta .mod-footswitch {
+        background-image:url(/resources/footswitch.png{{{ns}}});
+        background-position:top center;
+        background-repeat:no-repeat;
+        background-size:auto 132px;
+        bottom: 37px;
+        cursor:pointer;
+        height:66px;
+        left: 12px !important;
+        position:absolute;
+    }
+    .artyfx-filta .mod-footswitch.on {
+        background-position:top center;
+    }
+    .artyfx-filta .mod-footswitch.off {
+        background-position:bottom center;
+    }
+
+    .artyfx-filta .mod-pedal-input , .artyfx-filta .mod-pedal-output {
+        top: 60px;
+    }
+    .artyfx-filta .mod-pedal-input .mod-input , .artyfx-filta .mod-pedal-output .mod-output {
+        margin-bottom: 40px !important
+    }
+
+</style>
