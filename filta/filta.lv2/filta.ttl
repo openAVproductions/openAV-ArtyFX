@@ -97,6 +97,8 @@ source: http://openavproductions.com/artyfx/
     mod:resourcesDirectory <modgui>;
     mod:iconTemplate <modgui/icon-filta.html>;
     mod:templateData <modgui/data-filta.json>;
+    mod:stylesheet <modgui/arty.css>;
+    mod:javascript <modgui/filta.js>;
     mod:screenshot <modgui/screenshot-filta.png>;
     mod:thumbnail <modgui/thumb-filta.png>;
   ] .
