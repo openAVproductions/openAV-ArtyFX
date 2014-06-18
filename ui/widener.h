@@ -1,5 +1,5 @@
 /*
- * Author: Harry van Haaren 2013
+ * Author: Harry van Haaren 2014
  *         harryhaaren@gmail.com
  * 
  * This program is free software; you can redistribute it and/or modify
@@ -70,6 +70,16 @@ class Widener : public Fl_Slider
     
     float volume;
     float feedback;
+    
+    void setInvert( float i )
+    {
+      invert = false;
+      
+      if ( i > 0.5 )
+        invert = true;
+      
+      redraw();
+    }
     
     void setFeedback(float f)
     {

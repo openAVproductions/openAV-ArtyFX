@@ -33,6 +33,16 @@ void VihdaWidget::cb_width(Avtk::Dial* o, void* v) {
   ((VihdaWidget*)(o->parent()->user_data()))->cb_width_i(o,v);
 }
 
+void VihdaWidget::cb_invert_i(Avtk::Button* o, void*) {
+  float tmp = o->value();
+graph->setInvert( tmp );
+writePort(VIHDA_INVERT, tmp);
+printf("button %f\n", tmp );
+}
+void VihdaWidget::cb_invert(Avtk::Button* o, void* v) {
+  ((VihdaWidget*)(o->parent()->user_data()))->cb_invert_i(o,v);
+}
+
 /**
    if the type of filter changes, this function will highlight the right button
 */
@@ -79,6 +89,19 @@ VihdaWidget::VihdaWidget() {
       width->align(Fl_Align(FL_ALIGN_BOTTOM));
       width->when(FL_WHEN_CHANGED);
     } // Avtk::Dial* width
+    { invert = new Avtk::Button(85, 167, 40, 40, "Invert");
+      invert->box(FL_NO_BOX);
+      invert->color((Fl_Color)90);
+      invert->selection_color(FL_INACTIVE_COLOR);
+      invert->labeltype(FL_NORMAL_LABEL);
+      invert->labelfont(0);
+      invert->labelsize(10);
+      invert->labelcolor(FL_FOREGROUND_COLOR);
+      invert->callback((Fl_Callback*)cb_invert);
+      invert->align(Fl_Align(FL_ALIGN_BOTTOM));
+      invert->when(FL_WHEN_CHANGED);
+      invert->label("Invert");
+    } // Avtk::Button* invert
     window->color( fl_rgb_color( 17, 17, 17) );
     close_cb( o, 0 );
     window->end();

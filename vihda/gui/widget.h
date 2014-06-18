@@ -32,6 +32,11 @@ private:
   void cb_width_i(Avtk::Dial*, void*);
   static void cb_width(Avtk::Dial*, void*);
 public:
+  Avtk::Button *invert;
+private:
+  void cb_invert_i(Avtk::Button*, void*);
+  static void cb_invert(Avtk::Button*, void*);
+public:
   LV2UI_Write_Function write_function; 
   LV2UI_Controller controller; 
   void idle();

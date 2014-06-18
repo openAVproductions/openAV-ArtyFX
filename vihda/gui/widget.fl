@@ -9,10 +9,10 @@ class VihdaWidget {open
   } {
     code {} {}
   }
-  Function {VihdaWidget()} {open selected
+  Function {VihdaWidget()} {open
   } {
     Fl_Window window {open
-      xywh {437 324 160 220} type Double
+      xywh {491 296 160 220} type Double
       code0 {\#include "lv2/lv2plug.in/ns/extensions/ui/ui.h"}
       code1 {window->color( fl_rgb_color( 17, 17, 17) );}
       code2 {close_cb( o, 0 );}
@@ -51,6 +51,16 @@ graph->value( tmp );
 writePort(VIHDA_WIDTH, tmp);}
         xywh {29 167 41 40} color 90 labelsize 10
         class {Avtk::Dial}
+      }
+      Fl_Dial invert {
+        label Invert
+        callback {float tmp = o->value();
+graph->setInvert( tmp );
+writePort(VIHDA_INVERT, tmp);
+printf("button %f\\n", tmp );} selected
+        xywh {85 167 40 40} color 90 labelsize 10
+        code0 {invert->label("Invert");}
+        class {Avtk::Button}
       }
     }
   }

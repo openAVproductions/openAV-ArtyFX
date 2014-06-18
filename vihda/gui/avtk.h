@@ -23,6 +23,7 @@
 
 #include "../../ui/dial.h"
 #include "../../ui/image.h"
+#include "../../ui/button.h"
 #include "../../ui/widener.h"
 
 #endif // DELLA_AVTK
