@@ -53,7 +53,7 @@ class Widener : public Fl_Slider
       
       active = true;
       highlight = false;
-      invert = true;
+      invert = false;
     }
     
     bool active;
