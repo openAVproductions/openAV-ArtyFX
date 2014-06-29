@@ -15,30 +15,35 @@ DSP_OBJECTS=bitta/dsp/dsp.o della/dsp/dsp.o ducka/dsp/dsp.o filta/dsp/dsp.o kuiz
 #DSP_OBJECTS = $(DSP_SOURCES:.cxx=.o)
 
 # UI files
-#UI_SOURCES=bitta/gui/ui.cxx bitta/gui/widget.cxx della/gui/ui.cxx della/gui/widget.cxx  ducka/gui/ducka_ui.cxx ducka/gui/ducka_widget.cxx filta/gui/ui.cxx filta/gui/widget.cxx kuiza/gui/ui.cxx kuiza/gui/widget.cxx masha/gui/masha_widget.cxx masha/gui/masha_ui.cxx panda/gui/ui.cxx panda/gui/widget.cxx roomy/gui/roomy_ui.cxx roomy/gui/roomy_widget.cxx satma/gui/ui.cxx satma/gui/widget.cxx vihda/gui/ui.cxx vihda/gui/widget.cxx artyfx_ui.cxx 
-#UI_OBJECTS = $(UI_SOURCES:.cxx=.o)
+UI_SOURCES=bitta/gui/ui.cxx bitta/gui/widget.cxx della/gui/ui.cxx della/gui/widget.cxx  ducka/gui/ducka_ui.cxx ducka/gui/ducka_widget.cxx filta/gui/ui.cxx filta/gui/widget.cxx kuiza/gui/ui.cxx kuiza/gui/widget.cxx masha/gui/masha_widget.cxx masha/gui/masha_ui.cxx panda/gui/ui.cxx panda/gui/widget.cxx roomy/gui/roomy_ui.cxx roomy/gui/roomy_widget.cxx satma/gui/ui.cxx satma/gui/widget.cxx vihda/gui/ui.cxx vihda/gui/widget.cxx artyfx_ui.cxx 
+UI_OBJECTS = $(UI_SOURCES:.cxx=.o)
 
 CXX=g++
 CXXFLAGS=-g -Wall -fPIC
 # Add these for long-winded warnings!
 # -Wextra -pedantic -Wshadow -Wpointer-arith -Wcast-align -Wwrite-strings -Wredundant-decls -Winline -Wno-long-long  -Wuninitialized -Wconversion
 
-LDFLAGS=$(shell pkg-config --libs sndfile cairomm-1.0 ntk ntk_images) -fPIC -shared -Wl,-z,nodelete -Wl,--no-undefined
+LDFLAGS=-fPIC -shared -Wl,-z,nodelete -Wl,--no-undefined
+UI_LDFLAGS=$(LDFLAGS) $(shell pkg-config --libs sndfile cairomm-1.0 ntk ntk_images) 
 
+
+# compile command:
+COMMAND=$(CXX) $(CXXFLAGS)  $(INCLUDES) -c $< -o $@
+
+#%.o: %.cpp %.hxx
+# 		$(COMMAND)
 
 %.o: %.cxx
-	$(CXX) $(CXXFLAGS)  $(INCLUDES) -c $< -o $@
+	$(COMMAND)
 
-#artyfx_ui : $(UI_OBJECTS)
-#	$(CXX) $(CXXFLAGS) $< -o artyfx.lv2/artyfx_ui.so  $(LDFLAGS)
+artyfx_ui.so : $(UI_OBJECTS) artyfx.so
+	$(CXX) $(CXXFLAGS) $(UI_OBJECTS)  -o artyfx.lv2/$@  $(UI_LDFLAGS)
 
 artyfx.so : $(DSP_OBJECTS)
-	$(CXX) $(CXXFLAGS) $< -o artyfx.lv2/$@ $(LDFLAGS)
+	$(CXX) $(CXXFLAGS) $(DSP_OBJECTS) -o artyfx.lv2/$@  $(LDFLAGS)
 
 
-all: artyfx_dsp
-	#artyfx_ui
-	
+all: artyfx_ui.so
 
 clean:
 	rm artyfx.lv2/artyfx.so
