@@ -163,7 +163,7 @@ class Compander : public Fl_Slider
         
         // right curve, compression
         cairo_move_to( cr, pointX, pointY );
-        cairo_arc_negative( cr, pointX, pointY, 15 + 20 * (1-point), 0, -3.1415 / 2 * value() );
+        cairo_arc_negative( cr, pointX, pointY, 20 + 18 * (1-point), 0, -3.1415 / 2 * value() );
         cairo_close_path( cr );
         cairo_set_source_rgba(cr, 1.0, 0.48,   0, 0.2);
         cairo_fill_preserve( cr );
@@ -172,7 +172,7 @@ class Compander : public Fl_Slider
         
         // left curve, expanding
         cairo_move_to( cr, pointX, pointY );
-        cairo_arc_negative( cr, pointX, pointY, 15 + 20 * point, 3.1415, 3.1415 + -3.1415 / 2 * value() );
+        cairo_arc_negative( cr, pointX, pointY, 20 + 18 * point, 3.1415, 3.1415 + -3.1415 / 2 * value() );
         cairo_close_path( cr );
         
         cairo_set_source_rgba( cr, 0 / 255.f, 153 / 255.f , 255 / 255.f , 0.2 );

@@ -109,8 +109,6 @@ class Masher // : Effect
     void process (long count, float* input, float* output)
     {
       
-      long totalSmashSize = (16 * framesPerBar) / 8;
-      
       for(long i = 0; i < count; i++ )
       {
         float tmp = 0.f;
