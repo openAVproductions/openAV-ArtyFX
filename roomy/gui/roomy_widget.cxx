@@ -48,14 +48,8 @@ void RoomyUI::cb_dryWet(Avtk::Dial* o, void* v) {
   ((RoomyUI*)(o->parent()->user_data()))->cb_dryWet_i(o,v);
 }
 
-/**
-   if the type of filter changes, this function will highlight the right button
-*/
-void RoomyUI::update_button(int button) {
-}
-
 RoomyUI::RoomyUI() {
-  { Fl_Double_Window* o = roomy_window = new Fl_Double_Window(160, 220);
+  { roomy_window = new Fl_Double_Window(160, 220, "Roomy");
     roomy_window->user_data((void*)(this));
     { headerImage = new Avtk::Image(0, 0, 160, 29, "header.png");
       headerImage->box(FL_NO_BOX);
@@ -119,7 +113,6 @@ RoomyUI::RoomyUI() {
       dryWet->when(FL_WHEN_CHANGED);
     } // Avtk::Dial* dryWet
     roomy_window->color( fl_rgb_color( 17, 17, 17) );
-    //close_cb(o, 0);
     roomy_window->end();
   } // Fl_Double_Window* roomy_window
 }
@@ -140,15 +133,4 @@ int RoomyUI::getHeight() {
 void RoomyUI::writePort(int port, float& value) {
   //cout << "port " << port << " value " << value << endl;
   write_function(controller, port, sizeof(float), 0, &value);
-}
-
-void roomy_close_cb(Fl_Widget* o, void*) {
-  if ((Fl::event() == FL_KEYDOWN || Fl::event() == FL_SHORTCUT) && Fl::event_key() == FL_Escape)
-    {
-      return; // ignore ESC
-    }
-    else
-    {
-      o->hide();
-    }
 }

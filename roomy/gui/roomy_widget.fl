@@ -4,18 +4,13 @@ header_name {.h}
 code_name {.cxx}
 class RoomyUI {open
 } {
-  Function {update_button(int button)} {
-    comment {if the type of filter changes, this function will highlight the right button} open return_type void
-  } {
-    code {} {}
-  }
   Function {RoomyUI()} {open
   } {
-    Fl_Window roomy_window {open
-      xywh {694 421 160 220} type Double
+    Fl_Window roomy_window {
+      label Roomy open selected
+      xywh {494 373 160 220} type Double
       code0 {\#include "lv2/lv2plug.in/ns/extensions/ui/ui.h"}
       code1 {roomy_window->color( fl_rgb_color( 17, 17, 17) );}
-      code2 {close_cb(o, 0);}
       code3 {\#include "../dsp/shared.hxx"} visible
     } {
       Fl_Box headerImage {
@@ -95,16 +90,4 @@ Fl::flush();} {}
     code {//cout << "port " << port << " value " << value << endl;
 write_function(controller, port, sizeof(float), 0, &value);} {}
   }
-} 
-
-Function {roomy_close_cb(Fl_Widget* o, void*)} {open selected
-} {
-  code {if ((Fl::event() == FL_KEYDOWN || Fl::event() == FL_SHORTCUT) && Fl::event_key() == FL_Escape)
-  {
-    return; // ignore ESC
-  }
-  else
-  {
-    o->hide();
-  }} {}
 } 

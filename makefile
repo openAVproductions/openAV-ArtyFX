@@ -27,14 +27,8 @@ LDFLAGS=-fPIC -shared -Wl,-z,nodelete -Wl,--no-undefined
 UI_LDFLAGS=$(LDFLAGS) $(shell pkg-config --libs sndfile cairomm-1.0 ntk ntk_images) 
 
 
-# compile command:
-COMMAND=$(CXX) $(CXXFLAGS)  $(INCLUDES) -c $< -o $@
-
-#%.o: %.cpp %.hxx
-# 		$(COMMAND)
-
 %.o: %.cxx
-	$(COMMAND)
+	$(CXX) $(CXXFLAGS)  $(INCLUDES) -c $< -o $@
 
 artyfx_ui.so : $(UI_OBJECTS) artyfx.so
 	$(CXX) $(CXXFLAGS) $(UI_OBJECTS)  -o artyfx.lv2/$@  $(UI_LDFLAGS)

@@ -14,7 +14,6 @@ using namespace std;
 
 class RoomyUI {
 public:
-  void update_button(int button);
   RoomyUI();
   Fl_Double_Window *roomy_window;
   Avtk::Image *headerImage;
@@ -54,5 +53,4 @@ private:
 public:
   void writePort(int port, float& value);
 };
-void roomy_close_cb(Fl_Widget* o, void*);
 #endif
