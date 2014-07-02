@@ -40,8 +40,21 @@ artyfx.so : $(DSP_OBJECTS)
 all: artyfx_ui.so
 
 clean:
-	rm artyfx.lv2/artyfx.so
-	rm artyfx.lv2/artyfx_ui.so
+	rm -f artyfx.lv2/artyfx.so
+	rm -f artyfx.lv2/artyfx_ui.so
+	
+	rm -f ./*.o
+	rm -f ./bitta/dsp/*.o ./bitta/gui/*.o
+	rm -f ./della/dsp/*.o ./della/gui/*.o
+	rm -f ./ducka/dsp/*.o ./ducka/gui/*.o
+	rm -f ./filta/dsp/*.o ./filta/gui/*.o
+	rm -f ./kuiza/dsp/*.o ./kuiza/gui/*.o
+	rm -f ./masha/dsp/*.o ./masha/gui/*.o
+	rm -f ./panda/dsp/*.o ./panda/gui/*.o
+	rm -f ./roomy/dsp/*.o ./roomy/gui/*.o
+	rm -f ./satma/dsp/*.o ./satma/gui/*.o
+	rm -f ./vihda/dsp/*.o ./vihda/gui/*.o
+	
 
 install:
 	cp -r artyfx.lv2/ ~/.lv2/
