@@ -28,7 +28,7 @@ void BittaWidget::cb_width_i(Avtk::Dial* o, void*) {
   float tmp = o->value();
 graph->value( tmp );
 writePort(BITTA_CRUSH, tmp);
-printf("%f\n",tmp);
+//printf("%f\n",tmp);
 }
 void BittaWidget::cb_width(Avtk::Dial* o, void* v) {
   ((BittaWidget*)(o->parent()->user_data()))->cb_width_i(o,v);

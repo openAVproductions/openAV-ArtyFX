@@ -32,7 +32,8 @@
 using namespace std;
 
 /** Compander
- *  Bit-crushing and sample rate reduction.
+ *  A compressor/expander combo: a threshold sets the expander/compressor turn
+ *  point, while a factor control regulates the amount of compression/expansion.
 **/
 class Compander // : Effect
 {
@@ -44,7 +45,7 @@ class Compander // : Effect
       
       init();
       
-      attack = 2.f;
+      attack = 20.f;
       release = 20;
       
       threshold = -60.f;

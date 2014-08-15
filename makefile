@@ -7,7 +7,7 @@ endif
 .PHONY: all clean install 
 
 # Includes
-INCLUDES=$(shell pkg-config --cflags sndfile cairomm-1.0 ntk ntk_images)
+INCLUDES=$(shell pkg-config --cflags sndfile cairo ntk ntk_images)
 
 # DSP files
 DSP_SOURCES=bitta/dsp/dsp.cxx della/dsp/dsp.cxx ducka/dsp/dsp.cxx filta/dsp/dsp.cxx kuiza/dsp/dsp.cxx kuiza/dsp/eq/filters.cc kuiza/dsp/eq/filters_if.cc kuiza/dsp/eq/exp2ap.cc masha/dsp/masha.cxx panda/dsp/dsp.cxx roomy/dsp/dsp.cxx satma/dsp/dsp.cxx vihda/dsp/dsp.cxx artyfx.cxx
@@ -24,7 +24,7 @@ CXXFLAGS=-g -Wall -fPIC
 # -Wextra -pedantic -Wshadow -Wpointer-arith -Wcast-align -Wwrite-strings -Wredundant-decls -Winline -Wno-long-long  -Wuninitialized -Wconversion
 
 LDFLAGS=-fPIC -shared -Wl,-z,nodelete -Wl,--no-undefined
-UI_LDFLAGS=$(LDFLAGS) $(shell pkg-config --libs sndfile cairomm-1.0 ntk ntk_images) 
+UI_LDFLAGS=$(LDFLAGS) $(shell pkg-config --libs sndfile cairo ntk ntk_images) 
 
 
 %.o: %.cxx

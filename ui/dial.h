@@ -103,7 +103,7 @@ class Dial : public Fl_Slider
         cairo_set_line_width(cr, lineWidth);
         cairo_arc(cr, x+w/2,y+h/2, radius, 2.46, angle );
         cairo_line_to(cr, x+w/2,y+h/2);
-        cairo_set_source_rgba(cr, 1.0, 0.48,   0, 1.0);
+        cairo_set_source_rgba(cr, 1.0, 0.318,   0, 1.0);
         cairo_stroke(cr);
         
         cairo_restore( cr );

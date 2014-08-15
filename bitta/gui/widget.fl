@@ -9,7 +9,7 @@ class BittaWidget {open
   } {
     code {} {}
   }
-  Function {BittaWidget()} {open selected
+  Function {BittaWidget()} {open
   } {
     Fl_Window window {open
       xywh {331 328 160 220} type Double
@@ -49,7 +49,7 @@ writePort(BITTA_ACTIVE, a);
         callback {float tmp = o->value();
 graph->value( tmp );
 writePort(BITTA_CRUSH, tmp);
-printf("%f\\n",tmp);}
+//printf("%f\\n",tmp);} selected
         xywh {59 167 41 40} color 90 labelsize 10
         class {Avtk::Dial}
       }

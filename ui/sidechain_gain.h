@@ -155,9 +155,9 @@ class SidechainGain : public Fl_Slider
         cairo_line_to( cr, x + w * 0.65 * _sidechainAmp, y + h * 0.6 );
         cairo_line_to( cr, x + w * 0.00 * _sidechainAmp, y + h * 0.6 + (h*0.1*_sidechainAmp) );
         cairo_close_path( cr );
-        cairo_set_source_rgba( cr, 1.0, 0.48, 0.f , 0.21 );
+        cairo_set_source_rgba( cr, 1.0, 0.318, 0.f , 0.21 );
         cairo_fill_preserve( cr );
-        cairo_set_source_rgba( cr, 1.0, 0.48, 0.f , 1 );
+        cairo_set_source_rgba( cr, 1.0, 0.318, 0.f , 1 );
         cairo_stroke( cr );
         
         

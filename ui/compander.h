@@ -165,9 +165,9 @@ class Compander : public Fl_Slider
         cairo_move_to( cr, pointX, pointY );
         cairo_arc_negative( cr, pointX, pointY, 20 + 18 * (1-point), 0, -3.1415 / 2 * value() );
         cairo_close_path( cr );
-        cairo_set_source_rgba(cr, 1.0, 0.48,   0, 0.2);
+        cairo_set_source_rgba(cr, 1.0, 0.318,   0, 0.2);
         cairo_fill_preserve( cr );
-        cairo_set_source_rgba(cr, 1.0, 0.48,   0, 0.8);
+        cairo_set_source_rgba(cr, 1.0, 0.318,   0, 0.8);
         cairo_stroke( cr );
         
         // left curve, expanding

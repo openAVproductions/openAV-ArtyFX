@@ -40,7 +40,7 @@ class Button : public Fl_Button
       setLabel( labelMe );
       
       _r = 1.0;
-      _g = 0.48;
+      _g = 0.318;
       _b = 0.0;
       
       _bgr = 0.11;

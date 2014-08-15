@@ -109,7 +109,7 @@ class Reverb : public Fl_Slider
         // draw "damping" control
         cairo_move_to( cr, x+w*0.1              , y + h*0.85 - (h*0.7*amp));
         cairo_line_to( cr, x+w*0.1 + (w-20)*damp, y + h*0.85 - (h*0.7*amp));
-        cairo_set_source_rgba(cr, 1.0, 0.48,   0,  1);
+        cairo_set_source_rgba(cr, 1.0, 0.318,   0,  1);
         cairo_set_line_join( cr, CAIRO_LINE_JOIN_ROUND);
         cairo_set_line_cap ( cr, CAIRO_LINE_CAP_ROUND);
         cairo_set_line_width(cr, 1.9);

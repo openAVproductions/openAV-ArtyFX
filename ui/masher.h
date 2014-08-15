@@ -136,11 +136,11 @@ class Masher : public Fl_Slider
         if      ( newAngle == 0 )
           cairo_set_source_rgba (cr, 1.0, 0.0 , 0.0, 1 );
         else if ( newAngle == 1 )
-          cairo_set_source_rgba (cr, 1.0, 0.48, 0.0, 1 );
+          cairo_set_source_rgba (cr, 1.0, 0.318, 0.0, 1 );
         else if ( newAngle <= 2 )
           cairo_set_source_rgba (cr, 0.0, 1.0 , 0.0, 0.8 );
         else if ( newAngle <= 3 )
-          cairo_set_source_rgba (cr, 0.0, 0.48, 1.0, 1 );
+          cairo_set_source_rgba (cr, 0.0, 0.318, 1.0, 1 );
         else
           cairo_set_source_rgba (cr, 1.0, 0.0, 1.0, 0.7 );
         
