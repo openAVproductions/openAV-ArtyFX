@@ -1,29 +1,30 @@
 ArtyFX Manual
 ==============
-Welcome to the
-<a href-="http://www.openavproductions.com/artyfx">ArtyFX</a> manual,
+Welcome to the manual for
+[ArtyFX](http://www.openavproductions.com/artyfx),
 where we'll discuss what each plugin in the ArtyFX
 suite is designed for, and where they can be abused to create even cooler audio!
 
-<a href-="http://www.openavproductions.com">OpenAV Productions</a> develops
+[OpenAV Productions](http://www.openavproductions.com) develops
 these plugins: and they're released using the
-<a href="http://www.openavproductions.com/release">OpenAV release system</a>,
+[OpenAV Release System](http://www.openavproductions.com/release),
 which balances developer effort and financial support.
 
 Introduction
 ------------
 ArtyFX contains many different plugins: all in one bundle. These are
-<a href="http://www.lv2plug.in/">LV2</a> plugins,
+[LV2](http://www.lv2plug.in/) plugins,
 which means that they will work in an LV2 compatible host like
-<a href="http://www.ardour.org">Ardour</a> and
-<a href="http://www.qtractor.sf.net">QTractor</a>.
+[Ardour](http://www.ardour.org) and
+[QTractor](http://www.qtractor.sf.net).
 If you want to use the effects as a standalone program,
-<a href="http://drobilla.net/software/jalv/">Jalv</a> is designed for that!
+[Jalv](http://drobilla.net/software/jalv/) is designed for that!
 
 To test plugins, we reccommend using Jalv. Eg:
-``` 
+```
 jalv.gtk http://www.openavproductions.com/artyfx#roomy
 ```
+
 
 Show me the plugins!
 --------------------
@@ -156,10 +157,10 @@ or making both equally gritty.
 Outro
 ------
 Do you have a plugin suggestion for ArtyFX? Get in contact with
-<a href="http://www.openavproductions.com/contact">OpenAV</a>!
+[OpenAV](http://www.openavproductions.com/contact)!
 
 You can financially support OpenAV and the ArtyFX plugins here:
-<a href="http://www.openavproductions.com/support">Support OpenAV</a>!
+[Support OpenAV](http://www.openavproductions.com/support)!
 
 I hope you enjoy using these plugins!
   -Harry van Haaren, OpenAV
