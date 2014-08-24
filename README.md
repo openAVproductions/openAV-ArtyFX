@@ -3,7 +3,7 @@ ArtyFX OpenAV Productions
 
 Official: [http://openavproductions.com/artyfx](http://openavproductions.com/artyfx)
 
-Manual: [ArtyFX Manual](https://github.com/harryhaaren/openAV-ArtyFX/master/manual.md)
+Manual: [ArtyFX Manual](https://github.com/harryhaaren/openAV-ArtyFX/blob/master/manual.md)
 
 This is the repository of an LV2 plugin suite called Arty FX.
 
