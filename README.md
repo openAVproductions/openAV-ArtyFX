@@ -3,11 +3,11 @@ ArtyFX OpenAV Productions
 
 Official: [http://openavproductions.com/artyfx](http://openavproductions.com/artyfx)
 
-Manual: [ArtyFX Manual](http://openavproductions.com/artyfx/manual.md)
+Manual: [ArtyFX Manual](https://github.com/harryhaaren/openAV-ArtyFX/manual.md)
 
 This is the repository of an LV2 plugin suite called Arty FX.
 
-![ArtyFX screenshot](http://raw.githubusercontent.com/harryhaaren/openAV-ArtyFX/master/screenshots/artyfx_1.1.png "ArtyFX 1.1 screenshot")
+![ArtyFX screenshot](https://raw.github.com/harryhaaren/openAV-ArtyFX/master/screenshots/artyfx_1.1.png "ArtyFX 1.1 screenshot")
 
 
 Dependencies
