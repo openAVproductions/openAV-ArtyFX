@@ -29,6 +29,7 @@ jalv.gtk http://www.openavproductions.com/artyfx#roomy
 Show me the plugins!
 --------------------
 ArtyFX is a growing suite of plugins: right now, there's 7 plugins available:
+![ArtyFX 1.1](./screenshots/artyfx_1.1.png)
 ```
 - Della    (Delay)
 - Ducka    (Sidechain envelope)
@@ -41,7 +42,7 @@ ArtyFX is a growing suite of plugins: right now, there's 7 plugins available:
 
 Della
 -----
-[Della Screenshot](./screenshots/artyfx_della.png)
+![Della Screenshot](./screenshots/artyfx_della.png)
 Della is a BPM adjusting delay, with 3 controls:
 ```
 - Feedback
@@ -63,7 +64,7 @@ continue to stay in time!
 
 Ducka
 -----
-[Ducka Screenshot](./screenshots/artyfx_ducka.png)
+![Ducka Screenshot](./screenshots/artyfx_ducka.png)
 Ducka is a side- chain envelope plugin: it is very useful for creating "pumping"
 basslines as often found in minimal house music. The plugin works by analysing
 the volume of a sidechain input, and changing the volume of a seperate
@@ -90,7 +91,7 @@ the off- beats. A setting of half (its default) is generally musical :)
 
 Filta
 -----
-[Filta Screenshot](./screenshots/artyfx_filta.png)
+![Filta Screenshot](./screenshots/artyfx_filta.png)
 Filta is a lowpass and highpass filter combination. Useful to remove unwanted
 high and low frequencies from various recordings or instruments.
 The controls:
@@ -103,7 +104,7 @@ values are lowpass filter, turning up the dial is causes highpass.
 
 Kuiza
 -----
-[Kuiza Screenshot](./screenshots/artyfx_kuiza.png)
+![Kuiza Screenshot](./screenshots/artyfx_kuiza.png)
 Kuiza is a 4 band equalizer. Its perfect for creatively shaping the sound of an
 instrument or synth.
 The controls (left to right):
@@ -121,7 +122,7 @@ The master gain can be used to reduce or amplify the overall volume if needed.
 
 Masha
 -----
-[Masha Screenshot](./screenshots/artyfx_masha.png)
+![Masha Screenshot](./screenshots/artyfx_masha.png)
 Masha is a beat grinder plugin: it records a segement of audio and plays it
 back as a loop, causing a "stutter" effect.
 The controls are:
@@ -139,7 +140,7 @@ Gradually reduce this value to get that "standard" DJ stutter effect!
 
 Roomy
 -----
-[Roomy Screenshot](./screenshots/artyfx_roomy.png)
+![Roomy Screenshot](./screenshots/artyfx_roomy.png)
 Roomy is a spacious and smooth reverb. It has three controls:
 ```
 - Time
@@ -159,7 +160,7 @@ techno and trance "reverb builds"... just crank it right up!
 
 Satma
 -----
-[Satma Screenshot](./screenshots/artyfx_satma.png)
+![Satma Screenshot](./screenshots/artyfx_satma.png)
 Satma is a crazy distortion plugin. Useful to excite and get gritty, dirty audio.
 The controls:
 ```
