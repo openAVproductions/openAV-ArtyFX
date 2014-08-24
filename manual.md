@@ -29,6 +29,7 @@ jalv.gtk http://www.openavproductions.com/artyfx#roomy
 Show me the plugins!
 --------------------
 ArtyFX is a growing suite of plugins: right now, there's 7 plugins available:
+```
 - Della    (Delay)
 - Ducka    (Sidechain envelope)
 - Filta    (Low/Hi- pass filter)
@@ -36,13 +37,16 @@ ArtyFX is a growing suite of plugins: right now, there's 7 plugins available:
 - Masha    (Beat grinder)
 - Roomy    (Smooth reverb)
 - Satma    (Crazy distortion)
+```
 
 Della
 -----
 Della is a BPM adjusting delay, with 3 controls:
+```
 - Feedback
 - Volume
 - Time
+```
 
 Feedback controls the amount of the signal fed back into the delay line: turn it
 up to have that reggae crazy- dub echo that goes on forever!
@@ -67,10 +71,12 @@ Eg: if there's a kick-drum on the sidechain input, the volume of the stereo
 track gets reduced, until the kickdrum is over, then the stereo track is faded
 in again.
 
-The 3 controls are:
+```
+The controls:
 - Threshold
 - Drop
 - Time
+```
 
 Threshold sets the level that the input audio must reach before the stereo track
 gets reduced.
@@ -87,9 +93,10 @@ Filta
 Filta is a lowpass and highpass filter combination. Useful to remove unwanted
 high and low frequencies from various recordings or instruments.
 
-Controls:
+```
+The controls:
 - Frequency
-
+```
 Frequency controls what type of filtering is done, and what frequency. Lower
 values are lowpass filter, turning up the dial is causes highpass.
 
@@ -97,12 +104,16 @@ values are lowpass filter, turning up the dial is causes highpass.
 Kuiza
 -----
 Kuiza is a 4 band equalizer. Its perfect for creatively shaping the sound of an
-instrument or synth. The controls are (Left to right):
+instrument or synth.
+
+```
+The controls (left to right):
 - Low gain     (   ~55 Hz)
 - Low mid gain (  ~220 Hz)
 - High mid gain( ~1760 Hz)
 - High gain    ( ~7040 Hz)
 - Master gain
+```
 
 Each of the gain controls changes the amplitude at the given frequency.
 The master gain can be used to reduce or amplify the overall volume if needed.
@@ -111,10 +122,14 @@ The master gain can be used to reduce or amplify the overall volume if needed.
 Masha
 -----
 Masha is a beat grinder plugin: it records a segement of audio and plays it
-back as a loop, causing a "stutter" effect. The controls are:
+back as a loop, causing a "stutter" effect.
+
+```
+The controls are:
 - Volume
 - PassThru
 - Time
+```
 
 Volume changes the loudness of the stutter-loop.
 PassThru allows bleeding the normal signal trough.
@@ -124,10 +139,14 @@ Gradually reduce this value to get that "standard" DJ stutter effect!
 
 Roomy
 -----
-Roomy is a spacious and smooth reverb. It has three controls:
+Roomy is a spacious and smooth reverb.
+
+```
+It has three controls:
 - Time
 - Damping
 - Dry / Wet
+```
 
 The time control changes the length of the reverb tail: higher values give will
 create a bigger and more spacious mix.
@@ -142,9 +161,12 @@ techno and trance "reverb builds"... just crank it right up!
 Satma
 -----
 Satma is a crazy distortion plugin. Useful to excite and get gritty, dirty audio.
+
+```
 The controls:
 - Distortion
 - Tone
+```
 
 Distortion changes the amount of signal- shaping that occurs: the overall
 amount of noise production.
