@@ -69,10 +69,8 @@ stereo track, based on the amplitude of the sidechain input.
 
 Eg: if there's a kick-drum on the sidechain input, the volume of the stereo
 track gets reduced, until the kickdrum is over, then the stereo track is faded
-in again.
-
+in again. The controls:
 ```
-The controls:
 - Threshold
 - Drop
 - Time
@@ -92,9 +90,8 @@ Filta
 -----
 Filta is a lowpass and highpass filter combination. Useful to remove unwanted
 high and low frequencies from various recordings or instruments.
-
-```
 The controls:
+```
 - Frequency
 ```
 Frequency controls what type of filtering is done, and what frequency. Lower
@@ -105,9 +102,8 @@ Kuiza
 -----
 Kuiza is a 4 band equalizer. Its perfect for creatively shaping the sound of an
 instrument or synth.
-
-```
 The controls (left to right):
+```
 - Low gain     (   ~55 Hz)
 - Low mid gain (  ~220 Hz)
 - High mid gain( ~1760 Hz)
@@ -123,9 +119,8 @@ Masha
 -----
 Masha is a beat grinder plugin: it records a segement of audio and plays it
 back as a loop, causing a "stutter" effect.
-
-```
 The controls are:
+```
 - Volume
 - PassThru
 - Time
@@ -139,10 +134,8 @@ Gradually reduce this value to get that "standard" DJ stutter effect!
 
 Roomy
 -----
-Roomy is a spacious and smooth reverb.
-
+Roomy is a spacious and smooth reverb. It has three controls:
 ```
-It has three controls:
 - Time
 - Damping
 - Dry / Wet
@@ -161,9 +154,8 @@ techno and trance "reverb builds"... just crank it right up!
 Satma
 -----
 Satma is a crazy distortion plugin. Useful to excite and get gritty, dirty audio.
-
-```
 The controls:
+```
 - Distortion
 - Tone
 ```
