@@ -9,11 +9,11 @@ class PandaWidget {open
   } {
     code {} {}
   }
-  Function {PandaWidget()} {open selected
+  Function {PandaWidget()} {open
   } {
     Fl_Window window {
       label Panda open
-      xywh {210 344 160 220} type Double
+      xywh {345 348 160 220} type Double
       code0 {\#include "lv2/lv2plug.in/ns/extensions/ui/ui.h"}
       code1 {window->color( fl_rgb_color( 17, 17, 17) );}
       code2 {close_cb( o, 0 );}
@@ -48,27 +48,33 @@ writePort(PANDA_ACTIVE, a);}
         label Factor
         callback {float tmp = o->value();
 graph->value( tmp );
-writePort(PANDA_FACTOR, tmp);
-printf("%f\\n",tmp);}
-        xywh {112 167 40 40} color 90 labelsize 10
+writePort(PANDA_FACTOR, tmp);}
+        xywh {117 167 40 40} color 90 labelsize 10
         class {Avtk::Dial}
       }
       Fl_Dial threshold {
         label Threshold
         callback {float tmp = o->value();
 graph->setThreshold( tmp );
-writePort(PANDA_THRESHOLD, tmp);
-printf("%f\\n",tmp);}
-        xywh {10 167 40 40} color 90 labelsize 10
+writePort(PANDA_THRESHOLD, tmp);}
+        xywh {6 167 40 40} color 90 labelsize 10
         class {Avtk::Dial}
       }
       Fl_Dial release {
-        label Release
+        label Rel
         callback {float tmp = o->value();
 graph->setRelease( tmp );
-writePort(PANDA_RELEASE, tmp);
-printf("%f\\n",tmp);}
-        xywh {62 167 40 40} color 90 labelsize 10
+writePort(PANDA_RELEASE, tmp);}
+        xywh {87 177 23 23} color 90 labelsize 10
+        class {Avtk::Dial}
+      }
+      Fl_Dial attack {
+        label Atk
+        callback {float tmp = o->value();
+graph->setAttack( tmp );
+writePort(PANDA_ATTACK, tmp);
+//printf("%f\\n",tmp);} selected
+        xywh {56 177 23 23} color 90 labelsize 10
         class {Avtk::Dial}
       }
     }

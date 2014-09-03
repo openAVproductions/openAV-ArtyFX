@@ -27,7 +27,6 @@ void PandaWidget::cb_factor_i(Avtk::Dial* o, void*) {
   float tmp = o->value();
 graph->value( tmp );
 writePort(PANDA_FACTOR, tmp);
-printf("%f\n",tmp);
 }
 void PandaWidget::cb_factor(Avtk::Dial* o, void* v) {
   ((PandaWidget*)(o->parent()->user_data()))->cb_factor_i(o,v);
@@ -37,7 +36,6 @@ void PandaWidget::cb_threshold_i(Avtk::Dial* o, void*) {
   float tmp = o->value();
 graph->setThreshold( tmp );
 writePort(PANDA_THRESHOLD, tmp);
-printf("%f\n",tmp);
 }
 void PandaWidget::cb_threshold(Avtk::Dial* o, void* v) {
   ((PandaWidget*)(o->parent()->user_data()))->cb_threshold_i(o,v);
@@ -47,10 +45,19 @@ void PandaWidget::cb_release_i(Avtk::Dial* o, void*) {
   float tmp = o->value();
 graph->setRelease( tmp );
 writePort(PANDA_RELEASE, tmp);
-printf("%f\n",tmp);
 }
 void PandaWidget::cb_release(Avtk::Dial* o, void* v) {
   ((PandaWidget*)(o->parent()->user_data()))->cb_release_i(o,v);
+}
+
+void PandaWidget::cb_attack_i(Avtk::Dial* o, void*) {
+  float tmp = o->value();
+graph->setAttack( tmp );
+writePort(PANDA_ATTACK, tmp);
+//printf("%f\n",tmp);
+}
+void PandaWidget::cb_attack(Avtk::Dial* o, void* v) {
+  ((PandaWidget*)(o->parent()->user_data()))->cb_attack_i(o,v);
 }
 
 /**
@@ -87,7 +94,7 @@ PandaWidget::PandaWidget() {
       graph->align(Fl_Align(FL_ALIGN_BOTTOM));
       graph->when(FL_WHEN_CHANGED);
     } // Avtk::Compander* graph
-    { factor = new Avtk::Dial(112, 167, 40, 40, "Factor");
+    { factor = new Avtk::Dial(117, 167, 40, 40, "Factor");
       factor->box(FL_NO_BOX);
       factor->color((Fl_Color)90);
       factor->selection_color(FL_INACTIVE_COLOR);
@@ -99,7 +106,7 @@ PandaWidget::PandaWidget() {
       factor->align(Fl_Align(FL_ALIGN_BOTTOM));
       factor->when(FL_WHEN_CHANGED);
     } // Avtk::Dial* factor
-    { threshold = new Avtk::Dial(10, 167, 40, 40, "Threshold");
+    { threshold = new Avtk::Dial(6, 167, 40, 40, "Threshold");
       threshold->box(FL_NO_BOX);
       threshold->color((Fl_Color)90);
       threshold->selection_color(FL_INACTIVE_COLOR);
@@ -111,7 +118,7 @@ PandaWidget::PandaWidget() {
       threshold->align(Fl_Align(FL_ALIGN_BOTTOM));
       threshold->when(FL_WHEN_CHANGED);
     } // Avtk::Dial* threshold
-    { release = new Avtk::Dial(62, 167, 40, 40, "Release");
+    { release = new Avtk::Dial(87, 177, 23, 23, "Rel");
       release->box(FL_NO_BOX);
       release->color((Fl_Color)90);
       release->selection_color(FL_INACTIVE_COLOR);
@@ -123,6 +130,18 @@ PandaWidget::PandaWidget() {
       release->align(Fl_Align(FL_ALIGN_BOTTOM));
       release->when(FL_WHEN_CHANGED);
     } // Avtk::Dial* release
+    { attack = new Avtk::Dial(56, 177, 23, 23, "Atk");
+      attack->box(FL_NO_BOX);
+      attack->color((Fl_Color)90);
+      attack->selection_color(FL_INACTIVE_COLOR);
+      attack->labeltype(FL_NORMAL_LABEL);
+      attack->labelfont(0);
+      attack->labelsize(10);
+      attack->labelcolor(FL_FOREGROUND_COLOR);
+      attack->callback((Fl_Callback*)cb_attack);
+      attack->align(Fl_Align(FL_ALIGN_BOTTOM));
+      attack->when(FL_WHEN_CHANGED);
+    } // Avtk::Dial* attack
     window->color( fl_rgb_color( 17, 17, 17) );
     close_cb( o, 0 );
     window->end();

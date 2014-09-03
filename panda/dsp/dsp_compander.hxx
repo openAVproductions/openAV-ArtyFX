@@ -74,11 +74,18 @@ class Compander // : Effect
       threshold = (v * 60.f) - 80;
     }
     
+    void setAttack( float v )
+    {
+      if ( v < 0.f ) v = 0.f;
+      if ( v > 1.f ) v = 1.f;
+      attack = v * 18 + 2;
+    }
+    
     void setRelease( float v)
     {
       if ( v < 0.f ) v = 0.f;
       if ( v > 1.f ) v = 1.f;
-      release = v * 980 + 20;
+      release = v * 230 + 20;
     }
     
     

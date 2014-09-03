@@ -35,6 +35,7 @@ typedef enum
   // controls
   PANDA_FACTOR,
   PANDA_THRESHOLD,
+  PANDA_ATTACK,
   PANDA_RELEASE,
   PANDA_ACTIVE,
   
@@ -68,6 +69,7 @@ class Panda
     /// control signals
     float* controlThreshold;
     float* controlFactor;
+    float* controlAttack;
     float* controlRelease;
     float* controlActive;
     

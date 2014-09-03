@@ -58,15 +58,18 @@ class Compander : public Fl_Slider
       point = 0.5;
       amount = value();
       
+      attack = 0.5;
       release = 0.1f;
     }
     
     float point;
     float amount;
+    float attack;
     float release;
     
-    void setThreshold(float p) {point = p; redraw();}
-    void setRelease(float r) {release = r; redraw();}
+    void setThreshold(float p) {point = p  ; redraw();}
+    void setAttack   (float a) {attack = a ; redraw();}
+    void setRelease  (float r) {release = r; redraw();}
     
     void setActive(bool a)
     {

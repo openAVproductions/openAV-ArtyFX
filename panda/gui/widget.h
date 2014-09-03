@@ -42,6 +42,11 @@ private:
   void cb_release_i(Avtk::Dial*, void*);
   static void cb_release(Avtk::Dial*, void*);
 public:
+  Avtk::Dial *attack;
+private:
+  void cb_attack_i(Avtk::Dial*, void*);
+  static void cb_attack(Avtk::Dial*, void*);
+public:
   LV2UI_Write_Function write_function; 
   LV2UI_Controller controller; 
   void idle();

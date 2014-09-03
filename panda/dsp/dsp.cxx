@@ -101,6 +101,9 @@ void Panda::connect_port(LV2_Handle instance, uint32_t port, void *data)
       case PANDA_FACTOR:
           self->controlFactor  = (float*)data;
           break;
+      case PANDA_ATTACK:
+          self->controlAttack  = (float*)data;
+          break;
       case PANDA_RELEASE:
           self->controlRelease  = (float*)data;
           break;
@@ -126,6 +129,7 @@ void Panda::run(LV2_Handle instance, uint32_t n_samples)
   float active    = *self->controlActive;
   float factor    = *self->controlFactor;
   float threshold = *self->controlThreshold;
+  float attack    = *self->controlAttack;
   float release   = *self->controlRelease;
   
   /// handle Atom messages
@@ -163,6 +167,7 @@ void Panda::run(LV2_Handle instance, uint32_t n_samples)
   
   self->compander->setValue( factor );
   self->compander->setThreshold( threshold );
+  self->compander->setAttack( attack );
   self->compander->setRelease( release );
   
   self->compander->process( n_samples, inL, outL );
