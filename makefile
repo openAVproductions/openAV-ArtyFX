@@ -1,4 +1,8 @@
 
+ifeq ($(shell pkg-config --atleast-version=1.4.6 lv2 || echo no), no)
+	$(error "LV2 SDK >= 1.4.6 was not found")
+endif
+
 # run make in each plugins subdirectory
 .PHONY:
 	all
