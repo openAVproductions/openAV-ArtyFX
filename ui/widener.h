@@ -277,20 +277,20 @@ class Widener : public Fl_Slider
               float deltaX = mouseClickedX - Fl::event_x();
               float deltaY = mouseClickedY - Fl::event_y();
               
-              float valX = value() ;
-              valX -= deltaX / 100.f;
-              float valY = volume;
+              //float valX = value() ;
+              //valX -= deltaX / 100.f;
+              float valY = value();
               valY += deltaY / 100.f;
               
-              if ( valX > 1.0 ) valX = 1.0;
-              if ( valX < 0.0 ) valX = 0.0;
+              //if ( valX > 1.0 ) valX = 1.0;
+              //if ( valX < 0.0 ) valX = 0.0;
               
               if ( valY > 1.0 ) valY = 1.0;
               if ( valY < 0.0 ) valY = 0.0;
               
               //handle_drag( value + deltaY );
-              set_value( valX );
-              volume = valY;
+              set_value( valY );
+              //volume = valY;
               
               mouseClickedX = Fl::event_x();
               mouseClickedY = Fl::event_y();
