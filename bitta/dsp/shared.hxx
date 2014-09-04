@@ -34,6 +34,7 @@ typedef enum
   
   // controls
   BITTA_CRUSH,
+  BITTA_DRYWET,
   BITTA_ACTIVE,
   
   BITTA_ATOM_IN,
@@ -67,6 +68,7 @@ class Bitta
     /// control signals
     float* controlCrush;
     float* controlActive;
+    float* controlDryWet;
     
     /// Atom port
     LV2_URID time_Position;

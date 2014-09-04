@@ -47,6 +47,9 @@ class BitCrusher // : Effect
       
       m = 1 << (bits-1);
       count = 0;
+      
+      // only wet to start
+      dryWet = 1;
     }
     
     float getValue()
@@ -68,6 +71,10 @@ class BitCrusher // : Effect
     {
       _active = a;
     }
+    void setDryWet( float dw )
+    {
+      dryWet = dw;
+    }
     
     int getNumInputs() { return 1; }
     int getNumOutputs(){ return 1; }
@@ -86,11 +93,11 @@ class BitCrusher // : Effect
           {
             count -= 1;
             
-            tmp=(long int)( *in++ * m)/(float)m;
+            tmp=(long int)( *in * m)/(float)m;
           }
-          *out++ = tmp;
+          *out++ = (*in * (1-dryWet)) + (tmp * dryWet);
+          in++;
         }
-
       }
       else
       {
@@ -108,6 +115,8 @@ class BitCrusher // : Effect
     
     long int m;
     float count;
+    
+    float dryWet;
 };
 
 #endif // OPENAV_DSP_BITCRUSHER_H

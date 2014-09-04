@@ -32,6 +32,11 @@ private:
   void cb_width_i(Avtk::Dial*, void*);
   static void cb_width(Avtk::Dial*, void*);
 public:
+  Avtk::Dial *dryWet;
+private:
+  void cb_dryWet_i(Avtk::Dial*, void*);
+  static void cb_dryWet(Avtk::Dial*, void*);
+public:
   LV2UI_Write_Function write_function; 
   LV2UI_Controller controller; 
   void idle();

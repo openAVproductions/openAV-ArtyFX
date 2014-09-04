@@ -62,6 +62,14 @@
   ] , [
       a lv2:InputPort, lv2:ControlPort ;
       lv2:index 3 ;
+      lv2:name "Dry/Wet" ;
+      lv2:symbol "drywet" ;
+      lv2:default 1.000000 ;
+      lv2:minimum 0.000000 ;
+      lv2:maximum 1.000000 ;
+  ] , [
+      a lv2:InputPort, lv2:ControlPort ;
+      lv2:index 4 ;
       lv2:name "Active" ;
       lv2:symbol "active" ;
       lv2:default 0.000000 ;
@@ -74,7 +82,7 @@
       atom:AtomPort ;
     atom:bufferType atom:Sequence ;
     atom:supports time:Position ;
-    lv2:index 4 ;
+    lv2:index 5 ;
     lv2:symbol "control" ;
     lv2:name "Control"
   ]

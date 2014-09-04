@@ -98,6 +98,9 @@ void Bitta::connect_port(LV2_Handle instance, uint32_t port, void *data)
       case BITTA_CRUSH:
           self->controlCrush  = (float*)data;
           break;
+      case BITTA_DRYWET:
+          self->controlDryWet  = (float*)data;
+          break;
       case BITTA_ACTIVE:
           self->controlActive = (float*)data;
           break;
@@ -119,6 +122,7 @@ void Bitta::run(LV2_Handle instance, uint32_t n_samples)
   /// control inputs
   float active    = *self->controlActive;
   float width     = *self->controlCrush;
+  float dryWet    = *self->controlDryWet;
   
   /// handle Atom messages
   LV2_ATOM_SEQUENCE_FOREACH(self->atom_port, ev)
@@ -126,7 +130,7 @@ void Bitta::run(LV2_Handle instance, uint32_t n_samples)
     if ( ev->body.type == self->atom_Blank )
     {
       const LV2_Atom_Object* obj = (LV2_Atom_Object*)&ev->body;
-      printf("time_Position message\n" );
+      //printf("time_Position message\n" );
       LV2_Atom* bpm = 0;
       lv2_atom_object_get(obj,
                           self->time_beatsPerMinute, &bpm,
@@ -137,7 +141,7 @@ void Bitta::run(LV2_Handle instance, uint32_t n_samples)
         // Tempo changed, update BPM
         float bpmValue = ((LV2_Atom_Float*)bpm)->body;
         //self->dspMasherL->bpm( bpmValue );
-        printf("set bpm of %f\n", bpmValue );
+        //printf("set bpm of %f\n", bpmValue );
         //self->bitcrusher->setBPM( bpmValue );
       }
       
@@ -154,6 +158,8 @@ void Bitta::run(LV2_Handle instance, uint32_t n_samples)
     self->bitcrusher->active( false );
   
   self->bitcrusher->setValue( width );
+  
+  self->bitcrusher->setDryWet( dryWet );
   
   self->bitcrusher->process( n_samples, inL, outL );
 }

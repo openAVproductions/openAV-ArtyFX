@@ -34,6 +34,16 @@ void BittaWidget::cb_width(Avtk::Dial* o, void* v) {
   ((BittaWidget*)(o->parent()->user_data()))->cb_width_i(o,v);
 }
 
+void BittaWidget::cb_dryWet_i(Avtk::Dial* o, void*) {
+  float tmp = o->value();
+//graph->value( tmp );
+writePort(BITTA_DRYWET, tmp);
+//printf("%f\n",tmp);
+}
+void BittaWidget::cb_dryWet(Avtk::Dial* o, void* v) {
+  ((BittaWidget*)(o->parent()->user_data()))->cb_dryWet_i(o,v);
+}
+
 /**
    if the type of filter changes, this function will highlight the right button
 */
@@ -68,7 +78,7 @@ BittaWidget::BittaWidget() {
       graph->align(Fl_Align(FL_ALIGN_BOTTOM));
       graph->when(FL_WHEN_CHANGED);
     } // Avtk::Crusher* graph
-    { width = new Avtk::Dial(59, 167, 41, 40, "Crush");
+    { width = new Avtk::Dial(29, 167, 41, 40, "Crush");
       width->box(FL_NO_BOX);
       width->color((Fl_Color)90);
       width->selection_color(FL_INACTIVE_COLOR);
@@ -80,6 +90,18 @@ BittaWidget::BittaWidget() {
       width->align(Fl_Align(FL_ALIGN_BOTTOM));
       width->when(FL_WHEN_CHANGED);
     } // Avtk::Dial* width
+    { dryWet = new Avtk::Dial(87, 167, 41, 40, "Dry / Wet");
+      dryWet->box(FL_NO_BOX);
+      dryWet->color((Fl_Color)90);
+      dryWet->selection_color(FL_INACTIVE_COLOR);
+      dryWet->labeltype(FL_NORMAL_LABEL);
+      dryWet->labelfont(0);
+      dryWet->labelsize(10);
+      dryWet->labelcolor(FL_FOREGROUND_COLOR);
+      dryWet->callback((Fl_Callback*)cb_dryWet);
+      dryWet->align(Fl_Align(FL_ALIGN_BOTTOM));
+      dryWet->when(FL_WHEN_CHANGED);
+    } // Avtk::Dial* dryWet
     window->color( fl_rgb_color( 17, 17, 17) );
     close_cb( o, 0 );
     window->end();
