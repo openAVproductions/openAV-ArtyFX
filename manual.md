@@ -29,16 +29,37 @@ jalv.gtk http://www.openavproductions.com/artyfx#roomy
 Show me the plugins!
 --------------------
 ArtyFX is a growing suite of plugins: right now, there's 7 plugins available:
-![ArtyFX 1.1](screenshots/artyfx_1.1.png)
+![ArtyFX 1.2](screenshots/artyfx_1.2.png)
 ```
+- Bitta    (Bitcrusher)
 - Della    (Delay)
 - Ducka    (Sidechain envelope)
 - Filta    (Low/Hi- pass filter)
 - Kuiza    (4- band EQ)
 - Masha    (Beat grinder)
+- Panda    (Compressor / Expander)
 - Roomy    (Smooth reverb)
 - Satma    (Crazy distortion)
 ```
+
+Bitta
+-----
+![Bitta Screenshot](screenshots/artyfx_bitta.png)
+Bitta is a bit-crusher, with a wet dry control.
+```
+-Crush
+-Dry/Wet
+```
+
+Crush changes the amount of bits the audio is reduced to, turn it up for more
+genuine hip-hop drum crunch.
+
+The Dry/Wet control allows blending of the crushed signal with the original:
+useful to maintain punch, but add a nice amount of grit.
+
+Note that bitcrushing is a process that is dependant on the volume of a signal,
+so check that your levels are good! Quite signals are silence when bitcrushed!
+
 
 Della
 -----
@@ -50,16 +71,16 @@ Della is a BPM adjusting delay, with 3 controls:
 - Time
 ```
 
-Feedback controls the amount of the signal fed back into the delay line: turn it
-up to have that reggae crazy- dub echo that goes on forever!
+Feedback controls the amount of the signal fed back into the delay line: turn 
+it up to have that reggae crazy- dub echo that goes on forever!
 
-Volume changes the amount of the delayed signal you hear: useful to keep the
+Volume changes the amount of the delayed signal you hear: useful to keep the 
 delays in the background of a track.
 
-Time changes the delay-length: note that this is "quantized" to multiples of the
-BPM, so it "jumps" between a 1/8th note, 1/4 note, 1/2 note and whole note duration.
-Della picks up the BPM from the host program: so if you change tempo it will
-continue to stay in time!
+Time changes the delay-length: note that this is "quantized" to multiples of 
+the BPM, so it "jumps" between a 1/8th note, 1/4 note, 1/2 note and whole note 
+duration. Della picks up the BPM from the host program: so if you change tempo 
+it will continue to stay in time!
 
 
 Ducka
@@ -84,8 +105,8 @@ gets reduced.
 
 The drop controls the amount of volume reduction that is performed.
 
-Time controls the amount of time it take before the stereo track is faded in
-again. Note that this control is BPM dependant, and the center is directly on
+Time controls the amount of time it take before the stereo track is faded in 
+again. Note that this control is BPM dependant, and the center is directly on 
 the off- beats. A setting of half (its default) is generally musical :)
 
 
@@ -138,6 +159,28 @@ Time is a BPM dependant control that changes the loop-record and playback length
 Gradually reduce this value to get that "standard" DJ stutter effect!
 
 
+Panda
+-----
+![Panda Screenshot](screenshots/artyfx_panda.png)
+Panda is a compressor expander combo, with attack and release controls.
+```
+-Threshold
+-Attack
+-Release
+-Factor
+```
+
+Threshold: the "turning point" of compression / expansion. Turning down the dial
+expands the signal, turning up causes compression.
+
+Attack affects the speed at which the compression/expansion starts. Generally 
+low settings sound good, unless you need a long attack.
+
+Release changes the time for Panda to fade-out its compression/expansion.
+
+Factor controls the amount of compression/expansion performed, AKA the "maximizer" dial.
+
+
 Roomy
 -----
 ![Roomy Screenshot](screenshots/artyfx_roomy.png)
@@ -162,7 +205,6 @@ Satma
 -----
 ![Satma Screenshot](screenshots/artyfx_satma.png)
 Satma is a crazy distortion plugin. Useful to excite and get gritty, dirty audio.
-The controls:
 ```
 - Distortion
 - Tone
@@ -173,6 +215,21 @@ amount of noise production.
 
 The tone control subtly varies between high-frequencies and lower frequencies,
 or making both equally gritty.
+
+
+Vihda
+-----
+![Vihda Screenshot](screenshots/artyfx_vihda.png)
+Vihda is a stereo-enhancer, using a mid-side matrix.
+```
+- Width
+- Invert
+```
+
+The width parameter affects the amount of stereo content in the signal.
+
+The invert button inverts the right channel, which can cause a perceptual wider 
+mix due to how the brain interprets audio. Try it and see if it sounds good.
 
 
 
