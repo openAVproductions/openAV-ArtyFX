@@ -7,7 +7,7 @@ Manual: [ArtyFX Manual](https://github.com/harryhaaren/openAV-ArtyFX/blob/master
 
 This is the repository of an LV2 plugin suite called Arty FX.
 
-![ArtyFX screenshot](https://raw.github.com/harryhaaren/openAV-ArtyFX/master/screenshots/artyfx_1.1.png "ArtyFX 1.1 screenshot")
+![ArtyFX screenshot](https://raw.github.com/harryhaaren/openAV-ArtyFX/master/screenshots/artyfx_1.2.png "ArtyFX 1.2 screenshot")
 
 
 Dependencies
@@ -15,9 +15,7 @@ Dependencies
 These plugins use NTK for thier interfaces. NTK can be obtained using
 git clone git://git.tuxfamily.org/gitroot/non/fltk.git ntk
 
-Most other deps will already be installed on most systems:
-cairo
-cairomm-1.0
+You'll need the LV2 headers to compile these plugins, package name:
 lv2
 
 

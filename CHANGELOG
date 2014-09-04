@@ -4,7 +4,8 @@
 New plugins and refactor:
   -Bitta, Panda, Vihda added
   -Refactored all plugins into one artyfx.lv2 bundle
-
+  -Refactor build system, now uses CMake
+  -Updated header graphics
 
 1.1 Release : 17-03-14
 Dot release, added Satma, Kuiza and Della.
