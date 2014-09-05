@@ -39,7 +39,14 @@ class Widener // : Effect
 {
   public:
     Widener(int sr) :
-      samplerate( sr )
+      samplerate( sr ),
+      
+      /// dezipper init
+      w(10.0f / (sr * 0.02)),
+      a(0.70f),
+      b(1.0f / (1.0f - a)),
+      g1(0.0f),
+      g2(0.0f)
     {
       _active = true;
       
@@ -58,7 +65,7 @@ class Widener // : Effect
       if ( v > 1.f ) v = 1.f;
       
       // width parameters ranges from 0 (mono), to 2 (very-wide)
-      width = v*2;
+      width = v*3;
     }
     
     void setInvert( bool i )
@@ -82,11 +89,18 @@ class Widener // : Effect
     {
       if ( _active )
       {
-        // do mid-side width calculations
-        float tmp = 1 / max( 1 + width , 2.f );
-        float mid  = 1     * tmp;
+        /// smoothing algo is a lowpass, to de-zip movement
+        /// x^^4 approximates linear volume increase for human ears
+        g1 += w * (width - g1 - a * g2 - 1e-20f);
+        g2 += w * (b * g1 - g2 + 1e-20f);
+        float widthDeZip = g2;
         
-        float side = width * tmp;
+        
+        // do mid-side width calculations
+        float tmp = 1 / max( 1 + widthDeZip , 2.f );
+        float mid = 1 * tmp;
+        
+        float side = widthDeZip * tmp;
         
         
         for (int i = 0; i < count; i++)
@@ -126,6 +140,9 @@ class Widener // : Effect
     
     float width;
     bool  invertRight;
+    
+    /// dezipper filter state
+    float w, a, b, g1, g2;
 };
 
 #endif // OPENAV_DSP_WIDENER_H
