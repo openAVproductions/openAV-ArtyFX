@@ -31,6 +31,7 @@
     lv2:DistortionPlugin ;
   
   doap:name "Satma";
+  doap:description "Distortion Maximizer";
   doap:maintainer [ foaf:name "OpenAV Productions" ] ;
   lv2:optionalFeature lv2:hardRTCapable ;
   

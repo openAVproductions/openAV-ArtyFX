@@ -34,6 +34,7 @@
   a lv2:Plugin;
   
   doap:name "Panda";
+  doap:description "Compressor/Expander Combo";
   doap:maintainer [ foaf:name "OpenAV Productions" ] ;
   lv2:optionalFeature lv2:hardRTCapable ;
   

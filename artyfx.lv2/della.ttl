@@ -35,6 +35,7 @@
     lv2:DelayPlugin ;
   
   doap:name "Della";
+  doap:description "Delay (BPM adjusted)";
   doap:maintainer [ foaf:name "OpenAV Productions" ] ;
   lv2:optionalFeature lv2:hardRTCapable ;
   

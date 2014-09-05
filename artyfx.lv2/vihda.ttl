@@ -34,6 +34,7 @@
   a lv2:Plugin;
   
   doap:name "Vihda";
+  doap:description "Stereo Widener";
   doap:maintainer [ foaf:name "OpenAV Productions" ] ;
   lv2:optionalFeature lv2:hardRTCapable ;
   
