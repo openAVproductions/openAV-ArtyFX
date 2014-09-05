@@ -138,7 +138,7 @@ void Vihda::run(LV2_Handle instance, uint32_t n_samples)
     if ( ev->body.type == self->atom_Blank )
     {
       const LV2_Atom_Object* obj = (LV2_Atom_Object*)&ev->body;
-      printf("time_Position message\n" );
+      //printf("time_Position message\n" );
       LV2_Atom* bpm = 0;
       lv2_atom_object_get(obj,
                           self->time_beatsPerMinute, &bpm,
@@ -149,10 +149,9 @@ void Vihda::run(LV2_Handle instance, uint32_t n_samples)
         // Tempo changed, update BPM
         float bpmValue = ((LV2_Atom_Float*)bpm)->body;
         //self->dspMasherL->bpm( bpmValue );
-        printf("set bpm of %f\n", bpmValue );
+        //printf("set bpm of %f\n", bpmValue );
         //self->widener->setBPM( bpmValue );
       }
-      
     }
     else
     {

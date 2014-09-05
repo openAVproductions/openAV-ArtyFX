@@ -45,7 +45,6 @@ class Widener // : Effect
       
       width = 0.5;
       invertRight = false;
-      
     }
     
     float getValue()
