@@ -13,6 +13,8 @@ option(RELEASE_BUILD  "Build for production usage" ON )
 
 find_package(PkgConfig)
 
+#SET(CMAKE_INSTALL_PREFIX "/usr" )
+
 pkg_check_modules(LV2 lv2 REQUIRED)
 include_directories( ${LV2_INCLUDE_DIRS}  )
 
@@ -44,4 +46,11 @@ ADD_LIBRARY(artyfx SHARED ${sources})
 
 target_link_libraries( artyfx ${NTK_LIBRARIES} )
 
+# Remove "lib" part before name (artyfx.so, not libartyfx.so)
 set_target_properties(artyfx PROPERTIES PREFIX "")
+
+# add the install targets
+install (TARGETS artyfx DESTINATION lib/lv2/artyfx.lv2/)
+
+FILE(GLOB ttls "artyfx.lv2/*")
+install(FILES ${ttls} DESTINATION lib/lv2/artyfx.lv2/)
