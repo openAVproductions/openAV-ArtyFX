@@ -34,6 +34,8 @@ using namespace std;
 /** Compander
  *  A compressor/expander combo: a threshold sets the expander/compressor turn
  *  point, while a factor control regulates the amount of compression/expansion.
+ * 
+ *  Derived from https://github.com/magnetophon/qompander
 **/
 class Compander // : Effect
 {

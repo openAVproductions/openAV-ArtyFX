@@ -18,15 +18,16 @@ git clone git://git.tuxfamily.org/gitroot/non/fltk.git ntk
 You'll need the LV2 headers to compile these plugins, package name:
 lv2
 
-
 Building
 --------
-Once deps are satisfied, building and installing into ~/.lv2/ is easy,
-just run make as usual:
-
-make
+Once deps are satisfied, building and installing is easy with CMake:
+```
+mkdir build
+cd build
+cmake ..
+make -j4
 make install
-
+```
 
 Testing
 -------

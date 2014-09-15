@@ -5,8 +5,10 @@ Official: http://openavproductions.com/artyfx
 
 DSP details
 ---------------------------------------------------------------------------
-The DSP code that causes Panda to operate is derived from "Qompander",
-a compressor/expander/gate, which was was authored in FAUST by Bart Brouns.
+The DSP code that causes Panda to operate is derived from
+"Qompander", a compressor/expander/gate, which was was
+authored in FAUST by Bart Brouns : bart@magnetophon.nl
+FAUST source here: https://github.com/magnetophon/qompander
 
 The original Compander is written in PD, by Katja Vetter:
 http://www.katjaas.nl/compander/compander.html

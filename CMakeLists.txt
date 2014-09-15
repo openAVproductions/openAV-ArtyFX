@@ -15,7 +15,7 @@ find_package(PkgConfig)
 
 #SET(CMAKE_INSTALL_PREFIX "/usr" )
 
-pkg_check_modules(LV2 lv2 REQUIRED)
+pkg_check_modules(LV2 lv2>=1.8.0 REQUIRED)
 include_directories( ${LV2_INCLUDE_DIRS}  )
 
 pkg_check_modules(NTK ntk REQUIRED)
