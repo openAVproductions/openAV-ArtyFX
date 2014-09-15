@@ -226,7 +226,8 @@ Vihda is a stereo-enhancer, using a mid-side matrix.
 - Invert
 ```
 
-The width parameter affects the amount of stereo content in the signal.
+The width parameter affects the amount of stereo content in the signal. Note that
+the the mid-side technique only enhances stereo: it does not create it!
 
 The invert button inverts the right channel, which can cause a perceptual wider 
 mix due to how the brain interprets audio. Try it and see if it sounds good.
