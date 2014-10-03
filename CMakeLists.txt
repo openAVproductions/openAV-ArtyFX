@@ -86,8 +86,6 @@ COLOR_MESSAGE( "
 -----------------------
 * ${green}Install Directory${reset}               : ${CMAKE_INSTALL_PREFIX}
 * ${green}GUI (ntk)${reset}                       : ${HAVE_NTK}
-
- ${sources}
 ")
 
 ADD_LIBRARY(artyfx SHARED ${sources} )
