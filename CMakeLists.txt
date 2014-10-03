@@ -9,7 +9,8 @@ set(ARTYFX_VERSION_PATCH "0")
 
 set(ARTYFX_VERSION "${ARTYFX_VERSION_MAJOR}.${ARTYFX_VERSION_MINOR}.${ARTYFX_VERSION_PATCH}")
 
-option(RELEASE_BUILD  "Build for production usage" ON )
+option(RELEASE_BUILD  "Build for production usage" ON  )
+option(HAVE_NTK       "Build GUI (NTK)"            ON  )
 
 find_package(PkgConfig)
 
@@ -18,9 +19,12 @@ find_package(PkgConfig)
 pkg_check_modules(LV2 lv2>=1.8.0 REQUIRED)
 include_directories( ${LV2_INCLUDE_DIRS}  )
 
-pkg_check_modules(NTK ntk REQUIRED)
-include_directories( ${NTK_INCLUDE_DIRS}  )
-link_directories   ( ${NTK_LIBRARY_DIRS}  )
+IF(HAVE_NTK)
+  ADD_DEFINITIONS(-DOPENAV_USE_NTK)
+  pkg_check_modules(NTK ntk REQUIRED)
+  include_directories( ${NTK_INCLUDE_DIRS}  )
+  link_directories   ( ${NTK_LIBRARY_DIRS}  )
+ENDIF()
 
 SET(CMAKE_SHARED_LINKER_FLAGS "-fPIC -shared -Wl,-z,nodelete -Wl,--no-undefined")
 
@@ -30,21 +34,67 @@ IF(RELEASE_BUILD)
 ENDIF()
 
 FILE(GLOB sources
-  *.cxx +
-  bitta/dsp/*.cxx bitta/gui/*.cxx +
-  della/dsp/*.cxx della/gui/*.cxx +
-  ducka/dsp/*.cxx ducka/gui/*.cxx +
-  filta/dsp/*.cxx filta/gui/*.cxx +
-  kuiza/dsp/*.cxx kuiza/dsp/eq/*.cc kuiza/gui/*.cxx +
-  masha/dsp/*.cxx masha/gui/*.cxx +
-  panda/dsp/*.cxx panda/gui/*.cxx +
-  roomy/dsp/*.cxx roomy/gui/*.cxx +
-  satma/dsp/*.cxx satma/gui/*.cxx +
-  vihda/dsp/*.cxx vihda/gui/*.cxx )
+  artyfx.cxx +
+  bitta/dsp/*.cxx 
+  della/dsp/*.cxx 
+  ducka/dsp/*.cxx 
+  filta/dsp/*.cxx 
+  kuiza/dsp/*.cxx + kuiza/dsp/eq/*.cc
+  masha/dsp/*.cxx 
+  panda/dsp/*.cxx 
+  roomy/dsp/*.cxx 
+  satma/dsp/*.cxx 
+  vihda/dsp/*.cxx 
+  )
 
-ADD_LIBRARY(artyfx SHARED ${sources})
+# don't compile UI files if we don't have NTK
+IF(HAVE_NTK)
+  FILE(GLOB sources
+    ${sources} +
+    artyfx_ui.cxx +
+    bitta/gui/*.cxx +
+    della/gui/*.cxx +
+    ducka/gui/*.cxx +
+    filta/gui/*.cxx +
+    kuiza/gui/*.cxx +
+    masha/gui/*.cxx +
+    panda/gui/*.cxx +
+    roomy/gui/*.cxx +
+    satma/gui/*.cxx +
+    vihda/gui/*.cxx
+     )
+ENDIF()
 
+
+string( ASCII 27 _esc)
+
+function(COLOR_MESSAGE TEXT)
+    if(CMAKE_COLOR_MAKEFILE)
+        MESSAGE(${TEXT})
+    else()
+        string(REGEX REPLACE "${_esc}.[0123456789;]*m" "" __TEXT ${TEXT} )
+        MESSAGE(${__TEXT})
+    endif()
+endfunction()
+
+SET(green     "${_esc}[1;32m")
+SET(blue      "${_esc}[1;34m")
+SET(reset     "${_esc}[1;0m")
+
+COLOR_MESSAGE( "
+  ${blue}ArtyFX Configuration : ${ARTYFX_VERSION}${reset}
+-----------------------
+* ${green}Install Directory${reset}               : ${CMAKE_INSTALL_PREFIX}
+* ${green}GUI (ntk)${reset}                       : ${HAVE_NTK}
+
+ ${sources}
+")
+
+ADD_LIBRARY(artyfx SHARED ${sources} )
+
+IF(HAVE_NTK)
 target_link_libraries( artyfx ${NTK_LIBRARIES} )
+ENDIF()
 
 # Remove "lib" part before name (artyfx.so, not libartyfx.so)
 set_target_properties(artyfx PROPERTIES PREFIX "")
