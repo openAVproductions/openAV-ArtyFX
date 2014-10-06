@@ -1,4 +1,4 @@
-# Bitta LV2 Bitcrusher
+# Panda LV2 compressor / expander
 # Copyright 2014 Harry van Haaren <harryhaaren@gmail.com>
 #
 # Permission to use, copy, modify, and/or distribute this software for any
