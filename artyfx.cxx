@@ -34,6 +34,7 @@
 #include "roomy/dsp/shared.hxx"
 #include "satma/dsp/shared.hxx"
 #include "vihda/dsp/shared.hxx"
+#include "whaaa/dsp/shared.hxx"
 
 static const LV2_Descriptor descriptors[] =
 {
@@ -146,6 +147,16 @@ static const LV2_Descriptor descriptors[] =
     Vihda::deactivate,
     Vihda::cleanup,
     Vihda::extension_data
+  },
+  {
+    WHAAA_URI,
+    Whaaa::instantiate,
+    Whaaa::connect_port,
+    Whaaa::activate,
+    Whaaa::run,
+    Whaaa::deactivate,
+    Whaaa::cleanup,
+    Whaaa::extension_data
   }
 };
 

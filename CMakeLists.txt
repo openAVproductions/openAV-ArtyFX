@@ -46,6 +46,7 @@ FILE(GLOB sources
   roomy/dsp/*.cxx 
   satma/dsp/*.cxx 
   vihda/dsp/*.cxx 
+  whaaa/dsp/*.cxx 
   )
 
 # don't compile UI files if we don't have NTK

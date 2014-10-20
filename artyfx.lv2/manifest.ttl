@@ -12,6 +12,10 @@
   lv2:binary <artyfx.so> ;
   rdfs:seeAlso <della.ttl> .
 
+<http://www.openavproductions.com/artyfx#driva> a lv2:Plugin ;
+  lv2:binary <driva.so> ;
+  rdfs:seeAlso <driva.ttl> .
+
 <http://www.openavproductions.com/artyfx#ducka> a lv2:Plugin ;
   lv2:binary <artyfx.so> ;
   rdfs:seeAlso <ducka.ttl> .
@@ -44,7 +48,7 @@
   lv2:binary <artyfx.so> ;
   rdfs:seeAlso <vihda.ttl> .
 
-<http://www.openavproductions.com/artyfx#driva> a lv2:Plugin ;
-  lv2:binary <driva.so> ;
-  rdfs:seeAlso <driva.ttl> .
+<http://www.openavproductions.com/artyfx#whaaa> a lv2:Plugin ;
+  lv2:binary <artyfx.so> ;
+  rdfs:seeAlso <whaaa.ttl> .
 
