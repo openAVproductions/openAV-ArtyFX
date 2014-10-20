@@ -37,6 +37,7 @@ FILE(GLOB sources
   artyfx.cxx +
   bitta/dsp/*.cxx 
   della/dsp/*.cxx 
+  driva/dsp/*.cxx + driva/dsp/rr/*.cxx 
   ducka/dsp/*.cxx 
   filta/dsp/*.cxx 
   kuiza/dsp/*.cxx + kuiza/dsp/eq/*.cc

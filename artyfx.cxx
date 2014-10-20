@@ -20,14 +20,12 @@
 
 /// this file compiles into artyfx.so, including all plugins.
 
-// test compile
-// g++ artyfx.cxx bitta/dsp/dsp.cxx della/dsp/dsp.cxx ducka/dsp/dsp.cxx filta/dsp/dsp.cxx kuiza/dsp/dsp.cxx kuiza/dsp/eq/filters.cc kuiza/dsp/eq/filters_if.cc kuiza/dsp/eq/exp2ap.cc masha/dsp/masha.cxx panda/dsp/dsp.cxx roomy/dsp/dsp.cxx satma/dsp/dsp.cxx vihda/dsp/dsp.cxx  -fPIC -shared  -Wl,--no-undefined -o artyfx.lv2/artyfx.so
-
 #include "lv2/lv2plug.in/ns/lv2core/lv2.h"
 
 // include each plugin
 #include "bitta/dsp/shared.hxx"
 #include "della/dsp/shared.hxx"
+#include "driva/dsp/shared.hxx"
 #include "ducka/dsp/shared.hxx"
 #include "filta/dsp/shared.hxx"
 #include "kuiza/dsp/shared.hxx"
@@ -58,6 +56,16 @@ static const LV2_Descriptor descriptors[] =
     Della::deactivate,
     Della::cleanup,
     Della::extension_data
+  },
+  {
+    DRIVA_URI,
+    Driva::instantiate,
+    Driva::connect_port,
+    Driva::activate,
+    Driva::run,
+    Driva::deactivate,
+    Driva::cleanup,
+    Driva::extension_data
   },
   {
     DUCKA_URI,
