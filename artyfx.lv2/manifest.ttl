@@ -24,6 +24,10 @@
   lv2:binary <artyfx.so> ;
   rdfs:seeAlso <filta.ttl> .
 
+<http://www.openavproductions.com/artyfx#friza> a lv2:Plugin ;
+  lv2:binary <artyfx.so> ;
+  rdfs:seeAlso <friza.ttl> .
+
 <http://www.openavproductions.com/artyfx#kuiza> a lv2:Plugin ;
   lv2:binary <artyfx.so> ;
   rdfs:seeAlso <kuiza.ttl> .

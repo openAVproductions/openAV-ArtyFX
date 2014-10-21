@@ -40,6 +40,7 @@ FILE(GLOB sources
   driva/dsp/*.cxx + driva/dsp/rr/*.cxx 
   ducka/dsp/*.cxx 
   filta/dsp/*.cxx 
+  friza/dsp/*.cxx 
   kuiza/dsp/*.cxx + kuiza/dsp/eq/*.cc
   masha/dsp/*.cxx 
   panda/dsp/*.cxx 

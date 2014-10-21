@@ -28,6 +28,7 @@
 #include "driva/dsp/shared.hxx"
 #include "ducka/dsp/shared.hxx"
 #include "filta/dsp/shared.hxx"
+#include "friza/dsp/shared.hxx"
 #include "kuiza/dsp/shared.hxx"
 #include "masha/dsp/shared.hxx"
 #include "panda/dsp/shared.hxx"
@@ -87,6 +88,16 @@ static const LV2_Descriptor descriptors[] =
     Filta::deactivate,
     Filta::cleanup,
     Filta::extension_data
+  },
+  {
+    FRIZA_URI,
+    Friza::instantiate,
+    Friza::connect_port,
+    Friza::activate,
+    Friza::run,
+    Friza::deactivate,
+    Friza::cleanup,
+    Friza::extension_data
   },
   {
     KUIZA_URI,

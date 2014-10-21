@@ -25,6 +25,8 @@
 @prefix ui: <http://lv2plug.in/ns/extensions/ui#>.
 @prefix time: <http://lv2plug.in/ns/ext/time#> .
 
+@prefix mod: <http://portalmod.com/ns/modgui#>.
+
 #<http://www.openavproductions.com/artyfx#driva/gui>
 #  a ui:X11UI;
 #  ui:binary <artyfx.so>;
@@ -77,5 +79,12 @@
       lv2:default 0.000000 ;
       lv2:minimum 0.000000 ;
       lv2:maximum 1.000000 ;
-  ]
-.
+  ];
+  mod:gui [
+        a mod:Gui;
+        mod:resourcesDirectory <modgui>;
+        mod:iconTemplate <modgui/icon-driva.html>;
+        mod:templateData <modgui/data-driva.json>;
+        mod:screenshot <modgui/screenshot-driva.png>;
+        mod:thumbnail <modgui/thumb-driva.png>;
+    ] .
