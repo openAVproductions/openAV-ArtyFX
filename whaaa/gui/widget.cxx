@@ -26,7 +26,7 @@ void WhaaaWidget::cb_graph(Avtk::Wah* o, void* v) {
 
 void WhaaaWidget::cb_drive_i(Avtk::Dial* o, void*) {
   float tmp = o->value();
-//graph->value( tmp );
+graph->drive( tmp );
 writePort(WHAAA_DRIVE, tmp);
 //printf("%f\n",tmp);
 }

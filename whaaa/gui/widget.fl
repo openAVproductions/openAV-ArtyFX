@@ -47,9 +47,9 @@ float a = o->getActive();
       Fl_Dial drive {
         label Drive
         callback {float tmp = o->value();
-//graph->value( tmp );
+graph->drive( tmp );
 writePort(WHAAA_DRIVE, tmp);
-//printf("%f\\n",tmp);}
+//printf("%f\\n",tmp);} selected
         xywh {3 167 38 38} color 90 labelsize 10
         class {Avtk::Dial}
       }
@@ -58,7 +58,7 @@ writePort(WHAAA_DRIVE, tmp);
         callback {float tmp = o->value();
 graph->value( tmp );
 writePort(WHAAA_FREQ, tmp);
-//printf("%f\\n",tmp);} selected
+//printf("%f\\n",tmp);}
         xywh {120 167 38 38} color 90 labelsize 10
         class {Avtk::Dial}
       }
