@@ -74,7 +74,7 @@ void Driva::connect_port(LV2_Handle instance, uint32_t port, void *data)
       case WAVE1_TYPE:
           self->controlWave1type   = (float*)data;
           break;
-      case WAVE1_AMT:
+      case DRIVA_AMOUNT:
           self->controlWave1amount = (float*)data;
           break;
       

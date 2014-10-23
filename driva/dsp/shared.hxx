@@ -34,7 +34,7 @@ typedef enum
   
   // Top signal
   WAVE1_TYPE,
-  WAVE1_AMT,
+  DRIVA_AMOUNT,
   WAVE1_VOL,
   
 } DrivaPortIndex;

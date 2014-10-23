@@ -58,6 +58,7 @@ IF(HAVE_NTK)
     bitta/gui/*.cxx +
     della/gui/*.cxx +
     ducka/gui/*.cxx +
+    driva/gui/*.cxx +
     filta/gui/*.cxx +
     kuiza/gui/*.cxx +
     masha/gui/*.cxx +

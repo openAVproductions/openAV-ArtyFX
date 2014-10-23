@@ -36,6 +36,9 @@
 #include "ducka/gui/ui.hxx"
 #include "ducka/dsp/shared.hxx"
 
+#include "driva/gui/ui.hxx"
+#include "driva/dsp/shared.hxx"
+
 #include "filta/gui/ui.hxx"
 #include "filta/dsp/shared.hxx"
 
@@ -82,6 +85,13 @@ static LV2UI_Descriptor descriptors[] =
     ducka_cleanup,
     ducka_port_event,
     ducka_extension_data
+  },
+  {
+    DRIVA_UI_URI,
+    driva_instantiate,
+    driva_cleanup,
+    driva_port_event,
+    driva_extension_data
   },
   {
     FILTA_UI_URI,

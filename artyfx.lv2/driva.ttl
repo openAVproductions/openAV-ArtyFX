@@ -27,10 +27,10 @@
 
 @prefix mod: <http://portalmod.com/ns/modgui#>.
 
-#<http://www.openavproductions.com/artyfx#driva/gui>
-#  a ui:X11UI;
-#  ui:binary <artyfx.so>;
-#  ui:requiredFeature ui:makeResident.
+<http://www.openavproductions.com/artyfx#driva/gui>
+  a ui:X11UI;
+  ui:binary <artyfx.so>;
+  ui:requiredFeature ui:makeResident.
 
 <http://www.openavproductions.com/artyfx#driva>
   a lv2:Plugin,
