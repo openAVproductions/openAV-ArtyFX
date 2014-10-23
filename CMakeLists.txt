@@ -65,6 +65,7 @@ IF(HAVE_NTK)
     roomy/gui/*.cxx +
     satma/gui/*.cxx +
     vihda/gui/*.cxx
+    whaaa/gui/*.cxx
      )
 ENDIF()
 

@@ -39,6 +39,8 @@ class SampleHoldShift
     SampleHoldShift( int s ) :
       sr ( s ),
       xfade( 512 ),
+      playHead( 0 ),
+      recordHead( 0 ),
       buffer( new float[sr] )
     {
     }
@@ -55,7 +57,7 @@ class SampleHoldShift
     /// set the lenght of the sample-and-hold loop
     void length( float l )
     {
-      _length = 1024 + 1024 * 20 * l;
+      _length = 64 + 1024 * 4 * l;
     }
     
     void process (long nframes, float* input, float* output )
@@ -64,6 +66,13 @@ class SampleHoldShift
       if ( recordHead + nframes < sr )
       {
         memcpy( &buffer[recordHead], input, sizeof(float) * nframes );
+        recordHead += nframes;
+      }
+      
+      if ( input != output )
+      {
+        memcpy( output, input, sizeof(float) * nframes );
+        memset( output,     0, sizeof(float) * nframes );
       }
       
       if ( _doIt )
@@ -83,7 +92,7 @@ class SampleHoldShift
             if ( playHead >= _length )
               playHead = 0;
             
-            output[i] = input[i] + buffer[playHead++];
+            output[i] += buffer[playHead++];
           }
         }
         

@@ -38,7 +38,7 @@
   doap:maintainer [ foaf:name "OpenAV Productions" ] ;
   lv2:optionalFeature lv2:hardRTCapable ;
   
-  #ui:ui <http://www.openavproductions.com/artyfx#whaaa/gui>;
+  ui:ui <http://www.openavproductions.com/artyfx#whaaa/gui>;
   
   lv2:requiredFeature <http://lv2plug.in/ns/ext/urid#map> ;
 

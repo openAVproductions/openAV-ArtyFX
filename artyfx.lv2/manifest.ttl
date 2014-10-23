@@ -13,7 +13,7 @@
   rdfs:seeAlso <della.ttl> .
 
 <http://www.openavproductions.com/artyfx#driva> a lv2:Plugin ;
-  lv2:binary <driva.so> ;
+  lv2:binary <artyfx.so> ;
   rdfs:seeAlso <driva.ttl> .
 
 <http://www.openavproductions.com/artyfx#ducka> a lv2:Plugin ;

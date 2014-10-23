@@ -57,6 +57,9 @@
 #include "vihda/gui/ui.hxx"
 #include "vihda/dsp/shared.hxx"
 
+#include "whaaa/gui/ui.hxx"
+#include "whaaa/dsp/shared.hxx"
+
 static LV2UI_Descriptor descriptors[] =
 {
   {
@@ -128,6 +131,13 @@ static LV2UI_Descriptor descriptors[] =
     vihda_cleanup,
     vihda_port_event,
     vihda_extension_data
+  },
+  {
+    WHAAA_UI_URI,
+    whaaa_instantiate,
+    whaaa_cleanup,
+    whaaa_port_event,
+    whaaa_extension_data
   }
 };
 
