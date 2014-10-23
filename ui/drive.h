@@ -154,48 +154,39 @@ class Wah : public Fl_Slider
         cairo_set_dash ( cr, dashes, 0, 0.0);
         
         
-        // horizontal line, "base" for wah
-        cairo_move_to( cr, x + 0, y + h * 2 / 3. );
-        cairo_line_to( cr, x + w, y + h * 2 / 3. );
-        cairo_set_source_rgba( cr, 0 / 255.f, 153 / 255.f , 255 / 255.f , 0.4 );
-        cairo_set_line_width( cr, 1.5);
+        // draw square, using curves
+        cairo_move_to( cr, x + w     / 4, y + h     / 4 );
+        
+        float tmp = value() * w/6.5;
+        
+        // top left across
+        cairo_curve_to(cr, x + w * 1.5 / 4, y + h * 1 / 4 + tmp * 2,
+                           x + w * 2 / 4  , y + h * 1 / 4 - tmp,
+                           x + w * 3 / 4  , y + h * 1 / 4 );
+        
+        // top right down
+        cairo_curve_to(cr, x + w * 3 / 4 - tmp * 2, y + h * 1.5 / 4,
+                           x + w * 3 / 4 + tmp    , y + h * 2 / 4,
+                           x + w * 3 / 4          , y + h * 3 / 4 );
+        
+        
+        // bottom right across
+        cairo_curve_to(cr, x + w * 2.5 / 4, y + h * 3 / 4  - tmp * 2,
+                           x + w * 1.5 / 4  , y + h * 3 / 4 + tmp,
+                           x + w * 1   / 4  , y + h * 3 / 4 );
+        
+        // bottom left up
+        cairo_curve_to(cr, x + w * 1 / 4 + tmp * 2, y + h * 2.5 / 4,
+                           x + w * 1 / 4 - tmp    , y + h * 1.5 / 4,
+                           x + w * 1 / 4          , y + h * 1.0 / 4 );
+        
+        
         cairo_close_path( cr );
-        cairo_stroke( cr );
-        
-        
-        float v = ( value() * 3.1415 ) /2 ;
-        
-        float size = _drive + 0.4;
-        
-        float x1 = - cos( v ) * w / 3 * size;
-        float y1 = - sin( v ) * h / 3 * size;
-        
-        float x2 = - cos( v + 3.1415/2 ) * w / 3 * size;
-        float y2 = - sin( v + 3.1415/2 ) * h / 3 * size;
-        
-        cairo_move_to( cr, x+w/2    , y + h * 2 / 3. );
-        cairo_line_to( cr, x+w/2+x1 , y+h*2/3+y1 );
-        cairo_line_to( cr, x+w/2+x2 , y+h*2/3+y2 );
-        cairo_close_path( cr );
-        cairo_set_line_width( cr, 2.1 );
-        cairo_set_line_join( cr, CAIRO_LINE_JOIN_ROUND );
-        cairo_set_source_rgba( cr,  0 / 255.f,  155 / 255.f ,  255 / 255.f , 0.2 );
+        cairo_set_source_rgba( cr,  0 / 255.f,   155 / 255.f ,  255 / 255.f , 0.2 );
+        cairo_set_line_width(cr, 1.0);
         cairo_fill_preserve( cr );
-        cairo_set_source_rgba( cr,  0 / 255.f,  155 / 255.f ,  255 / 255.f , 0.8 );
+        cairo_set_source_rgba( cr,  0 / 255.f,   155 / 255.f ,  255 / 255.f , 0.8 );
         cairo_stroke( cr );
-        
-        /*
-        cairo_rectangle(cr, x+w/2+x1, y+h*2/3+y1, 2, 2);
-        cairo_set_source_rgba( cr,  255 / 255.f,  0 / 255.f ,  126 / 255.f , 0.8 );
-        cairo_set_line_width(cr, 1.0);
-        cairo_stroke( cr );
-        
-        cairo_rectangle(cr, x+w/2+x2, y+h*2/3+y2, 2, 2);
-        cairo_set_source_rgba( cr,  255 / 255.f,  255 / 255.f , 0 / 255.f , 0.8 );
-        cairo_set_line_width(cr, 1.0);
-        cairo_stroke( cr );
-        */
-        
         
         // stroke outline
         cairo_rectangle(cr, x+1, y+1, w-2, h-2);

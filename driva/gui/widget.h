@@ -38,6 +38,7 @@ private:
   void cb_freq_i(Avtk::Dial*, void*);
   static void cb_freq(Avtk::Dial*, void*);
 public:
+  Fl_Choice *tone;
   LV2UI_Write_Function write_function; 
   LV2UI_Controller controller; 
   void idle();

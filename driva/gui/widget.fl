@@ -50,7 +50,7 @@ float a = o->getActive();
 graph->drive( tmp );
 //writePort(WHAAA_DRIVE, tmp);
 //printf("%f\\n",tmp);}
-        xywh {78 167 38 38} color 90 labelsize 10
+        xywh {82 168 34 34} color 90 labelsize 10
         class {Avtk::Dial}
       }
       Fl_Dial freq {
@@ -58,13 +58,14 @@ graph->drive( tmp );
         callback {float tmp = o->value();
 graph->value( tmp );
 writePort(DRIVA_AMOUNT, tmp);
-//printf("%f\\n",tmp);} selected
-        xywh {120 167 38 38} color 90 labelsize 10
+//printf("%f\\n",tmp);}
+        xywh {121 169 34 34} color 90 labelsize 10
         class {Avtk::Dial}
       }
-      Fl_Choice {} {
-        label Tone open
-        xywh {0 175 73 25} down_box BORDER_BOX align 2
+      Fl_Choice tone {
+        label Tone open selected
+        xywh {0 173 80 25} down_box BORDER_BOX align 2
+        code0 {tone->add("Odie"); tone->add("Grunge"); tone->add("Distort"); tone->add("Ratty"); tone->add("Classic"); tone->add("Morbid"); tone->add("Metal"); tone->add("Fuzz");}
       } {}
     }
   }

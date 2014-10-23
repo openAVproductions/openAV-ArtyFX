@@ -78,7 +78,7 @@ DrivaWidget::DrivaWidget() {
       graph->align(Fl_Align(FL_ALIGN_BOTTOM));
       graph->when(FL_WHEN_CHANGED);
     } // Avtk::Wah* graph
-    { drive = new Avtk::Dial(78, 167, 38, 38, "Drive");
+    { drive = new Avtk::Dial(82, 168, 34, 34, "Drive");
       drive->box(FL_NO_BOX);
       drive->color((Fl_Color)90);
       drive->selection_color(FL_INACTIVE_COLOR);
@@ -90,7 +90,7 @@ DrivaWidget::DrivaWidget() {
       drive->align(Fl_Align(FL_ALIGN_BOTTOM));
       drive->when(FL_WHEN_CHANGED);
     } // Avtk::Dial* drive
-    { freq = new Avtk::Dial(120, 167, 38, 38, "Amount");
+    { freq = new Avtk::Dial(121, 169, 34, 34, "Amount");
       freq->box(FL_NO_BOX);
       freq->color((Fl_Color)90);
       freq->selection_color(FL_INACTIVE_COLOR);
@@ -102,10 +102,11 @@ DrivaWidget::DrivaWidget() {
       freq->align(Fl_Align(FL_ALIGN_BOTTOM));
       freq->when(FL_WHEN_CHANGED);
     } // Avtk::Dial* freq
-    { Fl_Choice* o = new Fl_Choice(0, 175, 73, 25, "Tone");
-      o->down_box(FL_BORDER_BOX);
-      o->align(Fl_Align(FL_ALIGN_BOTTOM));
-    } // Fl_Choice* o
+    { tone = new Fl_Choice(0, 173, 80, 25, "Tone");
+      tone->down_box(FL_BORDER_BOX);
+      tone->align(Fl_Align(FL_ALIGN_BOTTOM));
+      tone->add("Odie"); tone->add("Grunge"); tone->add("Distort"); tone->add("Ratty"); tone->add("Classic"); tone->add("Morbid"); tone->add("Metal"); tone->add("Fuzz");
+    } // Fl_Choice* tone
     window->color( fl_rgb_color( 17, 17, 17) );
     close_cb( o, 0 );
     window->end();
