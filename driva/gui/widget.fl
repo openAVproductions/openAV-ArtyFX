@@ -64,8 +64,9 @@ writePort(DRIVA_AMOUNT, tmp);
       }
       Fl_Choice tone {
         label Tone open selected
-        xywh {0 173 80 25} down_box BORDER_BOX align 2
+        xywh {0 188 80 25} down_box BORDER_BOX align 1
         code0 {tone->add("Odie"); tone->add("Grunge"); tone->add("Distort"); tone->add("Ratty"); tone->add("Classic"); tone->add("Morbid"); tone->add("Metal"); tone->add("Fuzz");}
+        code1 {tone->value( 0 );}
       } {}
     }
   }

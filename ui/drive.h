@@ -57,7 +57,7 @@ class Wah : public Fl_Slider
       invert = true;
       
       value( 0.5 );
-      _drive = 0.5;
+      _drive = 0.0;
     }
     
     bool active;
@@ -153,9 +153,19 @@ class Wah : public Fl_Slider
         cairo_stroke(cr);
         cairo_set_dash ( cr, dashes, 0, 0.0);
         
+        cairo_save( cr );
         
+        cairo_translate(cr, w/1.9, h*3.1333/4 );
+        cairo_rotate(cr, _drive * 3.1415 );
+        cairo_translate(cr, -w/1.9, -h*3.1333/4 );
+        /*
+        cairo_move_to(cr, w/2, h/2 );
+        cairo_translate(cr, w/2, h/2 );
+        cairo_rotate(cr, _drive * 3.1415 * 2 );
+        */
         // draw square, using curves
         cairo_move_to( cr, x + w     / 4, y + h     / 4 );
+        
         
         float tmp = value() * w/6.5;
         
@@ -168,7 +178,6 @@ class Wah : public Fl_Slider
         cairo_curve_to(cr, x + w * 3 / 4 - tmp * 2, y + h * 1.5 / 4,
                            x + w * 3 / 4 + tmp    , y + h * 2 / 4,
                            x + w * 3 / 4          , y + h * 3 / 4 );
-        
         
         // bottom right across
         cairo_curve_to(cr, x + w * 2.5 / 4, y + h * 3 / 4  - tmp * 2,
@@ -187,6 +196,8 @@ class Wah : public Fl_Slider
         cairo_fill_preserve( cr );
         cairo_set_source_rgba( cr,  0 / 255.f,   155 / 255.f ,  255 / 255.f , 0.8 );
         cairo_stroke( cr );
+        
+        cairo_restore( cr );
         
         // stroke outline
         cairo_rectangle(cr, x+1, y+1, w-2, h-2);

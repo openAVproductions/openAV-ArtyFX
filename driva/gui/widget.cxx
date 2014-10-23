@@ -102,10 +102,11 @@ DrivaWidget::DrivaWidget() {
       freq->align(Fl_Align(FL_ALIGN_BOTTOM));
       freq->when(FL_WHEN_CHANGED);
     } // Avtk::Dial* freq
-    { tone = new Fl_Choice(0, 173, 80, 25, "Tone");
+    { tone = new Fl_Choice(0, 188, 80, 25, "Tone");
       tone->down_box(FL_BORDER_BOX);
-      tone->align(Fl_Align(FL_ALIGN_BOTTOM));
+      tone->align(Fl_Align(FL_ALIGN_TOP));
       tone->add("Odie"); tone->add("Grunge"); tone->add("Distort"); tone->add("Ratty"); tone->add("Classic"); tone->add("Morbid"); tone->add("Metal"); tone->add("Fuzz");
+      tone->value( 0 );
     } // Fl_Choice* tone
     window->color( fl_rgb_color( 17, 17, 17) );
     close_cb( o, 0 );
