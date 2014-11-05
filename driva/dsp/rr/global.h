@@ -134,10 +134,10 @@ static inline float f_pow2(float x)
 #include <dirent.h>
 #include <search.h>
 #include <sys/time.h>
-#include <alsa/asoundlib.h>
-#include <X11/xpm.h>
-#include <jack/jack.h>
-#include <jack/midiport.h>
+//#include <alsa/asoundlib.h>
+//#include <X11/xpm.h>
+//#include <jack/jack.h>
+//#include <jack/midiport.h>
 //#include <FL/Fl_Preferences.H>
 
 

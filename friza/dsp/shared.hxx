@@ -35,6 +35,8 @@ typedef enum
   // Control inputs
   FRIZA_DO_IT,
   FRIZA_LENGTH,
+  FRIZA_POSITION,
+  FRIZA_VOLUME,
 } FrizaPortIndex;
 
 class SampleHoldShift;
@@ -62,8 +64,8 @@ class Friza
     /// control values
     float* doIt;
     float* length;
-    //float* drive;
-    //float* mix;
+    float* position;
+    float* volume;
     
   private:
     SampleHoldShift* shs;

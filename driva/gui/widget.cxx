@@ -27,7 +27,7 @@ void DrivaWidget::cb_graph(Avtk::Wah* o, void* v) {
 void DrivaWidget::cb_drive_i(Avtk::Dial* o, void*) {
   float tmp = o->value();
 graph->drive( tmp );
-//writePort(WHAAA_DRIVE, tmp);
+writePort(WAVE1_TYPE, tmp);
 //printf("%f\n",tmp);
 }
 void DrivaWidget::cb_drive(Avtk::Dial* o, void* v) {

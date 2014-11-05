@@ -20,8 +20,8 @@
  */
 
 
-#ifndef AVTK_WAH_H
-#define AVTK_WAH_H
+#ifndef AVTK_HOLD_H
+#define AVTK_HOLD_H
 
 #include <FL/Fl_Widget.H>
 #include <FL/Fl_Slider.H>
@@ -35,10 +35,10 @@
 namespace Avtk
 {
   
-class Wah : public Fl_Slider
+class Hold : public Fl_Slider
 {
   public:
-    Wah(int _x, int _y, int _w, int _h, const char *_label = 0):
+    Hold(int _x, int _y, int _w, int _h, const char *_label = 0):
         Fl_Slider(_x, _y, _w, _h, _label)
     {
       x = _x;
@@ -54,10 +54,10 @@ class Wah : public Fl_Slider
       
       active = true;
       highlight = false;
-      invert = true;
       
-      value( 0.5 );
-      _drive = 0.5;
+      value( 0 );
+      position = 0.5;
+      duration = 0.5;
     }
     
     bool active;
@@ -70,27 +70,26 @@ class Wah : public Fl_Slider
     bool mouseClicked;
     bool mouseRightClicked;
     
-    bool invert;
-    float _drive;
-    
+    float position;
+    float duration;
     float volume;
-    float feedback;
     
-    void setFeedback(float f)
+    void setVolume( float v )
     {
-      feedback = f;
+      volume = v;
       redraw();
     }
     
-    void setVolume(float e)
+    void setPosition(float v)
     {
-      volume = e;
+      position = v;
       redraw();
     }
     
-    float getVolume()
+    void setDuration(float v)
     {
-      return volume;
+      duration = v;
+      redraw();
     }
     
     void setActive(bool a)
@@ -102,12 +101,6 @@ class Wah : public Fl_Slider
     bool getActive()
     {
       return active;
-    }
-    
-    void drive( float d )
-    {
-      _drive = d;
-      redraw();
     }
     
     void draw()
@@ -162,7 +155,34 @@ class Wah : public Fl_Slider
         cairo_close_path( cr );
         cairo_stroke( cr );
         
+        // 
+        bool doit = value() >= 0.5 ? true : false;
         
+        float d = (0.2 + duration * 0.65) * w/2.f;
+        
+        // duration line
+        cairo_move_to( cr, x+w/2 - d, y + h * 2 / 3. );
+        cairo_line_to( cr, x+w/2 + d, y + h * 2 / 3. );
+        
+        cairo_set_line_width( cr, 4.1 );
+        cairo_set_line_join( cr, CAIRO_LINE_JOIN_ROUND );
+        cairo_set_source_rgba( cr,  0 / 255.f,  155 / 255.f ,  255 / 255.f , 0.2 );
+        cairo_fill_preserve( cr );
+        cairo_set_source_rgba( cr,  0 / 255.f,  155 / 255.f ,  255 / 255.f , 0.8 );
+        cairo_stroke( cr );
+        
+        // position shuttle
+        int o = -13 + 25 * volume; // vertical offset
+        float p = (position) * w/2.f;
+        cairo_move_to( cr, x+w/4 + p - 15, y + o + h / 2. -16 );
+        cairo_line_to( cr, x+w/4 + p -  8, y + o + h / 2. - 7 );
+        cairo_line_to( cr, x+w/4 + p +  8, y + o + h / 2. - 7 );
+        cairo_line_to( cr, x+w/4 + p + 15, y + o + h / 2. -16 );
+        cairo_set_source_rgba( cr,  255 / 255.f,  81 / 255.f ,  0 / 255.f , 1 );
+        cairo_stroke( cr );
+        
+        /*
+        // WAH graph - remove when Hold finished
         float v = ( value() * 3.1415 ) /2 ;
         
         float size = _drive + 0.4;
@@ -183,7 +203,7 @@ class Wah : public Fl_Slider
         cairo_fill_preserve( cr );
         cairo_set_source_rgba( cr,  0 / 255.f,  155 / 255.f ,  255 / 255.f , 0.8 );
         cairo_stroke( cr );
-        
+        */
         
         // stroke outline
         cairo_rectangle(cr, x+1, y+1, w-2, h-2);
@@ -267,7 +287,7 @@ class Wah : public Fl_Slider
               
               //handle_drag( value + deltaY );
               set_value( valY );
-              volume = valY;
+              //distance = valY;
               
               mouseClickedX = Fl::event_x();
               mouseClickedY = Fl::event_y();
@@ -304,4 +324,4 @@ class Wah : public Fl_Slider
 
 } // Avtk
 
-#endif // AVTK_WAH_H
+#endif // AVTK_HOLD_H

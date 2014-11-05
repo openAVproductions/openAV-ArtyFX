@@ -74,6 +74,12 @@ void Friza::connect_port(LV2_Handle instance, uint32_t port, void *data)
       case FRIZA_LENGTH:
           self->length = (float*)data;
           break;
+      case FRIZA_POSITION:
+          self->position = (float*)data;
+          break;
+      case FRIZA_VOLUME:
+          self->volume = (float*)data;
+          break;
   }
 }
 
@@ -85,8 +91,10 @@ void Friza::run(LV2_Handle instance, uint32_t nframes)
   float* in  = self->audioInput;
   float* out = self->audioOutput;
   
-  self->shs->length( *self->length );
-  self->shs->doIt  ( (*self->doIt >= 0.500) ? true : false  );
+  self->shs->length  ( *self->length   );
+  self->shs->position( *self->position );
+  self->shs->volume  ( *self->volume   );
+  self->shs->doIt    ( (*self->doIt >= 0.500) ? true : false  );
   
   self->shs->process( nframes, in, out );
 }

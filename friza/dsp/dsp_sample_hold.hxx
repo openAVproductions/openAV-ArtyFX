@@ -31,18 +31,36 @@
 #ifndef OPENAV_DSP_SAMPLE_HOLD_H
 #define OPENAV_DSP_SAMPLE_HOLD_H
 
+#include <cmath>
 #include <cstring>
+#include <cstdio>
+
+#define TESTING 1
+
+#include "dsp_plotter.hxx"
 
 class SampleHoldShift
 {
   public:
     SampleHoldShift( int s ) :
       sr ( s ),
-      xfade( 512 ),
-      playHead( 0 ),
       recordHead( 0 ),
+      playHead( 0 ),
+      xfade( 512 ),
+      
       buffer( new float[sr] )
     {
+      _length = 2048;
+
+#ifdef TESTING
+      printf("testing\n");
+      // for testing, we can put a sin-wave into the buffer, and test playback
+      // for glitches / with it. 
+      for( int i = 0; i < _length; i++ )
+        buffer[i] = sin( i * 3.1415 * 100 );
+      
+      Plotter::plot( _length, buffer );
+#endif // TESTING
     }
     
     /// set to true when the effect should take place
@@ -50,6 +68,7 @@ class SampleHoldShift
     {
       // triggers the recording of the next ~second of audio
       recordHead = 0;
+      playHead = 0;
       
       _doIt = d;
     }
@@ -57,17 +76,32 @@ class SampleHoldShift
     /// set the lenght of the sample-and-hold loop
     void length( float l )
     {
-      _length = 64 + 1024 * 4 * l;
+      _length = 2048; //64 + 1024 * 4 * l;
+    }
+    
+    /// playback volume of the effect
+    void volume( float v )
+    {
+      _volume = v;
+    }
+    
+    /// position of the buffer that's currently playing back
+    void position( float p )
+    {
+      _position = p;
     }
     
     void process (long nframes, float* input, float* output )
     {
+#ifdef TESTING
+#else
       // copy input material to buffer, unless done
       if ( recordHead + nframes < sr )
       {
         memcpy( &buffer[recordHead], input, sizeof(float) * nframes );
         recordHead += nframes;
       }
+#endif // TESTING
       
       if ( input != output )
       {
@@ -77,6 +111,8 @@ class SampleHoldShift
       
       if ( _doIt )
       {
+        /*
+        // pre-mature optimization
         // no wrap needed
         if ( playHead + nframes < _length )
         {
@@ -86,13 +122,14 @@ class SampleHoldShift
           }
         }
         else
+        */
         {
           for(int i = 0; i < nframes; i++ )
           {
             if ( playHead >= _length )
               playHead = 0;
             
-            output[i] += buffer[playHead++];
+            output[i] += buffer[playHead++] * _volume;
           }
         }
         
@@ -109,6 +146,8 @@ class SampleHoldShift
     
     bool _doIt;
     long _length;
+    float _volume;
+    float _position;
     
     long recordHead;
     long playHead;

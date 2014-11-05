@@ -42,6 +42,9 @@
 #include "filta/gui/ui.hxx"
 #include "filta/dsp/shared.hxx"
 
+#include "friza/gui/ui.hxx"
+#include "friza/dsp/shared.hxx"
+
 #include "kuiza/gui/ui.hxx"
 #include "kuiza/dsp/shared.hxx"
 
@@ -99,6 +102,13 @@ static LV2UI_Descriptor descriptors[] =
     filta_cleanup,
     filta_port_event,
     filta_extension_data
+  },
+  {
+    FRIZA_UI_URI,
+    friza_instantiate,
+    friza_cleanup,
+    friza_port_event,
+    friza_extension_data
   },
   {
     KUIZA_UI_URI,

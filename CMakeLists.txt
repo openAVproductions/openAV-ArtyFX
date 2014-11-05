@@ -34,14 +34,14 @@ IF(RELEASE_BUILD)
 ENDIF()
 
 FILE(GLOB sources
-  artyfx.cxx +
+  artyfx.cxx
   bitta/dsp/*.cxx 
   della/dsp/*.cxx 
-  driva/dsp/*.cxx + driva/dsp/rr/*.cxx 
+  driva/dsp/*.cxx driva/dsp/rr/*.cxx 
   ducka/dsp/*.cxx 
   filta/dsp/*.cxx 
   friza/dsp/*.cxx 
-  kuiza/dsp/*.cxx + kuiza/dsp/eq/*.cc
+  kuiza/dsp/*.cxx kuiza/dsp/eq/*.cc
   masha/dsp/*.cxx 
   panda/dsp/*.cxx 
   roomy/dsp/*.cxx 
@@ -53,18 +53,19 @@ FILE(GLOB sources
 # don't compile UI files if we don't have NTK
 IF(HAVE_NTK)
   FILE(GLOB sources
-    ${sources} +
-    artyfx_ui.cxx +
-    bitta/gui/*.cxx +
-    della/gui/*.cxx +
-    ducka/gui/*.cxx +
-    driva/gui/*.cxx +
-    filta/gui/*.cxx +
-    kuiza/gui/*.cxx +
-    masha/gui/*.cxx +
-    panda/gui/*.cxx +
-    roomy/gui/*.cxx +
-    satma/gui/*.cxx +
+    ${sources}
+    artyfx_ui.cxx
+    bitta/gui/*.cxx
+    della/gui/*.cxx
+    ducka/gui/*.cxx
+    driva/gui/*.cxx
+    filta/gui/*.cxx
+    friza/gui/*.cxx
+    kuiza/gui/*.cxx
+    masha/gui/*.cxx
+    panda/gui/*.cxx
+    roomy/gui/*.cxx
+    satma/gui/*.cxx
     vihda/gui/*.cxx
     whaaa/gui/*.cxx
      )

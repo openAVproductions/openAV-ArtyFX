@@ -34,12 +34,15 @@ ArtyFX is a growing suite of plugins: right now, there's 7 plugins available:
 - Bitta    (Bitcrusher)
 - Della    (Delay)
 - Ducka    (Sidechain envelope)
+- Driva    (Heavy distortion)
 - Filta    (Low/Hi- pass filter)
+- Friza    (Sound sustain and modulation)
 - Kuiza    (4- band EQ)
 - Masha    (Beat grinder)
 - Panda    (Compressor / Expander)
 - Roomy    (Smooth reverb)
 - Satma    (Crazy distortion)
+- Vihda    (Stereo Widener)
 ```
 
 Bitta
@@ -108,6 +111,22 @@ The drop controls the amount of volume reduction that is performed.
 Time controls the amount of time it take before the stereo track is faded in 
 again. Note that this control is BPM dependant, and the center is directly on 
 the off- beats. A setting of half (its default) is generally musical :)
+
+Driva
+-----
+![Driva Screenshot](screenshots/artyfx_driva.png)
+Driva is a heavy distortion designed for electric guitar, but it will bring to
+life any synth of drum-loop you want to crunch and give extra energy.
+The controls:
+```
+- Tone
+- Amount
+```
+
+Tone changes the type of distortion internally; there are 2 waveshapers and an
+equalizer that are arranged in different ways to achieve different tone flavours.
+
+Amount controls the level of distortion that occurs.
 
 
 Filta
