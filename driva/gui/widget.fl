@@ -38,11 +38,11 @@ writePort(DRIVA_AMOUNT, tmp);
 
 float a = o->getActive();
 //writePort(BITTA_ACTIVE, a);
-//printf("active %f\\n", a );}
+//printf("active %f\\n", a );} selected
         xywh {5 36 150 126} box UP_BOX color 179 labeltype NO_LABEL
         code1 {using namespace std;}
         code2 {\#include <iostream>}
-        class {Avtk::Wah}
+        class {Avtk::Drive}
       }
       Fl_Dial freq {
         label Distortion
@@ -50,7 +50,7 @@ float a = o->getActive();
 graph->value( tmp );
 graph->drive( tmp );
 writePort(DRIVA_AMOUNT, tmp);
-//printf("%f\\n",tmp);} selected
+//printf("%f\\n",tmp);}
         xywh {103 169 45 35} color 90 labelsize 10
         class {Avtk::Dial}
       }

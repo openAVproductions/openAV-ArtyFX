@@ -23,10 +23,10 @@ private:
   void cb_headerImage_i(Avtk::Image*, void*);
   static void cb_headerImage(Avtk::Image*, void*);
 public:
-  Avtk::Wah *graph;
+  Avtk::Drive *graph;
 private:
-  void cb_graph_i(Avtk::Wah*, void*);
-  static void cb_graph(Avtk::Wah*, void*);
+  void cb_graph_i(Avtk::Drive*, void*);
+  static void cb_graph(Avtk::Drive*, void*);
 public:
   Avtk::Dial *freq;
 private:

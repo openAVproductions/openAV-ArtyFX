@@ -20,8 +20,8 @@
  */
 
 
-#ifndef AVTK_WAH_H
-#define AVTK_WAH_H
+#ifndef AVTK_DRIVE_H
+#define AVTK_DRIVE_H
 
 #include <FL/Fl_Widget.H>
 #include <FL/Fl_Slider.H>
@@ -35,10 +35,10 @@
 namespace Avtk
 {
   
-class Wah : public Fl_Slider
+class Drive : public Fl_Slider
 {
   public:
-    Wah(int _x, int _y, int _w, int _h, const char *_label = 0):
+    Drive(int _x, int _y, int _w, int _h, const char *_label = 0):
         Fl_Slider(_x, _y, _w, _h, _label)
     {
       x = _x;
@@ -192,7 +192,7 @@ class Wah : public Fl_Slider
         
         cairo_close_path( cr );
         cairo_set_source_rgba( cr,  0 / 255.f,   155 / 255.f ,  255 / 255.f , 0.2 );
-        cairo_set_line_width(cr, 1.8);
+        cairo_set_line_width(cr, 1.5);
         cairo_fill_preserve( cr );
         cairo_set_source_rgba( cr,  0 / 255.f,   155 / 255.f ,  255 / 255.f , 0.8 );
         cairo_stroke( cr );
@@ -318,4 +318,4 @@ class Wah : public Fl_Slider
 
 } // Avtk
 
-#endif // AVTK_WAH_H
+#endif // AVTK_DRIVE_H

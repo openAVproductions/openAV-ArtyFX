@@ -9,7 +9,7 @@ void DrivaWidget::cb_headerImage(Avtk::Image* o, void* v) {
   ((DrivaWidget*)(o->parent()->user_data()))->cb_headerImage_i(o,v);
 }
 
-void DrivaWidget::cb_graph_i(Avtk::Wah* o, void*) {
+void DrivaWidget::cb_graph_i(Avtk::Drive* o, void*) {
   float tmp = o->value();
 freq->value( tmp );
 writePort(DRIVA_AMOUNT, tmp);
@@ -20,7 +20,7 @@ float a = o->getActive();
 //writePort(BITTA_ACTIVE, a);
 //printf("active %f\n", a );
 }
-void DrivaWidget::cb_graph(Avtk::Wah* o, void* v) {
+void DrivaWidget::cb_graph(Avtk::Drive* o, void* v) {
   ((DrivaWidget*)(o->parent()->user_data()))->cb_graph_i(o,v);
 }
 
@@ -67,7 +67,7 @@ DrivaWidget::DrivaWidget() {
       headerImage->when(FL_WHEN_RELEASE_ALWAYS);
       headerImage->setPixbuf(header.pixel_data,4);
     } // Avtk::Image* headerImage
-    { graph = new Avtk::Wah(5, 36, 150, 126, "graph");
+    { graph = new Avtk::Drive(5, 36, 150, 126, "graph");
       graph->box(FL_UP_BOX);
       graph->color((Fl_Color)179);
       graph->selection_color(FL_INACTIVE_COLOR);
@@ -78,7 +78,7 @@ DrivaWidget::DrivaWidget() {
       graph->callback((Fl_Callback*)cb_graph);
       graph->align(Fl_Align(FL_ALIGN_BOTTOM));
       graph->when(FL_WHEN_CHANGED);
-    } // Avtk::Wah* graph
+    } // Avtk::Drive* graph
     { freq = new Avtk::Dial(103, 169, 45, 35, "Distortion");
       freq->box(FL_NO_BOX);
       freq->color((Fl_Color)90);
