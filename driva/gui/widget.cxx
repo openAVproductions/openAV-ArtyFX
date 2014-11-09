@@ -24,24 +24,25 @@ void DrivaWidget::cb_graph(Avtk::Wah* o, void* v) {
   ((DrivaWidget*)(o->parent()->user_data()))->cb_graph_i(o,v);
 }
 
-void DrivaWidget::cb_drive_i(Avtk::Dial* o, void*) {
-  float tmp = o->value();
-graph->drive( tmp );
-writePort(WAVE1_TYPE, tmp);
-//printf("%f\n",tmp);
-}
-void DrivaWidget::cb_drive(Avtk::Dial* o, void* v) {
-  ((DrivaWidget*)(o->parent()->user_data()))->cb_drive_i(o,v);
-}
-
 void DrivaWidget::cb_freq_i(Avtk::Dial* o, void*) {
   float tmp = o->value();
 graph->value( tmp );
+graph->drive( tmp );
 writePort(DRIVA_AMOUNT, tmp);
 //printf("%f\n",tmp);
 }
 void DrivaWidget::cb_freq(Avtk::Dial* o, void* v) {
   ((DrivaWidget*)(o->parent()->user_data()))->cb_freq_i(o,v);
+}
+
+void DrivaWidget::cb_tone_i(Fl_Choice* o, void*) {
+  float tmp = o->value() + 1;
+graph->drive( tmp - 1 );
+writePort(WAVE1_TYPE, tmp);
+printf("tone selector %f\n",tmp);
+}
+void DrivaWidget::cb_tone(Fl_Choice* o, void* v) {
+  ((DrivaWidget*)(o->parent()->user_data()))->cb_tone_i(o,v);
 }
 
 /**
@@ -78,19 +79,7 @@ DrivaWidget::DrivaWidget() {
       graph->align(Fl_Align(FL_ALIGN_BOTTOM));
       graph->when(FL_WHEN_CHANGED);
     } // Avtk::Wah* graph
-    { drive = new Avtk::Dial(82, 168, 34, 34, "Drive");
-      drive->box(FL_NO_BOX);
-      drive->color((Fl_Color)90);
-      drive->selection_color(FL_INACTIVE_COLOR);
-      drive->labeltype(FL_NORMAL_LABEL);
-      drive->labelfont(0);
-      drive->labelsize(10);
-      drive->labelcolor(FL_FOREGROUND_COLOR);
-      drive->callback((Fl_Callback*)cb_drive);
-      drive->align(Fl_Align(FL_ALIGN_BOTTOM));
-      drive->when(FL_WHEN_CHANGED);
-    } // Avtk::Dial* drive
-    { freq = new Avtk::Dial(121, 169, 34, 34, "Amount");
+    { freq = new Avtk::Dial(103, 169, 45, 35, "Distortion");
       freq->box(FL_NO_BOX);
       freq->color((Fl_Color)90);
       freq->selection_color(FL_INACTIVE_COLOR);
@@ -102,9 +91,11 @@ DrivaWidget::DrivaWidget() {
       freq->align(Fl_Align(FL_ALIGN_BOTTOM));
       freq->when(FL_WHEN_CHANGED);
     } // Avtk::Dial* freq
-    { tone = new Fl_Choice(0, 188, 80, 25, "Tone");
+    { tone = new Fl_Choice(12, 189, 80, 25, "Tone");
       tone->down_box(FL_BORDER_BOX);
+      tone->callback((Fl_Callback*)cb_tone);
       tone->align(Fl_Align(FL_ALIGN_TOP));
+      tone->when(FL_WHEN_CHANGED);
       tone->add("Odie"); tone->add("Grunge"); tone->add("Distort"); tone->add("Ratty"); tone->add("Classic"); tone->add("Morbid"); tone->add("Metal"); tone->add("Fuzz");
       tone->value( 0 );
     } // Fl_Choice* tone

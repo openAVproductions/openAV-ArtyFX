@@ -43,6 +43,10 @@ Driva::Driva(int rate)
   wave1type = 0;
   
   dspStompbox1 = new StompBox( rate );
+  
+  // init preset
+  dspStompbox1->setpreset( 0 );
+  wave1type = 0;
 }
 
 Driva::~Driva()
@@ -77,10 +81,6 @@ void Driva::connect_port(LV2_Handle instance, uint32_t port, void *data)
       case DRIVA_AMOUNT:
           self->controlWave1amount = (float*)data;
           break;
-      
-      case WAVE1_VOL:
-          self->controlOutputVol = (float*)data;
-          break;
   }
 }
 
@@ -94,11 +94,12 @@ void Driva::run(LV2_Handle instance, uint32_t nframes)
   
   
   /// deal with preset switches
-  if ( int(*self->controlWave1type * 7) != self->wave1type )
+  if ( int(*self->controlWave1type) != self->wave1type )
   {
-    printf("Stompbox1: to preset %d\n", self->wave1type);
-    self->dspStompbox1->setpreset( self->wave1type );
-    self->wave1type = int(*self->controlWave1type * 7);
+    // -1 for zero offset
+    printf("Stompbox1: to preset %f\n", *self->controlWave1type - 1);
+    self->dspStompbox1->setpreset( *self->controlWave1type - 1 );
+    self->wave1type = int(*self->controlWave1type);
   }
   
   /// set "running variables": range in Stompbox is 0-127, so scale to that

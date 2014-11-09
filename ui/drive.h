@@ -192,7 +192,7 @@ class Wah : public Fl_Slider
         
         cairo_close_path( cr );
         cairo_set_source_rgba( cr,  0 / 255.f,   155 / 255.f ,  255 / 255.f , 0.2 );
-        cairo_set_line_width(cr, 1.0);
+        cairo_set_line_width(cr, 1.8);
         cairo_fill_preserve( cr );
         cairo_set_source_rgba( cr,  0 / 255.f,   155 / 255.f ,  255 / 255.f , 0.8 );
         cairo_stroke( cr );

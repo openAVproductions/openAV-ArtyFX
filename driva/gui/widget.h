@@ -28,17 +28,16 @@ private:
   void cb_graph_i(Avtk::Wah*, void*);
   static void cb_graph(Avtk::Wah*, void*);
 public:
-  Avtk::Dial *drive;
-private:
-  void cb_drive_i(Avtk::Dial*, void*);
-  static void cb_drive(Avtk::Dial*, void*);
-public:
   Avtk::Dial *freq;
 private:
   void cb_freq_i(Avtk::Dial*, void*);
   static void cb_freq(Avtk::Dial*, void*);
 public:
   Fl_Choice *tone;
+private:
+  void cb_tone_i(Fl_Choice*, void*);
+  static void cb_tone(Fl_Choice*, void*);
+public:
   LV2UI_Write_Function write_function; 
   LV2UI_Controller controller; 
   void idle();

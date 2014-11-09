@@ -69,7 +69,7 @@ StompBox::StompBox ( int sr )
   init_mode(Pmode);
   init_tone();
   
-  setpreset( 6 );
+  setpreset( 0 );
   
   cleanup();
 };
@@ -781,6 +781,6 @@ int StompBox::getpar (int npar)
       break;
 
   };
-  return (0);			//in case of bogus parameter number
+  return (0);     //in case of bogus parameter number
 };
 
