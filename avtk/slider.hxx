@@ -1,6 +1,6 @@
 
-#ifndef OPENAV_AVTK2_SLIDER_HXX
-#define OPENAV_AVTK2_SLIDER_HXX
+#ifndef OPENAV_AVTK_SLIDER_HXX
+#define OPENAV_AVTK_SLIDER_HXX
 
 #include "widget.hxx"
 
@@ -17,4 +17,4 @@ class Slider : public Widget
 
 };
 
-#endif // OPENAV_AVTK2_SLIDER_HXX
+#endif // OPENAV_AVTK_SLIDER_HXX

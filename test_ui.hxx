@@ -10,10 +10,10 @@ static void widgetCB(Avtk::Widget* w, void* ud)
   printf( "widgetCB(), label = %s\n", w->label.c_str() );
 }
 
-class UI : Avtk::UI
+class TestUI : public Avtk::UI
 {
   public:
-    UI():
+    TestUI():
       Avtk::UI( 610, 430 )
     {
       Avtk::Widget* w = 0;

@@ -1,6 +1,6 @@
 
-#ifndef OPENAV_AVTK2_WIDGET_HXX
-#define OPENAV_AVTK2_WIDGET_HXX
+#ifndef OPENAV_AVTK_WIDGET_HXX
+#define OPENAV_AVTK_WIDGET_HXX
 
 #include <stdio.h>
 #include <string>
@@ -70,4 +70,4 @@ class Widget
 
 };
 
-#endif // OPENAV_AVTK2_WIDGET_HXX
+#endif // OPENAV_AVTK_WIDGET_HXX

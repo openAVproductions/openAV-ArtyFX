@@ -3,9 +3,9 @@
 
 int main()
 {
-  Avtk::UI ui(610, 430);
+  TestUI* ui = new TestUI();
   
-  ui.run();
+  ui->run();
   
   return 0;
   

@@ -1,6 +1,6 @@
 
-#ifndef OPENAV_AVTK2_THEME_HXX
-#define OPENAV_AVTK2_THEME_HXX
+#ifndef OPENAV_AVTK_THEME_HXX
+#define OPENAV_AVTK_THEME_HXX
 
 #include <cairo/cairo.h>
 
@@ -81,4 +81,4 @@ class Theme
 
 };
 
-#endif // OPENAV_AVTK2_THEME_HXX
+#endif // OPENAV_AVTK_THEME_HXX

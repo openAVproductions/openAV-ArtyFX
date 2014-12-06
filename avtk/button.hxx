@@ -1,6 +1,6 @@
 
-#ifndef OPENAV_AVTK2_BUTTON_HXX
-#define OPENAV_AVTK2_BUTTON_HXX
+#ifndef OPENAV_AVTK_BUTTON_HXX
+#define OPENAV_AVTK_BUTTON_HXX
 
 #include "widget.hxx"
 
@@ -17,4 +17,4 @@ class Button : public Widget
 
 };
 
-#endif // OPENAV_AVTK2_BUTTON_HXX
+#endif // OPENAV_AVTK_BUTTON_HXX
