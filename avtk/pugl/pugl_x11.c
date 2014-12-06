@@ -50,7 +50,9 @@ struct PuglInternalsImpl {
   int        screen;
   Window     win;
 #ifdef PUGL_HAVE_CAIRO
+  bool crIsActiveBuffer;
   cairo_t*   cr;
+  cairo_surface_t* surface;
   cairo_t*   crBackBuffer;
   cairo_surface_t* surfaceBackBuffer;
 #endif
@@ -122,13 +124,15 @@ createContext(PuglView* view, XVisualInfo* vi)
 #ifdef PUGL_HAVE_CAIRO
   if (view->ctx_type == PUGL_CAIRO)
   {
-    cairo_surface_t* surface = cairo_xlib_surface_create( impl->display, impl->win, vi->visual, view->width, view->height);
+    impl->crIsActiveBuffer = true;
     
-    if (!(impl->cr = cairo_create(surface))) {
+    impl->surface = cairo_xlib_surface_create( impl->display, impl->win, vi->visual, view->width, view->height);
+    
+    if (!(impl->cr = cairo_create(impl->surface))) {
       fprintf(stderr, "failed to create cairo context\n");
     }
     
-    impl->surfaceBackBuffer = cairo_surface_create_similar( surface, CAIRO_CONTENT_COLOR, view->width, view->height );
+    impl->surfaceBackBuffer = cairo_surface_create_similar( impl->surface, CAIRO_CONTENT_COLOR, view->width, view->height );
     if (!impl->surfaceBackBuffer) {
       fprintf(stderr, "failed to create cairo back buffer surface\n");
     }
@@ -478,10 +482,17 @@ puglProcessEvents(PuglView* view)
   }
 
   if (view->redisplay) {
+    // switch the front/back buffer
+    view->impl->crIsActiveBuffer = !view->impl->crIsActiveBuffer;
+    
+    if ( view->impl->crIsActiveBuffer )
+      cairo_xlib_surface_set_drawable( view->impl->surface, view->impl->win, view->width, view->height );
+    else
+      cairo_xlib_surface_set_drawable( view->impl->surfaceBackBuffer, view->impl->win, view->width, view->height );
     
     // copy the backbuffer to the other context
-    cairo_set_source_surface( view->impl->cr, view->impl->surfaceBackBuffer, view->width, view->height );
-    cairo_paint( view->impl->cr );
+    //cairo_set_source_surface( view->impl->cr, view->impl->surfaceBackBuffer, view->width, view->height );
+    //cairo_paint( view->impl->cr );
     
     const PuglEventExpose expose = {
       PUGL_EXPOSE, view, true, 0, 0, view->width, view->height, 0
