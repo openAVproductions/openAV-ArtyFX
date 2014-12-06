@@ -7,6 +7,7 @@
 #include <cairo/cairo.h>
 
 #include "theme.hxx"
+#include "helpers.hxx"
 
 namespace Avtk
 {
