@@ -12,7 +12,7 @@ class Slider : public Widget
   public:
     Slider(int x, int y, int w, int h, std::string label);
     
-    virtual void draw( cairo_t* cr ) override;
+    virtual void draw( cairo_t* cr );
 };
 
 };

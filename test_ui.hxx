@@ -4,6 +4,12 @@
 
 #include "avtk/avtk.hxx"
 
+// FIXME: refactor?
+static void widgetCB(Avtk::Widget* w, void* ud)
+{
+  printf( "widgetCB(), label = %s\n", w->label.c_str() );
+}
+
 class UI : Avtk::UI
 {
   public:

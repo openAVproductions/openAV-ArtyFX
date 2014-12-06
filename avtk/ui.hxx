@@ -2,44 +2,29 @@
 #ifndef OPENAV_AVTK_UI_HXX
 #define OPENAV_AVTK_UI_HXX
 
-#include "avtk.hxx"
+// libs AVTK needs
+#include "yasper.hxx"
+#include "pugl/pugl.h"
+#include <cairo/cairo.h>
 
+// general C++ includes
 #include <list>
 #include <stdio.h>
 #include <unistd.h>
 
 using namespace yasper;
 
+
 namespace Avtk
 {
 
-class Avtk::Widget;
+class Widget;
+
 
 class UI
 {
   public:
-    UI( int w__, int h__ ) :
-      quit_( false ),
-      w_( w__ ),
-      h_( h__ )
-    {
-      view = puglInit(NULL, NULL);
-      
-      puglInitWindowSize  (view, w_, h_ );
-      puglInitResizable   (view, false );
-      puglInitContextType (view, PUGL_CAIRO);
-      /*
-      puglIgnoreKeyRepeat (view, ignoreKeyRepeat);
-      */
-      puglSetEventFunc    (view, UI::onEvent  );
-      puglSetDisplayFunc  (view, UI::onDisplay);
-      puglSetCloseFunc    (view, UI::onClose  );
-      
-      puglCreateWindow    (view, "Vizia GUI");
-      puglShowWindow      (view);
-      
-      puglSetHandle       (view, this);
-    }
+    UI( int w, int h );
     
     /// adds a widget to the UI, and memory manages it: AKA a smart pointer will
     /// clean up on close of the UI.
@@ -51,7 +36,7 @@ class UI
     int run( int fps = 30)
     {
       int delay = (1.f / fps) * 1000 * 1000;
-      printf("UI running at %i fps, delay %i", fps, delay );
+      printf("UI running at %i fps, delay %i\n", fps, delay );
       
       while ( !quit_ )
       {
@@ -73,12 +58,10 @@ class UI
     bool quit_;
     int w_, h_;
     
+    /// the list of widgets currently instantiated, in order of being drawn.
+    // Technically this is a list of yasper::ptr<Avtk::Widget> types, but they
+    // act generally like raw pointers would do
     std::list< ptr<Avtk::Widget> > widgets;
-    
-    static void widgetCB(Avtk::Widget* w, void* ud)
-    {
-      printf( "widgetCB(), label = %s\n", w->label.c_str() );
-    }
     
     static void onClose(PuglView* view)
     {
@@ -97,38 +80,7 @@ class UI
       ui->event( event );
     }
     
-    void event( const PuglEvent* event )
-    {
-      switch (event->type)
-      {
-        case PUGL_KEY_PRESS:
-          if (event->key.character == 'q' ||
-              event->key.character == 'Q' ||
-              event->key.character == PUGL_CHAR_ESCAPE)
-          {
-            quit_ = 1;
-          }
-          break;
-        case PUGL_BUTTON_PRESS: {
-          // iter widgets, checking for intersection
-          int i = 0;
-          for (std::list< ptr<Avtk::Widget> >::iterator it = widgets.begin(); it != widgets.end(); it++)
-          {
-            printf("event() widget # %i\n", i++ );
-            if( (*it)->touches( event->button.x, event->button.y ) )
-            {
-              (*it)->value( !(*it)->value() );
-              printf("touches widget # %i, new value %f\n", i++, (*it)->value() );
-            }
-          }
-          
-          puglPostRedisplay(view); }
-          break;
-        
-        default:
-          break;
-      }
-    }
+    void event( const PuglEvent* event );
     
     static void onDisplay(PuglView* view)
     {
@@ -137,21 +89,7 @@ class UI
       ui->display( cr );
     }
     
-    void display( cairo_t* cr )
-    {
-      /// clear the screen
-      cairo_rectangle( cr, 0, 0, w_, h_ );
-      cairo_set_source_rgb( cr, 24/255, 24/255, 24/255 );
-      cairo_fill( cr );
-      
-      /// iter over widgets, drawing each in the order they were add()-ed
-      int i = 0;
-      for (std::list< ptr<Avtk::Widget> >::iterator it = widgets.begin(); it != widgets.end(); it++)
-      {
-        printf("display() widget # %i\n", i++ );
-        (*it)->draw( cr );
-      }
-    }
+    void display( cairo_t* cr );
 };
 
 }; // namespace Avtk
