@@ -39,7 +39,7 @@ void UI::display( cairo_t* cr )
   int i = 0;
   for (std::list< ptr<Avtk::Widget> >::iterator it = widgets.begin(); it != widgets.end(); it++)
   {
-    printf("display() widget # %i\n", i++ );
+    //printf("display() widget # %i\n", i++ );
     (*it)->draw( cr );
   }
 }
@@ -61,7 +61,7 @@ void UI::event( const PuglEvent* event )
       int i = 0;
       for (std::list< ptr<Avtk::Widget> >::iterator it = widgets.begin(); it != widgets.end(); it++)
       {
-        printf("event() widget # %i\n", i++ );
+        //printf("event() widget # %i\n", i++ );
         if( (*it)->touches( event->button.x, event->button.y ) )
         {
           (*it)->value( !(*it)->value() );

@@ -8,6 +8,13 @@
 static void widgetCB(Avtk::Widget* w, void* ud)
 {
   printf( "widgetCB(), label = %s\n", w->label.c_str() );
+  
+  std::vector< std::string > files;
+  
+  Avtk::directoryContents( "/root", files );
+  
+  for( int i = 0; i < files.size(); i++)
+    printf("%i : %s\n", i, files.at(i).c_str() );
 }
 
 class TestUI : public Avtk::UI

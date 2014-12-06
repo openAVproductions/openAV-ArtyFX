@@ -6,6 +6,7 @@
 #include <string>
 #include <cairo/cairo.h>
 
+#include "utils.hxx"
 #include "theme.hxx"
 #include "helpers.hxx"
 
@@ -22,6 +23,7 @@ class Widget
       h( h_ ),
       label( label_ ),
       value_( 0 ),
+      mouseButtonPressed_(0),
       
       callback( 0 ),
       callbackUD( 0 )
@@ -62,6 +64,9 @@ class Widget
     int x, y, w, h;         /// widget co-ords and size
     std::string label;      /// widget name - sometimes shown in UI
     float value_;           /// widget value
+    
+    // 0 when no mouse button is down, otherwise the mouse button pressed
+    int mouseButtonPressed_;
     
     static Theme* theme;
     
