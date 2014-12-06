@@ -62,12 +62,13 @@ void UI::event( const PuglEvent* event )
       int i = 0;
       for (std::list< ptr<Avtk::Widget> >::iterator it = widgets.begin(); it != widgets.end(); it++)
       {
-        printf("EVENT() widget # %i\n", i++ );
+        //printf("EVENT() widget # %i\n", i++ );
         if( (*it)->touches( event->button.x, event->button.y, true ) )
         {
           (*it)->value( !(*it)->value() );
-          printf("touches widget # %i, new value %f\n", i++, (*it)->value() );
+          printf("touches widget # %i, new value %f\n", i, (*it)->value() );
         }
+        i++;
       }
       
       puglPostRedisplay(view); }

@@ -7,7 +7,7 @@
 // FIXME: refactor?
 static void widgetCB(Avtk::Widget* w, void* ud)
 {
-  printf( "widgetCB(), label = %s\n", w->label.c_str() );
+  //printf( "widgetCB(), label = %s\n", w->label.c_str() );
   
   /*
   std::vector< std::string > files;
