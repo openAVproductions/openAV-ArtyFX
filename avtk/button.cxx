@@ -16,7 +16,7 @@ void Button::draw( cairo_t* cr )
 {
   if ( value() )
   {
-    theme->alpha( 0.4 );
+    theme->alpha( 0.8 );
     theme->highlight( cr );
   }
   else
@@ -25,13 +25,10 @@ void Button::draw( cairo_t* cr )
     theme->fg( cr );
   }
   
-  roundedBox(cr, x, y, w, h);
+  roundedBox(cr, x, y, w, h, theme->cornerRadius() );
   cairo_fill_preserve(cr);
   
   theme->transparent( false );
-  
-  // Draw border
-  theme->fg( cr );
   
   cairo_set_line_width(cr, 0.7);
   cairo_stroke(cr);

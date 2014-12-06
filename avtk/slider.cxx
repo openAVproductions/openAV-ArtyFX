@@ -25,7 +25,7 @@ void Slider::draw( cairo_t* cr )
     theme->fg( cr );
   }
   
-  roundedBox(cr, x, y, w, h);
+  roundedBox(cr, x, y, w, h, theme->cornerRadius() );
   cairo_fill_preserve(cr);
   
   theme->transparent( false );

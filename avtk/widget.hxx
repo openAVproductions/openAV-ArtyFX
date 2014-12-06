@@ -50,7 +50,7 @@ class Widget
     
     virtual ~Widget(){}
     
-    bool touches( int inx, int iny, bool doCallback = true )
+    bool touches( int inx, int iny, bool doCallback = false )
     {
       bool t = ( inx >= x && inx <= x + w && iny >= y && iny <= y + h);
       

@@ -56,13 +56,14 @@ void UI::event( const PuglEvent* event )
         quit_ = 1;
       }
       break;
+    
     case PUGL_BUTTON_PRESS: {
       // iter widgets, checking for intersection
       int i = 0;
       for (std::list< ptr<Avtk::Widget> >::iterator it = widgets.begin(); it != widgets.end(); it++)
       {
-        //printf("event() widget # %i\n", i++ );
-        if( (*it)->touches( event->button.x, event->button.y ) )
+        printf("EVENT() widget # %i\n", i++ );
+        if( (*it)->touches( event->button.x, event->button.y, true ) )
         {
           (*it)->value( !(*it)->value() );
           printf("touches widget # %i, new value %f\n", i++, (*it)->value() );

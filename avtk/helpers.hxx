@@ -2,9 +2,8 @@
 #ifndef OPENAV_AVTK_HELPERS_HXX
 #define OPENAV_AVTK_HELPERS_HXX
 
-static void roundedBox(cairo_t* cr, double x, double y, double w, double h)
+static void roundedBox(cairo_t* cr, double x, double y, double w, double h, double radius )
 {
-  static const double radius  = 4;
   static const double degrees = 3.14159265 / 180.0;
 
   cairo_new_sub_path(cr);

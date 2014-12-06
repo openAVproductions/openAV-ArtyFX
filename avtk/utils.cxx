@@ -23,7 +23,7 @@ int directoryContents( std::string d, std::vector< std::string >& files, bool pr
     if (tinydir_readfile(&dir, &file) == -1)
     {
       if( printErrors )
-        printf("Error getting file from dir %s", d.c_str() );
+        printf("Error getting file from dir %s\n", d.c_str() );
       return OPENAV_ERROR;
     }
     

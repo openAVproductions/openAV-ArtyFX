@@ -28,7 +28,7 @@ class Theme
   public:
     Theme( std::string name = "OpenAV Default" ) :
       alpha_( 1 ),
-      cornerRadius_( 4 )
+      cornerRadius_( 1 )
     {}
     
     virtual int cornerRadius()
@@ -64,7 +64,7 @@ class Theme
     }
     virtual void highlight( cairo_t* cr )
     {
-      cairo_set_source_rgba(cr,  30/255., 144/255., 255/255., alpha_);
+      cairo_set_source_rgba(cr,  0/255., 128/255., 255/255., alpha_);
     }
     
     virtual void transparent( bool t )

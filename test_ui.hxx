@@ -9,12 +9,14 @@ static void widgetCB(Avtk::Widget* w, void* ud)
 {
   printf( "widgetCB(), label = %s\n", w->label.c_str() );
   
+  /*
   std::vector< std::string > files;
   
   Avtk::directoryContents( "/root", files );
   
   for( int i = 0; i < files.size(); i++)
     printf("%i : %s\n", i, files.at(i).c_str() );
+  */
 }
 
 class TestUI : public Avtk::UI
@@ -23,22 +25,25 @@ class TestUI : public Avtk::UI
     TestUI():
       Avtk::UI( 610, 430 )
     {
-      Avtk::Widget* w = 0;
+      addRow( 0, 72 );
       
-      w = new Avtk::Button( 10, 10, 75, 22, "Layer 1" );
-      w->callback = widgetCB;
-      w->callbackUD = this;
-      add( w );
+      for(int i = 0; i < 16; i++)
+        addRow( 72 + i * ( 3 + 22 ) );
+    }
+    
+    void addRow( int offset, int btnW = 22 )
+    {
+      for(int r = 0; r < 10; r++ )
+      {
+        Avtk::Widget* w = 0;
+        int spcr =  3;
+        int btnH = 22;
+        w = new Avtk::Button( offset + spcr + btnH, 10 + ( btnW + spcr )* r, btnW, btnH, "-" );
+        w->callback = widgetCB;
+        w->callbackUD = this;
+        add( w );
+      }
       
-      w = new Avtk::Button( 10, 40, 75, 22, "Layer 2" );
-      w->callback = widgetCB;
-      w->callbackUD = this;
-      add( w );
-      
-      w = new Avtk::Button( 10, 70, 75, 22, "Layer 3" );
-      w->callback = widgetCB;
-      w->callbackUD = this;
-      add( w );
     }
 };
 
