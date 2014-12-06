@@ -490,6 +490,8 @@ puglProcessEvents(PuglView* view)
     else
       cairo_xlib_surface_set_drawable( view->impl->surfaceBackBuffer, view->impl->win, view->width, view->height );
     
+    printf("redraw with surface %i\n", (int)(view->impl->crIsActiveBuffer ) );
+    
     // copy the backbuffer to the other context
     //cairo_set_source_surface( view->impl->cr, view->impl->surfaceBackBuffer, view->width, view->height );
     //cairo_paint( view->impl->cr );
@@ -520,7 +522,11 @@ puglGetContext(PuglView* view)
 {
 #ifdef PUGL_HAVE_CAIRO
   if (view->ctx_type == PUGL_CAIRO) {
-    return view->impl->cr;
+    
+    if ( view->impl->crIsActiveBuffer )
+      return view->impl->crBackBuffer;
+    else
+      return view->impl->cr;
   }
 #endif
   return NULL;
