@@ -132,7 +132,7 @@ createContext(PuglView* view, XVisualInfo* vi)
       fprintf(stderr, "failed to create cairo context\n");
     }
     
-    impl->surfaceBackBuffer = cairo_surface_create_similar( impl->surface, CAIRO_CONTENT_COLOR, view->width, view->height );
+    impl->surfaceBackBuffer = cairo_surface_create_similar( impl->surface, CAIRO_CONTENT_COLOR_ALPHA, view->width, view->height );
     if (!impl->surfaceBackBuffer) {
       fprintf(stderr, "failed to create cairo back buffer surface\n");
     }
@@ -502,21 +502,24 @@ puglProcessEvents(PuglView* view)
     //cairo_set_source_rgb (view->impl->cr, 0.1,1.1,0.1);
     //cairo_fill( view->impl->cr );
     
-    cairo_xlib_surface_set_drawable( view->impl->surface, view->impl->win, view->width, view->height );
+    //cairo_xlib_surface_set_drawable( view->impl->surfaceBackBuffer, view->impl->win, view->width, view->height );
     
-    cairo_surface_flush( view->impl->surfaceBackBuffer );
+    //cairo_surface_flush( view->impl->surfaceBackBuffer );
     //cairo_surface_mark_dirty( view->impl->surfaceBackBuffer );
     //cairo_flush( view->impl->crBackBuffer );
     /*
     cairo_surface_mark_dirty( view->impl->cr );
     */
-     
+    
     // copy the backbuffer to the other context
+    /*
     cairo_set_source_surface( view->impl->cr, view->impl->surfaceBackBuffer, view->width, view->height );
     cairo_rectangle( view->impl->cr, 0, 0, view->width, view->height);
     cairo_paint( view->impl->cr );
+    */
     
-    cairo_surface_flush( view->impl->surface );
+    //cairo_surface_flush( view->impl->surface );
+    //cairo_surface_flush( view->impl->surfaceBackBuffer );
     
     const PuglEventExpose expose = {
       PUGL_EXPOSE, view, true, 0, 0, view->width, view->height, 0
@@ -545,6 +548,7 @@ puglGetContext(PuglView* view)
 #ifdef PUGL_HAVE_CAIRO
   if (view->ctx_type == PUGL_CAIRO) {
     
+    return view->impl->cr;
     return view->impl->crBackBuffer;
     /*
     if ( view->impl->crIsActiveBuffer )

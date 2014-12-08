@@ -2,6 +2,7 @@
 #ifndef OPENAV_AVTK_HELPERS_HXX
 #define OPENAV_AVTK_HELPERS_HXX
 
+// code aquisited from pugl_cairo_test.c, author David Robillard.
 static void roundedBox(cairo_t* cr, double x, double y, double w, double h, double radius )
 {
   static const double degrees = 3.14159265 / 180.0;

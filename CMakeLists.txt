@@ -17,7 +17,7 @@ option(AVTK_DEBUG_PRINTS  "Build with debugging prints" ON )
 ### Code compilation starts here
 ################################################################################
 
-ADD_DEFINITIONS( "-DBUSKA_VERSION_STRING=\"v ${BUSKA_VERSION}\"" )
+ADD_DEFINITIONS( "-DAVTK_VERSION_STRING=\"v ${AVTK_VERSION}\"" )
 
 
 find_package(PkgConfig)
@@ -36,6 +36,7 @@ pkg_check_modules(X11 x11 REQUIRED)
 include_directories( ${X11_INCLUDE_DIRS} )
 link_directories   ( ${X11_LIBRARY_DIRS} )
 
+SET(CMAKE_CXX_FLAGS "-trigraphs")
 
 FILE(GLOB src main.cxx avtk/*.cxx avtk/pugl/pugl_x11.c )
 ADD_EXECUTABLE( avtk ${src} )

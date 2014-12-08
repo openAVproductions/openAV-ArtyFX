@@ -10,6 +10,7 @@
 #include "utils.hxx"
 
 // widget headers
+#include "image.hxx"
 #include "button.hxx"
 //#include "slider.hxx"
 

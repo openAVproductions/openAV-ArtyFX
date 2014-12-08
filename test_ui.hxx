@@ -4,6 +4,8 @@
 
 #include "avtk/avtk.hxx"
 
+#include "header.c"
+
 // FIXME: refactor?
 static void widgetCB(Avtk::Widget* w, void* ud)
 {
@@ -25,10 +27,15 @@ class TestUI : public Avtk::UI
     TestUI():
       Avtk::UI( 610, 430 )
     {
+      Avtk::Image* w = new Avtk::Image( 0,0,610,36, "-" );
+      w->load( header.pixel_data );
+      add( w );
+      
       addRow( 0, 72 );
       
-      for(int i = 0; i < 16; i++)
-        addRow( 72 + i * ( 3 + 22 ) );
+      for(int i = 0; i < 16; i++){
+        addRow( 75 + i * ( 3 + 22 ) );
+      }
     }
     
     void addRow( int offset, int btnW = 22 )
@@ -38,7 +45,7 @@ class TestUI : public Avtk::UI
         Avtk::Widget* w = 0;
         int spcr =  3;
         int btnH = 22;
-        w = new Avtk::Button( offset + spcr + btnH, 10 + ( btnW + spcr )* r, btnW, btnH, "-" );
+        w = new Avtk::Button( offset + spcr, 40 + ( btnH + spcr )* r, btnW, btnH, "-" );
         w->callback = widgetCB;
         w->callbackUD = this;
         add( w );

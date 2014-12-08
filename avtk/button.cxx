@@ -1,6 +1,4 @@
 
-// code aquisited from pugl_cairo_test.c, author David Robillard.
-
 #include "button.hxx"
 
 #include <stdio.h>
