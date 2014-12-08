@@ -48,6 +48,27 @@ void UI::event( const PuglEvent* event )
 {
   switch (event->type)
   {
+    case PUGL_BUTTON_PRESS:
+      {
+        if ( event->button.x == 0 && event->button.y == 0 )
+          return;
+        
+        int i = 0;
+        for (std::list< ptr<Avtk::Widget> >::iterator it = widgets.begin(); it != widgets.end(); it++)
+        {
+          //printf("EVENT() widget # %i\n", i++ );
+          if( (*it)->touches( event->button.x, event->button.y, true ) )
+          {
+            (*it)->value( !(*it)->value() );
+            printf("touches widget # %i, new value %f\n", i, (*it)->value() );
+          }
+          i++;
+        }
+        
+        puglPostRedisplay(view);
+      }
+      break;
+    
     case PUGL_KEY_PRESS:
       if (event->key.character == 'q' ||
           event->key.character == 'Q' ||
@@ -55,23 +76,6 @@ void UI::event( const PuglEvent* event )
       {
         quit_ = 1;
       }
-      break;
-    
-    case PUGL_BUTTON_PRESS: {
-      // iter widgets, checking for intersection
-      int i = 0;
-      for (std::list< ptr<Avtk::Widget> >::iterator it = widgets.begin(); it != widgets.end(); it++)
-      {
-        //printf("EVENT() widget # %i\n", i++ );
-        if( (*it)->touches( event->button.x, event->button.y, true ) )
-        {
-          (*it)->value( !(*it)->value() );
-          printf("touches widget # %i, new value %f\n", i, (*it)->value() );
-        }
-        i++;
-      }
-      
-      puglPostRedisplay(view); }
       break;
     
     default:

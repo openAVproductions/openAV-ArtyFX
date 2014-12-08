@@ -29,11 +29,9 @@ class TestUI : public Avtk::UI
     {
       addRow( 0, 72 );
       
-      Avtk::Image* w = new Avtk::Image( 0,0,610,36, "-" );
+      Avtk::Image* w = new Avtk::Image( 0, 0, 610, 36, "-" );
       w->load( header.pixel_data );
       add( w );
-      
-      
       
       for(int i = 0; i < 16; i++){
         addRow( 75 + i * ( 3 + 22 ) );

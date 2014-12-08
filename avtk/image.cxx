@@ -40,9 +40,8 @@ void Image::draw( cairo_t* cr )
   
   if( !imgSurf )
   {
-    printf("Image::draw(), !imgSurf, loading now\n");
-    imgSurf = cairo_image_surface_create_from_png ("header.png");
-    printf(" imgSurf now %i\n", imgSurf );
+    printf("Image::draw(), this = %i, imgSurf == 0\n", this );
+    return;
   }
   
   /*

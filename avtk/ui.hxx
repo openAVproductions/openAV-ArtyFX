@@ -30,14 +30,13 @@ class UI
     /// clean up on close of the UI.
     void add( Avtk::Widget* w)
     {
-      printf("UI::add() pushing back w %i\n", w );
+      //printf("UI::add() pushing back w %i\n", w );
       widgets.push_back( w );
     }
     
-    virtual int run( int fps = 1000 )
+    virtual int run()
     {
-      int delay = (1.f / fps) * 1000 * 1000;
-      printf("UI running at %i fps, delay %i\n", fps, delay );
+      puglPostRedisplay( view );
       
       while ( !quit_ )
       {
