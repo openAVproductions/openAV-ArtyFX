@@ -22,6 +22,8 @@ UI::UI( int w__, int h__ ) :
   puglSetDisplayFunc  (view, UI::onDisplay);
   puglSetCloseFunc    (view, UI::onClose  );
   
+  puglSetSpecialFunc  (view, UI::onSpecial);
+  
   puglCreateWindow    (view, "Avtk");
   puglShowWindow      (view);
   
@@ -57,15 +59,14 @@ void UI::event( const PuglEvent* event )
         for (std::list< ptr<Avtk::Widget> >::iterator it = widgets.begin(); it != widgets.end(); it++)
         {
           //printf("EVENT() widget # %i\n", i++ );
-          if( (*it)->touches( event->button.x, event->button.y, true ) )
+          if( (*it)->touches( event->button.x, event->button.y ) )
           {
             (*it)->value( !(*it)->value() );
-            printf("touches widget # %i, new value %f\n", i, (*it)->value() );
+            //printf("touches widget # %i, new value %f\n", i, (*it)->value() );
+            puglPostRedisplay(view);
           }
           i++;
         }
-        
-        puglPostRedisplay(view);
       }
       break;
     

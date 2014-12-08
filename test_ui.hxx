@@ -7,19 +7,7 @@
 #include "header.c"
 
 // FIXME: refactor?
-static void widgetCB(Avtk::Widget* w, void* ud)
-{
-  //printf( "widgetCB(), label = %s\n", w->label.c_str() );
-  
-  /*
-  std::vector< std::string > files;
-  
-  Avtk::directoryContents( "/root", files );
-  
-  for( int i = 0; i < files.size(); i++)
-    printf("%i : %s\n", i, files.at(i).c_str() );
-  */
-}
+static void widgetCB(Avtk::Widget* w, void* ud);
 
 class TestUI : public Avtk::UI
 {
@@ -53,5 +41,27 @@ class TestUI : public Avtk::UI
       
     }
 };
+
+static void widgetCB(Avtk::Widget* w, void* ud)
+{
+  if( w->theme->cornerRadius() < 4 )
+    w->theme->cornerRadius( 4 );
+  else
+    w->theme->cornerRadius( 2 );
+  
+  printf( "widgetCB(), rad = %i\n", w->theme->cornerRadius() );
+  
+  TestUI* ui = (TestUI*)ud;
+  ui->redraw();
+  
+  /*
+  std::vector< std::string > files;
+  
+  Avtk::directoryContents( "/root", files );
+  
+  for( int i = 0; i < files.size(); i++)
+    printf("%i : %s\n", i, files.at(i).c_str() );
+  */
+}
 
 #endif // OPENAV_AVTK_TEST_UI_HXX

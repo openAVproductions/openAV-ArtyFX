@@ -34,9 +34,14 @@ class UI
       widgets.push_back( w );
     }
     
-    virtual int run()
+    void redraw()
     {
       puglPostRedisplay( view );
+    }
+    
+    virtual int run()
+    {
+      redraw();
       
       while ( !quit_ )
       {
@@ -62,6 +67,10 @@ class UI
     // Technically this is a list of yasper::ptr<Avtk::Widget> types, but they
     // act generally like raw pointers would do
     std::list< ptr<Avtk::Widget> > widgets;
+    
+    static void onSpecial(PuglView* view, bool pressed, PuglKey key)
+    {
+    }
     
     static void onClose(PuglView* view)
     {

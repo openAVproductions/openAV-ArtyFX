@@ -44,21 +44,19 @@ class Widget
     void value( float v )
     {
       value_ = v;
+      
+      // call the callback if its set, and not told not to
+      if ( true && callback )
+        callback( this, callbackUD );
     }
     
     virtual void draw( cairo_t* cr ) = 0;
     
     virtual ~Widget(){}
     
-    bool touches( int inx, int iny, bool doCallback = false )
+    bool touches( int inx, int iny )
     {
-      bool t = ( inx >= x && inx <= x + w && iny >= y && iny <= y + h);
-      
-      // call the callback if its set, and not told not to
-      if ( doCallback && callback )
-        callback( this, callbackUD );
-      
-      return t;
+      return ( inx >= x && inx <= x + w && iny >= y && iny <= y + h);
     }
     
     int x, y, w, h;         /// widget co-ords and size

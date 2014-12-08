@@ -38,7 +38,7 @@ class Theme
     
     virtual void cornerRadius( int c )
     {
-      cornerRadius_;
+      cornerRadius_ = c;
     }
     
     virtual void alpha( float a )
