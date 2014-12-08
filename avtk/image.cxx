@@ -51,9 +51,9 @@ void Image::draw( cairo_t* cr )
     printf("Image::write_to_png() ERROR\n");
   }
   */
-  
+  cairo_save( cr );
   cairo_set_source_surface( cr, imgSurf, 0, 0 );
-  cairo_rectangle( cr, 0, 0, w, h );
   cairo_paint( cr );
+  cairo_restore( cr );
 }
 

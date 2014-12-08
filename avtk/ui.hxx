@@ -34,7 +34,7 @@ class UI
       widgets.push_back( w );
     }
     
-    virtual int run( int fps = 30)
+    virtual int run( int fps = 1000 )
     {
       int delay = (1.f / fps) * 1000 * 1000;
       printf("UI running at %i fps, delay %i\n", fps, delay );
@@ -42,7 +42,7 @@ class UI
       while ( !quit_ )
       {
         puglProcessEvents(view);
-        usleep( delay );
+        usleep( 10 );
       }
       
       return 0;

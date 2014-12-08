@@ -482,49 +482,17 @@ puglProcessEvents(PuglView* view)
   }
 
   if (view->redisplay) {
-    /*
-    // switch the front/back buffer
-    view->impl->crIsActiveBuffer = !view->impl->crIsActiveBuffer;
-    
-    if ( view->impl->crIsActiveBuffer )
-      
-    else
-      cairo_xlib_surface_set_drawable( view->impl->surfaceBackBuffer, view->impl->win, view->width, view->height );
-    
-    printf("redraw with surface %i\n", (int)(view->impl->crIsActiveBuffer ) );
-    */
-    
-    //cairo_rectangle( view->impl->crBackBuffer,  0, 0, view->width, view->height);
-    //cairo_set_source_rgb (view->impl->cr, 0.1,0.1,1.1);
-    //cairo_fill( view->impl->crBackBuffer );
-    
-    //cairo_rectangle( view->impl->cr,  0, 0, view->width, view->height);
-    //cairo_set_source_rgb (view->impl->cr, 0.1,1.1,0.1);
-    //cairo_fill( view->impl->cr );
-    
-    //cairo_xlib_surface_set_drawable( view->impl->surfaceBackBuffer, view->impl->win, view->width, view->height );
-    
-    //cairo_surface_flush( view->impl->surfaceBackBuffer );
-    //cairo_surface_mark_dirty( view->impl->surfaceBackBuffer );
-    //cairo_flush( view->impl->crBackBuffer );
-    /*
-    cairo_surface_mark_dirty( view->impl->cr );
-    */
-    
-    // copy the backbuffer to the other context
-    /*
-    cairo_set_source_surface( view->impl->cr, view->impl->surfaceBackBuffer, view->width, view->height );
-    cairo_rectangle( view->impl->cr, 0, 0, view->width, view->height);
-    cairo_paint( view->impl->cr );
-    */
-    
-    //cairo_surface_flush( view->impl->surface );
-    //cairo_surface_flush( view->impl->surfaceBackBuffer );
-    
     const PuglEventExpose expose = {
       PUGL_EXPOSE, view, true, 0, 0, view->width, view->height, 0
     };
     puglDispatchEvent(view, (const PuglEvent*)&expose);
+    
+    // copy the backbuffer to the frontbuffer cairo context
+    cairo_save( view->impl->cr );
+    cairo_surface_flush( view->impl->surfaceBackBuffer );
+    cairo_set_source_surface( view->impl->cr, view->impl->surfaceBackBuffer, 0, 0 );
+    cairo_paint( view->impl->cr );
+    cairo_restore( view->impl->cr );
   }
 
   return PUGL_SUCCESS;
@@ -547,15 +515,8 @@ puglGetContext(PuglView* view)
 {
 #ifdef PUGL_HAVE_CAIRO
   if (view->ctx_type == PUGL_CAIRO) {
-    
-    return view->impl->cr;
+    // return the backbuffer for drawing to during PUGL's DisplayFunc
     return view->impl->crBackBuffer;
-    /*
-    if ( view->impl->crIsActiveBuffer )
-      
-    else
-      return view->impl->cr;
-    */
   }
 #endif
   return NULL;

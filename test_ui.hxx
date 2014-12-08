@@ -27,11 +27,13 @@ class TestUI : public Avtk::UI
     TestUI():
       Avtk::UI( 610, 430 )
     {
+      addRow( 0, 72 );
+      
       Avtk::Image* w = new Avtk::Image( 0,0,610,36, "-" );
       w->load( header.pixel_data );
       add( w );
       
-      addRow( 0, 72 );
+      
       
       for(int i = 0; i < 16; i++){
         addRow( 75 + i * ( 3 + 22 ) );

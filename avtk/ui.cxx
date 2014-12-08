@@ -22,7 +22,7 @@ UI::UI( int w__, int h__ ) :
   puglSetDisplayFunc  (view, UI::onDisplay);
   puglSetCloseFunc    (view, UI::onClose  );
   
-  puglCreateWindow    (view, "Vizia GUI");
+  puglCreateWindow    (view, "Avtk");
   puglShowWindow      (view);
   
   puglSetHandle       (view, this);

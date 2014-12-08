@@ -70,6 +70,7 @@ class Widget
     
     static Theme* theme;
     
+    /// the callback and its userdata pointer
     void (*callback)(Widget* , void*);
     void* callbackUD;
 };
