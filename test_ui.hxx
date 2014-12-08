@@ -44,11 +44,12 @@ class TestUI : public Avtk::UI
 
 static void widgetCB(Avtk::Widget* w, void* ud)
 {
+	/*
   if( w->theme->cornerRadius() < 4 )
     w->theme->cornerRadius( 4 );
   else
     w->theme->cornerRadius( 2 );
-  
+  */
   printf( "widgetCB(), rad = %i\n", w->theme->cornerRadius() );
   
   TestUI* ui = (TestUI*)ud;

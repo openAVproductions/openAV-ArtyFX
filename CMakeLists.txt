@@ -19,6 +19,7 @@ option(AVTK_DEBUG_PRINTS  "Build with debugging prints" ON )
 
 ADD_DEFINITIONS( "-DAVTK_VERSION_STRING=\"v ${AVTK_VERSION}\"" )
 
+include_directories ("${PROJECT_SOURCE_DIR}/avtk/")
 
 find_package(PkgConfig)
 
