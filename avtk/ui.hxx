@@ -36,6 +36,7 @@ class UI
     
     void redraw()
     {
+      printf("redraw()\n");
       puglPostRedisplay( view );
     }
     

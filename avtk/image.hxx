@@ -10,7 +10,7 @@ namespace Avtk
 class Image : public Widget
 {
   public:
-    Image(int x, int y, int w, int h, std::string label);
+    Image( Avtk::UI* ui, int x, int y, int w, int h, std::string label);
     ~Image();
     
     /// assumes image is same size as this widget, and 4 bytes per pixel: RGBA

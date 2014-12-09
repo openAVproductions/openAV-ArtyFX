@@ -9,14 +9,19 @@
 #include "utils.hxx"
 #include "theme.hxx"
 #include "helpers.hxx"
+#include "pugl/pugl.h"
+
 
 namespace Avtk
 {
 
+class UI;
+
 class Widget
 {
   public:
-    Widget(int x_, int y_, int w_, int h_, std::string label_) :
+    Widget( Avtk::UI* ui_, int x_, int y_, int w_, int h_, std::string label_) :
+      ui(ui_),
       x( x_ ),
       y( y_ ),
       w( w_ ),
@@ -33,6 +38,9 @@ class Widget
         theme = new Theme();
       }
     }
+    
+    virtual ~Widget(){}
+    
     
     /// get the current value
     float value()
@@ -52,12 +60,21 @@ class Widget
     
     virtual void draw( cairo_t* cr ) = 0;
     
-    virtual ~Widget(){}
     
     bool touches( int inx, int iny )
     {
       return ( inx >= x && inx <= x + w && iny >= y && iny <= y + h);
     }
+    
+    /// called by the UI class on any event that occurs
+    int handle( const PuglEvent* event );
+    
+    // FIXME: move to UI
+    static Theme* theme;
+    
+    /// the callback and its userdata pointer
+    void (*callback)(Widget* , void*);
+    void* callbackUD;
     
     int x, y, w, h;         /// widget co-ords and size
     std::string label;      /// widget name - sometimes shown in UI
@@ -65,12 +82,11 @@ class Widget
     
     // 0 when no mouse button is down, otherwise the mouse button pressed
     int mouseButtonPressed_;
+  
+  private:
+    /// the Avtk::UI pointer, used to redraw the view etc
+    Avtk::UI* ui;
     
-    static Theme* theme;
-    
-    /// the callback and its userdata pointer
-    void (*callback)(Widget* , void*);
-    void* callbackUD;
 };
 
 };

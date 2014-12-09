@@ -7,13 +7,14 @@
 
 using namespace Avtk;
 
-Slider::Slider(int x_, int y_, int w_, int h_, std::string label_) :
-  Widget( x_, y_, w_, h_, label_ )
+Slider::Slider( Avtk::UI* ui, int x_, int y_, int w_, int h_, std::string label_) :
+  Widget( ui, x_, y_, w_, h_, label_ )
 {
 }
 
 void Slider::draw( cairo_t* cr )
 {
+  /*
   if ( value() )
   {
     theme->alpha( 0.4 );
@@ -24,10 +25,12 @@ void Slider::draw( cairo_t* cr )
     theme->alpha( 0.2 );
     theme->fg( cr );
   }
+  */
   
-  roundedBox(cr, x, y, w, h, theme->cornerRadius() );
-  cairo_fill_preserve(cr);
-  
+  // fader
+  theme->highlight( cr );
+  roundedBox(cr, x + 2, w + h - h*value(), w - 4, 16, theme->cornerRadius() );
+  cairo_stroke(cr);
   theme->transparent( false );
   
   // Draw border

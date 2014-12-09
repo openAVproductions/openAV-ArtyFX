@@ -5,8 +5,8 @@
 
 using namespace Avtk;
 
-Image::Image(int x_, int y_, int w_, int h_, std::string label_) :
-  Widget( x_, y_, w_, h_, label_ ),
+Image::Image( Avtk::UI* ui, int x_, int y_, int w_, int h_, std::string label_) :
+  Widget( ui, x_, y_, w_, h_, label_ ),
   imgSurf(0),
   cairoImgData(0)
 {

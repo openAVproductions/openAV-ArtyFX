@@ -10,7 +10,7 @@ namespace Avtk
 class Slider : public Widget
 {
   public:
-    Slider(int x, int y, int w, int h, std::string label);
+    Slider( Avtk::UI* ui, int x, int y, int w, int h, std::string label);
     
     virtual void draw( cairo_t* cr );
 };

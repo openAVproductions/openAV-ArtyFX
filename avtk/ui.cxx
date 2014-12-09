@@ -48,25 +48,20 @@ void UI::display( cairo_t* cr )
 
 void UI::event( const PuglEvent* event )
 {
+  // reverse iter over widgets (aka starting on "top"), calling handle()
+  for (std::list< ptr<Avtk::Widget> >::iterator it = widgets.begin(); it != widgets.end(); it++ )
+  {
+    if( (*it)->handle( event ) )
+      return;
+  }
+  
+  
+  /*
   switch (event->type)
   {
     case PUGL_BUTTON_PRESS:
       {
-        if ( event->button.x == 0 && event->button.y == 0 )
-          return;
         
-        int i = 0;
-        for (std::list< ptr<Avtk::Widget> >::iterator it = widgets.begin(); it != widgets.end(); it++)
-        {
-          //printf("EVENT() widget # %i\n", i++ );
-          if( (*it)->touches( event->button.x, event->button.y ) )
-          {
-            (*it)->value( !(*it)->value() );
-            //printf("touches widget # %i, new value %f\n", i, (*it)->value() );
-            puglPostRedisplay(view);
-          }
-          i++;
-        }
       }
       break;
     
@@ -82,4 +77,5 @@ void UI::event( const PuglEvent* event )
     default:
       break;
   }
+  */
 }

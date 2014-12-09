@@ -17,13 +17,15 @@ class TestUI : public Avtk::UI
     {
       addRow( 0, 72 );
       
-      Avtk::Image* w = new Avtk::Image( 0, 0, 610, 36, "-" );
+      Avtk::Image* w = new Avtk::Image( this, 0, 0, 610, 36, "-" );
       w->load( header.pixel_data );
       add( w );
       
       for(int i = 0; i < 16; i++){
         addRow( 75 + i * ( 3 + 22 ) );
       }
+      
+      add( new Avtk::Slider( this, 460, 40, 22, 220, "Vol" ) );
     }
     
     void addRow( int offset, int btnW = 22 )
@@ -33,7 +35,7 @@ class TestUI : public Avtk::UI
         Avtk::Widget* w = 0;
         int spcr =  3;
         int btnH = 22;
-        w = new Avtk::Button( offset + spcr, 40 + ( btnH + spcr )* r, btnW, btnH, "-" );
+        w = new Avtk::Button( this, offset + spcr, 40 + ( btnH + spcr )* r, btnW, btnH, "-" );
         w->callback = widgetCB;
         w->callbackUD = this;
         add( w );

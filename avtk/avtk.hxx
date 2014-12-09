@@ -12,6 +12,6 @@
 // widget headers
 #include "image.hxx"
 #include "button.hxx"
-//#include "slider.hxx"
+#include "slider.hxx"
 
 #endif // OPENAV_AVTK_HXX
