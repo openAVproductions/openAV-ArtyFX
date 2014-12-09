@@ -14,6 +14,10 @@ Slider::Slider( Avtk::UI* ui, int x_, int y_, int w_, int h_, std::string label_
   Widget( ui, x_, y_, w_, h_, label_ )
 {
   clickDragMode( CDM_DRAG_VERTICAL );
+  
+  if ( w_ > h_ )
+    clickDragMode( CDM_DRAG_HORIZONTAL );
+  
 }
 
 void Slider::draw( cairo_t* cr )
@@ -27,8 +31,17 @@ void Slider::draw( cairo_t* cr )
   ui->theme->transparent( true );
   ui->theme->highlight( cr );
   const int faderHeight = 16;
-  const int range = (h-faderHeight-2);
-  roundedBox(cr, x + 1, y + 1 + range - range*value(), w - 2, faderHeight, ui->theme->cornerRadius() );
+  
+  if( cdm == CDM_DRAG_VERTICAL )
+  {
+    const int range = (h-faderHeight-2);
+    roundedBox(cr, x + 1, y + 1 + range - range*value(), w - 2, faderHeight, ui->theme->cornerRadius() );
+  }
+  else
+  {
+    const int range = (w-faderHeight-2);
+    roundedBox(cr, x + 1 + range*value(), y + 1, faderHeight, h - 2, ui->theme->cornerRadius() );
+  }
   cairo_fill_preserve(cr);
   ui->theme->transparent( false );
   cairo_set_line_width(cr, 1.2);

@@ -27,7 +27,7 @@ class TestUI : public Avtk::UI
       
       add( new Avtk::Slider( this, 480, 40, 22, 110, "Vol" ) );
       add( new Avtk::Slider( this, 520, 40, 22, 220, "Vol" ) );
-      add( new Avtk::Slider( this, 560, 40, 22, 350, "Vol" ) );
+      add( new Avtk::Slider( this,  40,350, 350, 22, "Vol" ) );
     }
     
     void addRow( int offset, int btnW = 22 )
@@ -48,7 +48,7 @@ class TestUI : public Avtk::UI
 
 static void widgetCB(Avtk::Widget* w, void* ud)
 {
-	/*
+  /*
   if( w->theme->cornerRadius() < 4 )
     w->theme->cornerRadius( 4 );
   else
