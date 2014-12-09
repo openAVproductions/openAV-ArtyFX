@@ -1,6 +1,9 @@
 
 #include "button.hxx"
 
+#include "ui.hxx"
+#include "theme.hxx"
+
 #include <stdio.h>
 
 using namespace Avtk;
@@ -14,19 +17,19 @@ void Button::draw( cairo_t* cr )
 {
   if ( value() )
   {
-    theme->alpha( 0.8 );
-    theme->highlight( cr );
+    ui->theme->alpha( 0.8 );
+    ui->theme->highlight( cr );
   }
   else
   {
-    theme->alpha( 0.2 );
-    theme->fg( cr );
+    ui->theme->alpha( 0.2 );
+    ui->theme->fg( cr );
   }
   
-  roundedBox(cr, x, y, w, h, theme->cornerRadius() );
+  roundedBox(cr, x, y, w, h, ui->theme->cornerRadius() );
   cairo_fill_preserve(cr);
   
-  theme->transparent( false );
+  ui->theme->transparent( false );
   
   cairo_set_line_width(cr, 0.7);
   cairo_stroke(cr);
@@ -41,11 +44,11 @@ void Button::draw( cairo_t* cr )
   
   if( !value() )
   {
-    theme->fg( cr );
+    ui->theme->fg( cr );
   }
   else
   {
-    theme->bgDark( cr );
+    ui->theme->bgDark( cr );
   }
   cairo_show_text(cr, label.c_str());
 }

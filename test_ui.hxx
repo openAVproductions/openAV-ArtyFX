@@ -52,7 +52,7 @@ static void widgetCB(Avtk::Widget* w, void* ud)
   else
     w->theme->cornerRadius( 2 );
   */
-  printf( "widgetCB(), rad = %i\n", w->theme->cornerRadius() );
+  //printf( "widgetCB(), rad = %i\n", w->theme->cornerRadius() );
   
   TestUI* ui = (TestUI*)ud;
   ui->redraw();

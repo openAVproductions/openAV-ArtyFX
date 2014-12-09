@@ -7,7 +7,6 @@
 #include <cairo/cairo.h>
 
 #include "utils.hxx"
-#include "theme.hxx"
 #include "helpers.hxx"
 #include "pugl/pugl.h"
 
@@ -20,57 +19,21 @@ class UI;
 class Widget
 {
   public:
-    Widget( Avtk::UI* ui_, int x_, int y_, int w_, int h_, std::string label_) :
-      ui(ui_),
-      x( x_ ),
-      y( y_ ),
-      w( w_ ),
-      h( h_ ),
-      label( label_ ),
-      value_( 0 ),
-      mouseButtonPressed_(0),
-      
-      callback( 0 ),
-      callbackUD( 0 )
-    {
-      if( theme == 0 )
-      {
-        theme = new Theme();
-      }
-    }
-    
+    Widget( Avtk::UI* ui_, int x_, int y_, int w_, int h_, std::string label_);
     virtual ~Widget(){}
     
-    
     /// get the current value
-    float value()
-    {
-      return value_;
-    }
+    float value() { return value_; }
     
     /// set a new value, triggers "new-value" event
-    void value( float v )
-    {
-      value_ = v;
-      
-      // call the callback if its set, and not told not to
-      if ( true && callback )
-        callback( this, callbackUD );
-    }
+    void value( float v );
     
     virtual void draw( cairo_t* cr ) = 0;
     
-    
-    bool touches( int inx, int iny )
-    {
-      return ( inx >= x && inx <= x + w && iny >= y && iny <= y + h);
-    }
+    bool touches( int inx, int iny );
     
     /// called by the UI class on any event that occurs
     int handle( const PuglEvent* event );
-    
-    // FIXME: move to UI
-    static Theme* theme;
     
     /// the callback and its userdata pointer
     void (*callback)(Widget* , void*);
@@ -80,10 +43,10 @@ class Widget
     std::string label;      /// widget name - sometimes shown in UI
     float value_;           /// widget value
     
-    // 0 when no mouse button is down, otherwise the mouse button pressed
+    /// 0 when no mouse button is down, otherwise the mouse button pressed
     int mouseButtonPressed_;
   
-  private:
+  protected:
     /// the Avtk::UI pointer, used to redraw the view etc
     Avtk::UI* ui;
     

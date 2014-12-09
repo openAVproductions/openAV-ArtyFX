@@ -18,6 +18,7 @@ using namespace yasper;
 namespace Avtk
 {
 
+class Theme;
 class Widget;
 
 
@@ -36,7 +37,6 @@ class UI
     
     void redraw()
     {
-      printf("redraw()\n");
       puglPostRedisplay( view );
     }
     
@@ -57,6 +57,8 @@ class UI
     {
       puglDestroy( view );
     }
+    
+    Theme* theme;
   
   private:
     PuglView* view;

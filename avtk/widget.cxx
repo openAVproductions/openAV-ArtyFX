@@ -4,9 +4,25 @@
 #include "ui.hxx"
 #include "theme.hxx"
 
-Avtk::Theme* Avtk::Widget::theme = 0;
+namespace Avtk
+{
 
-int Avtk::Widget::handle( const PuglEvent* event )
+Widget::Widget( Avtk::UI* ui_, int x_, int y_, int w_, int h_, std::string label_) :
+  ui(ui_),
+  x( x_ ),
+  y( y_ ),
+  w( w_ ),
+  h( h_ ),
+  label( label_ ),
+  value_( 0 ),
+  mouseButtonPressed_(0),
+  
+  callback( 0 ),
+  callbackUD( 0 )
+{
+}
+
+int Widget::handle( const PuglEvent* event )
 {
   switch (event->type)
   {
@@ -28,3 +44,18 @@ int Avtk::Widget::handle( const PuglEvent* event )
   return 0;
 }
 
+void Widget::value( float v )
+{
+  value_ = v;
+  
+  // call the callback if its set, and not told not to
+  if ( true && callback )
+    callback( this, callbackUD );
+}
+
+bool Widget::touches( int inx, int iny )
+{
+  return ( inx >= x && inx <= x + w && iny >= y && iny <= y + h);
+}
+
+}; // Avtk

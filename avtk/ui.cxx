@@ -2,6 +2,7 @@
 #include "ui.hxx"
 
 #include "avtk.hxx"
+#include "theme.hxx"
 
 using namespace Avtk;
 
@@ -28,6 +29,8 @@ UI::UI( int w__, int h__ ) :
   puglShowWindow      (view);
   
   puglSetHandle       (view, this);
+  
+  theme = new Theme();
 }
 
 void UI::display( cairo_t* cr )
@@ -55,14 +58,11 @@ void UI::event( const PuglEvent* event )
       return;
   }
   
-  
-  /*
+  // code is only reached is *none* of the widgets handled an event:
+  // we can implement UI wide hotkeys here, handle unknown events
   switch (event->type)
   {
     case PUGL_BUTTON_PRESS:
-      {
-        
-      }
       break;
     
     case PUGL_KEY_PRESS:
@@ -77,5 +77,4 @@ void UI::event( const PuglEvent* event )
     default:
       break;
   }
-  */
 }
