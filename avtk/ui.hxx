@@ -35,6 +35,16 @@ class UI
       widgets.push_back( w );
     }
     
+    /// setDragWidget tells the UI a widget has captured a mouse-down event, and
+    /// wants to be notified of mouse movement events
+    void wantsMotionUpdates( Avtk::Widget* w, bool notifyOfMotion )
+    {
+      if( notifyOfMotion )
+        motionUpdateWidget = w;
+      else
+        motionUpdateWidget = 0;
+    }
+    
     void redraw()
     {
       puglPostRedisplay( view );
@@ -71,8 +81,19 @@ class UI
     // act generally like raw pointers would do
     std::list< ptr<Avtk::Widget> > widgets;
     
+    Avtk::Widget* motionUpdateWidget;
+    
+    
+    void motion(int x, int y);
+    
     static void onSpecial(PuglView* view, bool pressed, PuglKey key)
     {
+    }
+    
+    static void onMotion(PuglView* view, int x, int y)
+    {
+      UI* ui = (UI*)puglGetHandle( view );
+      ui->motion( x, y );
     }
     
     static void onClose(PuglView* view)

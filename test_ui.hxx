@@ -25,7 +25,9 @@ class TestUI : public Avtk::UI
         addRow( 75 + i * ( 3 + 22 ) );
       }
       
-      add( new Avtk::Slider( this, 460, 40, 22, 220, "Vol" ) );
+      add( new Avtk::Slider( this, 480, 40, 22, 110, "Vol" ) );
+      add( new Avtk::Slider( this, 520, 40, 22, 220, "Vol" ) );
+      add( new Avtk::Slider( this, 560, 40, 22, 350, "Vol" ) );
     }
     
     void addRow( int offset, int btnW = 22 )

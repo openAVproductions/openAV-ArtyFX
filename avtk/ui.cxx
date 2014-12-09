@@ -22,6 +22,7 @@ UI::UI( int w__, int h__ ) :
   puglSetEventFunc    (view, UI::onEvent  );
   puglSetDisplayFunc  (view, UI::onDisplay);
   puglSetCloseFunc    (view, UI::onClose  );
+  puglSetMotionFunc   (view, UI::onMotion );
   
   puglSetSpecialFunc  (view, UI::onSpecial);
   
@@ -31,6 +32,8 @@ UI::UI( int w__, int h__ ) :
   puglSetHandle       (view, this);
   
   theme = new Theme();
+  
+  motionUpdateWidget = 0;
 }
 
 void UI::display( cairo_t* cr )
@@ -76,5 +79,13 @@ void UI::event( const PuglEvent* event )
     
     default:
       break;
+  }
+}
+
+void UI::motion(int x, int y)
+{
+  if( motionUpdateWidget )
+  {
+    motionUpdateWidget->drag( x, y );
   }
 }

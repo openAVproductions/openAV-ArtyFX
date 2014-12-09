@@ -35,6 +35,8 @@ class Widget
     /// called by the UI class on any event that occurs
     int handle( const PuglEvent* event );
     
+    void drag( int x, int y );
+    
     /// the callback and its userdata pointer
     void (*callback)(Widget* , void*);
     void* callbackUD;
@@ -49,6 +51,18 @@ class Widget
   protected:
     /// the Avtk::UI pointer, used to redraw the view etc
     Avtk::UI* ui;
+    
+    /// enum defines the way in which mouse click / drag works
+    enum ClickDragMode {
+      CDM_NONE,             /// clicking toggles value() as a bool
+      CDM_DRAG_VERTICAL,    /// vertical mouse drag will change value()
+      CDM_DRAG_HORIZONTAL,  /// horizontal mouse drag changes value()
+    };
+    
+    void clickDragMode( ClickDragMode cdm );
+    
+    ClickDragMode cdm;
+    int mX, mY;
     
 };
 
