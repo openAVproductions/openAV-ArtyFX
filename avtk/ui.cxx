@@ -40,7 +40,7 @@ void UI::display( cairo_t* cr )
 {
   /// clear the screen
   cairo_rectangle( cr, 0, 0, w_, h_ );
-  cairo_set_source_rgb( cr, 24/255, 24/255, 24/255 );
+  cairo_set_source_rgb( cr, 24/255., 24/255., 24/255. );
   cairo_fill( cr );
   
   /// iter over widgets, drawing each in the order they were add()-ed
@@ -80,6 +80,11 @@ void UI::event( const PuglEvent* event )
     default:
       break;
   }
+}
+
+void UI::redraw( Avtk::Widget* w )
+{
+  puglPostExpose( view, w->x, w->y, w->w, w->h );
 }
 
 void UI::motion(int x, int y)

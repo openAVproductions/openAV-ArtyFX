@@ -50,6 +50,8 @@ class UI
       puglPostRedisplay( view );
     }
     
+    void redraw( Avtk::Widget* w );
+    
     virtual int run()
     {
       redraw();

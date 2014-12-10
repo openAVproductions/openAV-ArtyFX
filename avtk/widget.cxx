@@ -38,7 +38,11 @@ int Widget::handle( const PuglEvent* event )
         if( touches( event->button.x, event->button.y ) )
         {
           if( cdm == CDM_NONE )
+          {
             value( !value() );
+            printf("touches widget, new value %f\n", value() );
+            ui->redraw( this );
+          }
           else if ( cdm == CDM_DRAG_VERTICAL ||
                     cdm == CDM_DRAG_HORIZONTAL )
           {
@@ -49,9 +53,6 @@ int Widget::handle( const PuglEvent* event )
             // tell the UI that the current widget wants motion notify
             ui->wantsMotionUpdates( this, true );
           }
-          
-          printf("touches widget, new value %f\n", value() );
-          ui->redraw();
         }
       } break;
     case PUGL_BUTTON_RELEASE:
@@ -77,7 +78,7 @@ void Widget::drag( int x, int y )
   mX = x;
   mY = y;
   
-  ui->redraw();
+  ui->redraw( this );
 }
 
 void Widget::value( float v )

@@ -47,14 +47,16 @@ class Widget
     
     /// 0 when no mouse button is down, otherwise the mouse button pressed
     int mouseButtonPressed_;
-  
-  protected:
+    
     /// the Avtk::UI pointer, used to redraw the view etc
     Avtk::UI* ui;
+  
+  protected:
+    
     
     /// enum defines the way in which mouse click / drag works
     enum ClickDragMode {
-      CDM_NONE,             /// clicking toggles value() as a bool
+      CDM_NONE,             /// clicking toggles value() as a bool (default)
       CDM_DRAG_VERTICAL,    /// vertical mouse drag will change value()
       CDM_DRAG_HORIZONTAL,  /// horizontal mouse drag changes value()
     };
