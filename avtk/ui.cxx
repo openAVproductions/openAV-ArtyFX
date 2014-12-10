@@ -31,7 +31,7 @@ UI::UI( int w__, int h__ ) :
   
   puglSetHandle       (view, this);
   
-  theme = new Theme();
+  theme = new Theme( this );
   
   motionUpdateWidget = 0;
 }

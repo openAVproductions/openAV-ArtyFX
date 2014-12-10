@@ -2,8 +2,15 @@
 #ifndef OPENAV_AVTK_THEME_HXX
 #define OPENAV_AVTK_THEME_HXX
 
+#include <string>
+#include <stdio.h>
+#include <cairo/cairo.h>
+
 namespace Avtk
 {
+
+/// forward declaration of the class
+class UI;
 
 /// each color gets a use-case. To draw using said color
 enum USE_CASE
@@ -30,10 +37,12 @@ enum USE_CASE
 class Theme
 {
   public:
-    Theme( std::string name = "OpenAV Default" ) :
-      cornerRadius_( 1 ),
+    Theme( Avtk::UI* ui_, std::string name = "OpenAV Default" ) :
+      cornerRadius_( 2 ),
       lineWidthThin_( 0.9 ),
-      lineWidthWide_( 2.1 )
+      lineWidthWide_( 2.1 ),
+      
+      ui( ui_ )
     {}
     
     float color( cairo_t* cr, USE_CASE uc, float alpha = 1.0 )
@@ -56,47 +65,15 @@ class Theme
     }
     
     /// default theme, values returned using float ret value 
-    float useDefaultColor( cairo_t* cr, USE_CASE uc, float alpha_ )
-    {
-      switch( uc )
-      {
-        case BG:
-          cairo_set_source_rgba(cr,  34/255.,  34/255.,  34/255., alpha_);
-          break;
-        case BG_DARK:
-          cairo_set_source_rgba(cr,  17/255.,  17/255.,  17/255., alpha_);
-          break;
-      
-        case FG:
-          cairo_set_source_rgba(cr,  76/255.,  80/255.,  83/255., alpha_);
-          break;
-        case FG_DARK:
-          cairo_set_source_rgba(cr,  35/255.,  87/255., 136/255., alpha_);
-          break;
-        
-        case HIGHLIGHT:
-          cairo_set_source_rgba(cr,   0/255., 128/255., 255/255., alpha_);
-          break;
-        
-        case CORNER_RADIUS:
-          return cornerRadius_;
-          break;
-        
-        default:
-          printf("Theme::useDefaultColor() color %i not handled!\n");
-          break;
-      };
-    }
+    float useDefaultColor( cairo_t* cr, USE_CASE uc, float alpha_ );
     
-    virtual void cornerRadius( int c )
-    {
-      cornerRadius_ = c;
-      //ui->redraw();
-    }
+    void cornerRadius( int c );
     
     int cornerRadius_;
     int lineWidthThin_;
     int lineWidthWide_;
+    
+    Avtk::UI* ui;
 };
 
 };

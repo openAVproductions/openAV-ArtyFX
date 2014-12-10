@@ -89,7 +89,7 @@ void Widget::value( float v )
   value_ = v;
   
   // call the callback if its set, and not told not to
-  if ( true && callback )
+  if ( callback )
     callback( this, callbackUD );
 }
 
