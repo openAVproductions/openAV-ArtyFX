@@ -15,5 +15,6 @@
 #include "button.hxx"
 #include "slider.hxx"
 #include "envelope.hxx"
+#include "waveform.hxx"
 
 #endif // OPENAV_AVTK_HXX

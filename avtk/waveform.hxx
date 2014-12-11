@@ -1,0 +1,34 @@
+
+#ifndef OPENAV_AVTK_WAVEFORM_HXX
+#define OPENAV_AVTK_WAVEFORM_HXX
+
+#include "widget.hxx"
+
+#include "yasper.hxx"
+#include <vector>
+
+namespace Avtk
+{
+
+class Waveform : public Widget
+{
+  public:
+    Waveform( Avtk::UI* ui, int x, int y, int w, int h, std::string label);
+    
+    virtual void draw( cairo_t* cr );
+    
+    void show( std::vector<float> data );
+  
+  private:
+    bool newWaveform;
+    cairo_t*          waveformCr;
+    cairo_surface_t*  waveformSurf;
+    
+    /// this ptr (when not zero) points to a vector that contains the audio data
+    /// to be drawn. Its a shared ptr in order to ease memory book-keeping.
+    yasper::ptr< std::vector<float> > audioData;
+};
+
+};
+
+#endif // OPENAV_AVTK_WAVEFORM_HXX

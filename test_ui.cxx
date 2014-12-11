@@ -29,12 +29,12 @@ TestUI::TestUI( PuglNativeWindow parent ):
   add( w );
   
   // dial
-  w = new Avtk::Dial( this, 175, 175, 35, 35, "-" );
+  w = new Avtk::Waveform( this, 175, 175, 275, 65, "-" );
   //w->callback = widgetCB;
   w->callbackUD = this;
   add( w );
   
-  w = new Avtk::Envelope( this, 215, 175, 60, 40, "-" );
+  w = new Avtk::Envelope( this, 215, 115, 60, 40, "-" );
   //w->callback = widgetCB;
   w->callbackUD = this;
   add( w );
