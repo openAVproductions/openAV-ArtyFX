@@ -20,9 +20,13 @@ class TestUI : public Avtk::UI
     /// demo function, changes all widgets to value
     void setAllWidgets( Avtk::Widget* w, float value );
   
+    Avtk::Widget* waveform;
+  
   private:
     // stores the origin widget, to avoid recusive calling
     Avtk::Widget* originSetAllWidget;
+    
+    
 };
 
 

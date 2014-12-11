@@ -5,7 +5,8 @@
 static void roundCB(Avtk::Widget* w, void* ud);
 static void dialCB(Avtk::Widget* w, void* ud);
 static void widgetCB(Avtk::Widget* w, void* ud);
-
+static void zoomCB(Avtk::Widget* w, void* ud);
+static void zoomOffsetCB(Avtk::Widget* w, void* ud);
 
 TestUI::TestUI( PuglNativeWindow parent ):
   Avtk::UI( 610, 430, parent )
@@ -28,11 +29,11 @@ TestUI::TestUI( PuglNativeWindow parent ):
   w->callbackUD = this;
   add( w );
   
-  // dial
-  w = new Avtk::Waveform( this, 175, 175, 275, 65, "-" );
-  //w->callback = widgetCB;
-  w->callbackUD = this;
-  add( w );
+  // waveform
+  waveform = new Avtk::Waveform( this, 75, 175, 375, 125, "-" );
+  //waveform->callback = widgetCB;
+  //waveform->callbackUD = this;
+  add( waveform );
   
   w = new Avtk::Envelope( this, 215, 115, 60, 40, "-" );
   //w->callback = widgetCB;
@@ -45,12 +46,28 @@ TestUI::TestUI( PuglNativeWindow parent ):
   add( i );
   
   // slider horizontal
-  add( new Avtk::Slider( this,  40,350, 350, 22, "Vol" ) );
+  w =  new Avtk::Slider( this,  40,350, 350, 22, "Vol" );
+  w->callback   = zoomCB;
+  w->callbackUD = this;
+  add( w );
+  
+  w =  new Avtk::Slider( this,  40,374, 350, 22, "Vol" );
+  w->callback   = zoomOffsetCB;
+  w->callbackUD = this;
+  add( w );
+  
 }
 
-static void roundCB(Avtk::Widget* w, void* ud)
+static void zoomOffsetCB(Avtk::Widget* w, void* ud)
 {
-  //w->ui->theme->cornerRadius( w->value() * 11 );
+  TestUI* ui = (TestUI*)ud;
+  ((Avtk::Waveform*)ui->waveform)->zoomOffset( w->value() );
+}
+
+static void zoomCB(Avtk::Widget* w, void* ud)
+{
+  TestUI* ui = (TestUI*)ud;
+  ((Avtk::Waveform*)ui->waveform)->zoom( 1 + w->value() * 10 );
 }
 
 static void dialCB(Avtk::Widget* w, void* ud)
