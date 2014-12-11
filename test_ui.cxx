@@ -10,26 +10,32 @@ static void widgetCB(Avtk::Widget* w, void* ud);
 TestUI::TestUI( PuglNativeWindow parent ):
   Avtk::UI( 610, 430, parent )
 {
-  // button
-  Avtk::Widget* w = new Avtk::Button( this, 3, 45, 40, 22, "-" );
+  // slider vert
+  Avtk::Widget* w = new Avtk::Slider( this, 520, 40, 22, 220, "Rounded Corners" );
   w->callback = widgetCB;
+  w->callbackUD = this;
+  add( w );
+  
+  // button
+  w = new Avtk::Button( this, 3, 45, 40, 22, "-" );
+  //w->callback = widgetCB;
   w->callbackUD = this;
   add( w );
   
   // dial
   w = new Avtk::Dial( this, 75, 75, 75, 75, "-" );
-  w->callback = widgetCB;
+  //w->callback = widgetCB;
   w->callbackUD = this;
   add( w );
   
   // dial
   w = new Avtk::Dial( this, 175, 175, 35, 35, "-" );
-  w->callback = widgetCB;
+  //w->callback = widgetCB;
   w->callbackUD = this;
   add( w );
   
   w = new Avtk::Dial( this, 215, 175, 165, 165, "-" );
-  w->callback = widgetCB;
+  //w->callback = widgetCB;
   w->callbackUD = this;
   add( w );
   
@@ -38,11 +44,7 @@ TestUI::TestUI( PuglNativeWindow parent ):
   i->load( header.pixel_data );
   add( i );
   
-  // slider vert + horizontal
-  w = new Avtk::Slider( this, 520, 40, 22, 220, "Rounded Corners" );
-  w->callback = roundCB;
-  w->callbackUD = this;
-  add( w );
+  // slider horizontal
   add( new Avtk::Slider( this,  40,350, 350, 22, "Vol" ) );
 }
 
@@ -69,7 +71,6 @@ static void widgetCB(Avtk::Widget* w, void* ud)
   TestUI* ui = (TestUI*)ud;
   
   ui->setAllWidgets( w, w->value() );
-  ui->redraw();
   
   /*
   std::vector< std::string > files;
@@ -84,14 +85,15 @@ static void widgetCB(Avtk::Widget* w, void* ud)
 void TestUI::setAllWidgets( Avtk::Widget* w, float v )
 {
   originSetAllWidget = w;
+  printf( "setAllWidgets(), value = %f\n", v );
   
-  for (std::list< ptr<Avtk::Widget> >::iterator it = widgets.begin(); it != widgets.end(); it++ )
+  for (std::list< ptr<Avtk::Widget> >::iterator it = widgets.begin()++; it != widgets.end(); it++ )
   {
     // exclude sliders / drag widgets, since it'll act weird
-    if( w != originSetAllWidget )
+    if( (*it) != originSetAllWidget )
     {
       (*it)->value( v );
-      redraw();
     }
   }
+  redraw();
 }

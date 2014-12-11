@@ -19,7 +19,7 @@ void Button::draw( cairo_t* cr )
   
   roundedBox(cr, x, y, w, h, ui->theme->cornerRadius_ );
   
-  if( value() )
+  if( value() > 0.4999 )
   {
     ui->theme->color( cr, HIGHLIGHT, 0.2 );
     cairo_fill_preserve(cr);
