@@ -12,6 +12,10 @@
 
 #define AVTK_UI_URI "http://www.openavproductions.com/avtk#testUI"
 
+static void widgetCB(Avtk::Widget* w, void* ud)
+{
+  
+}
 
 namespace Avtk
 {
@@ -21,16 +25,45 @@ namespace Avtk
 class TestUI : public Avtk::UI
 {
   public:
-    TestUI( LV2UI_Write_Function w, LV2UI_Controller c, PuglNativeWindow parent ) :
+    TestUI( LV2UI_Write_Function w_, LV2UI_Controller c, PuglNativeWindow parent ) :
       UI( 610, 430, parent ),
-      wf( w ),
+      wf( w_ ),
       ctlr( c )
     {
       // button
-      Avtk::Widget* bt = new Avtk::Button( this, 3, 45, 40, 22, "-" );
-      //bt->callback = widgetCB;
-      //bt->callbackUD = this;
-      add( bt );
+      Avtk::Widget* w = new Avtk::Button( this, 3, 45, 40, 22, "-" );
+      w->callback = widgetCB;
+      w->callbackUD = this;
+      add( w );
+      
+      // dial
+      w = new Avtk::Dial( this, 75, 75, 75, 75, "-" );
+      w->callback = widgetCB;
+      w->callbackUD = this;
+      add( w );
+      
+      // dial
+      w = new Avtk::Dial( this, 175, 175, 35, 35, "-" );
+      w->callback = widgetCB;
+      w->callbackUD = this;
+      add( w );
+      
+      w = new Avtk::Dial( this, 215, 175, 165, 165, "-" );
+      w->callback = widgetCB;
+      w->callbackUD = this;
+      add( w );
+      
+      // image
+      Avtk::Image* i = new Avtk::Image( this, 0, 0, 610, 36, "-" );
+      i->load( header.pixel_data );
+      add( i );
+      
+      // slider vert + horizontal
+      w = new Avtk::Slider( this, 520, 40, 22, 220, "Rounded Corners" );
+      w->callback = widgetCB;
+      w->callbackUD = this;
+      add( w );
+      add( new Avtk::Slider( this,  40,350, 350, 22, "Vol" ) );
     }
     
     /// demo function, changes all widgets to value
@@ -55,7 +88,7 @@ static LV2UI_Handle avtk_instantiate(const struct _LV2UI_Descriptor * descriptor
 {
   printf("init()\n");
   
-  if (strcmp(plugin_uri, "http://faust-lv2.googlecode.com/test") != 0)
+  if (strcmp(plugin_uri, "http://www.openavproductions.com/avtk") != 0)
   {
     fprintf(stderr, "AVTK_UI_URI error: this GUI does not support plugin with URI %s\n", plugin_uri);
     return NULL;

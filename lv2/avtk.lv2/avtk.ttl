@@ -6,12 +6,24 @@
 @prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix units: <http://lv2plug.in/ns/extensions/units#> .
-<http://www.openavproductions.com//test>
+@prefix ui: <http://lv2plug.in/ns/extensions/ui#>.
+
+<http://www.openavproductions.com/avtk#testUI>
+		a ui:X11UI;
+		ui:binary <avtk_ui.so>;
+		ui:requiredFeature ui:makeResident ;
+		lv2:requiredFeature ui:idleInterface ;
+		lv2:extensionData ui:idleInterface .
+
+<http://www.openavproductions.com/avtk>
        a lv2:Plugin ;
-       doap:name "test" ;
-       lv2:binary <test.so> ;
+       doap:name "avtk" ;
+       lv2:binary <avtk.so> ;
        lv2:optionalFeature epp:supportsStrictBounds ;
        lv2:optionalFeature lv2:hardRtCapable ;
+    
+  ui:ui <http://www.openavproductions.com/avtk#testUI>;
+  
     lv2:port [
 	a lv2:ControlPort ;
 	a lv2:InputPort ;
