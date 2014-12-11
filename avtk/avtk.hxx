@@ -14,5 +14,6 @@
 #include "image.hxx"
 #include "button.hxx"
 #include "slider.hxx"
+#include "envelope.hxx"
 
 #endif // OPENAV_AVTK_HXX
