@@ -7,8 +7,8 @@ static void dialCB(Avtk::Widget* w, void* ud);
 static void widgetCB(Avtk::Widget* w, void* ud);
 
 
-TestUI::TestUI():
-  Avtk::UI( 610, 430 )
+TestUI::TestUI( PuglNativeWindow parent ):
+  Avtk::UI( 610, 430, parent )
 {
   // button
   Avtk::Widget* w = new Avtk::Button( this, 3, 45, 40, 22, "-" );
