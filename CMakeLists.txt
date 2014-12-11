@@ -24,9 +24,9 @@ include_directories ("${PROJECT_SOURCE_DIR}/avtk/")
 find_package(PkgConfig)
 
 # Linux : -lGL -lcairo -lX11
-pkg_check_modules(GL gl REQUIRED)
-include_directories( ${GL_INCLUDE_DIRS})
-link_directories   ( ${GL_LIBRARY_DIRS})
+#pkg_check_modules(GL gl REQUIRED)
+#include_directories( ${GL_INCLUDE_DIRS})
+#link_directories   ( ${GL_LIBRARY_DIRS})
 
 ADD_DEFINITIONS( "-DPUGL_HAVE_CAIRO" )
 pkg_check_modules(CAIRO cairo REQUIRED)
@@ -42,7 +42,7 @@ SET(CMAKE_CXX_FLAGS "-trigraphs")
 FILE(GLOB src main.cxx test_ui.cxx avtk/*.cxx avtk/pugl/pugl_x11.c )
 ADD_EXECUTABLE( avtk ${src} )
 
-target_link_libraries( avtk ${GL_LIBRARIES}     )
+#target_link_libraries( avtk ${GL_LIBRARIES}     )
 target_link_libraries( avtk ${CAIRO_LIBRARIES}  )
 target_link_libraries( avtk ${X11_LIBRARIES}    )
 

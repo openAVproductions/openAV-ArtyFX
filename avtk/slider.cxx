@@ -1,6 +1,4 @@
 
-// code aquisited from pugl_cairo_test.c, author David Robillard.
-
 #include "slider.hxx"
 
 #include <stdio.h>

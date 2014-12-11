@@ -15,16 +15,8 @@ Button::Button( Avtk::UI* ui, int x_, int y_, int w_, int h_, std::string label_
 
 void Button::draw( cairo_t* cr )
 {
-  /*
-  if ( value() )
-  {
-    ui->theme->color( cr, HIGHLIGHT );
-  }
-  else
-  {
-    ui->theme->color( cr, FG, 0.2 );
-  }
-  */
+  cairo_save( cr );
+  
   roundedBox(cr, x, y, w, h, ui->theme->cornerRadius_ );
   
   if( value() )
@@ -44,14 +36,6 @@ void Button::draw( cairo_t* cr )
     cairo_stroke(cr);
   }
   
-  
-  /*
-  cairo_fill_preserve(cr);
-  
-  //ui->theme->transparent( false );
-  cairo_set_line_width(cr, 0.7);
-  cairo_stroke(cr);
-  */
   // Draw label
   cairo_text_extents_t extents;
   cairo_set_font_size(cr, 15.0);
@@ -69,5 +53,7 @@ void Button::draw( cairo_t* cr )
     ui->theme->color( cr, BG_DARK );
   }
   cairo_show_text(cr, label.c_str());
+  
+  cairo_restore( cr );
 }
 

@@ -25,7 +25,7 @@ class Widget;
 class UI
 {
   public:
-    UI( int w, int h );
+    UI( int w, int h, PuglNativeWindow parent = 0 );
     
     /// adds a widget to the UI, and memory manages it: AKA a smart pointer will
     /// clean up on close of the UI.
@@ -52,6 +52,11 @@ class UI
     
     void redraw( Avtk::Widget* w );
     
+    int idle()
+    {
+      puglProcessEvents(view);
+    }
+    
     virtual int run()
     {
       redraw();
@@ -71,8 +76,15 @@ class UI
     }
     
     Theme* theme;
+    
+    /// call this to recieve the LV2 widget handle
+    PuglNativeWindow getNativeHandle()
+    {
+      // returns the X11 handle, or Win32 surface, or Quartz surface
+      return puglGetNativeWindow( view );
+    }
   
-  private:
+  protected:
     PuglView* view;
     
     bool quit_;
@@ -84,7 +96,6 @@ class UI
     std::list< ptr<Avtk::Widget> > widgets;
     
     Avtk::Widget* motionUpdateWidget;
-    
     
     void motion(int x, int y);
     

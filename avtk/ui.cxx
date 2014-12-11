@@ -6,12 +6,17 @@
 
 using namespace Avtk;
 
-UI::UI( int w__, int h__ ) :
+UI::UI( int w__, int h__, PuglNativeWindow parent ) :
   quit_( false ),
   w_( w__ ),
   h_( h__ )
 {
+  
+  
   view = puglInit(NULL, NULL);
+  
+  if( parent != 0 )
+    puglInitWindowParent( view, parent );
   
   puglInitWindowSize  (view, w_, h_ );
   puglInitResizable   (view, false );
