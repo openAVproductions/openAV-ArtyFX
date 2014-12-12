@@ -65,10 +65,12 @@ int Widget::handle( const PuglEvent* event )
           }
         }
       } break;
+    
     case PUGL_BUTTON_RELEASE:
       {
         ui->wantsMotionUpdates( this, false );
       }
+    
     case PUGL_SCROLL:
       {
         if( touches( event->scroll.x, event->scroll.y ) )
@@ -79,7 +81,28 @@ int Widget::handle( const PuglEvent* event )
           value( value_ + delta );
           ui->redraw( this );
         }
+      } break;
+    
+    case PUGL_KEY_PRESS:
+      if (event->key.character == 'w')
+      {
+        printf("pugl key w\n");
+        float delta = 1 / 10.f;
+        value( value_ + delta );
+        ui->redraw( this );
+        return 1;
       }
+      else if (event->key.character == 's')
+      {
+        printf("pugl key s\n");
+        float delta = 1 / 10.f;
+        value( value_ - delta );
+        ui->redraw( this );
+        return 1;
+      }
+      
+      
+      break;
     default:
       return 0; break;
   }
