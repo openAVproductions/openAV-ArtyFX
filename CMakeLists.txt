@@ -9,8 +9,9 @@ set(AVTK_VERSION_PATCH "1")
 
 set(AVTK_VERSION "${AVTK_VERSION_MAJOR}.${AVTK_VERSION_MINOR}.${AVTK_VERSION_PATCH}")
 
-option(AVTK_RELEASE_BUILD "Build for releasing"         OFF )
-option(AVTK_DEBUG_PRINTS  "Build with debugging prints" ON )
+option(AVTK_RELEASE_BUILD   "Build for releasing"         OFF )
+option(AVTK_DEBUG_PRINTS    "Build with debugging prints" ON )
+option(AVTK_SNDFILE_SUPPORT "Build with sndfile library"  ON )
 
 
 ################################################################################
@@ -23,10 +24,12 @@ include_directories ("${PROJECT_SOURCE_DIR}/avtk/")
 
 find_package(PkgConfig)
 
-# Linux : -lGL -lcairo -lX11
-#pkg_check_modules(GL gl REQUIRED)
-#include_directories( ${GL_INCLUDE_DIRS})
-#link_directories   ( ${GL_LIBRARY_DIRS})
+IF( AVTK_SNDFILE_SUPPORT )
+  ADD_DEFINITIONS( "-DAVTK_SNDFILE" )
+  pkg_check_modules(SNDFILE sndfile REQUIRED)
+  include_directories( ${SNDFILE_INCLUDE_DIRS})
+  link_directories   ( ${SNDFILE_LIBRARY_DIRS})
+ENDIF()
 
 ADD_DEFINITIONS( "-DPUGL_HAVE_CAIRO" )
 pkg_check_modules(CAIRO cairo REQUIRED)
@@ -46,6 +49,9 @@ ADD_EXECUTABLE( avtk ${src} )
 target_link_libraries( avtk ${CAIRO_LIBRARIES}  )
 target_link_libraries( avtk ${X11_LIBRARIES}    )
 
+IF( AVTK_SNDFILE_SUPPORT )
+  target_link_libraries( avtk ${SNDFILE_LIBRARIES}    )
+ENDIF()
 
 
 

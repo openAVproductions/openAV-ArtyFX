@@ -38,6 +38,10 @@ Waveform::Waveform( Avtk::UI* ui, int x_, int y_, int w_, int h_, std::string la
 
 void Waveform::show( std::vector<float> data )
 {
+  if ( data.size() == 0 )
+  {
+    return;
+  }
   audioData = new std::vector<float>(data);
 }
 

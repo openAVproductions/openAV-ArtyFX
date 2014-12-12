@@ -2,9 +2,43 @@
 #include "utils.hxx"
 
 #include "avtk.hxx"
+#include <sndfile.h>
 
 namespace Avtk
 {
+#ifdef AVTK_SNDFILE
+int loadSample( std::string path, std::vector< float >& sample, bool printErrors )
+{
+  SF_INFO info;
+  SNDFILE* const sndfile = sf_open( path.c_str(), SFM_READ, &info);
+  if ( !sndfile )
+  {
+    printf("Failed to open sample '%s'\n", path.c_str() );
+    return -1;
+  }
+  
+  if( info.channels != 1 )
+  {
+    printf("Error loading sample %s, channels != 1\n", path.c_str() );
+    return -1;
+  }
+  
+  sample.resize( info.frames );
+  
+  sf_seek(sndfile, 0ul, SEEK_SET);
+  sf_read_float( sndfile, &sample[0], info.frames );
+  sf_close(sndfile);
+  
+  return OPENAV_OK;
+#else
+  if( printErrors )
+  {
+    printf("AVTK compiled without SNDFILE support: cannot load audio sample.\n");
+  }
+  return OPENAV_ERROR;
+#endif
+}
+
 
 int directoryContents( std::string d, std::vector< std::string >& files, bool printErrors )
 {

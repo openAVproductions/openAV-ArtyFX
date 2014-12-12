@@ -21,6 +21,7 @@
 
 namespace Avtk
 {
+  int loadSample( std::string path, std::vector< float >& sample, bool printErrors = true );
   int directoryContents( std::string d, std::vector< std::string >& files, bool printErrors = true );
 };
 

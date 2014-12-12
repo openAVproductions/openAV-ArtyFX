@@ -1,5 +1,6 @@
 
 #include "test_ui.hxx"
+#include "avtk/utils.hxx"
 #include "avtk/theme.hxx"
 
 static void roundCB(Avtk::Widget* w, void* ud);
@@ -33,6 +34,10 @@ TestUI::TestUI( PuglNativeWindow parent ):
   waveform = new Avtk::Waveform( this, 75, 175, 375, 125, "-" );
   //waveform->callback = widgetCB;
   //waveform->callbackUD = this;
+  
+  std::vector<float> tmp;
+  int error = Avtk::loadSample( "test.wav", tmp );
+  waveform->show( tmp );
   add( waveform );
   
   w = new Avtk::Envelope( this, 215, 115, 60, 40, "-" );
