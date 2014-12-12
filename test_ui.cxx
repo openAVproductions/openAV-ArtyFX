@@ -34,7 +34,7 @@ TestUI::TestUI( PuglNativeWindow parent ):
   list = new Avtk::List( this, 345, 45, 75, 125, "-" );
   add( list );
   
-  Avtk::List* list2 = new Avtk::List( this, 475, 45, 75, 125, "-" );
+  Avtk::List* list2 = new Avtk::List( this, 425, 45, 75, 125, "-" );
   add( list2 );
   
   // waveform

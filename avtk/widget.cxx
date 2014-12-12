@@ -37,14 +37,22 @@ int Widget::handle( const PuglEvent* event )
         
         if( touches( event->button.x, event->button.y ) )
         {
-          if( dm == DM_NONE )
+          if( cm == CLICK_TOGGLE )
           {
             value( !value() );
-            printf("touches widget, new value %f\n", value() );
             ui->redraw( this );
           }
-          else if ( dm == DM_DRAG_VERTICAL ||
-                    dm == DM_DRAG_HORIZONTAL )
+          else if ( cm == CLICK_VALUE_FROM_Y )
+          {
+            float tmp = (event->button.y - y) / h/0.92;
+            value( tmp );
+            printf("value from Y, %f\n", tmp);
+            ui->redraw( this );
+          }
+          
+          
+          if( dm == DM_DRAG_VERTICAL ||
+              dm == DM_DRAG_HORIZONTAL )
           {
             // sample the vertical mouse position, drag events affect += value()
             mX = event->button.x;
@@ -102,9 +110,15 @@ bool Widget::touches( int inx, int iny )
   return ( inx >= x && inx <= x + w && iny >= y && iny <= y + h);
 }
 
-void Widget::dragMode( DragMode c )
+void Widget::clickMode( ClickMode c, int cms )
 {
-  dm = c;
+  cm = c;
+  clickModeSize = cms;
+}
+
+void Widget::dragMode( DragMode d )
+{
+  dm = d;
 }
 
 }; // Avtk

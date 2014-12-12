@@ -55,7 +55,13 @@ class Widget
     enum ClickMode {
       CLICK_NONE,           /// click has no effect
       CLICK_TOGGLE,         /// click toggles value between zero and one
+      CLICK_VALUE_FROM_Y,   /// click sets value to Y
     };
+    
+    /// sets the click mode: add a size (in px) to translate px -> value()
+    void clickMode( ClickMode cm, int clickModeSize = 0 );
+    ClickMode cm;
+    int clickModeSize;
     
     /// enum defines the way in which mouse click / drag works
     enum DragMode {
@@ -65,10 +71,10 @@ class Widget
     };
     
     void dragMode( DragMode cdm );
-    
     DragMode dm;
-    int mX, mY;
     
+    
+    int mX, mY;
 };
 
 };
