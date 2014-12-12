@@ -20,6 +20,7 @@ class TestUI : public Avtk::UI
     /// demo function, changes all widgets to value
     void setAllWidgets( Avtk::Widget* w, float value );
   
+    Avtk::List* list;
     Avtk::Waveform* waveform;
   
   private:

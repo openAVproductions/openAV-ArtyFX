@@ -30,6 +30,13 @@ TestUI::TestUI( PuglNativeWindow parent ):
   w->callbackUD = this;
   add( w );
   
+  // list
+  list = new Avtk::List( this, 345, 45, 75, 125, "-" );
+  add( list );
+  
+  Avtk::List* list2 = new Avtk::List( this, 475, 45, 75, 125, "-" );
+  add( list2 );
+  
   // waveform
   waveform = new Avtk::Waveform( this, 75, 175, 375, 125, "-" );
   //waveform->callback = widgetCB;

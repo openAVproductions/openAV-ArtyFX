@@ -10,6 +10,7 @@
 #include "utils.hxx"
 
 // widget headers
+#include "list.hxx"
 #include "dial.hxx"
 #include "image.hxx"
 #include "button.hxx"

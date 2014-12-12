@@ -52,18 +52,21 @@ class Widget
     Avtk::UI* ui;
   
   protected:
-    
-    
-    /// enum defines the way in which mouse click / drag works
-    enum ClickDragMode {
-      CDM_NONE,             /// clicking toggles value() as a bool (default)
-      CDM_DRAG_VERTICAL,    /// vertical mouse drag will change value()
-      CDM_DRAG_HORIZONTAL,  /// horizontal mouse drag changes value()
+    enum ClickMode {
+      CLICK_NONE,           /// click has no effect
+      CLICK_TOGGLE,         /// click toggles value between zero and one
     };
     
-    void clickDragMode( ClickDragMode cdm );
+    /// enum defines the way in which mouse click / drag works
+    enum DragMode {
+      DM_NONE,              /// drag has no effect
+      DM_DRAG_VERTICAL,     /// vertical mouse drag will change value()
+      DM_DRAG_HORIZONTAL,   /// horizontal mouse drag changes value()
+    };
     
-    ClickDragMode cdm;
+    void dragMode( DragMode cdm );
+    
+    DragMode dm;
     int mX, mY;
     
 };

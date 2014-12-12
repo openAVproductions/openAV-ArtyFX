@@ -11,7 +11,7 @@ using namespace Avtk;
 Envelope::Envelope( Avtk::UI* ui, int x_, int y_, int w_, int h_, std::string label_) :
   Widget( ui, x_, y_, w_, h_, label_ )
 {
-  clickDragMode( CDM_DRAG_VERTICAL );
+  dragMode( DM_DRAG_VERTICAL );
   
   a = 0.f;
   d = s = r = 0.5f;

@@ -19,7 +19,7 @@ Widget::Widget( Avtk::UI* ui_, int x_, int y_, int w_, int h_, std::string label
   callback( 0 ),
   callbackUD( 0 ),
   
-  cdm( CDM_NONE ),
+  dm( DM_NONE ),
   mX(0),
   mY(0)
 {
@@ -37,14 +37,14 @@ int Widget::handle( const PuglEvent* event )
         
         if( touches( event->button.x, event->button.y ) )
         {
-          if( cdm == CDM_NONE )
+          if( dm == DM_NONE )
           {
             value( !value() );
             printf("touches widget, new value %f\n", value() );
             ui->redraw( this );
           }
-          else if ( cdm == CDM_DRAG_VERTICAL ||
-                    cdm == CDM_DRAG_HORIZONTAL )
+          else if ( dm == DM_DRAG_VERTICAL ||
+                    dm == DM_DRAG_HORIZONTAL )
           {
             // sample the vertical mouse position, drag events affect += value()
             mX = event->button.x;
@@ -67,9 +67,13 @@ int Widget::handle( const PuglEvent* event )
 
 void Widget::drag( int x, int y )
 {
+  // widget doesn't have a drag action
+  if ( dm == DM_NONE )
+    return;
+  
   float delta = ( mY - y ) / float(h);
   
-  if ( cdm == CDM_DRAG_HORIZONTAL )
+  if ( dm == DM_DRAG_HORIZONTAL )
     delta = ( x - mX ) / float(w);
   
   value( value_ + delta );
@@ -98,9 +102,9 @@ bool Widget::touches( int inx, int iny )
   return ( inx >= x && inx <= x + w && iny >= y && iny <= y + h);
 }
 
-void Widget::clickDragMode( ClickDragMode c )
+void Widget::dragMode( DragMode c )
 {
-  cdm = c;
+  dm = c;
 }
 
 }; // Avtk

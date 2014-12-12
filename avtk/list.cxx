@@ -1,0 +1,81 @@
+
+#include "list.hxx"
+
+#include "ui.hxx"
+#include "theme.hxx"
+
+#include <stdio.h>
+
+using namespace Avtk;
+
+List::List( Avtk::UI* ui, int x_, int y_, int w_, int h_, std::string label_) :
+  Widget( ui, x_, y_, w_, h_, label_ )
+{
+  items.push_back("One");
+  items.push_back("Two");
+  items.push_back("Three");
+  items.push_back("Four");
+  items.push_back("Five");
+  items.push_back("Six");
+  items.push_back("Seven");
+  items.push_back("Eight");
+  items.push_back("Nine");
+  items.push_back("Ten");
+}
+
+int List::selectItem()
+{
+  return items.size() * value();
+}
+
+void List::selectItem( int select )
+{
+  value( select / value() );
+}
+
+void List::draw( cairo_t* cr )
+{
+  cairo_save( cr );
+  
+  roundedBox(cr, x, y, w, h, ui->theme->cornerRadius_ );
+  
+  int selectedItem = value() * (items.size()-1);
+  
+  roundedBox(cr, x, y, w, h, ui->theme->cornerRadius_ );
+  ui->theme->color( cr, BG_DARK );
+  cairo_fill_preserve(cr);
+  ui->theme->color( cr, FG );
+  cairo_set_line_width(cr, 1.4);
+  cairo_stroke(cr);
+  
+  // Draw items in the list
+  for(int i = 0; i < items.size(); i++ )
+  {
+    cairo_text_extents_t extents;
+    cairo_set_font_size(cr, 10.0);
+    cairo_text_extents(cr, label.c_str(), &extents);
+    
+    int iY = y + 14 + extents.height / 2 - 2 + 12 * i;
+    
+    if( i == selectedItem )
+    {
+      cairo_rectangle( cr, x, iY - 9, w, 11 );
+      ui->theme->color( cr, FG, 0.4 );
+      cairo_fill_preserve( cr );
+      ui->theme->color( cr, HIGHLIGHT, 0.8 );
+      cairo_stroke( cr );
+      cairo_set_source_rgb( cr, 1,1,1 );
+    }
+    else
+    {
+      ui->theme->color( cr, BG );
+    }
+    
+    cairo_move_to(cr, x + 5, iY );
+    cairo_show_text( cr, items.at(i).c_str() );
+  }
+  
+  
+  cairo_restore( cr );
+}
+

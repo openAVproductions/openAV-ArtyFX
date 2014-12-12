@@ -6,9 +6,9 @@
 
 namespace Avtk
 {
-#ifdef AVTK_SNDFILE
 int loadSample( std::string path, std::vector< float >& sample, bool printErrors )
 {
+#ifdef AVTK_SNDFILE
   SF_INFO info;
   SNDFILE* const sndfile = sf_open( path.c_str(), SFM_READ, &info);
   if ( !sndfile )

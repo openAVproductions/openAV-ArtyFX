@@ -25,8 +25,6 @@ Waveform::Waveform( Avtk::UI* ui, int x_, int y_, int w_, int h_, std::string la
     return;
   }
   
-  clickDragMode( CDM_DRAG_VERTICAL );
-  
   std::vector<float> tmp;
   
   for(int i = 0; i < 4096; i++ )
