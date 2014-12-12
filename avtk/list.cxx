@@ -25,6 +25,14 @@ List::List( Avtk::UI* ui, int x_, int y_, int w_, int h_, std::string label_) :
   items.push_back("Eight");
   items.push_back("Nine");
   items.push_back("Ten");
+  
+  scrollInvert = true;
+}
+
+void List::show( std::vector< std::string > data )
+{
+  items = data;
+  ui->redraw( this );
 }
 
 int List::selectItem()

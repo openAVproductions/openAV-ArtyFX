@@ -21,7 +21,9 @@ Widget::Widget( Avtk::UI* ui_, int x_, int y_, int w_, int h_, std::string label
   
   dm( DM_NONE ),
   mX(0),
-  mY(0)
+  mY(0),
+  scrollDisable( 0 ),
+  scrollInvert( 0 )
 {
 }
 
@@ -66,6 +68,17 @@ int Widget::handle( const PuglEvent* event )
     case PUGL_BUTTON_RELEASE:
       {
         ui->wantsMotionUpdates( this, false );
+      }
+    case PUGL_SCROLL:
+      {
+        if( touches( event->scroll.x, event->scroll.y ) )
+        {
+          float delta = event->scroll.dy / 10.f;
+          if( scrollInvert )
+            delta = -delta;
+          value( value_ + delta );
+          ui->redraw( this );
+        }
       }
     default:
       return 0; break;

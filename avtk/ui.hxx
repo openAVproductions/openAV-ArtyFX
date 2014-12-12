@@ -97,37 +97,41 @@ class UI
     
     Avtk::Widget* motionUpdateWidget;
     
-    void motion(int x, int y);
+    
+    void scroll( int x, int y, int dx, int dy );
+    static void onScroll(PuglView* view, int x, int y, float dx, float dy)
+    {
+      UI* ui = (UI*)puglGetHandle( view );
+      ui->scroll( x, y, dx, dy );
+    }
     
     static void onSpecial(PuglView* view, bool pressed, PuglKey key)
     {
     }
     
+    void motion(int x, int y);
     static void onMotion(PuglView* view, int x, int y)
     {
       UI* ui = (UI*)puglGetHandle( view );
       ui->motion( x, y );
     }
     
+    void close() { quit_ = true; }
     static void onClose(PuglView* view)
     {
       UI* ui = (UI*)puglGetHandle( view );
       ui->close();
     }
     
-    void close()
-    {
-      quit_ = true;
-    }
     
+    void event( const PuglEvent* event );
     static void onEvent(PuglView* view, const PuglEvent* event)
     {
       UI* ui = (UI*)puglGetHandle( view );
       ui->event( event );
     }
     
-    void event( const PuglEvent* event );
-    
+    void display( cairo_t* cr );
     static void onDisplay(PuglView* view)
     {
       UI* ui = (UI*)puglGetHandle( view );
@@ -135,7 +139,6 @@ class UI
       ui->display( cr );
     }
     
-    void display( cairo_t* cr );
 };
 
 }; // namespace Avtk

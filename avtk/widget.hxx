@@ -73,8 +73,12 @@ class Widget
     void dragMode( DragMode cdm );
     DragMode dm;
     
-    
+    /// used for mouse-drag
     int mX, mY;
+    
+    /// control scroll operations
+    bool scrollDisable;
+    bool scrollInvert;
 };
 
 };

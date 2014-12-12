@@ -3,11 +3,14 @@
 #include "avtk/utils.hxx"
 #include "avtk/theme.hxx"
 
+#include <sstream>
+
 static void roundCB(Avtk::Widget* w, void* ud);
 static void dialCB(Avtk::Widget* w, void* ud);
 static void widgetCB(Avtk::Widget* w, void* ud);
 static void zoomCB(Avtk::Widget* w, void* ud);
 static void zoomOffsetCB(Avtk::Widget* w, void* ud);
+static void listCB(Avtk::Widget* w, void* ud);
 
 TestUI::TestUI( PuglNativeWindow parent ):
   Avtk::UI( 610, 430, parent )
@@ -32,9 +35,11 @@ TestUI::TestUI( PuglNativeWindow parent ):
   
   // list
   list = new Avtk::List( this, 345, 45, 75, 125, "-" );
+  list->callback   = listCB;
+  list->callbackUD = this;
   add( list );
   
-  Avtk::List* list2 = new Avtk::List( this, 425, 45, 75, 125, "-" );
+  list2 = new Avtk::List( this, 425, 45, 75, 125, "-" );
   add( list2 );
   
   // waveform
@@ -85,6 +90,24 @@ static void zoomCB(Avtk::Widget* w, void* ud)
 static void dialCB(Avtk::Widget* w, void* ud)
 {
   printf( "dialCB(), rad = %i\n", w->value() );
+}
+
+static void listCB(Avtk::Widget* w, void* ud)
+{
+  TestUI* ui = (TestUI*)ud;
+  
+  int t = w->value();
+  
+  std::vector< std::string > tmp;
+  
+  for(int i = 0; i < w->value(); i++ )
+  {
+    std::stringstream s;
+    s << w->value();
+    tmp.push_back( s.str() );
+  }
+  
+  ((Avtk::List*)ui->list2)->show( tmp );
 }
 
 static void widgetCB(Avtk::Widget* w, void* ud)

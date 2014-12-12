@@ -17,6 +17,8 @@ class List : public Widget
     
     virtual void draw( cairo_t* cr );
     
+    void show( std::vector< std::string > data );
+    
     int  selectItem();
     void selectItem( int select );
   

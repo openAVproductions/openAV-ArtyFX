@@ -21,6 +21,7 @@ class TestUI : public Avtk::UI
     void setAllWidgets( Avtk::Widget* w, float value );
   
     Avtk::List* list;
+    Avtk::List* list2;
     Avtk::Waveform* waveform;
   
   private:
