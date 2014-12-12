@@ -40,7 +40,7 @@ int loadSample( std::string path, std::vector< float >& sample, bool printErrors
 }
 
 
-int directoryContents( std::string d, std::vector< std::string >& files, bool printErrors )
+int directoryContents( std::string d, std::vector< std::string >& files, bool nameOnly, bool printErrors )
 {
   tinydir_dir dir;
   if (tinydir_open(&dir, d.c_str() ) == -1)
@@ -63,9 +63,16 @@ int directoryContents( std::string d, std::vector< std::string >& files, bool pr
     
     if ( !file.is_dir )
     {
-      std::stringstream s;
-      s << d << "/" << file.name;
-      files.push_back( s.str() );
+      if ( nameOnly )
+      {
+        files.push_back( file.name );
+      }
+      else
+      {
+        std::stringstream s;
+        s << d << "/" << file.name;
+        files.push_back( s.str() );
+      }
     }
     
     tinydir_next(&dir);

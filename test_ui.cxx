@@ -96,9 +96,9 @@ static void listCB(Avtk::Widget* w, void* ud)
 {
   TestUI* ui = (TestUI*)ud;
   
+  /*
   int t = w->value();
   
-  std::vector< std::string > tmp;
   
   for(int i = 0; i < w->value(); i++ )
   {
@@ -106,8 +106,14 @@ static void listCB(Avtk::Widget* w, void* ud)
     s << w->value();
     tmp.push_back( s.str() );
   }
+  */
+  
+  std::vector< std::string > tmp;
+  
+  int error = Avtk::directoryContents("/root/openav/avtk", tmp );
   
   ((Avtk::List*)ui->list2)->show( tmp );
+  
 }
 
 static void widgetCB(Avtk::Widget* w, void* ud)
