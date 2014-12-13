@@ -9,11 +9,14 @@ namespace Avtk
 
 Widget::Widget( Avtk::UI* ui_, int x_, int y_, int w_, int h_, std::string label_) :
   ui(ui_),
+  parent_( 0 ),
   x( x_ ),
   y( y_ ),
   w( w_ ),
   h( h_ ),
   label( label_ ),
+  visible_( true ),
+  
   value_( 0 ),
   mouseButtonPressed_(0),
   callback( 0 ),
@@ -63,23 +66,30 @@ int Widget::handle( const PuglEvent* event )
             // tell the UI that the current widget wants motion notify
             ui->wantsMotionUpdates( this, true );
           }
+          return 1;
         }
-      } break;
+      }
+      break;
     
     case PUGL_BUTTON_RELEASE:
       {
         ui->wantsMotionUpdates( this, false );
       }
+      return 1;
+      break;
     
     case PUGL_SCROLL:
       {
-        if( touches( event->scroll.x, event->scroll.y ) )
+        bool scTch = touches( event->scroll.x, event->scroll.y );
+        if( scTch )
         {
+          printf("scroll touch %i, x %lf, y %lf\n", int(scTch), event->scroll.x, event->scroll.y );
           float delta = event->scroll.dy / 10.f;
           if( scrollInvert )
             delta = -delta;
           value( value_ + delta );
           ui->redraw( this );
+          return 1;
         }
       } break;
     
@@ -100,12 +110,13 @@ int Widget::handle( const PuglEvent* event )
         ui->redraw( this );
         return 1;
       }
-      
-      
       break;
+    
+    
     default:
       return 0; break;
   }
+  
   return 0;
 }
 
@@ -150,6 +161,17 @@ void Widget::clickMode( ClickMode c, int cms )
 {
   cm = c;
   clickModeSize = cms;
+}
+
+void Widget::visible( bool v )
+{
+  visible_ = v;
+  ui->redraw( this );
+}
+
+void Widget::parent( Group* p )
+{
+  parent_ = p;
 }
 
 void Widget::dragMode( DragMode d )

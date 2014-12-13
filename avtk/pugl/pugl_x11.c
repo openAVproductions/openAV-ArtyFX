@@ -430,6 +430,15 @@ translateEvent(PuglView* view, XEvent xevent)
     break;
   }
 
+  if ( event.type == PUGL_EXPOSE )
+  {
+    printf("sending PUGL_EXPOSE...\n" );
+  }
+  else if ( event.type == PUGL_CONFIGURE )
+  {
+    printf("sending PUGL_CONFIGURE...\n" );
+  }
+
   return event;
 }
 

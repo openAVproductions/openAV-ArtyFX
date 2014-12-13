@@ -15,12 +15,16 @@ namespace Avtk
 {
 
 class UI;
+class Group;
 
 class Widget
 {
   public:
     Widget( Avtk::UI* ui_, int x_, int y_, int w_, int h_, std::string label_);
     virtual ~Widget(){}
+    
+    /// sets the visibility
+    void visible( bool visibile );
     
     /// get the current value
     float value() { return value_; }
@@ -43,6 +47,7 @@ class Widget
     
     int x, y, w, h;         /// widget co-ords and size
     std::string label;      /// widget name - sometimes shown in UI
+    bool  visible_;         /// widget visibility
     float value_;           /// widget value
     
     /// 0 when no mouse button is down, otherwise the mouse button pressed
@@ -50,8 +55,12 @@ class Widget
     
     /// the Avtk::UI pointer, used to redraw the view etc
     Avtk::UI* ui;
+    
+    void parent( Group* parent );
   
   protected:
+    Avtk::Group* parent_;
+    
     enum ClickMode {
       CLICK_NONE,           /// click has no effect
       CLICK_TOGGLE,         /// click toggles value between zero and one

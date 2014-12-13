@@ -11,8 +11,6 @@ UI::UI( int w__, int h__, PuglNativeWindow parent ) :
   w_( w__ ),
   h_( h__ )
 {
-  
-  
   view = puglInit(NULL, NULL);
   
   if( parent != 0 )
@@ -66,7 +64,7 @@ void UI::event( const PuglEvent* event )
       return;
   }
   
-  // code is only reached is *none* of the widgets handled an event:
+  // code is only reached if *none* of the widgets handled an event:
   // we can implement UI wide hotkeys here, handle unknown events
   switch (event->type)
   {
@@ -82,9 +80,19 @@ void UI::event( const PuglEvent* event )
       }
       break;
     
+    case PUGL_EXPOSE:
+      printf("recieved pugl expose in UI\n");
+      redraw();
+      break;
+    
     default:
       break;
   }
+}
+
+void UI::redraw()
+{
+  puglPostRedisplay( view );
 }
 
 void UI::redraw( Avtk::Widget* w )

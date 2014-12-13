@@ -45,11 +45,7 @@ class UI
         motionUpdateWidget = 0;
     }
     
-    void redraw()
-    {
-      puglPostRedisplay( view );
-    }
-    
+    void redraw();
     void redraw( Avtk::Widget* w );
     
     int idle()
