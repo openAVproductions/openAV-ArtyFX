@@ -38,12 +38,17 @@ class Theme
 {
   public:
     Theme( Avtk::UI* ui_, std::string name = "OpenAV Default" ) :
-      cornerRadius_( 2 ),
+      cornerRadius_( 1 ),
       lineWidthThin_( 0.9 ),
+      lineWidthNorm_( 1.1 ),
       lineWidthWide_( 2.1 ),
       
       ui( ui_ )
     {}
+    
+    float lineWidthThin(){ return lineWidthThin_; }
+    float lineWidthNorm(){ return lineWidthNorm_; }
+    float lineWidthWide(){ return lineWidthWide_; }
     
     float color( cairo_t* cr, USE_CASE uc, float alpha = 1.0 )
     {
@@ -70,8 +75,9 @@ class Theme
     void cornerRadius( int c );
     
     int cornerRadius_;
-    int lineWidthThin_;
-    int lineWidthWide_;
+    float lineWidthThin_;
+    float lineWidthNorm_;
+    float lineWidthWide_;
     
     Avtk::UI* ui;
 };

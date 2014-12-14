@@ -162,7 +162,7 @@ void Waveform::draw( cairo_t* cr )
   //ui->theme->color( cr, HIGHLIGHT, 0.2 );
   //cairo_fill_preserve( cr );
   ui->theme->color( cr, BG, 0.8 );
-  cairo_set_line_width(cr, 2.0);
+  cairo_set_line_width(cr, ui->theme->lineWidthNorm() );
   cairo_stroke(cr);
   
   cairo_restore( cr );
