@@ -17,16 +17,17 @@ int loadSample( std::string path, std::vector< float >& sample, bool printErrors
     return -1;
   }
   
-  if( info.channels != 1 )
+  if( !(info.channels == 1 || info.channels == 2) )
   {
-    printf("Error loading sample %s, channels != 1\n", path.c_str() );
+    int chnls = info.channels;
+    printf("Loading sample %s, channels = %i\n", path.c_str(), chnls );
     return -1;
   }
   
-  sample.resize( info.frames );
+  sample.resize( info.frames * info.channels );
   
   sf_seek(sndfile, 0ul, SEEK_SET);
-  sf_read_float( sndfile, &sample[0], info.frames );
+  sf_read_float( sndfile, &sample[0], info.frames * info.channels );
   sf_close(sndfile);
   
   return OPENAV_OK;
