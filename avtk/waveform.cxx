@@ -101,9 +101,12 @@ void Waveform::draw( cairo_t* cr )
       const int totalShownSamples = withZoomSPP * w;
       const int sampleOffset = (audioData->size() - totalShownSamples - 1) * zoomOffset_;
       
-      printf("sampsPerPx %i, with zoom %i\n",samplesPerPix, withZoomSPP);
+      //printf("sampsPerPx %i, with zoom %i\n",samplesPerPix, withZoomSPP);
       
       cairo_move_to( waveformCr, 0, (h/2) - ( audioData->at(0) * (h/2.2f) )  );
+      
+      cairo_set_line_join( cr, CAIRO_LINE_JOIN_ROUND);
+      cairo_set_source_rgb( waveformCr, 1,1,1 );
       
       // loop over each pixel value we need
       for( int p = 0; p < w; p++ )
@@ -124,11 +127,16 @@ void Waveform::draw( cairo_t* cr )
         
         //cairo_move_to( waveformCr, p, (h/2) - (averageL * (h/2.2f) )  );
         cairo_line_to( waveformCr, p, h/2.f - average*(h-40)/2.f );
+        
+        if( p % 128 == 0 )
+        {
+          // stroke the waveform
+          cairo_stroke( waveformCr );
+          cairo_move_to( waveformCr, p, h/2.f - average*(h-40)/2.f  );
+        }
       }
       
-      cairo_set_line_join( cr, CAIRO_LINE_JOIN_ROUND);
-      // stroke the waveform
-      ui->theme->color( waveformCr, HIGHLIGHT, 0.8 );
+      // stroke the remaining waveform lines
       cairo_stroke( waveformCr );
       
       // stroke a white line for the zoomOffset "center"
@@ -138,7 +146,7 @@ void Waveform::draw( cairo_t* cr )
       
       cairo_move_to( waveformCr, zoomOffsetPixel, 0 );
       cairo_line_to( waveformCr, zoomOffsetPixel, h );
-      cairo_set_source_rgb( waveformCr, 1,1,1 );
+      ui->theme->color( waveformCr, HIGHLIGHT, 0.8 );
       cairo_stroke( waveformCr );
     }
     newWaveform = false;
