@@ -46,7 +46,8 @@ class UI
     }
     
     /// Initiate a drag-and-drop action, with the widget as the "origin widget",
-    void dragDropInit( Avtk::Widget* origin );
+    /// and the data is copied to the UI instance.
+    void dragDropInit( Avtk::Widget* origin, size_t size, void* data );
     
     /// checks if the current drag-drop data-type is dropable on the "to" Widget
     bool dragDropVerify( Avtk::Widget* target );
@@ -108,48 +109,45 @@ class UI
     Avtk::Widget* dragDropOrigin;
     Avtk::Widget* motionUpdateWidget;
     
+    size_t dragDropDataSize;
+    char*  dragDropDataPtr;
+    
     
     void scroll( int x, int y, int dx, int dy );
-    static void onScroll(PuglView* view, int x, int y, float dx, float dy)
-    {
-      UI* ui = (UI*)puglGetHandle( view );
-      ui->scroll( x, y, dx, dy );
-    }
-    
-    static void onSpecial(PuglView* view, bool pressed, PuglKey key)
-    {
-    }
-    
+    void display( cairo_t* cr );
     void motion(int x, int y);
+    void event( const PuglEvent* event );
+    void close() { quit_ = true; }
+    
+    
+    // Static Functions for handling PUGL events below
+    
     static void onMotion(PuglView* view, int x, int y)
     {
       UI* ui = (UI*)puglGetHandle( view );
       ui->motion( x, y );
     }
-    
-    void close() { quit_ = true; }
     static void onClose(PuglView* view)
     {
       UI* ui = (UI*)puglGetHandle( view );
       ui->close();
     }
-    
-    
-    void event( const PuglEvent* event );
     static void onEvent(PuglView* view, const PuglEvent* event)
     {
       UI* ui = (UI*)puglGetHandle( view );
       ui->event( event );
     }
-    
-    void display( cairo_t* cr );
     static void onDisplay(PuglView* view)
     {
       UI* ui = (UI*)puglGetHandle( view );
       cairo_t* cr = (cairo_t*)puglGetContext(view);
       ui->display( cr );
     }
-    
+    static void onScroll(PuglView* view, int x, int y, float dx, float dy)
+    {
+      UI* ui = (UI*)puglGetHandle( view );
+      ui->scroll( x, y, dx, dy );
+    }
 };
 
 }; // namespace Avtk

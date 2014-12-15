@@ -27,8 +27,6 @@ UI::UI( int w__, int h__, PuglNativeWindow parent ) :
   puglSetCloseFunc    (view, UI::onClose  );
   puglSetMotionFunc   (view, UI::onMotion );
   
-  puglSetSpecialFunc  (view, UI::onSpecial);
-  
   puglCreateWindow    (view, "Avtk");
   puglShowWindow      (view);
   
@@ -36,8 +34,11 @@ UI::UI( int w__, int h__, PuglNativeWindow parent ) :
   
   theme = new Theme( this );
   
-  dragDropOrigin = 0;
   motionUpdateWidget = 0;
+  
+  dragDropOrigin   = 0;
+  dragDropDataSize = 0;
+  dragDropDataPtr  = 0;
 }
 
 void UI::display( cairo_t* cr )
@@ -114,23 +115,37 @@ void UI::motion(int x, int y)
     {
       if( (*it)->touches( x, y ) )
       {
-        printf("DragDropVerify: Origin %s, Target %s\n", dragDropOrigin->label(), (*it)->label() );
+        //printf("DragDropVerify: Origin %s, Target %s\n", dragDropOrigin->label(), (*it)->label() );
+        dragDropVerify( *it );
       }
     }
   }
 }
 
-void UI::dragDropInit( Avtk::Widget* origin )
+void UI::dragDropInit( Avtk::Widget* origin, size_t size, void* data )
 {
   // set the dragDropOrigin widget, and set the motionUpdateWidget to NULL.
   dragDropOrigin = origin;
   
   motionUpdateWidget = 0;
+  
+  if( dragDropDataPtr )
+  {
+    printf("UI delete[] existing dragDropDataPtr\n");
+    delete[] dragDropDataPtr;
+  }
+  
+  printf("UI new dragDropDataPtr, size %i\n", size);
+  dragDropDataSize = size;
+  dragDropDataPtr  = new char[size];
+  
+  memcpy( dragDropDataPtr, data, size );
+  
 }
 
 bool UI::dragDropVerify( Avtk::Widget* target )
 {
-  
+  printf("DragDropVerify, size %i, data: %s\n", dragDropDataSize, dragDropDataPtr );
 }
 
 void UI::dragDropComplete( Avtk::Widget* target )

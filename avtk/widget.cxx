@@ -130,8 +130,9 @@ void Widget::motion( int x, int y )
     // inform UI of possible drag-drop action
     if( !touches( x, y ) )
     {
+      static const char* testData = "DragDropTestPayload";
       printf("motion outside widget -> DND?\n");
-      ui->dragDropInit( this );
+      ui->dragDropInit( this, strlen( testData ), (void*)testData );
     }
     return;
   }
