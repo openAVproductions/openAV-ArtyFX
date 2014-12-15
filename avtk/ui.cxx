@@ -39,6 +39,9 @@ UI::UI( int w__, int h__, PuglNativeWindow parent ) :
   dragDropOrigin   = 0;
   dragDropDataSize = 0;
   dragDropDataPtr  = 0;
+  
+  dragDropTargetVerified       = false;
+  dragDropTargetVerifiedWidget = 0;
 }
 
 void UI::display( cairo_t* cr )
@@ -83,8 +86,8 @@ void UI::event( const PuglEvent* event )
       break;
     
     case PUGL_EXPOSE:
-      printf("recieved pugl expose in UI\n");
-      redraw();
+      //printf("recieved pugl expose in UI\n");
+      //redraw();
       break;
     
     default:
@@ -140,12 +143,42 @@ void UI::dragDropInit( Avtk::Widget* origin, size_t size, void* data )
   dragDropDataPtr  = new char[size];
   
   memcpy( dragDropDataPtr, data, size );
-  
 }
 
 bool UI::dragDropVerify( Avtk::Widget* target )
 {
-  printf("DragDropVerify, size %i, data: %s\n", dragDropDataSize, dragDropDataPtr );
+  if ( dragDropTargetVerified && dragDropTargetVerifiedWidget == target )
+  {
+    // we've already found a valid match for this widget, just return true
+    return true;
+  }
+  else
+  {
+    // reset search for a match
+    dragDropTargetVerifiedWidget = 0;
+  }
+  
+  // haven't tested this widget yet
+  if( dragDropTargetVerifiedWidget == 0 )
+  {
+    // TODO: match in the origin data-types and target data-types
+    for( int i = 0; i < 1/*dragDropOrigin->dragDropDataTypes()*/; i++ )
+    {
+      if( true /*target->dragDropDataTypeCheck( i )*/ )
+      {
+        dragDropTargetVerified = true;
+        dragDropTargetVerifiedWidget = target;
+        printf("DragDropVerify to %s OK: data = %s\n", target->label(), dragDropDataPtr );
+        return true;
+      }
+    }
+    
+    dragDropTargetVerified = false;
+    printf("DragDropVerify Failed no data-type matches\n" );
+    return false;
+  }
+  
+  return false;
 }
 
 void UI::dragDropComplete( Avtk::Widget* target )

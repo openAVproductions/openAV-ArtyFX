@@ -109,6 +109,10 @@ class UI
     Avtk::Widget* dragDropOrigin;
     Avtk::Widget* motionUpdateWidget;
     
+    
+    bool          dragDropTargetVerified;
+    Avtk::Widget* dragDropTargetVerifiedWidget;
+    
     size_t dragDropDataSize;
     char*  dragDropDataPtr;
     
