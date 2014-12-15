@@ -65,7 +65,7 @@ void List::draw( cairo_t* cr )
   {
     cairo_text_extents_t extents;
     cairo_set_font_size(cr, 10.0);
-    cairo_text_extents(cr, label.c_str(), &extents);
+    cairo_text_extents(cr, label(), &extents);
     
     int iY = y + 14 + extents.height / 2 - 2 + 12 * i;
     

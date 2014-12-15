@@ -36,6 +36,7 @@ UI::UI( int w__, int h__, PuglNativeWindow parent ) :
   
   theme = new Theme( this );
   
+  dragDropOrigin = 0;
   motionUpdateWidget = 0;
 }
 
@@ -104,6 +105,35 @@ void UI::motion(int x, int y)
 {
   if( motionUpdateWidget )
   {
-    motionUpdateWidget->drag( x, y );
+    motionUpdateWidget->motion( x, y );
   }
+  else if( dragDropOrigin )
+  {
+    // scan trough widgets on mouse-move, as it *could* be a drag-drop action.
+    for (std::list< ptr<Avtk::Widget> >::iterator it = widgets.begin(); it != widgets.end(); it++)
+    {
+      if( (*it)->touches( x, y ) )
+      {
+        printf("DragDropVerify: Origin %s, Target %s\n", dragDropOrigin->label(), (*it)->label() );
+      }
+    }
+  }
+}
+
+void UI::dragDropInit( Avtk::Widget* origin )
+{
+  // set the dragDropOrigin widget, and set the motionUpdateWidget to NULL.
+  dragDropOrigin = origin;
+  
+  motionUpdateWidget = 0;
+}
+
+bool UI::dragDropVerify( Avtk::Widget* target )
+{
+  
+}
+
+void UI::dragDropComplete( Avtk::Widget* target )
+{
+  
 }

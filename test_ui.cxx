@@ -16,34 +16,34 @@ TestUI::TestUI( PuglNativeWindow parent ):
   Avtk::UI( 610, 430, parent )
 {
   // slider vert
-  Avtk::Widget* w = new Avtk::Slider( this, 520, 40, 22, 220, "Rounded Corners" );
+  Avtk::Widget* w = new Avtk::Slider( this, 520, 40, 22, 220, "Vertical Slider" );
   w->callback = widgetCB;
   w->callbackUD = this;
   add( w );
   
   // button
-  w = new Avtk::Button( this, 3, 45, 40, 22, "-" );
+  w = new Avtk::Button( this, 3, 45, 90, 22, "Button" );
   //w->callback = widgetCB;
   w->callbackUD = this;
   add( w );
   
   // dial
-  w = new Avtk::Dial( this, 75, 75, 75, 75, "-" );
+  w = new Avtk::Dial( this, 75, 75, 75, 75, "Dial 1" );
   //w->callback = widgetCB;
   w->callbackUD = this;
   add( w );
   
   // list
-  list = new Avtk::List( this, 345, 45, 75, 125, "-" );
+  list = new Avtk::List( this, 345, 45, 75, 125, "List (Left)" );
   list->callback   = listCB;
   list->callbackUD = this;
   add( list );
   
-  list2 = new Avtk::List( this, 425, 45, 75, 125, "-" );
+  list2 = new Avtk::List( this, 425, 45, 75, 125, "List (Right)" );
   add( list2 );
   
   // waveform
-  waveform = new Avtk::Waveform( this, 75, 175, 375, 125, "-" );
+  waveform = new Avtk::Waveform( this, 75, 175, 375, 125, "Waveform" );
   //waveform->callback = widgetCB;
   //waveform->callbackUD = this;
   
@@ -52,18 +52,18 @@ TestUI::TestUI( PuglNativeWindow parent ):
   waveform->show( tmp );
   add( waveform );
   
-  w = new Avtk::Envelope( this, 215, 115, 60, 40, "-" );
+  w = new Avtk::Envelope( this, 215, 115, 60, 40, "Envelope" );
   //w->callback = widgetCB;
   w->callbackUD = this;
   add( w );
   
   // image
-  Avtk::Image* i = new Avtk::Image( this, 0, 0, 610, 36, "-" );
+  Avtk::Image* i = new Avtk::Image( this, 0, 0, 610, 36, "Image" );
   i->load( header.pixel_data );
   add( i );
   
   // slider horizontal
-  w =  new Avtk::Slider( this,  40,350, 350, 22, "Vol" );
+  w =  new Avtk::Slider( this,  40,350, 350, 22, "Zoom" );
   w->callback   = zoomCB;
   w->callbackUD = this;
   add( w );

@@ -23,6 +23,9 @@ class Widget
     Widget( Avtk::UI* ui_, int x_, int y_, int w_, int h_, std::string label_);
     virtual ~Widget(){}
     
+    /// returns the name of the Widget
+    const char* label(){return label_.c_str();}
+    
     /// sets the visibility
     void visible( bool visibile );
     
@@ -39,14 +42,15 @@ class Widget
     /// called by the UI class on any event that occurs
     int handle( const PuglEvent* event );
     
-    void drag( int x, int y );
+    /// called by the UI class when this widget has a mouse pressed
+    void motion( int x, int y );
     
     /// the callback and its userdata pointer
     void (*callback)(Widget* , void*);
     void* callbackUD;
     
     int x, y, w, h;         /// widget co-ords and size
-    std::string label;      /// widget name - sometimes shown in UI
+    std::string label_;      /// widget name - sometimes shown in UI
     bool  visible_;         /// widget visibility
     float value_;           /// widget value
     

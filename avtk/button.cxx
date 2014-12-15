@@ -39,7 +39,7 @@ void Button::draw( cairo_t* cr )
   // Draw label
   cairo_text_extents_t extents;
   cairo_set_font_size(cr, 15.0);
-  cairo_text_extents(cr, label.c_str(), &extents);
+  cairo_text_extents(cr, label(), &extents);
   cairo_move_to(cr,
                 (x + w / 2) - extents.width / 2,
                 (y + h / 2) + extents.height / 2 - 2);
@@ -52,7 +52,7 @@ void Button::draw( cairo_t* cr )
   {
     ui->theme->color( cr, BG_DARK );
   }
-  cairo_show_text(cr, label.c_str());
+  cairo_show_text( cr, label() );
   
   cairo_restore( cr );
 }

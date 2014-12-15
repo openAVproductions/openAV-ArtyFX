@@ -7,14 +7,14 @@
 namespace Avtk
 {
 
-Widget::Widget( Avtk::UI* ui_, int x_, int y_, int w_, int h_, std::string label_) :
+Widget::Widget( Avtk::UI* ui_, int x_, int y_, int w_, int h_, std::string label__) :
   ui(ui_),
   parent_( 0 ),
   x( x_ ),
   y( y_ ),
   w( w_ ),
   h( h_ ),
-  label( label_ ),
+  label_( label__ ),
   visible_( true ),
   
   value_( 0 ),
@@ -62,10 +62,12 @@ int Widget::handle( const PuglEvent* event )
             // sample the vertical mouse position, drag events affect += value()
             mX = event->button.x;
             mY = event->button.y;
-            
-            // tell the UI that the current widget wants motion notify
-            ui->wantsMotionUpdates( this, true );
           }
+          
+          // tell the UI that the current widget wants motion notify updates
+          // this also handles Drag-n-Drop, so we need motion updates even if we
+          // don't have DM_DRAG_VERTICAL || DM_DRAG_HORIZONTAL
+          ui->wantsMotionUpdates( this, true );
           return 1;
         }
       }
@@ -120,12 +122,21 @@ int Widget::handle( const PuglEvent* event )
   return 0;
 }
 
-void Widget::drag( int x, int y )
+void Widget::motion( int x, int y )
 {
-  // widget doesn't have a drag action
   if ( dm == DM_NONE )
+  {
+    // if widget is pressed, and mouse moves outside the widget area
+    // inform UI of possible drag-drop action
+    if( !touches( x, y ) )
+    {
+      printf("motion outside widget -> DND?\n");
+      ui->dragDropInit( this );
+    }
     return;
+  }
   
+  // handle value() on the widget
   float delta = ( mY - y ) / float(h);
   
   if ( dm == DM_DRAG_HORIZONTAL )

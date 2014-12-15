@@ -159,9 +159,7 @@ void Waveform::draw( cairo_t* cr )
   
   
   cairo_set_line_join( cr, CAIRO_LINE_JOIN_ROUND);
-  //ui->theme->color( cr, HIGHLIGHT, 0.2 );
-  //cairo_fill_preserve( cr );
-  ui->theme->color( cr, BG, 0.8 );
+  ui->theme->color( cr, FG );
   cairo_set_line_width(cr, ui->theme->lineWidthNorm() );
   cairo_stroke(cr);
   

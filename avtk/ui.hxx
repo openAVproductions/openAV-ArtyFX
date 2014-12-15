@@ -35,7 +35,7 @@ class UI
       widgets.push_back( w );
     }
     
-    /// setDragWidget tells the UI a widget has captured a mouse-down event, and
+    /// tells the UI a widget has captured a mouse-down event, and
     /// wants to be notified of mouse movement events
     void wantsMotionUpdates( Avtk::Widget* w, bool notifyOfMotion )
     {
@@ -44,6 +44,17 @@ class UI
       else
         motionUpdateWidget = 0;
     }
+    
+    /// Initiate a drag-and-drop action, with the widget as the "origin widget",
+    void dragDropInit( Avtk::Widget* origin );
+    
+    /// checks if the current drag-drop data-type is dropable on the "to" Widget
+    bool dragDropVerify( Avtk::Widget* target );
+    
+    /// performs the drag-drop action
+    void dragDropComplete( Avtk::Widget* target );
+    
+    
     
     void redraw();
     void redraw( Avtk::Widget* w );
@@ -91,6 +102,10 @@ class UI
     // act generally like raw pointers would do
     std::list< ptr<Avtk::Widget> > widgets;
     
+    /// pointers that are dynamically switched to represent a widget that could
+    /// have a specific action performed with it in the future. These pointers
+    /// *must* be checked for 0 before *any* use.
+    Avtk::Widget* dragDropOrigin;
     Avtk::Widget* motionUpdateWidget;
     
     
