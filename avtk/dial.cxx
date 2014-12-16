@@ -18,7 +18,7 @@ void Dial::draw( cairo_t* cr )
 {
   cairo_save( cr );
   
-  ui->theme()->color( cr, BG, 1 );
+  theme_->color( cr, BG, 1 );
   cairo_new_sub_path( cr );
   cairo_arc(cr, x+w/2,y+h/2,  w/2.f - 8, 2.46, 2.46 + 4.54 );
   cairo_set_line_width(cr, w / 20.f);
@@ -27,9 +27,9 @@ void Dial::draw( cairo_t* cr )
   cairo_new_sub_path( cr );
   cairo_arc(cr, x+w/2,y+h/2,  w/2.f - 8, 2.46, 2.46 + 4.54*value() );
   
-  ui->theme()->color( cr, HIGHLIGHT, 0.2 );
+  theme_->color( cr, HIGHLIGHT, 0.2 );
   //cairo_fill_preserve(cr);
-  ui->theme()->color( cr, HIGHLIGHT, 0.8 );
+  theme_->color( cr, HIGHLIGHT, 0.8 );
   cairo_set_line_width(cr, w / 7.f);
   cairo_stroke(cr);
   

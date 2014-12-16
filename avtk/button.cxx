@@ -17,22 +17,22 @@ void Button::draw( cairo_t* cr )
 {
   cairo_save( cr );
   
-  roundedBox(cr, x, y, w, h, ui->theme()->cornerRadius_ );
+  roundedBox(cr, x, y, w, h, theme_->cornerRadius_ );
   
   if( value() > 0.4999 )
   {
-    ui->theme()->color( cr, HIGHLIGHT, 0.2 );
+    theme_->color( cr, HIGHLIGHT, 0.2 );
     cairo_fill_preserve(cr);
-    ui->theme()->color( cr, HIGHLIGHT );
-    cairo_set_line_width(cr, ui->theme()->lineWidthWide() );
+    theme_->color( cr, HIGHLIGHT );
+    cairo_set_line_width(cr, theme_->lineWidthWide() );
     cairo_stroke(cr);
   }
   else
   {
-    ui->theme()->color( cr, BG_DARK );
+    theme_->color( cr, BG_DARK );
     cairo_fill_preserve(cr);
-    ui->theme()->color( cr, FG );
-    cairo_set_line_width(cr, ui->theme()->lineWidthNorm() );
+    theme_->color( cr, FG );
+    cairo_set_line_width(cr, theme_->lineWidthNorm() );
     cairo_stroke(cr);
   }
   
@@ -46,11 +46,11 @@ void Button::draw( cairo_t* cr )
   
   if( !value() )
   {
-    ui->theme()->color( cr, FG );
+    theme_->color( cr, FG );
   }
   else
   {
-    ui->theme()->color( cr, BG_DARK );
+    theme_->color( cr, BG_DARK );
   }
   cairo_show_text( cr, label() );
   

@@ -10,7 +10,7 @@ namespace Avtk
 Widget::Widget( Avtk::UI* ui_, int x_, int y_, int w_, int h_, std::string label__) :
   ui(ui_),
   parent_( 0 ),
-  theme_( 0 ),
+  theme_( ui->theme() ),
   x( x_ ),
   y( y_ ),
   w( w_ ),
@@ -31,8 +31,9 @@ Widget::Widget( Avtk::UI* ui_, int x_, int y_, int w_, int h_, std::string label
 {
 }
 
-void theme( Theme* t )
+void Widget::theme( Theme* t )
 {
+  theme_ = t;
 }
 
 int Widget::handle( const PuglEvent* event )

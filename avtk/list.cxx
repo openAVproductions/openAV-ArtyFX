@@ -49,14 +49,14 @@ void List::draw( cairo_t* cr )
 {
   cairo_save( cr );
   
-  roundedBox(cr, x, y, w, h, ui->theme()->cornerRadius_ );
+  roundedBox(cr, x, y, w, h, theme_->cornerRadius_ );
   
   int selectedItem = value() * (items.size()-1);
   
-  roundedBox(cr, x, y, w, h, ui->theme()->cornerRadius_ );
-  ui->theme()->color( cr, BG_DARK );
+  roundedBox(cr, x, y, w, h, theme_->cornerRadius_ );
+  theme_->color( cr, BG_DARK );
   cairo_fill_preserve(cr);
-  ui->theme()->color( cr, FG );
+  theme_->color( cr, FG );
   cairo_set_line_width(cr, 1.4);
   cairo_stroke(cr);
   
@@ -72,15 +72,15 @@ void List::draw( cairo_t* cr )
     if( i == selectedItem )
     {
       cairo_rectangle( cr, x, iY - 9, w, 11 );
-      ui->theme()->color( cr, FG, 0.4 );
+      theme_->color( cr, FG, 0.4 );
       cairo_fill_preserve( cr );
-      ui->theme()->color( cr, HIGHLIGHT, 0.8 );
+      theme_->color( cr, HIGHLIGHT, 0.8 );
       cairo_stroke( cr );
       cairo_set_source_rgb( cr, 1,1,1 );
     }
     else
     {
-      ui->theme()->color( cr, BG );
+      theme_->color( cr, BG );
     }
     
     cairo_move_to(cr, x + 5, iY );

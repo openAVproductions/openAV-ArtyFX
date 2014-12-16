@@ -43,7 +43,10 @@ UI::UI( int w__, int h__, PuglNativeWindow parent ) :
   dragDropTargetVerified       = false;
   dragDropTargetVerifiedWidget = 0;
   
-  themes.push_back( new Theme( this, "theme.avtk" ) );
+  themes.push_back( new Theme( this, "default.avtk" ) );
+  themes.push_back( new Theme( this, "orange.avtk" ) );
+  themes.push_back( new Theme( this, "green.avtk" ) );
+  themes.push_back( new Theme( this, "yellow.avtk" ) );
 }
 
 void UI::display( cairo_t* cr )

@@ -25,12 +25,20 @@ TestUI::TestUI( PuglNativeWindow parent ):
   w = new Avtk::Button( this, 3, 45, 90, 22, "Button" );
   //w->callback = widgetCB;
   w->callbackUD = this;
+  w->theme( theme( 1 ) );
   add( w );
   
   // dial
   w = new Avtk::Dial( this, 75, 75, 75, 75, "Dial 1" );
   //w->callback = widgetCB;
   w->callbackUD = this;
+  add( w );
+  
+  // dial
+  w = new Avtk::Dial( this, 175, 75, 75, 75, "Dial 2" );
+  //w->callback = widgetCB;
+  w->callbackUD = this;
+  w->theme( theme( 1 ) );
   add( w );
   
   // list
