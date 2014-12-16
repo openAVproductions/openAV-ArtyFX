@@ -11,6 +11,7 @@ using namespace Avtk;
 Button::Button( Avtk::UI* ui, int x_, int y_, int w_, int h_, std::string label_) :
   Widget( ui, x_, y_, w_, h_, label_ )
 {
+  clickMode( CLICK_TOGGLE );
 }
 
 void Button::draw( cairo_t* cr )

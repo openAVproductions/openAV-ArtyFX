@@ -23,6 +23,8 @@ Widget::Widget( Avtk::UI* ui_, int x_, int y_, int w_, int h_, std::string label
   callback( 0 ),
   callbackUD( 0 ),
   
+  cm( CLICK_NONE ),
+  
   dm( DM_NONE ),
   mX(0),
   mY(0),
