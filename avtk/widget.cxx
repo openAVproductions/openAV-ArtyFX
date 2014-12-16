@@ -178,8 +178,12 @@ void Widget::value( float v )
   value_ = v;
   
   // call the callback if its set, and not told not to
-  if ( callback )
+  if ( !ui->inValueCB && callback )
+  {
+    ui->inValueCB = true;
     callback( this, callbackUD );
+    ui->inValueCB = false;
+  }
 }
 
 bool Widget::touches( int inx, int iny )

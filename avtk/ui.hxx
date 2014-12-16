@@ -94,6 +94,10 @@ class UI
       // returns the X11 handle, or Win32 surface, or Quartz surface
       return puglGetNativeWindow( view );
     }
+    
+    /// when set, we're in a widgets callback, so don't do "callback" for other
+    /// widgets: this avoids recurive value() function calling
+    bool inValueCB;
   
   protected:
     PuglView* view;

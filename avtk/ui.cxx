@@ -7,6 +7,7 @@
 using namespace Avtk;
 
 UI::UI( int w__, int h__, PuglNativeWindow parent ) :
+  inValueCB( false ),
   quit_( false ),
   w_( w__ ),
   h_( h__ )
