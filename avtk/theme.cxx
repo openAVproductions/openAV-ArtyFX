@@ -44,12 +44,26 @@ void Theme::load( std::string filename )
       return;
     }
     
-    // extract the 3 ints from the array
-    picojson::array list = v.get("highlight").get<picojson::array>();
-    for (picojson::array::iterator iter = list.begin(); iter != list.end(); ++iter)
+    const char* items[5] = 
     {
-      double tmp = (*iter).get("c").get<double>();
-      printf("values = %lf\r\n", tmp );
+      "bg",
+      "bg-dark",
+      "fg",
+      "fg-dark",
+      "highlight"
+    };
+    
+    for( int i = 0; i < 5; i++ )
+    {
+      // extract the 3 ints from the array, and store into Color array
+      int colNum = 0;
+      picojson::array list = v.get( items[i] ).get<picojson::array>();
+      for (picojson::array::iterator iter = list.begin(); iter != list.end(); ++iter)
+      {
+        int tmp = (int)(*iter).get("c").get<double>();
+        printf("%s = %lf\r\n", items[i], tmp );
+        colors[i].c[colNum++] = tmp;
+      }
     }
   }
   catch( ... )
@@ -66,36 +80,15 @@ void Theme::cornerRadius( int c )
   printf("corner = %i\n", c );
 }
 
-float Theme::useDefaultColor( cairo_t* cr, USE_CASE uc, float alpha_ )
+float Theme::color( cairo_t* cr, USE_CASE uc, float alpha_ )
 {
-  switch( uc )
-  {
-    case BG:
-      cairo_set_source_rgba(cr,  34/255.,  34/255.,  34/255., alpha_);
-      break;
-    case BG_DARK:
-      cairo_set_source_rgba(cr,  17/255.,  17/255.,  17/255., alpha_);
-      break;
+  float r = colors[uc].c[0] / 255.;
+  float g = colors[uc].c[1] / 255.;
+  float b = colors[uc].c[2] / 255.;
   
-    case FG:
-      cairo_set_source_rgba(cr,  76/255.,  80/255.,  83/255., alpha_);
-      break;
-    case FG_DARK:
-      cairo_set_source_rgba(cr,  35/255.,  87/255., 136/255., alpha_);
-      break;
-    
-    case HIGHLIGHT:
-      cairo_set_source_rgba(cr,   0/255., 128/255., 255/255., alpha_);
-      break;
-    
-    case CORNER_RADIUS:
-      return cornerRadius_;
-      break;
-    
-    default:
-      printf("Theme::useDefaultColor() color %i not handled!\n");
-      break;
-  };
+  printf("%f, %f, %f\n", r, g, b );
+  cairo_set_source_rgba(cr, r, g, b, alpha_);
+  return 0;
 }
 
 }; // Avtk

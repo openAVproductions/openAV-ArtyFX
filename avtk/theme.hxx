@@ -22,15 +22,18 @@ enum USE_CASE
   
   HIGHLIGHT,
   
-  SHADOW,
-  OUTLINE,
-  
   LINE_WIDTH_THIN,
   LINE_WIDTH_WIDE,
   
   CORNER_RADIUS,
   
   USE_CASE_COUNT,
+};
+
+struct Color
+{
+  /// r, g, b
+  float c[3];
 };
 
 /// a Theme instance is a set color swatch that can be applied
@@ -43,27 +46,7 @@ class Theme
     float lineWidthNorm(){ return lineWidthNorm_; }
     float lineWidthWide(){ return lineWidthWide_; }
     
-    float color( cairo_t* cr, USE_CASE uc, float alpha = 1.0 )
-    {
-      float handled = setColor( cr, uc, alpha );
-      
-      if ( !handled )
-      {
-        return useDefaultColor( cr, uc, alpha );
-      }
-      
-      return handled;
-    }
-    
-    // so themes can override this function to set custom colors. The derived
-    // class must return non-zero if it handled the colour
-    virtual float setColor( cairo_t* cr, USE_CASE uc, float alpha )
-    {
-      return 0;
-    }
-    
-    /// default theme, values returned using float ret value 
-    float useDefaultColor( cairo_t* cr, USE_CASE uc, float alpha_ );
+    float color( cairo_t* cr, USE_CASE uc, float alpha = 1.0 );
     
     void cornerRadius( int c );
     
@@ -77,6 +60,8 @@ class Theme
   private:
     static int privateID;
     int ID;
+    
+    Color colors[USE_CASE_COUNT];
     
     void load( std::string filename );
 };
