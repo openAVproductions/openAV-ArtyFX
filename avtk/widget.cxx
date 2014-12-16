@@ -51,7 +51,9 @@ int Widget::handle( const PuglEvent* event )
           {
             float tmp = (event->button.y - y) / h/0.92;
             value( tmp );
+#ifdef AVTK_DEBUG
             printf("value from Y, %f\n", tmp);
+#endif // AVTK_DEBUG
             ui->redraw( this );
           }
           
@@ -85,7 +87,9 @@ int Widget::handle( const PuglEvent* event )
         bool scTch = touches( event->scroll.x, event->scroll.y );
         if( scTch )
         {
+#ifdef AVTK_DEBUG
           printf("scroll touch %i, x %lf, y %lf\n", int(scTch), event->scroll.x, event->scroll.y );
+#endif // AVTK_DEBUG
           float delta = event->scroll.dy / 10.f;
           if( scrollInvert )
             delta = -delta;
@@ -98,19 +102,23 @@ int Widget::handle( const PuglEvent* event )
     case PUGL_KEY_PRESS:
       if (event->key.character == 'w')
       {
+        /*
         printf("pugl key w\n");
         float delta = 1 / 10.f;
         value( value_ + delta );
         ui->redraw( this );
         return 1;
+        */
       }
       else if (event->key.character == 's')
       {
+        /*
         printf("pugl key s\n");
         float delta = 1 / 10.f;
         value( value_ - delta );
         ui->redraw( this );
         return 1;
+        */
       }
       break;
     
@@ -131,7 +139,9 @@ void Widget::motion( int x, int y )
     if( !touches( x, y ) )
     {
       static const char* testData = "DragDropTestPayload";
+#ifdef AVTK_DEBUG
       printf("motion outside widget -> DND?\n");
+#endif // AVTK_DEBUG
       ui->dragDropInit( this, strlen( testData ), (void*)testData );
     }
     return;

@@ -134,11 +134,15 @@ void UI::dragDropInit( Avtk::Widget* origin, size_t size, void* data )
   
   if( dragDropDataPtr )
   {
+#ifdef AVTK_DEBUG
     printf("UI delete[] existing dragDropDataPtr\n");
+#endif // AVTK_DEBUG
     delete[] dragDropDataPtr;
   }
   
+#ifdef AVTK_DEBUG
   printf("UI new dragDropDataPtr, size %i\n", size);
+#endif // AVTK_DEBUG
   dragDropDataSize = size;
   dragDropDataPtr  = new char[size];
   
@@ -168,13 +172,17 @@ bool UI::dragDropVerify( Avtk::Widget* target )
       {
         dragDropTargetVerified = true;
         dragDropTargetVerifiedWidget = target;
+#ifdef AVTK_DEBUG
         printf("DragDropVerify to %s OK: data = %s\n", target->label(), dragDropDataPtr );
+#endif // AVTK_DEBUG
         return true;
       }
     }
     
     dragDropTargetVerified = false;
+#ifdef AVTK_DEBUG
     printf("DragDropVerify Failed no data-type matches\n" );
+#endif // AVTK_DEBUG
     return false;
   }
   

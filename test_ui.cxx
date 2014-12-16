@@ -89,7 +89,7 @@ static void zoomCB(Avtk::Widget* w, void* ud)
 
 static void dialCB(Avtk::Widget* w, void* ud)
 {
-  printf( "dialCB(), rad = %i\n", w->value() );
+  //printf( "dialCB(), rad = %i\n", w->value() );
 }
 
 static void listCB(Avtk::Widget* w, void* ud)
@@ -143,7 +143,6 @@ static void widgetCB(Avtk::Widget* w, void* ud)
 void TestUI::setAllWidgets( Avtk::Widget* w, float v )
 {
   originSetAllWidget = w;
-  printf( "setAllWidgets(), value = %f\n", v );
   
   for (std::list< ptr<Avtk::Widget> >::iterator it = widgets.begin()++; it != widgets.end(); it++ )
   {

@@ -430,6 +430,7 @@ translateEvent(PuglView* view, XEvent xevent)
     break;
   }
 
+#ifdef AVTK_DEBUG
   if ( event.type == PUGL_EXPOSE )
   {
     printf("sending PUGL_EXPOSE...\n" );
@@ -438,6 +439,7 @@ translateEvent(PuglView* view, XEvent xevent)
   {
     printf("sending PUGL_CONFIGURE...\n" );
   }
+#endif // AVTK_DEBUG
 
   return event;
 }

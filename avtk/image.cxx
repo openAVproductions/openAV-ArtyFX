@@ -21,7 +21,9 @@ Image::~Image()
 
 void Image::load( const unsigned char* data )
 {
+#ifdef AVTK_DEBUG
   printf("w = %i, stride = %i\n", w, stride );
+#endif // AVTK_DEBUG
   memcpy( cairoImgData, data, sizeof(unsigned char)*w*h*4 );
   imgSurf = cairo_image_surface_create_for_data( (unsigned char*)cairoImgData, CAIRO_FORMAT_ARGB32, w, h, stride);
 }
@@ -30,7 +32,9 @@ void Image::draw( cairo_t* cr )
 {
   if( !imgSurf )
   {
+#ifdef AVTK_DEBUG
     printf("Image::draw(), this = %i, imgSurf == 0\n", this );
+#endif // AVTK_DEBUG
     return;
   }
   
