@@ -61,10 +61,10 @@ void Waveform::draw( cairo_t* cr )
 {
   cairo_save( cr );
   
-  roundedBox(cr, x, y, w, h, ui->theme->cornerRadius_ );
-  ui->theme->color( cr, BG_DARK );
+  roundedBox(cr, x, y, w, h, ui->theme()->cornerRadius_ );
+  ui->theme()->color( cr, BG_DARK );
   cairo_fill_preserve(cr);
-  ui->theme->color( cr, FG );
+  ui->theme()->color( cr, FG );
   cairo_set_line_width(cr, 1.4);
   cairo_stroke(cr);
   
@@ -72,7 +72,7 @@ void Waveform::draw( cairo_t* cr )
   if( newWaveform )
   {
     cairo_rectangle(waveformCr, 0, 0, w, h);
-    ui->theme->color( waveformCr, BG_DARK );
+    ui->theme()->color( waveformCr, BG_DARK );
     cairo_fill( waveformCr );
     
     if ( !audioData )
@@ -146,7 +146,7 @@ void Waveform::draw( cairo_t* cr )
       
       cairo_move_to( waveformCr, zoomOffsetPixel, 0 );
       cairo_line_to( waveformCr, zoomOffsetPixel, h );
-      ui->theme->color( waveformCr, HIGHLIGHT, 0.8 );
+      ui->theme()->color( waveformCr, HIGHLIGHT, 0.8 );
       cairo_stroke( waveformCr );
     }
     newWaveform = false;
@@ -159,8 +159,8 @@ void Waveform::draw( cairo_t* cr )
   
   
   cairo_set_line_join( cr, CAIRO_LINE_JOIN_ROUND);
-  ui->theme->color( cr, FG );
-  cairo_set_line_width(cr, ui->theme->lineWidthNorm() );
+  ui->theme()->color( cr, FG );
+  cairo_set_line_width(cr, ui->theme()->lineWidthNorm() );
   cairo_stroke(cr);
   
   cairo_restore( cr );

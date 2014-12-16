@@ -21,10 +21,10 @@ void Envelope::draw( cairo_t* cr )
 {
   cairo_save( cr );
   
-  roundedBox(cr, x, y, w, h, ui->theme->cornerRadius_ );
-  ui->theme->color( cr, BG_DARK );
+  roundedBox(cr, x, y, w, h, ui->theme()->cornerRadius_ );
+  ui->theme()->color( cr, BG_DARK );
   cairo_fill_preserve(cr);
-  ui->theme->color( cr, FG );
+  ui->theme()->color( cr, FG );
   cairo_set_line_width(cr, 1.4);
   cairo_stroke(cr);
   
@@ -37,10 +37,10 @@ void Envelope::draw( cairo_t* cr )
   cairo_rel_line_to( cr, 0.85 * w * ( (r) / 5.f), h - (h*0.9) * s - h * 0.1  ); // Y down
   
   cairo_set_line_join( cr, CAIRO_LINE_JOIN_ROUND);
-  ui->theme->color( cr, HIGHLIGHT, 0.2 );
+  ui->theme()->color( cr, HIGHLIGHT, 0.2 );
   cairo_fill_preserve( cr );
   
-  ui->theme->color( cr, HIGHLIGHT, 0.8 );
+  ui->theme()->color( cr, HIGHLIGHT, 0.8 );
   cairo_set_line_width(cr, 2.0);
   cairo_stroke(cr);
   

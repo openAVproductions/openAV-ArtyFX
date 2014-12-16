@@ -2,6 +2,7 @@
 #include "utils.hxx"
 
 #include "avtk.hxx"
+#include "theme.hxx"
 #include <sndfile.h>
 
 namespace Avtk

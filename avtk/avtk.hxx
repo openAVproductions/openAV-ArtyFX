@@ -9,6 +9,9 @@
 #include "ui.hxx"
 #include "utils.hxx"
 
+// the Theme class definition
+#include "theme.hxx"
+
 // widget headers
 #include "list.hxx"
 #include "dial.hxx"

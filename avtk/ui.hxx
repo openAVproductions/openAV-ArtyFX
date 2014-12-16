@@ -9,6 +9,7 @@
 
 // general C++ includes
 #include <list>
+#include <vector>
 #include <stdio.h>
 #include <unistd.h>
 
@@ -83,7 +84,9 @@ class UI
       puglDestroy( view );
     }
     
-    Theme* theme;
+    /// get the theme requested: the themes have ID's defined in theme file.
+    /// calling this without a parameter returns the default theme.
+    Theme* theme( int id = 0 );
     
     /// call this to recieve the LV2 widget handle
     PuglNativeWindow getNativeHandle()
@@ -102,6 +105,9 @@ class UI
     // Technically this is a list of yasper::ptr<Avtk::Widget> types, but they
     // act generally like raw pointers would do
     std::list< ptr<Avtk::Widget> > widgets;
+    
+    /// A list of themes, loaded on startup, which widgets can request
+    std::vector< ptr<Avtk::Theme> > themes;
     
     /// pointers that are dynamically switched to represent a widget that could
     /// have a specific action performed with it in the future. These pointers
