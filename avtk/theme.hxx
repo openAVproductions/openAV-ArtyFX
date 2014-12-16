@@ -37,14 +37,7 @@ enum USE_CASE
 class Theme
 {
   public:
-    Theme( Avtk::UI* ui_, std::string name = "OpenAV Default" ) :
-      cornerRadius_( 1 ),
-      lineWidthThin_( 0.9 ),
-      lineWidthNorm_( 1.1 ),
-      lineWidthWide_( 2.1 ),
-      
-      ui( ui_ )
-    {}
+    Theme( Avtk::UI* ui_, std::string name = "OpenAV Default" );
     
     float lineWidthThin(){ return lineWidthThin_; }
     float lineWidthNorm(){ return lineWidthNorm_; }
@@ -80,6 +73,10 @@ class Theme
     float lineWidthWide_;
     
     Avtk::UI* ui;
+  
+  private:
+    static int privateID;
+    int ID;
 };
 
 };

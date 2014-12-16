@@ -15,6 +15,7 @@ namespace Avtk
 {
 
 class UI;
+class Theme;
 class Group;
 
 class Widget
@@ -60,10 +61,17 @@ class Widget
     /// the Avtk::UI pointer, used to redraw the view etc
     Avtk::UI* ui;
     
+    /// sets a theme for a Widget
+    void theme( Theme* t );
+    
     void parent( Group* parent );
   
   protected:
     Avtk::Group* parent_;
+    
+    /// local Theme pointer: themes are loaded at startup, and maintained until
+    /// quitting, allowing for optimized redraws.
+    Avtk::Theme* theme_;
     
     enum ClickMode {
       CLICK_NONE,           /// click has no effect

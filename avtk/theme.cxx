@@ -7,6 +7,17 @@
 namespace Avtk
 {
 
+int Theme::privateID = 0;
+
+Theme::Theme( Avtk::UI* ui_, std::string name ) :
+  ui( ui_ ),
+  cornerRadius_( 1 ),
+  lineWidthThin_( 0.9 ),
+  lineWidthNorm_( 1.1 ),
+  lineWidthWide_( 2.1 )
+{
+}
+
 void Theme::cornerRadius( int c )
 {
   cornerRadius_ = c;

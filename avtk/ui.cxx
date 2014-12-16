@@ -42,6 +42,8 @@ UI::UI( int w__, int h__, PuglNativeWindow parent ) :
   
   dragDropTargetVerified       = false;
   dragDropTargetVerifiedWidget = 0;
+  
+  themes.push_back( new Theme( this, "Default" ) );
 }
 
 void UI::display( cairo_t* cr )
