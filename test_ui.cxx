@@ -15,6 +15,10 @@ static void listCB(Avtk::Widget* w, void* ud);
 TestUI::TestUI( PuglNativeWindow parent ):
   Avtk::UI( 610, 430, parent )
 {
+  themes.push_back( new Avtk::Theme( this, "orange.avtk" ) );
+  themes.push_back( new Avtk::Theme( this, "green.avtk" ) );
+  themes.push_back( new Avtk::Theme( this, "yellow.avtk" ) );
+  
   // slider vert
   Avtk::Widget* w = new Avtk::Slider( this, 520, 40, 22, 220, "Vertical Slider" );
   w->callback = widgetCB;
@@ -22,20 +26,20 @@ TestUI::TestUI( PuglNativeWindow parent ):
   add( w );
   
   // button
-  w = new Avtk::Button( this, 3, 45, 90, 22, "Button" );
+  w = new Avtk::Button( this, 7, 45, 90, 22, "Button" );
   //w->callback = widgetCB;
   w->callbackUD = this;
   w->theme( theme( 1 ) );
   add( w );
   
   // dial
-  w = new Avtk::Dial( this, 75, 75, 75, 75, "Dial 1" );
+  w = new Avtk::Dial( this, 7, 85, 75, 75, "Dial 1" );
   //w->callback = widgetCB;
   w->callbackUD = this;
   add( w );
   
   // dial
-  w = new Avtk::Dial( this, 175, 75, 75, 75, "Dial 2" );
+  w = new Avtk::Dial( this, 100, 85, 75, 75, "Dial 2" );
   //w->callback = widgetCB;
   w->callbackUD = this;
   w->theme( theme( 1 ) );
@@ -158,6 +162,7 @@ void TestUI::setAllWidgets( Avtk::Widget* w, float v )
     if( (*it) != originSetAllWidget )
     {
       (*it)->value( v );
+      (*it)->theme( theme( v * themes.size() ) );
     }
   }
   redraw();

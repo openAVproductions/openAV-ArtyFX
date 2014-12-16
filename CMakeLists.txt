@@ -57,5 +57,9 @@ IF( AVTK_SNDFILE_SUPPORT )
   target_link_libraries( avtk ${SNDFILE_LIBRARIES}    )
 ENDIF()
 
+configure_file( "avtk/themes/default.avtk"  "default.avtk" COPYONLY)
+configure_file( "avtk/themes/green.avtk"    "green.avtk"   COPYONLY)
+configure_file( "avtk/themes/orange.avtk"   "orange.avtk"  COPYONLY)
+configure_file( "avtk/themes/yellow.avtk"   "yellow.avtk"  COPYONLY)
 
 

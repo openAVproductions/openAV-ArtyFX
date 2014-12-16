@@ -24,11 +24,32 @@ Theme::Theme( Avtk::UI* ui_, std::string filename ) :
   lineWidthNorm_( 1.1 ),
   lineWidthWide_( 2.1 )
 {
+  int loadError = true;
   if( strlen( filename.c_str() ) > 0 )
-    load( filename );
+  {
+    loadError = load( filename );
+  }
+  if( loadError )
+  {
+    // set default values to the colors array
+    colors[BG].c[0] = colors[BG].c[1] = colors[BG].c[2] = 34;
+    colors[BG_DARK].c[0] = colors[BG_DARK].c[1] = colors[BG_DARK].c[2] = 17;
+    
+    colors[FG].c[0] = 76;
+    colors[FG].c[1] = 80;
+    colors[FG].c[2] = 83;
+    
+    colors[FG_DARK].c[0] = 35;
+    colors[FG_DARK].c[1] = 87;
+    colors[FG_DARK].c[2] =136;
+    
+    colors[HIGHLIGHT].c[0] =  0;
+    colors[HIGHLIGHT].c[1] =128;
+    colors[HIGHLIGHT].c[2] =255;
+  }
 }
 
-void Theme::load( std::string filename )
+int Theme::load( std::string filename )
 {
   try
   {
@@ -40,8 +61,9 @@ void Theme::load( std::string filename )
     
     if( ifs.fail() )
     {
-      std::cerr << picojson::get_last_error() << std::endl;
-      return;
+      printf("Theme::load() %s : File doesn't exist, abort.\n", filename.c_str() );
+      //std::cerr << picojson::get_last_error() << std::endl;
+      return -1;
     }
     
     const char* items[5] = 
@@ -61,7 +83,7 @@ void Theme::load( std::string filename )
       for (picojson::array::iterator iter = list.begin(); iter != list.end(); ++iter)
       {
         int tmp = (int)(*iter).get("c").get<double>();
-        printf("%s = %lf\r\n", items[i], tmp );
+        //printf("%s = %lf\r\n", items[i], tmp );
         colors[i].c[colNum++] = tmp;
       }
     }
@@ -69,15 +91,18 @@ void Theme::load( std::string filename )
   catch( ... )
   {
     printf("Theme::load() Error loading theme from %s : falling back to default.Double check file-exists and JSON contents valid.\n", filename.c_str() );
+    // *any* error, and we don't use the theme
+    return -1;
   }
   
+  // successful load
+  return 0;
 }
 
 void Theme::cornerRadius( int c )
 {
   cornerRadius_ = c;
   ui->redraw();
-  printf("corner = %i\n", c );
 }
 
 float Theme::color( cairo_t* cr, USE_CASE uc, float alpha_ )
@@ -85,8 +110,7 @@ float Theme::color( cairo_t* cr, USE_CASE uc, float alpha_ )
   float r = colors[uc].c[0] / 255.;
   float g = colors[uc].c[1] / 255.;
   float b = colors[uc].c[2] / 255.;
-  
-  printf("%f, %f, %f\n", r, g, b );
+  //printf("%f, %f, %f\n", r, g, b );
   cairo_set_source_rgba(cr, r, g, b, alpha_);
   return 0;
 }
