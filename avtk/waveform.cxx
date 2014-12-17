@@ -14,7 +14,8 @@ Waveform::Waveform( Avtk::UI* ui, int x_, int y_, int w_, int h_, std::string la
   waveformCr( 0 ),
   waveformSurf( 0 ),
   audioData( 0 ),
-  zoom_( 1.0f )
+  zoom_( 1.0f ),
+  zoomOffset_(0)
 {
   waveformSurf= cairo_image_surface_create ( CAIRO_FORMAT_ARGB32, w, h);
   waveformCr  = cairo_create ( waveformSurf );
