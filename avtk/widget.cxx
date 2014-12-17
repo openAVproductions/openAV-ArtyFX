@@ -60,11 +60,13 @@ int Widget::handle( const PuglEvent* event )
           if( cm == CLICK_TOGGLE )
           {
             value( !value() );
+            callback( this, callbackUD );
             ui->redraw( this );
           }
           else if ( cm == CLICK_MOMENTARY )
           {
             value( 1 );
+            callback( this, callbackUD );
             ui->redraw( this );
           }
           else if ( cm == CLICK_VALUE_FROM_Y )
@@ -72,8 +74,9 @@ int Widget::handle( const PuglEvent* event )
             float tmp = (event->button.y - y) / h/0.92;
             value( tmp );
 #ifdef AVTK_DEBUG
-            printf("value from Y, %f\n", tmp);
+            printf("Widget::handle() value from Y, %f\n", tmp);
 #endif // AVTK_DEBUG
+            callback( this, callbackUD );
             ui->redraw( this );
           }
           
@@ -207,15 +210,6 @@ void Widget::value( float v )
   if( v < 0.0 ) v = 0.0;
   
   value_ = v;
-  
-  
-  // call the callback if its set, and not told not to
-  if ( !ui->inValueCB && callback )
-  {
-    ui->inValueCB = true;
-    callback( this, callbackUD );
-    ui->inValueCB = false;
-  }
 }
 
 bool Widget::touches( int inx, int iny )
