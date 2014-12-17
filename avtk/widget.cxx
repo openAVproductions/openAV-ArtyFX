@@ -54,8 +54,9 @@ int Widget::handle( const PuglEvent* event )
         
         if( touches( event->button.x, event->button.y ) )
         {
+          mouseButtonPressed_ = event->button.button;
 #ifdef AVTK_DEBUG
-          printf("click touches %s, clickMode %i\n", label_.c_str(), clickMode() );
+          printf("click touches %s, clickMode %i, mouseBtn %i\n", label_.c_str(), clickMode(), mouseButton() );
 #endif // AVTK_DEBUG
           if( cm == CLICK_TOGGLE )
           {
@@ -200,6 +201,12 @@ void Widget::motion( int x, int y )
   
   mX = x;
   mY = y;
+  
+  // check types of "when()" here?
+  // immidiate
+  // on-release
+  if( true )
+    callback( this, callbackUD );
   
   ui->redraw( this );
 }

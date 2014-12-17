@@ -61,7 +61,7 @@ class Widget
     void clickMode( ClickMode cm );
     
     /// 0 when no mouse button is down, otherwise the mouse button pressed
-    int mouseButtonPressed_;
+    int mouseButton(){return mouseButtonPressed_;}
     
     /// the Avtk::UI pointer, used to redraw the view etc
     Avtk::UI* ui;
@@ -110,6 +110,8 @@ class Widget
     void (*callback)(Widget* , void*);
     void* callbackUD;
     
+    /// holds the currently pressed mouse-button
+    int mouseButtonPressed_;
 
 };
 
