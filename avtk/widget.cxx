@@ -42,7 +42,6 @@ int Widget::handle( const PuglEvent* event )
 {
   switch (event->type)
   {
-    
     case PUGL_BUTTON_PRESS:
       {
         if ( event->button.x == 0 && event->button.y == 0 )
@@ -50,9 +49,15 @@ int Widget::handle( const PuglEvent* event )
         
         if( touches( event->button.x, event->button.y ) )
         {
+          printf("click touches %s, clickMode %i\n", label_.c_str(), clickMode() );
           if( cm == CLICK_TOGGLE )
           {
             value( !value() );
+            ui->redraw( this );
+          }
+          else if ( cm == CLICK_MOMENTARY )
+          {
+            value( 1 );
             ui->redraw( this );
           }
           else if ( cm == CLICK_VALUE_FROM_Y )
@@ -85,9 +90,26 @@ int Widget::handle( const PuglEvent* event )
     
     case PUGL_BUTTON_RELEASE:
       {
+        // FIXME: this is now run for each existing widget, until the touches()
+        // widget is found, then event-propogation stops. Optimizte to avoid
+        // repeated calling.
         ui->wantsMotionUpdates( this, false );
+        
+        //printf("click release %s, clickMode %i\n", label_.c_str(), clickMode() );
+        if( touches( event->button.x, event->button.y ) )
+        {
+          //printf("Widget PUGL button release, cm %i\n", cm);
+          
+          if ( cm == CLICK_MOMENTARY )
+          {
+            value( 0 );
+            ui->redraw();
+            printf("Widget MOMENTARY, redrawn value\n");
+          }
+          return 1;
+        }
       }
-      return 1;
+      return 0;
       break;
     
     case PUGL_SCROLL:
@@ -191,10 +213,10 @@ bool Widget::touches( int inx, int iny )
   return ( inx >= x && inx <= x + w && iny >= y && iny <= y + h);
 }
 
-void Widget::clickMode( ClickMode c, int cms )
+void Widget::clickMode( ClickMode c )
 {
   cm = c;
-  clickModeSize = cms;
+  printf("Widget %s  clickMode %i, %i\n", label_.c_str(), cm, c);
 }
 
 void Widget::visible( bool v )

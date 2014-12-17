@@ -26,10 +26,19 @@ TestUI::TestUI( PuglNativeWindow parent ):
   add( w );
   
   // button
-  w = new Avtk::Button( this, 7, 45, 90, 22, "Button" );
+  w = new Avtk::Button( this, 7, 45, 90, 22, "Momentary" );
   //w->callback = widgetCB;
   w->callbackUD = this;
   w->theme( theme( 1 ) );
+  w->clickMode( Avtk::Widget::CLICK_MOMENTARY );
+  add( w );
+  
+  // button
+  w = new Avtk::Button( this, 7 + 100, 45, 90, 22, "Toggle" );
+  //w->callback = widgetCB;
+  w->callbackUD = this;
+  w->theme( theme( 2 ) );
+  w->clickMode( Avtk::Widget::CLICK_TOGGLE );
   add( w );
   
   // dial
@@ -58,11 +67,10 @@ TestUI::TestUI( PuglNativeWindow parent ):
   waveform = new Avtk::Waveform( this, 75, 175, 375, 125, "Waveform" );
   //waveform->callback = widgetCB;
   //waveform->callbackUD = this;
-  
   std::vector<float> tmp;
   int error = Avtk::loadSample( "test.wav", tmp );
   waveform->show( tmp );
-  add( waveform );
+  //add( waveform );
   
   w = new Avtk::Envelope( this, 215, 115, 60, 40, "Envelope" );
   //w->callback = widgetCB;

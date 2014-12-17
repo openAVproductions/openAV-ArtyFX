@@ -29,7 +29,7 @@ void Slider::draw( cairo_t* cr )
   cairo_stroke(cr);
   
   // fader
-  if( dm == DM_DRAG_VERTICAL )
+  if( dragMode() == DM_DRAG_VERTICAL )
   {
     const int range = (h-faderHeight-2);
     roundedBox(cr, x + 1, y + 1 + range - range*value(), w - 2, faderHeight, theme_->cornerRadius_ );

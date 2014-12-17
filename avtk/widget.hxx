@@ -53,7 +53,16 @@ class Widget
     int x, y, w, h;         /// widget co-ords and size
     std::string label_;      /// widget name - sometimes shown in UI
     bool  visible_;         /// widget visibility
-    float value_;           /// widget value
+    
+    enum ClickMode {
+      CLICK_NONE,           /// click has no effect
+      CLICK_MOMENTARY,      /// click highlights button while mouse-down
+      CLICK_TOGGLE,         /// click toggles value between zero and one
+      CLICK_VALUE_FROM_Y,   /// click sets value to mouse Y position / widget Y
+    };
+    
+    /// sets the click mode
+    void clickMode( ClickMode cm );
     
     /// 0 when no mouse button is down, otherwise the mouse button pressed
     int mouseButtonPressed_;
@@ -73,16 +82,7 @@ class Widget
     /// quitting, allowing for optimized redraws.
     Avtk::Theme* theme_;
     
-    enum ClickMode {
-      CLICK_NONE,           /// click has no effect
-      CLICK_TOGGLE,         /// click toggles value between zero and one
-      CLICK_VALUE_FROM_Y,   /// click sets value to Y
-    };
     
-    /// sets the click mode: add a size (in px) to translate px -> value()
-    void clickMode( ClickMode cm, int clickModeSize = 0 );
-    ClickMode cm;
-    int clickModeSize;
     
     /// enum defines the way in which mouse click / drag works
     enum DragMode {
@@ -92,7 +92,8 @@ class Widget
     };
     
     void dragMode( DragMode cdm );
-    DragMode dm;
+    DragMode dragMode(){return dm;}
+    ClickMode clickMode(){return cm;}
     
     /// used for mouse-drag
     int mX, mY;
@@ -100,6 +101,14 @@ class Widget
     /// control scroll operations
     bool scrollDisable;
     bool scrollInvert;
+  
+  private:
+    ClickMode cm;
+    DragMode dm;
+    
+    float value_;
+    
+
 };
 
 };

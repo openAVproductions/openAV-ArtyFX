@@ -13,7 +13,7 @@ List::List( Avtk::UI* ui, int x_, int y_, int w_, int h_, std::string label_) :
 {
   // set the click mode -> value() to Y position, with every 11 px becoming the
   // next item. the Widget parent class takes care of the details.
-  clickMode( CLICK_VALUE_FROM_Y, 11 );
+  clickMode( CLICK_VALUE_FROM_Y );
   
   items.push_back("One");
   items.push_back("Two");
