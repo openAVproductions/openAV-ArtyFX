@@ -19,6 +19,8 @@ class TestUI : public Avtk::UI
     
     /// demo function, changes all widgets to value
     void setAllWidgets( Avtk::Widget* w, float value );
+    
+    void widgetValueCB( Avtk::Widget* widget);
   
     Avtk::List* list;
     Avtk::List* list2;

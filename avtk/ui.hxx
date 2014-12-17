@@ -58,6 +58,23 @@ class UI
     
     
     
+    /// Widget value callback: when a widget is added to the UI, its value
+    /// callback is set to this function: it can be set to a custom function if
+    /// preferred.
+    ///
+    /// If the Widget* returned from new Widget() is stored, it can be compared
+    /// against @param widget, which allows executing code based which Widget
+    /// caused the event.
+    virtual void widgetValueCB( Avtk::Widget* widget) = 0;
+    
+    /// Static function for handling AVTK widget callbacks: is re-directed to
+    /// instance-version above.
+    static void staticWidgetValueCB( Avtk::Widget* widget, void* userdata)
+    {
+      UI* ui = (UI*)userdata;
+      ui->widgetValueCB( widget );
+    }
+    
     void redraw();
     void redraw( Avtk::Widget* w );
     
@@ -133,9 +150,7 @@ class UI
     void event( const PuglEvent* event );
     void close() { quit_ = true; }
     
-    
     // Static Functions for handling PUGL events below
-    
     static void onMotion(PuglView* view, int x, int y)
     {
       UI* ui = (UI*)puglGetHandle( view );

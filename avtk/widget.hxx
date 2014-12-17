@@ -46,10 +46,6 @@ class Widget
     /// called by the UI class when this widget has a mouse pressed
     void motion( int x, int y );
     
-    /// the callback and its userdata pointer
-    void (*callback)(Widget* , void*);
-    void* callbackUD;
-    
     int x, y, w, h;         /// widget co-ords and size
     std::string label_;      /// widget name - sometimes shown in UI
     bool  visible_;         /// widget visibility
@@ -106,7 +102,13 @@ class Widget
     ClickMode cm;
     DragMode dm;
     
+    /// widgets current value, to get/set use value() and value( float )
     float value_;
+    
+    /// the callback and its userdata pointer. the user-data pointer is set to
+    /// the Avtk::UI* that is passed into the contstructor. The callback 
+    void (*callback)(Widget* , void*);
+    void* callbackUD;
     
 
 };

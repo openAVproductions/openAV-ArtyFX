@@ -19,9 +19,11 @@ Widget::Widget( Avtk::UI* ui_, int x_, int y_, int w_, int h_, std::string label
   visible_( true ),
   
   value_( 0 ),
+  
+  callback( Avtk::UI::staticWidgetValueCB ),
+  callbackUD( ui_ ),
+  
   mouseButtonPressed_(0),
-  callback( 0 ),
-  callbackUD( 0 ),
   
   cm( CLICK_NONE ),
   
@@ -31,6 +33,9 @@ Widget::Widget( Avtk::UI* ui_, int x_, int y_, int w_, int h_, std::string label
   scrollDisable( 0 ),
   scrollInvert( 0 )
 {
+  // FIXME: this will need to read the "parent" group from AVTK or so in order
+  // to implement groups
+  ui_->add( this );
 }
 
 void Widget::theme( Theme* t )
@@ -49,7 +54,9 @@ int Widget::handle( const PuglEvent* event )
         
         if( touches( event->button.x, event->button.y ) )
         {
+#ifdef AVTK_DEBUG
           printf("click touches %s, clickMode %i\n", label_.c_str(), clickMode() );
+#endif // AVTK_DEBUG
           if( cm == CLICK_TOGGLE )
           {
             value( !value() );
@@ -104,7 +111,9 @@ int Widget::handle( const PuglEvent* event )
           {
             value( 0 );
             ui->redraw();
+#ifdef AVTK_DEBUG
             printf("Widget MOMENTARY, redrawn value\n");
+#endif // AVTK_DEBUG
           }
           return 1;
         }
@@ -199,6 +208,7 @@ void Widget::value( float v )
   
   value_ = v;
   
+  
   // call the callback if its set, and not told not to
   if ( !ui->inValueCB && callback )
   {
@@ -216,7 +226,9 @@ bool Widget::touches( int inx, int iny )
 void Widget::clickMode( ClickMode c )
 {
   cm = c;
+#ifdef AVTK_DEBUG
   printf("Widget %s  clickMode %i, %i\n", label_.c_str(), cm, c);
+#endif // AVTK_DEBUG
 }
 
 void Widget::visible( bool v )
@@ -236,3 +248,4 @@ void Widget::dragMode( DragMode d )
 }
 
 }; // Avtk
+

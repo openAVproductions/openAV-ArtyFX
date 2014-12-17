@@ -19,82 +19,56 @@ TestUI::TestUI( PuglNativeWindow parent ):
   themes.push_back( new Avtk::Theme( this, "green.avtk" ) );
   themes.push_back( new Avtk::Theme( this, "yellow.avtk" ) );
   
+  
   // slider vert
   Avtk::Widget* w = new Avtk::Slider( this, 520, 40, 22, 220, "Vertical Slider" );
-  w->callback = widgetCB;
-  w->callbackUD = this;
-  add( w );
   
   // button
   w = new Avtk::Button( this, 7, 45, 90, 22, "Momentary" );
-  //w->callback = widgetCB;
-  w->callbackUD = this;
   w->theme( theme( 1 ) );
   w->clickMode( Avtk::Widget::CLICK_MOMENTARY );
-  add( w );
   
   // button
   w = new Avtk::Button( this, 7 + 100, 45, 90, 22, "Toggle" );
-  //w->callback = widgetCB;
-  w->callbackUD = this;
   w->theme( theme( 2 ) );
   w->clickMode( Avtk::Widget::CLICK_TOGGLE );
-  add( w );
   
   // dial
   w = new Avtk::Dial( this, 7, 85, 75, 75, "Dial 1" );
-  //w->callback = widgetCB;
-  w->callbackUD = this;
-  add( w );
   
   // dial
   w = new Avtk::Dial( this, 100, 85, 75, 75, "Dial 2" );
-  //w->callback = widgetCB;
-  w->callbackUD = this;
-  w->theme( theme( 1 ) );
-  add( w );
   
   // list
   list = new Avtk::List( this, 345, 45, 75, 125, "List (Left)" );
-  list->callback   = listCB;
-  list->callbackUD = this;
-  add( list );
   
   list2 = new Avtk::List( this, 425, 45, 75, 125, "List (Right)" );
-  add( list2 );
   
   // waveform
   waveform = new Avtk::Waveform( this, 75, 175, 375, 125, "Waveform" );
-  //waveform->callback = widgetCB;
-  //waveform->callbackUD = this;
   std::vector<float> tmp;
   int error = Avtk::loadSample( "test.wav", tmp );
   waveform->show( tmp );
-  //add( waveform );
   
   w = new Avtk::Envelope( this, 215, 115, 60, 40, "Envelope" );
-  //w->callback = widgetCB;
-  w->callbackUD = this;
-  add( w );
   
   // image
   Avtk::Image* i = new Avtk::Image( this, 0, 0, 610, 36, "Image" );
   i->load( header.pixel_data );
-  add( i );
   
   // slider horizontal
   w =  new Avtk::Slider( this,  40,350, 350, 22, "Zoom" );
-  w->callback   = zoomCB;
-  w->callbackUD = this;
-  add( w );
   
   w =  new Avtk::Slider( this,  40,374, 350, 22, "Vol" );
-  w->callback   = zoomOffsetCB;
-  w->callbackUD = this;
-  add( w );
-  
 }
 
+
+void TestUI::widgetValueCB( Avtk::Widget* w )
+{
+  printf( "%s, value = %f\n", w->label(), w->value() );
+}
+
+/*
 static void zoomOffsetCB(Avtk::Widget* w, void* ud)
 {
   TestUI* ui = (TestUI*)ud;
@@ -126,7 +100,7 @@ static void listCB(Avtk::Widget* w, void* ud)
     s << w->value();
     tmp.push_back( s.str() );
   }
-  */
+  *
   
   std::vector< std::string > tmp;
   
@@ -138,12 +112,7 @@ static void listCB(Avtk::Widget* w, void* ud)
 
 static void widgetCB(Avtk::Widget* w, void* ud)
 {
-  /*
-  if( w->theme->cornerRadius() < 4 )
-    w->theme->cornerRadius( 4 );
-  else
-    w->theme->cornerRadius( 2 );
-  */
+  
   //printf( "widgetCB(), rad = %i\n", w->theme->cornerRadius() );
   
   TestUI* ui = (TestUI*)ud;
@@ -157,7 +126,7 @@ static void widgetCB(Avtk::Widget* w, void* ud)
   
   for( int i = 0; i < files.size(); i++)
     printf("%i : %s\n", i, files.at(i).c_str() );
-  */
+  /
 }
 
 void TestUI::setAllWidgets( Avtk::Widget* w, float v )
@@ -175,3 +144,4 @@ void TestUI::setAllWidgets( Avtk::Widget* w, float v )
   }
   redraw();
 }
+*/
