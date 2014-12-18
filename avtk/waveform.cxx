@@ -15,7 +15,8 @@ Waveform::Waveform( Avtk::UI* ui, int x_, int y_, int w_, int h_, std::string la
   waveformSurf( 0 ),
   audioData( 0 ),
   zoom_( 1.0f ),
-  zoomOffset_(0)
+  zoomOffset_(0),
+  startPoint(0)
 {
   waveformSurf= cairo_image_surface_create ( CAIRO_FORMAT_ARGB32, w, h);
   waveformCr  = cairo_create ( waveformSurf );
@@ -33,6 +34,12 @@ Waveform::Waveform( Avtk::UI* ui, int x_, int y_, int w_, int h_, std::string la
   
   show( tmp );
   newWaveform = true;
+}
+
+void Waveform::setStartPoint( float strt )
+{
+  startPoint = strt;
+  ui->redraw( this );
 }
 
 void Waveform::show( std::vector<float> data )
@@ -61,13 +68,6 @@ void Waveform::zoomOffset( float po )
 void Waveform::draw( cairo_t* cr )
 {
   cairo_save( cr );
-  
-  roundedBox(cr, x, y, w, h, theme_->cornerRadius_ );
-  theme_->color( cr, BG_DARK );
-  cairo_fill_preserve(cr);
-  theme_->color( cr, FG );
-  cairo_set_line_width(cr, 1.4);
-  cairo_stroke(cr);
   
   // check for a new waveform
   if( newWaveform )
@@ -140,6 +140,7 @@ void Waveform::draw( cairo_t* cr )
       // stroke the remaining waveform lines
       cairo_stroke( waveformCr );
       
+      /*
       // stroke a white line for the zoomOffset "center"
       // FIXME: not accurate
       int zoomOffsetAudioSample = audioData->size() * zoomOffset_;
@@ -149,16 +150,29 @@ void Waveform::draw( cairo_t* cr )
       cairo_line_to( waveformCr, zoomOffsetPixel, h );
       theme_->color( waveformCr, HIGHLIGHT, 0.8 );
       cairo_stroke( waveformCr );
+      */
     }
     newWaveform = false;
   }
+  
   
   // paint cached waveform to normal cr
   cairo_set_source_surface(cr, waveformSurf, x, y);
   cairo_rectangle( cr, x, y, w, h);
   cairo_paint(cr);
+  cairo_stroke( cr );
   
+  // new path, drawing start line
+  cairo_new_sub_path( cr );
+  cairo_move_to( cr, x + startPoint * w, y + 0 );
+  cairo_line_to( cr, x + startPoint * w, y + h );
+  theme_->color( cr, HIGHLIGHT );
+  cairo_set_line_width(cr, theme_->lineWidthWide() );
+  cairo_stroke( cr );
   
+  cairo_new_sub_path( cr );
+  //theme_->color( cr, BG );
+  cairo_rectangle( cr, x, y, w, h);
   cairo_set_line_join( cr, CAIRO_LINE_JOIN_ROUND);
   theme_->color( cr, FG );
   cairo_set_line_width(cr, theme_->lineWidthNorm() );

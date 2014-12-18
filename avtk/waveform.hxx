@@ -27,6 +27,8 @@ class Waveform : public Widget
     
     /// sets the center sample for the zoom, 0 is start, 0.5 mid, 1 is end
     void zoomOffset( float percentageOffset );
+    
+    void setStartPoint( float percent );
   
   private:
     /// cache the drawn waveform for speed
@@ -41,6 +43,7 @@ class Waveform : public Widget
     /// view parameters
     float zoom_;
     float zoomOffset_;
+    float startPoint;
 };
 
 };
