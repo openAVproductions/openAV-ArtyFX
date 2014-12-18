@@ -13,7 +13,6 @@ Waveform::Waveform( Avtk::UI* ui, int x_, int y_, int w_, int h_, std::string la
   Widget( ui, x_, y_, w_, h_, label_ ),
   waveformCr( 0 ),
   waveformSurf( 0 ),
-  audioData( 0 ),
   zoom_( 1.0f ),
   zoomOffset_(0),
   startPoint(0)
@@ -42,13 +41,28 @@ void Waveform::setStartPoint( float strt )
   ui->redraw( this );
 }
 
+void Waveform::show( long samps, const float* data )
+{
+  audioData.clear();
+  
+  for(int i = 0; i < samps; i++ )
+  {
+    audioData.push_back( *data++ );
+  }
+  newWaveform = true;
+  ui->redraw();
+}
+
 void Waveform::show( std::vector<float> data )
 {
   if ( data.size() == 0 )
   {
+    printf("Waveform::show() data size == 0\n");
     return;
   }
-  audioData = new std::vector<float>(data);
+  audioData.swap( data );
+  newWaveform = true;
+  ui->redraw();
 }
 
 void Waveform::zoom( float zl )
@@ -76,7 +90,7 @@ void Waveform::draw( cairo_t* cr )
     theme_->color( waveformCr, BG_DARK );
     cairo_fill( waveformCr );
     
-    if ( !audioData )
+    if ( false )
     {
       // draw X
       cairo_move_to( waveformCr,  0, 0 );
@@ -95,16 +109,16 @@ void Waveform::draw( cairo_t* cr )
     else
     {
       // find how many samples per pixel
-      int samplesPerPix = audioData->size() / w;
+      int samplesPerPix = audioData.size() / w;
       
       float withZoomSPP = samplesPerPix / zoom_;
       
       const int totalShownSamples = withZoomSPP * w;
-      const int sampleOffset = (audioData->size() - totalShownSamples - 1) * zoomOffset_;
+      const int sampleOffset = (audioData.size() - totalShownSamples - 1) * zoomOffset_;
       
       //printf("sampsPerPx %i, with zoom %i\n",samplesPerPix, withZoomSPP);
       
-      cairo_move_to( waveformCr, 0, (h/2) - ( audioData->at(0) * (h/2.2f) )  );
+      cairo_move_to( waveformCr, 0, (h/2) - ( audioData.at(0) * (h/2.2f) )  );
       
       cairo_set_line_join( cr, CAIRO_LINE_JOIN_ROUND);
       cairo_set_source_rgb( waveformCr, 1,1,1 );
@@ -117,7 +131,7 @@ void Waveform::draw( cairo_t* cr )
         // calc value for this pixel
         for( int i = 0; i < withZoomSPP; i++ )
         {
-          float tmp = audioData->at( sampleOffset + i + (p * withZoomSPP) );
+          float tmp = audioData.at( sampleOffset + i + (p * withZoomSPP) );
           /*
           if ( tmp < 0 )
             tmp = -tmp;
