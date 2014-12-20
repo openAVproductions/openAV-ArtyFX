@@ -19,7 +19,7 @@ int Theme::privateID = 0;
 Theme::Theme( Avtk::UI* ui_, std::string filename ) :
   ui( ui_ ),
   ID( privateID++ ),
-  cornerRadius_( 1 ),
+  cornerRadius_( 0 ),
   lineWidthThin_( 0.9 ),
   lineWidthNorm_( 1.1 ),
   lineWidthWide_( 2.1 )

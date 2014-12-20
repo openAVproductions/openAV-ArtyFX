@@ -12,34 +12,45 @@ using namespace Avtk;
 Number::Number( Avtk::UI* ui, int x_, int y_, int w_, int h_, std::string label_) :
   Widget( ui, x_, y_, w_, h_, label_ ),
   base( 1 ),
-  amount( 9 )
+  amount( 9 ),
+  blank( 0 )
 {
   dragMode( DM_DRAG_VERTICAL );
-  setScrollDeltaAmount( 9 ); // interger counting
+  setScrollDeltaAmount( amount ); // interger counting
 }
 
 void Number::setRange( int b, int a )
 {
   base = b;
   amount = a;
+  setScrollDeltaAmount( amount ); // interger counting
   ui->redraw();
+}
+
+void Number::blankValue( int b )
+{
+  blank = b;
 }
 
 void Number::draw( cairo_t* cr )
 {
   cairo_save( cr );
   
-  theme_->color( cr, HIGHLIGHT );
+  theme_->color( cr, HIGHLIGHT, 0.8 );
   roundedBox(cr, x, y, w, h, theme_->cornerRadius_ );
   cairo_fill_preserve(cr);
   theme_->color( cr, BG_DARK, 1 );
+  cairo_set_line_width(cr, theme_->lineWidthWide() );
   cairo_stroke(cr);
   
   // single int digit shown
   int v = base + (value() * amount);
   
   std::stringstream vStr;
-  vStr << v;
+  if( v != blank )
+    vStr << v;
+  else
+    vStr << '_';
   
   int offset = 0;
   if( v == 10 )
