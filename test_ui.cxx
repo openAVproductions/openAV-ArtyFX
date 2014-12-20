@@ -36,8 +36,8 @@ TestUI::TestUI( PuglNativeWindow parent ):
   // dial
   w = new Avtk::Dial( this, 7, 85, 75, 75, "Dial 1" );
   
-  // dial
-  w = new Avtk::Dial( this, 100, 85, 75, 75, "Dial 2" );
+  // number
+  w = new Avtk::Number( this, 100, 85, 35, 25, "Number box" );
   
   // list
   list = new Avtk::List( this, 345, 45, 75, 125, "List (Left)" );

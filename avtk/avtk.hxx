@@ -17,6 +17,7 @@
 #include "dial.hxx"
 #include "image.hxx"
 #include "button.hxx"
+#include "number.hxx"
 #include "slider.hxx"
 #include "envelope.hxx"
 #include "waveform.hxx"
