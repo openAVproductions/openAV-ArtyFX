@@ -97,6 +97,11 @@ class Widget
     /// control scroll operations
     bool scrollDisable;
     bool scrollInvert;
+    
+    /// sets the scroll-delta amount: that is the size of the change that occurs
+    /// to value() in the widget. PX moved / <value> == step
+    void setScrollDeltaAmount( float sda );
+    
   
   private:
     ClickMode cm;
@@ -112,6 +117,8 @@ class Widget
     
     /// holds the currently pressed mouse-button
     int mouseButtonPressed_;
+    
+    float scrollDeltaAmount;
 
 };
 

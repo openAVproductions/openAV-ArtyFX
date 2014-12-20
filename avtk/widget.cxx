@@ -31,7 +31,9 @@ Widget::Widget( Avtk::UI* ui_, int x_, int y_, int w_, int h_, std::string label
   mX(0),
   mY(0),
   scrollDisable( 0 ),
-  scrollInvert( 0 )
+  scrollInvert( 0 ),
+  // actual scroll in PX / number == delta
+  scrollDeltaAmount( 10 )
 {
   // FIXME: this will need to read the "parent" group from AVTK or so in order
   // to implement groups
@@ -133,10 +135,11 @@ int Widget::handle( const PuglEvent* event )
 #ifdef AVTK_DEBUG
           printf("scroll touch %i, x %lf, y %lf\n", int(scTch), event->scroll.x, event->scroll.y );
 #endif // AVTK_DEBUG
-          float delta = event->scroll.dy / 10.f;
+          float delta = event->scroll.dy / scrollDeltaAmount;
           if( scrollInvert )
             delta = -delta;
           value( value_ + delta );
+          callback( this, callbackUD );
           ui->redraw( this );
           return 1;
         }
@@ -209,6 +212,11 @@ void Widget::motion( int x, int y )
     callback( this, callbackUD );
   
   ui->redraw( this );
+}
+
+void Widget::setScrollDeltaAmount( float sda )
+{
+  scrollDeltaAmount = sda;
 }
 
 void Widget::value( float v )

@@ -11,10 +11,11 @@ using namespace Avtk;
 
 Number::Number( Avtk::UI* ui, int x_, int y_, int w_, int h_, std::string label_) :
   Widget( ui, x_, y_, w_, h_, label_ ),
-  base( 0),
-  amount( 10 )
+  base( 1 ),
+  amount( 9 )
 {
   dragMode( DM_DRAG_VERTICAL );
+  setScrollDeltaAmount( 9 ); // interger counting
 }
 
 void Number::setRange( int b, int a )
