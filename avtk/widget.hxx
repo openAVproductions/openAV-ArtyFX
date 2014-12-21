@@ -27,9 +27,9 @@ class Widget
     /// returns the name of the Widget
     const char* label(){return label_.c_str();}
     
-    /// sets the visibility
-    void visible( bool visibile );
-    bool visible(){return visible_;}
+    /// sets the visibility: virtual so group can override to also mark children
+    virtual void visible( bool visibile );
+    virtual bool visible(){return visible_;}
     
     /// get the current value
     float value() { return value_; }

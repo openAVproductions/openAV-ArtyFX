@@ -28,6 +28,11 @@ class Group : public Widget
     Group( Avtk::UI* ui, int x, int y, int w, int h, std::string label );
     virtual ~Group();
     
+    /// mark all children too
+    virtual void visible( bool visibile );
+    /// only returns true if *all* children are visible
+    virtual bool visible();
+    
     /// adds a Widget to this group: its parent pointer is set to this.
     void add    ( Widget* child );
     

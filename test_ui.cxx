@@ -12,6 +12,7 @@ static void zoomCB(Avtk::Widget* w, void* ud);
 static void zoomOffsetCB(Avtk::Widget* w, void* ud);
 static void listCB(Avtk::Widget* w, void* ud);
 static void listValueCB(Avtk::Widget* w, void* ud);
+static void toggleCB(Avtk::Widget* w, void* ud);
 
 TestUI::TestUI( PuglNativeWindow parent ):
   Avtk::UI( 810, 430, parent )
@@ -22,21 +23,20 @@ TestUI::TestUI( PuglNativeWindow parent ):
   
   Avtk::Widget* w = 0;
   
-  /*
   // group testing
-  Avtk::Group* g = new Avtk::Group( this, 610, 43, 140, 400, "Group 1" );
-  g->mode( Avtk::Group::WIDTH_EQUAL );
+  group1 = new Avtk::Group( this, 610, 43, 140, 400, "Group 1" );
+  group1->mode( Avtk::Group::WIDTH_EQUAL );
   w = new Avtk::ListItem( this, 7, 45, 90, 11, "Group Toggle 1" );
-  g->add( w );
+  group1->add( w );
   w = new Avtk::ListItem( this, 7, 45, 90, 11, "Group Toggle 2" );
-  g->add( w );
+  group1->add( w );
   w = new Avtk::ListItem( this, 7, 45, 90, 11, "Group Toggle 3" );
-  g->add( w );
+  group1->add( w );
   w = new Avtk::ListItem( this, 7, 45, 90, 11, "Group Toggle 4" );
-  g->add( w );
+  group1->add( w );
   w = new Avtk::ListItem( this, 7, 45, 90, 11, "Group Toggle 5" );
-  g->add( w );
-  
+  group1->add( w );
+  /*
   // group testing
   g = new Avtk::Group( this, 610, 243, 140, 100, "HGroup 1" );
   g->mode( Avtk::Group::HEIGHT_EQUAL );
@@ -61,9 +61,9 @@ TestUI::TestUI( PuglNativeWindow parent ):
   w->clickMode( Avtk::Widget::CLICK_MOMENTARY );
   
   // button
-  w = new Avtk::Button( this, 7 + 100, 45, 90, 22, "Toggle" );
-  w->theme( theme( 2 ) );
-  w->clickMode( Avtk::Widget::CLICK_TOGGLE );
+  groupToggler = new Avtk::Button( this, 7 + 100, 45, 130, 22, "Group Toggler" );
+  groupToggler->theme( theme( 2 ) );
+  groupToggler->clickMode( Avtk::Widget::CLICK_TOGGLE );
   
   // dial
   w = new Avtk::Dial( this, 7, 85, 75, 75, "Dial 1" );
@@ -105,6 +105,10 @@ TestUI::TestUI( PuglNativeWindow parent ):
 void TestUI::widgetValueCB( Avtk::Widget* w )
 {
   printf( "%s, value = %f\n", w->label(), w->value() );
+  if( w == groupToggler )
+  {
+    group1->visible( groupToggler->value() );
+  }
 }
 
 static void listValueCB( Avtk::Widget* w, void* ud )
