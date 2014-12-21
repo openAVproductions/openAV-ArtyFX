@@ -78,8 +78,10 @@ void Group::clear()
 {
   for(int i = 0; i < children.size(); i++ )
   {
+    printf("removing child %s from UI\n", children.at(i)->label() );
     ui->remove( children.at(i) );
-    delete children.at(i);
+    //children.remove( children.at(i) );
+    //delete children.at(i);
   }
   // resets size of vector to 0
   children.clear();
