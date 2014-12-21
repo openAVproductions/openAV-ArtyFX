@@ -11,6 +11,7 @@ int loadSample( std::string path, std::vector< float >& sample, bool printErrors
 {
 #ifdef AVTK_SNDFILE
   SF_INFO info;
+  memset( &info, 0, sizeof( SF_INFO ) );
   SNDFILE* const sndfile = sf_open( path.c_str(), SFM_READ, &info);
   if ( !sndfile )
   {

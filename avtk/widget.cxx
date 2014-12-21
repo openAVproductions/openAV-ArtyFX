@@ -135,7 +135,7 @@ int Widget::handle( const PuglEvent* event )
 #ifdef AVTK_DEBUG
           printf("scroll touch %i, x %lf, y %lf\n", int(scTch), event->scroll.x, event->scroll.y );
 #endif // AVTK_DEBUG
-          float delta = event->scroll.dy / scrollDeltaAmount;
+          float delta = event->scroll.dy / float(scrollDeltaAmount);
           if( scrollInvert )
             delta = -delta;
           value( value_ + delta );

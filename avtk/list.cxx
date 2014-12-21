@@ -19,12 +19,15 @@ List::List( Avtk::UI* ui, int x_, int y_, int w_, int h_, std::string label_) :
   items.push_back("Two");
   items.push_back("Three");
   items.push_back("Four");
+  /*
   items.push_back("Five");
   items.push_back("Six");
   items.push_back("Seven");
   items.push_back("Eight");
   items.push_back("Nine");
   items.push_back("Ten");
+  */
+  setScrollDeltaAmount( items.size() - 1);
   
   scrollInvert = true;
 }
@@ -35,6 +38,11 @@ void List::show( std::vector< std::string > data )
   ui->redraw( this );
 }
 
+std::string List::selectedString()
+{
+  return items.at( (items.size()-1) * value() );
+}
+
 int List::selectItem()
 {
   return items.size() * value();
@@ -42,7 +50,7 @@ int List::selectItem()
 
 void List::selectItem( int select )
 {
-  value( select / value() );
+  value( select / value() * 0.9999 );
 }
 
 void List::draw( cairo_t* cr )
@@ -54,9 +62,9 @@ void List::draw( cairo_t* cr )
   int selectedItem = value() * (items.size()-1);
   
   roundedBox(cr, x, y, w, h, 1 );
-  theme_->color( cr, HIGHLIGHT, 0.4 );
+  theme_->color( cr, BG, 0.4 );
   cairo_fill_preserve(cr);
-  theme_->color( cr, HIGHLIGHT );
+  theme_->color( cr, BG_DARK );
   cairo_set_line_width(cr, 1.4);
   cairo_stroke(cr);
   
@@ -72,16 +80,17 @@ void List::draw( cairo_t* cr )
     if( i == selectedItem )
     {
       cairo_rectangle( cr, x, iY - 9, w, 11 );
-      theme_->color( cr, FG, 0.4 );
+      theme_->color( cr, HIGHLIGHT, 1 );
       cairo_fill_preserve( cr );
-      theme_->color( cr, HIGHLIGHT, 0.8 );
       cairo_stroke( cr );
       //cairo_set_source_rgb( cr, 1,1,1 );
       theme_->color( cr, BG_DARK, 0.8 );
+      cairo_select_font_face(cr, "impact", CAIRO_FONT_SLANT_NORMAL, CAIRO_FONT_WEIGHT_BOLD);
     }
     else
     {
-      theme_->color( cr, BG_DARK );
+      cairo_select_font_face(cr, "impact", CAIRO_FONT_SLANT_NORMAL, CAIRO_FONT_WEIGHT_NORMAL);
+      cairo_set_source_rgba( cr, 1,1,1, 0.8 );
     }
     
     cairo_move_to(cr, x + 5, iY );

@@ -58,7 +58,8 @@ void UI::display( cairo_t* cr )
   for (std::list< ptr<Avtk::Widget> >::iterator it = widgets.begin(); it != widgets.end(); it++)
   {
     //printf("display() widget # %i\n", i++ );
-    (*it)->draw( cr );
+    if( (*it)->visible() )
+      (*it)->draw( cr );
   }
 }
 
@@ -76,8 +77,9 @@ void UI::event( const PuglEvent* event )
   // reverse iter over widgets (aka starting on "top"), calling handle()
   for (std::list< ptr<Avtk::Widget> >::iterator it = widgets.begin(); it != widgets.end(); it++ )
   {
-    if( (*it)->handle( event ) )
-      return;
+    if( (*it)->visible() )
+      if( (*it)->handle( event ) )
+        return;
   }
   
   // code is only reached if *none* of the widgets handled an event:

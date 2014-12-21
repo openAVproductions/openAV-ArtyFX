@@ -29,6 +29,7 @@ class Widget
     
     /// sets the visibility
     void visible( bool visibile );
+    bool visible(){return visible_;}
     
     /// get the current value
     float value() { return value_; }
@@ -70,6 +71,8 @@ class Widget
     void theme( Theme* t );
     
     void parent( Group* parent );
+    
+    void (*callback)(Widget* , void*);
   
   protected:
     Avtk::Group* parent_;
@@ -112,7 +115,7 @@ class Widget
     
     /// the callback and its userdata pointer. the user-data pointer is set to
     /// the Avtk::UI* that is passed into the contstructor. The callback 
-    void (*callback)(Widget* , void*);
+    
     void* callbackUD;
     
     /// holds the currently pressed mouse-button

@@ -19,6 +19,8 @@ class List : public Widget
     
     void show( std::vector< std::string > data );
     
+    std::string selectedString();
+    
     int  selectItem();
     void selectItem( int select );
   

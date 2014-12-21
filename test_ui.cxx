@@ -11,6 +11,7 @@ static void widgetCB(Avtk::Widget* w, void* ud);
 static void zoomCB(Avtk::Widget* w, void* ud);
 static void zoomOffsetCB(Avtk::Widget* w, void* ud);
 static void listCB(Avtk::Widget* w, void* ud);
+static void listValueCB(Avtk::Widget* w, void* ud);
 
 TestUI::TestUI( PuglNativeWindow parent ):
   Avtk::UI( 610, 430, parent )
@@ -41,8 +42,9 @@ TestUI::TestUI( PuglNativeWindow parent ):
   
   // list
   list = new Avtk::List( this, 345, 45, 75, 125, "List (Left)" );
-  
+  list->callback = listValueCB;
   list2 = new Avtk::List( this, 425, 45, 75, 125, "List (Right)" );
+  list->callback = listValueCB;
   
   // waveform
   waveform = new Avtk::Waveform( this, 75, 175, 375, 125, "Waveform" );
@@ -66,6 +68,12 @@ TestUI::TestUI( PuglNativeWindow parent ):
 void TestUI::widgetValueCB( Avtk::Widget* w )
 {
   printf( "%s, value = %f\n", w->label(), w->value() );
+}
+
+static void listValueCB( Avtk::Widget* w, void* ud )
+{
+  Avtk::List* l = (Avtk::List*)w;
+  printf( "%s, value %f : %s\n", w->label(), w->value(), l->selectedString().c_str() );
 }
 
 /*
