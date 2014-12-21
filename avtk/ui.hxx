@@ -36,6 +36,11 @@ class UI
       widgets.push_back( w );
     }
     
+    void remove( Avtk::Widget* w )
+    {
+      widgets.remove( w );
+    }
+    
     /// tells the UI a widget has captured a mouse-down event, and
     /// wants to be notified of mouse movement events
     void wantsMotionUpdates( Avtk::Widget* w, bool notifyOfMotion )

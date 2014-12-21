@@ -51,4 +51,7 @@ void List::valueCB( Widget* w )
   Group::valueCB( w );
   lastClickedItem = w->groupItemNumber();
   printf("list: lastClickedItem# %i\n", lastClickedItem );
+  
+  // send an event to UI as the list widget
+  Avtk::UI::staticWidgetValueCB( this, ui );
 }
