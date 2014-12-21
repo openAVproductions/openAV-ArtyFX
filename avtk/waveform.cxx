@@ -29,8 +29,10 @@ Waveform::Waveform( Avtk::UI* ui, int x_, int y_, int w_, int h_, std::string la
   std::vector<float> tmp;
   
   for(int i = 0; i < 4096; i++ )
-    tmp.push_back( sin( i / float(20) ) );
-  
+  {
+    tmp.push_back( 0 ); // flat line
+    //tmp.push_back( sin( i / float(20) ) ); // sine wave demo
+  }
   show( tmp );
   newWaveform = true;
 }
