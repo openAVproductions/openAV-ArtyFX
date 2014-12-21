@@ -11,6 +11,11 @@ Widget::Widget( Avtk::UI* ui_, int x_, int y_, int w_, int h_, std::string label
   ui(ui_),
   parent_( 0 ),
   theme_( ui->theme() ),
+  
+  noHandle_( false ),
+  groupChild( false ),
+  groupItemNumber_( -1 ),
+  
   x( x_ ),
   y( y_ ),
   w( w_ ),
@@ -47,6 +52,10 @@ void Widget::theme( Theme* t )
 
 int Widget::handle( const PuglEvent* event )
 {
+  // eg: groups don't handle input
+  if( noHandle_ )
+    return 0;
+  
   switch (event->type)
   {
     case PUGL_BUTTON_PRESS:
@@ -246,9 +255,11 @@ void Widget::visible( bool v )
   ui->redraw( this );
 }
 
-void Widget::parent( Group* p )
+void Widget::addToGroup( Group* p, int gin )
 {
+  groupChild = true;
   parent_ = p;
+  groupItemNumber_ = gin;
 }
 
 void Widget::dragMode( DragMode d )

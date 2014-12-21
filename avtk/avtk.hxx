@@ -12,6 +12,9 @@
 // the Theme class definition
 #include "theme.hxx"
 
+// container class
+#include "group.hxx"
+
 // widget headers
 #include "list.hxx"
 #include "dial.hxx"

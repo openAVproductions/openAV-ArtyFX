@@ -42,7 +42,7 @@ class Widget
     bool touches( int inx, int iny );
     
     /// called by the UI class on any event that occurs
-    int handle( const PuglEvent* event );
+    virtual int handle( const PuglEvent* event );
     
     /// called by the UI class when this widget has a mouse pressed
     void motion( int x, int y );
@@ -70,7 +70,7 @@ class Widget
     /// sets a theme for a Widget
     void theme( Theme* t );
     
-    void parent( Group* parent );
+    void addToGroup( Group* parent, int itemNumber );
     
     void (*callback)(Widget* , void*);
   
@@ -81,7 +81,12 @@ class Widget
     /// quitting, allowing for optimized redraws.
     Avtk::Theme* theme_;
     
+    /// widget doesn't take any input: UI passes it along to other widgets
+    bool noHandle_;
     
+    /// group item number: useful for radio buttons and lists of selectable items
+    bool groupChild;
+    int groupItemNumber_;
     
     /// enum defines the way in which mouse click / drag works
     enum DragMode {

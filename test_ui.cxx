@@ -14,15 +14,31 @@ static void listCB(Avtk::Widget* w, void* ud);
 static void listValueCB(Avtk::Widget* w, void* ud);
 
 TestUI::TestUI( PuglNativeWindow parent ):
-  Avtk::UI( 610, 430, parent )
+  Avtk::UI( 810, 430, parent )
 {
   themes.push_back( new Avtk::Theme( this, "orange.avtk" ) );
   themes.push_back( new Avtk::Theme( this, "green.avtk" ) );
   themes.push_back( new Avtk::Theme( this, "yellow.avtk" ) );
   
+  Avtk::Widget* w = 0;
+  
+  // group testing
+  Avtk::Group* g = new Avtk::Group( this, 610, 43, 140, 400, "Group 1" );
+  w =  new Avtk::Slider( this, 0,150, 350, 22, "Group Slider 1" );
+  g->add( w );
+  w =  new Avtk::Slider( this, 810,150, 350, 22, "Group Slider 2" );
+  g->add( w );
+  w = new Avtk::Button( this, 7, 45, 90, 22, "Group Momentary 1" );
+  w->theme( theme( 1 ) );
+  w->clickMode( Avtk::Widget::CLICK_MOMENTARY );
+  g->add( w );
+  w = new Avtk::Button( this, 7, 45, 90, 22, "Group Toggle" );
+  w->clickMode( Avtk::Widget::CLICK_TOGGLE );
+  w->theme( theme( 2 ) );
+  g->add( w );
   
   // slider vert
-  Avtk::Widget* w = new Avtk::Slider( this, 520, 40, 22, 220, "Vertical Slider" );
+  w = new Avtk::Slider( this, 520, 40, 22, 220, "Vertical Slider" );
   
   // button
   w = new Avtk::Button( this, 7, 45, 90, 22, "Momentary" );

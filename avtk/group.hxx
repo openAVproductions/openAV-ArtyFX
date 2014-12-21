@@ -34,6 +34,8 @@ class Group : public Widget
     /// removes a Widget from this group: its parent pointer is set to 0.
     void remove ( Widget* child );
     
+    void draw( cairo_t* cr );
+    
     /// should the group all be the same width / height
     enum GROUP_MODE {
       GROUP_NONE,
@@ -47,6 +49,20 @@ class Group : public Widget
     std::vector< Widget* > children;
     
     GROUP_MODE groupMode;
+    
+    void groupCB()
+    {
+      for(int i = 0; i < children.size(); i++ )
+      {
+        //children.at(i)->
+      }
+    }
+    
+    static void staticGroupCB( Widget* w, void* ud )
+    {
+      Group* g = (Group*)w;
+      g->groupCB();
+    }
 };
 
 };
