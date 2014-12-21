@@ -10,7 +10,7 @@ namespace Avtk
 
 Group::Group( Avtk::UI* ui, int x, int y, int w, int h, std::string label ) :
   Widget( ui, x, y, w, h, label ),
-  groupMode( GROUP_WIDTH_EQUAL )
+  groupMode( NONE )
 {
   noHandle_ = true;
 }
@@ -26,22 +26,29 @@ void Group::add( Widget* child )
   
   // set the child's co-ords
   const int border = 0;
-  int childY = y;
-  for(int i = 0; i < children.size(); i++ )
-  {
-    childY += children.at(i)->h + border;
-  }
   
-  child->x = x;
-  child->y = childY;
   
-  if( groupMode == GROUP_WIDTH_EQUAL )
+  
+  if( groupMode == WIDTH_EQUAL )
   {
+    child->x = x;
     child->w = w;
+    
+    int childY = y;
+    for(int i = 0; i < children.size(); i++ )
+      childY += children.at(i)->h + border;
+
+    child->y = childY;
   }
-  if( groupMode == GROUP_HEIGHT_EQUAL )
+  else if( groupMode == HEIGHT_EQUAL )
   {
+    child->y = y;
     child->h = h;
+    
+    int childX = x;
+    for(int i = 0; i < children.size(); i++ )
+      childX += children.at(i)->w + border;
+    child->x = childX;
   }
   
   children.push_back( child );

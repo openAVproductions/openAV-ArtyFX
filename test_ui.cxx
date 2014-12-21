@@ -24,6 +24,7 @@ TestUI::TestUI( PuglNativeWindow parent ):
   
   // group testing
   Avtk::Group* g = new Avtk::Group( this, 610, 43, 140, 400, "Group 1" );
+  g->mode( Avtk::Group::WIDTH_EQUAL );
   w = new Avtk::ListItem( this, 7, 45, 90, 11, "Group Toggle 1" );
   g->add( w );
   w = new Avtk::ListItem( this, 7, 45, 90, 11, "Group Toggle 2" );
@@ -33,6 +34,20 @@ TestUI::TestUI( PuglNativeWindow parent ):
   w = new Avtk::ListItem( this, 7, 45, 90, 11, "Group Toggle 4" );
   g->add( w );
   w = new Avtk::ListItem( this, 7, 45, 90, 11, "Group Toggle 5" );
+  g->add( w );
+  
+  // group testing
+  g = new Avtk::Group( this, 610, 243, 140, 100, "HGroup 1" );
+  g->mode( Avtk::Group::HEIGHT_EQUAL );
+  w = new Avtk::ListItem( this, 7, 45, 30, 11, "H1" );
+  g->add( w );
+  w = new Avtk::ListItem( this, 7, 45, 30, 11, "H2" );
+  g->add( w );
+  w = new Avtk::ListItem( this, 7, 45, 30, 11, "H3" );
+  g->add( w );
+  w = new Avtk::ListItem( this, 7, 45, 30, 11, "H4" );
+  g->add( w );
+  w = new Avtk::ListItem( this, 7, 45, 30, 11, "H5" );
   g->add( w );
   
   

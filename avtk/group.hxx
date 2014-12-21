@@ -38,9 +38,9 @@ class Group : public Widget
     
     /// should the group all be the same width / height
     enum GROUP_MODE {
-      GROUP_NONE,
-      GROUP_WIDTH_EQUAL,
-      GROUP_HEIGHT_EQUAL,
+      NONE,
+      WIDTH_EQUAL,
+      HEIGHT_EQUAL,
     };
     
     void mode( GROUP_MODE gm );
