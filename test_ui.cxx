@@ -56,9 +56,9 @@ TestUI::TestUI( PuglNativeWindow parent ):
   w = new Avtk::Slider( this, 520, 40, 22, 220, "Vertical Slider" );
   
   // button
-  w = new Avtk::Button( this, 7, 45, 90, 22, "Momentary" );
-  w->theme( theme( 1 ) );
-  w->clickMode( Avtk::Widget::CLICK_MOMENTARY );
+  momentary = new Avtk::Button( this, 7, 45, 90, 22, "Momentary" );
+  momentary->theme( theme( 1 ) );
+  momentary->clickMode( Avtk::Widget::CLICK_MOMENTARY );
   
   // button
   groupToggler = new Avtk::Button( this, 7 + 100, 45, 130, 22, "Group Toggler" );
@@ -108,6 +108,10 @@ void TestUI::widgetValueCB( Avtk::Widget* w )
   if( w == groupToggler )
   {
     group1->visible( groupToggler->value() );
+  }
+  else if( w == momentary )
+  {
+    
   }
 }
 

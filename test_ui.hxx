@@ -23,6 +23,7 @@ class TestUI : public Avtk::UI
     void widgetValueCB( Avtk::Widget* widget);
   
     Avtk::Button* groupToggler;
+    Avtk::Button* momentary;
     
     Avtk::Group* group1;
     
