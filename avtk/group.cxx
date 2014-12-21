@@ -79,7 +79,7 @@ void Group::clear()
   for(int i = 0; i < children.size(); i++ )
   {
     ui->remove( children.at(i) );
-    //delete children.at(i);
+    delete children.at(i);
   }
   // resets size of vector to 0
   children.clear();
