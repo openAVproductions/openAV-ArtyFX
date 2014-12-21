@@ -71,8 +71,12 @@ class Widget
     void theme( Theme* t );
     
     void addToGroup( Group* parent, int itemNumber );
+    int groupItemNumber(){return groupItemNumber_;}
     
+    /// the callback and its userdata pointer. the user-data pointer is set to
+    /// the Avtk::UI* that is passed into the contstructor. The callback 
     void (*callback)(Widget* , void*);
+    void* callbackUD;
   
   protected:
     Avtk::Group* parent_;
@@ -117,11 +121,6 @@ class Widget
     
     /// widgets current value, to get/set use value() and value( float )
     float value_;
-    
-    /// the callback and its userdata pointer. the user-data pointer is set to
-    /// the Avtk::UI* that is passed into the contstructor. The callback 
-    
-    void* callbackUD;
     
     /// holds the currently pressed mouse-button
     int mouseButtonPressed_;

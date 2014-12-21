@@ -50,18 +50,12 @@ class Group : public Widget
     
     GROUP_MODE groupMode;
     
-    void groupCB()
-    {
-      for(int i = 0; i < children.size(); i++ )
-      {
-        //children.at(i)->
-      }
-    }
+    void valueCB( Widget* w );
     
     static void staticGroupCB( Widget* w, void* ud )
     {
-      Group* g = (Group*)w;
-      g->groupCB();
+      Group* g = (Group*)ud;
+      g->valueCB( w );
     }
 };
 
