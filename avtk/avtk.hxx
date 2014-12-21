@@ -24,5 +24,6 @@
 #include "slider.hxx"
 #include "envelope.hxx"
 #include "waveform.hxx"
+#include "listitem.hxx"
 
 #endif // OPENAV_AVTK_HXX

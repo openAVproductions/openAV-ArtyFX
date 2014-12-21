@@ -25,7 +25,7 @@ void Group::add( Widget* child )
   child->callbackUD = this;
   
   // set the child's co-ords
-  const int border = 4;
+  const int border = 0;
   int childY = y;
   for(int i = 0; i < children.size(); i++ )
   {

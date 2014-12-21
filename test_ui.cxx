@@ -24,34 +24,17 @@ TestUI::TestUI( PuglNativeWindow parent ):
   
   // group testing
   Avtk::Group* g = new Avtk::Group( this, 610, 43, 140, 400, "Group 1" );
-  w =  new Avtk::Slider( this, 0,150, 350, 22, "Group Slider 1" );
+  w = new Avtk::ListItem( this, 7, 45, 90, 11, "Group Toggle 1" );
   g->add( w );
-  w =  new Avtk::Slider( this, 810,150, 350, 22, "Group Slider 2" );
+  w = new Avtk::ListItem( this, 7, 45, 90, 11, "Group Toggle 2" );
   g->add( w );
-  w = new Avtk::Button( this, 7, 45, 90, 22, "Group Momentary 1" );
-  w->theme( theme( 1 ) );
-  w->clickMode( Avtk::Widget::CLICK_MOMENTARY );
+  w = new Avtk::ListItem( this, 7, 45, 90, 11, "Group Toggle 3" );
   g->add( w );
-  w = new Avtk::Button( this, 7, 45, 90, 22, "Group Toggle 1" );
-  w->clickMode( Avtk::Widget::CLICK_TOGGLE );
-  w->theme( theme( 2 ) );
+  w = new Avtk::ListItem( this, 7, 45, 90, 11, "Group Toggle 4" );
   g->add( w );
-  w = new Avtk::Button( this, 7, 45, 90, 22, "Group Toggle 2" );
-  w->clickMode( Avtk::Widget::CLICK_TOGGLE );
-  w->theme( theme( 2 ) );
+  w = new Avtk::ListItem( this, 7, 45, 90, 11, "Group Toggle 5" );
   g->add( w );
-  w = new Avtk::Button( this, 7, 45, 90, 22, "Group Toggle 3" );
-  w->clickMode( Avtk::Widget::CLICK_TOGGLE );
-  w->theme( theme( 2 ) );
-  g->add( w );
-  w = new Avtk::Button( this, 7, 45, 90, 22, "Group Toggle 4" );
-  w->clickMode( Avtk::Widget::CLICK_TOGGLE );
-  w->theme( theme( 2 ) );
-  g->add( w );
-  w = new Avtk::Button( this, 7, 45, 90, 22, "Group Toggle 5" );
-  w->clickMode( Avtk::Widget::CLICK_TOGGLE );
-  w->theme( theme( 2 ) );
-  g->add( w );
+  
   
   // slider vert
   w = new Avtk::Slider( this, 520, 40, 22, 220, "Vertical Slider" );
