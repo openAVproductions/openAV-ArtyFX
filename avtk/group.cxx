@@ -27,8 +27,6 @@ void Group::add( Widget* child )
   // set the child's co-ords
   const int border = 0;
   
-  
-  
   if( groupMode == WIDTH_EQUAL )
   {
     child->x = x;
@@ -56,6 +54,16 @@ void Group::add( Widget* child )
   printf("Group after add: size %i\n", children.size() );
   
   ui->redraw();
+}
+
+void Group::clear()
+{
+  for(int i = 0; i < children.size(); i++ )
+  {
+    delete children.at(i);
+  }
+  // resets size of vector to 0
+  children.clear();
 }
 
 void Group::mode( GROUP_MODE gm )

@@ -3,101 +3,52 @@
 
 #include "ui.hxx"
 #include "theme.hxx"
+#include "listitem.hxx"
 
 #include <stdio.h>
 
 using namespace Avtk;
 
 List::List( Avtk::UI* ui, int x_, int y_, int w_, int h_, std::string label_) :
-  Widget( ui, x_, y_, w_, h_, label_ )
+  Group( ui, x_, y_, w_, h_, label_ )
 {
-  // set the click mode -> value() to Y position, with every 11 px becoming the
-  // next item. the Widget parent class takes care of the details.
-  clickMode( CLICK_VALUE_FROM_Y );
-  
-  items.push_back("One");
-  items.push_back("Two");
-  items.push_back("Three");
-  items.push_back("Four");
-  /*
-  items.push_back("Five");
-  items.push_back("Six");
-  items.push_back("Seven");
-  items.push_back("Eight");
-  items.push_back("Nine");
-  items.push_back("Ten");
-  */
-  setScrollDeltaAmount( items.size() - 1);
-  
-  scrollInvert = true;
+  mode( Group::WIDTH_EQUAL );
+  lastClickedItem = -1;
 }
 
 void List::show( std::vector< std::string > data )
 {
-  items = data;
-  ui->redraw( this );
+  items.swap( data );
+  
+  for(int i = 0; i < items.size(); i++ )
+  {
+    add( new Avtk::ListItem( ui, 0, 0, 11, 11, items.at(i) ) );
+  }
+  
+  ui->redraw();
+}
+
+void List::clear()
+{
+  // free the widgets
+  Group::clear();
+  // invalidate last item
+  lastClickedItem = -1;
 }
 
 std::string List::selectedString()
 {
-  return items.at( (items.size()-1) * value() );
-}
-
-int List::selectItem()
-{
-  return items.size() * value();
-}
-
-void List::selectItem( int select )
-{
-  value( select / value() * 0.9999 );
-}
-
-void List::draw( cairo_t* cr )
-{
-  cairo_save( cr );
-  
-  roundedBox(cr, x, y, w, h, theme_->cornerRadius_ );
-  
-  int selectedItem = value() * (items.size()-1);
-  
-  roundedBox(cr, x, y, w, h, 1 );
-  theme_->color( cr, BG, 0.4 );
-  cairo_fill_preserve(cr);
-  theme_->color( cr, BG_DARK );
-  cairo_set_line_width(cr, 1.4);
-  cairo_stroke(cr);
-  
-  // Draw items in the list
-  for(int i = 0; i < items.size(); i++ )
+  if( lastClickedItem == -1 )
   {
-    cairo_text_extents_t extents;
-    cairo_set_font_size(cr, 10.0);
-    cairo_text_extents(cr, label(), &extents);
-    
-    int iY = y + 10 + extents.height / 2 - 2 + 12 * i;
-    
-    if( i == selectedItem )
-    {
-      cairo_rectangle( cr, x, iY - 9, w, 11 );
-      theme_->color( cr, HIGHLIGHT, 1 );
-      cairo_fill_preserve( cr );
-      cairo_stroke( cr );
-      //cairo_set_source_rgb( cr, 1,1,1 );
-      theme_->color( cr, BG_DARK, 0.8 );
-      cairo_select_font_face(cr, "impact", CAIRO_FONT_SLANT_NORMAL, CAIRO_FONT_WEIGHT_BOLD);
-    }
-    else
-    {
-      cairo_select_font_face(cr, "impact", CAIRO_FONT_SLANT_NORMAL, CAIRO_FONT_WEIGHT_NORMAL);
-      cairo_set_source_rgba( cr, 1,1,1, 0.8 );
-    }
-    
-    cairo_move_to(cr, x + 5, iY );
-    cairo_show_text( cr, items.at(i).c_str() );
+    return "";
   }
-  
-  
-  cairo_restore( cr );
+  return items.at( lastClickedItem );
 }
 
+void List::valueCB( Widget* w )
+{
+  // call the super valueCB, handles turning off other widgets
+  Group::valueCB( w );
+  lastClickedItem = w->groupItemNumber();
+  printf("list: lastClickedItem# %i\n", lastClickedItem );
+}

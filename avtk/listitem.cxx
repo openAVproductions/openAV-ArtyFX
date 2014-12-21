@@ -43,7 +43,7 @@ void ListItem::draw( cairo_t* cr )
   cairo_text_extents(cr, label(), &extents);
   cairo_move_to(cr,
                 (x + w / 2) - extents.width / 2,
-                (y + h / 2) + extents.height / 2 - 2);
+                (y + h / 2) + extents.height / 2 );
   
   cairo_show_text( cr, label() );
   

@@ -32,7 +32,9 @@ class Group : public Widget
     void add    ( Widget* child );
     
     /// removes a Widget from this group: its parent pointer is set to 0.
-    void remove ( Widget* child );
+    //void remove ( Widget* child );
+    
+    virtual void clear();
     
     void draw( cairo_t* cr );
     
@@ -44,13 +46,15 @@ class Group : public Widget
     };
     
     void mode( GROUP_MODE gm );
+    
+    /// virtual so it can be overriden by List and other widgets that want to
+    /// intercept callbacks from a range of widgets
+    virtual void valueCB( Widget* w );
   
   private:
     std::vector< Widget* > children;
     
     GROUP_MODE groupMode;
-    
-    void valueCB( Widget* w );
     
     static void staticGroupCB( Widget* w, void* ud )
     {

@@ -22,6 +22,7 @@ TestUI::TestUI( PuglNativeWindow parent ):
   
   Avtk::Widget* w = 0;
   
+  /*
   // group testing
   Avtk::Group* g = new Avtk::Group( this, 610, 43, 140, 400, "Group 1" );
   g->mode( Avtk::Group::WIDTH_EQUAL );
@@ -49,7 +50,7 @@ TestUI::TestUI( PuglNativeWindow parent ):
   g->add( w );
   w = new Avtk::ListItem( this, 7, 45, 30, 11, "H5" );
   g->add( w );
-  
+  */
   
   // slider vert
   w = new Avtk::Slider( this, 520, 40, 22, 220, "Vertical Slider" );
@@ -72,9 +73,15 @@ TestUI::TestUI( PuglNativeWindow parent ):
   
   // list
   list = new Avtk::List( this, 345, 45, 75, 125, "List (Left)" );
-  list->callback = listValueCB;
-  list2 = new Avtk::List( this, 425, 45, 75, 125, "List (Right)" );
-  list->callback = listValueCB;
+  std::vector<std::string> items;
+  items.push_back("One");
+  items.push_back("Two");
+  items.push_back("Three");
+  items.push_back("Four");
+  list->show( items );
+  //list->callback = listValueCB;
+  //list2 = new Avtk::List( this, 425, 45, 75, 125, "List (Right)" );
+  //list->callback = listValueCB;
   
   // waveform
   waveform = new Avtk::Waveform( this, 75, 175, 375, 125, "Waveform" );
