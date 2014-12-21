@@ -126,7 +126,7 @@ class UI
     /// the list of widgets currently instantiated, in order of being drawn.
     // Technically this is a list of yasper::ptr<Avtk::Widget> types, but they
     // act generally like raw pointers would do
-    std::list< ptr<Avtk::Widget> > widgets;
+    std::list<Avtk::Widget*> widgets;
     
     /// A list of themes, loaded on startup, which widgets can request
     std::vector< ptr<Avtk::Theme> > themes;

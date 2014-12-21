@@ -55,7 +55,7 @@ void UI::display( cairo_t* cr )
   
   /// iter over widgets, drawing each in the order they were add()-ed
   int i = 0;
-  for (std::list< ptr<Avtk::Widget> >::iterator it = widgets.begin(); it != widgets.end(); it++)
+  for (std::list<Avtk::Widget*>::iterator it = widgets.begin(); it != widgets.end(); it++)
   {
     //printf("display() widget # %i\n", i++ );
     if( (*it)->visible() )
@@ -75,7 +75,7 @@ Theme* UI::theme( int id )
 void UI::event( const PuglEvent* event )
 {
   // reverse iter over widgets (aka starting on "top"), calling handle()
-  for (std::list< ptr<Avtk::Widget> >::iterator it = widgets.begin(); it != widgets.end(); it++ )
+  for (std::list< Avtk::Widget*>::iterator it = widgets.begin(); it != widgets.end(); it++ )
   {
     if( (*it)->visible() )
       if( (*it)->handle( event ) )
@@ -127,12 +127,12 @@ void UI::motion(int x, int y)
   else if( dragDropOrigin )
   {
     // scan trough widgets on mouse-move, as it *could* be a drag-drop action.
-    for (std::list< ptr<Avtk::Widget> >::iterator it = widgets.begin(); it != widgets.end(); it++)
+    for (std::list< Avtk::Widget* >::iterator it = widgets.begin(); it != widgets.end(); it++)
     {
       if( (*it)->touches( x, y ) )
       {
         //printf("DragDropVerify: Origin %s, Target %s\n", dragDropOrigin->label(), (*it)->label() );
-        dragDropVerify( *it );
+        dragDropVerify( (*it) );
       }
     }
   }
