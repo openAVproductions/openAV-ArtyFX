@@ -35,7 +35,7 @@ Widget::Widget( Avtk::UI* ui_, int x_, int y_, int w_, int h_, std::string label
   dm( DM_NONE ),
   mX(0),
   mY(0),
-  scrollDisable( 0 ),
+  scrollDisable( 1 ),
   scrollInvert( 0 ),
   // actual scroll in PX / number == delta
   scrollDeltaAmount( 10 )
@@ -139,7 +139,7 @@ int Widget::handle( const PuglEvent* event )
     case PUGL_SCROLL:
       {
         bool scTch = touches( event->scroll.x, event->scroll.y );
-        if( scTch )
+        if( scTch && !scrollDisable )
         {
 #ifdef AVTK_DEBUG
           printf("scroll touch %i, x %lf, y %lf\n", int(scTch), event->scroll.x, event->scroll.y );

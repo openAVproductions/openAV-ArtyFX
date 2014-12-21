@@ -16,6 +16,7 @@ Slider::Slider( Avtk::UI* ui, int x_, int y_, int w_, int h_, std::string label_
   if ( w_ > h_ )
     dragMode( DM_DRAG_HORIZONTAL );
   
+  scrollDisable = false;
 }
 
 void Slider::draw( cairo_t* cr )
