@@ -74,14 +74,11 @@ TestUI::TestUI( PuglNativeWindow parent ):
   // list
   list = new Avtk::List( this, 345, 45, 75, 125, "List (Left)" );
   std::vector<std::string> items;
-  items.push_back("One");
-  items.push_back("Two");
-  items.push_back("Three");
-  items.push_back("Four");
+  Avtk::directoryContents(  "/root/openav/content/minimalDrums/3 - Top Loops", items );
   list->show( items );
-  //list->callback = listValueCB;
-  //list2 = new Avtk::List( this, 425, 45, 75, 125, "List (Right)" );
-  //list->callback = listValueCB;
+  
+  list2 = new Avtk::List( this, 425, 45, 75, 125, "List (Right)" );
+  list2->show( items );
   
   // waveform
   waveform = new Avtk::Waveform( this, 75, 175, 375, 125, "Waveform" );

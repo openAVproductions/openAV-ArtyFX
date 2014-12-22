@@ -84,7 +84,7 @@ int directories( std::string d, std::vector< std::string >& files, bool nameOnly
   return OPENAV_OK;
 }
 
-int directoryContents( std::string d, std::vector< std::string >& files, bool nameOnly, bool printErrors )
+int directoryContents( std::string d, std::vector< std::string >& files, bool nameOnly, bool smartShortStrings, bool printErrors )
 {
   tinydir_dir dir;
   if (tinydir_open(&dir, d.c_str() ) == -1)
@@ -94,6 +94,17 @@ int directoryContents( std::string d, std::vector< std::string >& files, bool na
     tinydir_close(&dir);
     return OPENAV_ERROR;
   }
+  
+  // if we have the full path, don't smart-remove the path!
+  if( !nameOnly )
+  {
+    smartShortStrings = false;
+  }
+  
+  // for smartShortStrings, we keep the shortest common string from a directory,
+  // and take those characters away from each item: providing a neat listing.
+  std::string commonStart;
+  int nCharSame = 0;
   
   while (dir.has_next)
   {
@@ -110,6 +121,31 @@ int directoryContents( std::string d, std::vector< std::string >& files, bool na
       if ( nameOnly )
       {
         files.push_back( file.name );
+        if( commonStart.size() == 0 )
+        {
+          //printf("commonStart init %s\n", file.name );
+          commonStart = file.name;
+        }
+        else
+        {
+          // compare with commonStart, and find common N characters
+          int maxLen = strlen( commonStart.c_str() );
+          if( strlen( file.name ) < maxLen )
+            maxLen = strlen( file.name );
+          
+          for(int i = 0; i < maxLen; i++ )
+          {
+            if( commonStart[i] != file.name[i] )
+            {
+              //printf("char # %i is not equal!\n", i );
+              nCharSame = i;
+              break;
+            }
+          }
+          
+          commonStart = commonStart.substr( 0, nCharSame );
+          //printf("Common chars = %i, %s\n", nCharSame, commonStart.c_str() );
+        }
       }
       else
       {
@@ -120,6 +156,17 @@ int directoryContents( std::string d, std::vector< std::string >& files, bool na
     }
     
     tinydir_next(&dir);
+  }
+  
+  // if smartShortStrings, we strip the starting nCharSame from every name
+  if( smartShortStrings )
+  {
+    for(int i = 0; i < files.size(); i++ )
+    {
+      // copy from nCharSame until end into vector.
+      files.at(i) = files.at(i).substr( nCharSame );
+      //printf("i : %s\n", files.at(i).c_str() );
+    }
   }
   
   return OPENAV_OK;
