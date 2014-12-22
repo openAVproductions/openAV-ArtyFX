@@ -86,6 +86,8 @@ int directories( std::string d, std::vector< std::string >& files, bool nameOnly
 
 int directoryContents( std::string d, std::vector< std::string >& files, bool nameOnly, bool smartShortStrings, bool printErrors )
 {
+  files.clear();
+  
   tinydir_dir dir;
   if (tinydir_open(&dir, d.c_str() ) == -1)
   {
@@ -163,8 +165,18 @@ int directoryContents( std::string d, std::vector< std::string >& files, bool na
   {
     for(int i = 0; i < files.size(); i++ )
     {
-      // copy from nCharSame until end into vector.
-      files.at(i) = files.at(i).substr( nCharSame );
+      if( true ) // remove dot extension from file, eg: ".wav"
+      {
+        // reverse find the first . and copy up until that point.
+        int dotPos = files.at(i).rfind(".");
+        //printf("dotPos of %s = %i\n", files.at(i).c_str(), dotPos );
+        files.at(i) = files.at(i).substr( nCharSame, dotPos - nCharSame );
+      }
+      else
+      {
+        // copy from nCharSame until end into vector.
+        files.at(i) = files.at(i).substr( nCharSame );
+      }
       //printf("i : %s\n", files.at(i).c_str() );
     }
   }
