@@ -3,6 +3,8 @@
 
 #include "avtk.hxx"
 #include "theme.hxx"
+#include <algorithm>
+#include <cstring>
 #include <sndfile.h>
 
 namespace Avtk
@@ -66,20 +68,27 @@ int directories( std::string d, std::vector< std::string >& files, bool nameOnly
     
     if ( file.is_dir )
     {
-      if ( nameOnly )
+      // no . or ..
+      if( strcmp(file.name, "..") != 0 && strcmp( "." ,file.name) != 0 )
       {
-        files.push_back( file.name );
-      }
-      else
-      {
-        std::stringstream s;
-        s << d << "/" << file.name;
-        files.push_back( s.str() );
+        if ( nameOnly )
+        {
+          files.push_back( file.name );
+        }
+        else
+        {
+          std::stringstream s;
+          s << d << "/" << file.name;
+          files.push_back( s.str() );
+        }
       }
     }
     
     tinydir_next(&dir);
   }
+  
+  // sort them alphabetically
+  std::sort( files.begin(), files.end() );
   
   return OPENAV_OK;
 }
@@ -126,7 +135,9 @@ int directoryContents( std::string d, std::vector< std::string >& files, std::st
         files.push_back( file.name );
         if( tryCommonStart && commonStart.size() == 0 )
         {
+#ifdef AVTK_DEBUG
           printf("commonStart init %s\n", file.name );
+#endif
           commonStart = file.name;
           nCharSame = commonStart.size();
         }
@@ -144,7 +155,9 @@ int directoryContents( std::string d, std::vector< std::string >& files, std::st
           {
             if( commonStart[i] != file.name[i] )
             {
+#ifdef AVTK_DEBUG
               printf("char # %i is not equal!\n", i );
+#endif
               nCharSame = i;
               break;
             }
@@ -157,7 +170,9 @@ int directoryContents( std::string d, std::vector< std::string >& files, std::st
           else
           {
             commonStart = commonStart.substr( 0, nCharSame );
+#ifdef AVTK_DEBUG
             printf("Common chars = %i, %s\n", nCharSame, commonStart.c_str() );
+#endif
           }
         }
       }
@@ -195,9 +210,14 @@ int directoryContents( std::string d, std::vector< std::string >& files, std::st
         printf("dotPos of %s = %i\n", files.at(i).c_str(), dotPos );
       }
       */
+#ifdef AVTK_DEBUG
       printf("i : %s\n", files.at(i).c_str() );
+#endif
     }
   }
+  
+  // sort them alphabetically
+  std::sort( files.begin(), files.end() );
   
   return OPENAV_OK;
 }
