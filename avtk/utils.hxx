@@ -33,6 +33,7 @@ namespace Avtk
    */
   int directoryContents(  std::string directory,
                           std::vector< std::string >& output,
+                          std::string& strippedFilenameStart,
                           bool nameOnly = true,
                           bool smartShortStrings = true,
                           bool printErrors = true );

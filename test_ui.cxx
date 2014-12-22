@@ -15,7 +15,7 @@ static void listValueCB(Avtk::Widget* w, void* ud);
 static void toggleCB(Avtk::Widget* w, void* ud);
 
 TestUI::TestUI( PuglNativeWindow parent ):
-  Avtk::UI( 810, 430, parent )
+  Avtk::UI( 810, 830, parent )
 {
   themes.push_back( new Avtk::Theme( this, "orange.avtk" ) );
   themes.push_back( new Avtk::Theme( this, "green.avtk" ) );
@@ -72,12 +72,15 @@ TestUI::TestUI( PuglNativeWindow parent ):
   w = new Avtk::Number( this, 100, 85, 35, 25, "Number box" );
   
   // list
-  list = new Avtk::List( this, 345, 45, 75, 125, "List (Left)" );
+  list = new Avtk::List( this, 345, 545, 105, 125, "List (Left)" );
   std::vector<std::string> items;
-  Avtk::directoryContents(  "/root/openav/content/minimalDrums/3 - Top Loops", items );
+  std::string stripped;
+  Avtk::directoryContents(  "/root/openav/content/minimalDrums/3 - Top Loops", items, stripped);
   list->show( items );
   
-  list2 = new Avtk::List( this, 425, 45, 75, 125, "List (Right)" );
+  items.clear();
+  Avtk::directoryContents(  "/root/openav/content/minimalDrums/3 - Top Loops", items, stripped, true, false );
+  list2 = new Avtk::List( this, 525, 545, 105, 125, "List (Right)" );
   list2->show( items );
   
   // waveform

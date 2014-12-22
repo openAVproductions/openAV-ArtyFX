@@ -20,7 +20,7 @@ class List : public Group
   public:
     List( Avtk::UI* ui, int x, int y, int w, int h, std::string label);
     
-    //virtual void draw( cairo_t* cr );
+    virtual void draw( cairo_t* cr );
     
     void show( std::vector< std::string > data );
     

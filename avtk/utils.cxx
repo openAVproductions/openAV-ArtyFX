@@ -84,7 +84,7 @@ int directories( std::string d, std::vector< std::string >& files, bool nameOnly
   return OPENAV_OK;
 }
 
-int directoryContents( std::string d, std::vector< std::string >& files, bool nameOnly, bool smartShortStrings, bool printErrors )
+int directoryContents( std::string d, std::vector< std::string >& files, std::string& strippedFilenameStart, bool nameOnly, bool smartShortStrings, bool printErrors )
 {
   files.clear();
   
@@ -107,6 +107,7 @@ int directoryContents( std::string d, std::vector< std::string >& files, bool na
   // and take those characters away from each item: providing a neat listing.
   std::string commonStart;
   int nCharSame = 0;
+  bool tryCommonStart = true;
   
   while (dir.has_next)
   {
@@ -123,30 +124,41 @@ int directoryContents( std::string d, std::vector< std::string >& files, bool na
       if ( nameOnly )
       {
         files.push_back( file.name );
-        if( commonStart.size() == 0 )
+        if( tryCommonStart && commonStart.size() == 0 )
         {
-          //printf("commonStart init %s\n", file.name );
+          printf("commonStart init %s\n", file.name );
           commonStart = file.name;
+          nCharSame = commonStart.size();
         }
-        else
+        else if( tryCommonStart )
         {
           // compare with commonStart, and find common N characters
           int maxLen = strlen( commonStart.c_str() );
-          if( strlen( file.name ) < maxLen )
+          if( strlen( file.name ) <= maxLen )
             maxLen = strlen( file.name );
+          
+          if( maxLen > nCharSame )
+            maxLen = nCharSame;
           
           for(int i = 0; i < maxLen; i++ )
           {
             if( commonStart[i] != file.name[i] )
             {
-              //printf("char # %i is not equal!\n", i );
+              printf("char # %i is not equal!\n", i );
               nCharSame = i;
               break;
             }
           }
           
-          commonStart = commonStart.substr( 0, nCharSame );
-          //printf("Common chars = %i, %s\n", nCharSame, commonStart.c_str() );
+          if( nCharSame == 0 )
+          {
+            tryCommonStart = false;
+          }
+          else
+          {
+            commonStart = commonStart.substr( 0, nCharSame );
+            printf("Common chars = %i, %s\n", nCharSame, commonStart.c_str() );
+          }
         }
       }
       else
@@ -163,21 +175,27 @@ int directoryContents( std::string d, std::vector< std::string >& files, bool na
   // if smartShortStrings, we strip the starting nCharSame from every name
   if( smartShortStrings )
   {
+    strippedFilenameStart = commonStart;
+    
     for(int i = 0; i < files.size(); i++ )
     {
-      if( true ) // remove dot extension from file, eg: ".wav"
+      // remove common string
+      int fSize = files.at(i).size();
+      std::string tmp = files.at(i).substr( nCharSame );
+      
+      files.at(i) = tmp;
+      
+      /* We would need to remember *every* file's extension individually:
+          its possible, but demands an Avtk::File class or such to handle well
+      // remove dot extension from file, eg: ".wav"
+      int dotPos = files.at(i).rfind(".");
+      if( dotPos != std::string::npos ) 
       {
-        // reverse find the first . and copy up until that point.
-        int dotPos = files.at(i).rfind(".");
-        //printf("dotPos of %s = %i\n", files.at(i).c_str(), dotPos );
-        files.at(i) = files.at(i).substr( nCharSame, dotPos - nCharSame );
+        files.at(i) = files.at(i).substr( 0, dotPos );
+        printf("dotPos of %s = %i\n", files.at(i).c_str(), dotPos );
       }
-      else
-      {
-        // copy from nCharSame until end into vector.
-        files.at(i) = files.at(i).substr( nCharSame );
-      }
-      //printf("i : %s\n", files.at(i).c_str() );
+      */
+      printf("i : %s\n", files.at(i).c_str() );
     }
   }
   

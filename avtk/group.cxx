@@ -17,7 +17,9 @@ Group::Group( Avtk::UI* ui, int x, int y, int w, int h, std::string label ) :
 
 void Group::add( Widget* child )
 {
+#ifdef AVTK_DEBUG
   printf("Group add: size %i\n", children.size() );
+#endif
   child->addToGroup( this, children.size() );
   
   // capture callback of the child widget
@@ -50,8 +52,10 @@ void Group::add( Widget* child )
   }
   
   children.push_back( child );
-  
+
+#ifdef AVTK_DEBUG
   printf("Group after add: size %i\n", children.size() );
+#endif
   
   ui->redraw();
 }
@@ -78,7 +82,9 @@ void Group::clear()
 {
   for(int i = 0; i < children.size(); i++ )
   {
-    printf("removing child %s from UI\n", children.at(i)->label() );
+#ifdef AVTK_DEBUG
+    //printf("removing child %s from UI\n", children.at(i)->label() );
+#endif
     ui->remove( children.at(i) );
     //children.remove( children.at(i) );
     //delete children.at(i);
@@ -94,8 +100,9 @@ void Group::mode( GROUP_MODE gm )
 
 void Group::valueCB( Widget* w )
 {
+#ifdef AVTK_DEBUG
   printf("Group child # %i : value : %f\tNow into Normal CB\n", w->groupItemNumber(), w->value() );
-  
+#endif
   for(int i = 0; i < children.size(); i++ )
   {
     children.at(i)->value( false );

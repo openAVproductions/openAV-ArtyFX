@@ -36,6 +36,20 @@ void List::clear()
   lastClickedItem = -1;
 }
 
+void List::draw( cairo_t* cr )
+{
+  cairo_save( cr );
+  
+  // have the group draw itself
+  Group::draw( cr );
+  
+  roundedBox(cr, x, y, w, h, theme_->cornerRadius_ );
+  theme_->color( cr, HIGHLIGHT );
+  cairo_stroke( cr );
+  
+  cairo_restore( cr );
+}
+
 std::string List::selectedString()
 {
   if( lastClickedItem == -1 )
@@ -50,7 +64,7 @@ void List::valueCB( Widget* w )
   // call the super valueCB, handles turning off other widgets
   Group::valueCB( w );
   lastClickedItem = w->groupItemNumber();
-  printf("list: lastClickedItem# %i\n", lastClickedItem );
+  printf("list: lastClickedItem# %i, string: %s\n", lastClickedItem, selectedString().c_str() );
   
   // send an event to UI as the list widget
   Avtk::UI::staticWidgetValueCB( this, ui );
