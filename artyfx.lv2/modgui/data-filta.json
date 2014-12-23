@@ -1,0 +1,15 @@
+{
+    "author": "ARTYFX", 
+    "color": "yellow", 
+    "controls": [
+        {
+            "name": "Frequency Control", 
+            "symbol": "frequency_control"
+        }, 
+        {
+            "name": "Active", 
+            "symbol": "active"
+        }
+    ], 
+    "label": "Filta"
+}
