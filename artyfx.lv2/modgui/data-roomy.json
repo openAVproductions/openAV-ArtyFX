@@ -1,0 +1,19 @@
+{
+    "author": "ARTYFX", 
+    "color": "cream", 
+    "controls": [
+        {
+            "name": "Time", 
+            "symbol": "time"
+        }, 
+        {
+            "name": "Damping", 
+            "symbol": "damping"
+        }, 
+        {
+            "name": "Dry Wet Mix", 
+            "symbol": "dry_wet"
+        }
+    ], 
+    "label": "Roomy"
+}
