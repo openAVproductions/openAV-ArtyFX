@@ -187,7 +187,10 @@ int directoryContents( std::string d, std::vector< std::string >& files, std::st
     tinydir_next(&dir);
   }
   
-  // if smartShortStrings, we strip the starting nCharSame from every name
+  /// if smartShortStrings, we strip the starting nCharSame from every name
+  // TODO: if there's only 1 file, or two files who's filenames totally match 
+  // except for the final part of the extension (eg foo.wav foo.wav.bak) don't 
+  // remove the whole foo.wav string: it essentially hides the file from the user!
   if( smartShortStrings )
   {
     strippedFilenameStart = commonStart;

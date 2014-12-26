@@ -75,11 +75,11 @@ TestUI::TestUI( PuglNativeWindow parent ):
   list = new Avtk::List( this, 345, 545, 105, 125, "List (Left)" );
   std::vector<std::string> items;
   std::string stripped;
-  Avtk::directoryContents(  "/root/openav/content/minimalDrums/3 - Top Loops", items, stripped);
+  Avtk::directoryContents(  "/root/openav/content/bips/", items, stripped);
   list->show( items );
   
   items.clear();
-  Avtk::directoryContents(  "/root/openav/content/minimalDrums/3 - Top Loops", items, stripped, true, false );
+  Avtk::directoryContents(  "/root/openav/content/bips", items, stripped, true, true );
   list2 = new Avtk::List( this, 525, 545, 105, 125, "List (Right)" );
   list2->show( items );
   
