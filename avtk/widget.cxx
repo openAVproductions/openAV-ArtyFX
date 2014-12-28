@@ -270,9 +270,9 @@ void Widget::dragMode( DragMode d )
 
 Widget::~Widget()
 {
-//#ifdef AVTK_DEBUG
+#ifdef AVTK_DEBUG
   printf("%s, ~Widget()\n", __PRETTY_FUNCTION__ );
-//#endif // AVTK_DEBUG
+#endif // AVTK_DEBUG
 }
 
 }; // Avtk

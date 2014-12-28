@@ -15,6 +15,7 @@ Number::Number( Avtk::UI* ui, int x_, int y_, int w_, int h_, std::string label_
   amount( 9 ),
   blank( 0 )
 {
+  scrollDisable = false;
   dragMode( DM_DRAG_VERTICAL );
   setScrollDeltaAmount( amount ); // interger counting
 }
