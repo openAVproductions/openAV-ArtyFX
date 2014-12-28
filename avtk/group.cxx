@@ -155,6 +155,56 @@ void Group::valueCB( Widget* w )
   }
 }
 
+void Group::x(int x__)
+{
+  int d = x__ - x_;
+  x_ = x__;
+  for(int i = 0; i < children.size(); i++ )
+  {
+    Widget* c = children.at(i);
+    c->x( c->x() + d );
+  }
+}
+
+void Group::y(int y__)
+{
+  int d = y__ - y_;
+  y_ = y__;
+  for(int i = 0; i < children.size(); i++ )
+  {
+    Widget* c = children.at(i);
+    c->y( c->y() + d );
+  }
+}
+
+void Group::w(int w__)
+{
+  int d = w__ - w_;
+  w_ = w__;
+  if( groupMode == WIDTH_EQUAL )
+  {
+    for(int i = 0; i < children.size(); i++ )
+    {
+      Widget* c = children.at(i);
+      c->w( c->w() + d );
+    }
+  }
+}
+
+void Group::h(int h__)
+{
+  int d = h__ - h_;
+  h_ = h__;
+  if( groupMode == HEIGHT_EQUAL )
+  {
+    for(int i = 0; i < children.size(); i++ )
+    {
+      Widget* c = children.at(i);
+      c->h( c->h() + d );
+    }
+  }
+}
+
 void Group::draw( cairo_t* cr )
 {
   if( visible() )

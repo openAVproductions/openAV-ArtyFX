@@ -39,6 +39,16 @@ class Group : public Widget
     /// removes a Widget from this group: its parent pointer is set to 0.
     void remove ( Widget* child );
     
+    virtual int x(){return Widget::x();}
+    virtual int y(){return Widget::y();}
+    virtual int w(){return Widget::w();}
+    virtual int h(){return Widget::h();}
+    
+    virtual void x(int x);
+    virtual void y(int y);
+    virtual void w(int w);
+    virtual void h(int h);
+    
     /// handles an event, propagating it to all children
     virtual int handle( const PuglEvent* event );
     

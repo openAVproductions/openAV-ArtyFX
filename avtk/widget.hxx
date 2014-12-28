@@ -50,17 +50,15 @@ class Widget
     /// called by the UI class when this widget has a mouse pressed
     void motion( int x, int y );
     
-    /// position of widget functions
-    virtual int  x(){return  x_;}
+    /// position of widget functions, and virtual set methods
+    virtual int x(){return x_;}
+    virtual int y(){return y_;}
+    virtual int w(){return w_;}
+    virtual int h(){return h_;}
+    
     virtual void x(int x__){ x_ = x__; }
-    
-    virtual int  y(){return  y_;}
     virtual void y(int y__){ y_ = y__; }
-    
-    virtual int  w(){return w_;}
     virtual void w(int w__){ w_ = w__; }
-    
-    virtual int  h(){return h_;}
     virtual void h(int h__){ h_ = h__; }
     
     std::string label_;     /// widget name - sometimes shown in UI
