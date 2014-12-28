@@ -21,6 +21,8 @@ TestUI::TestUI( PuglNativeWindow parent ):
   themes.push_back( new Avtk::Theme( this, "green.avtk" ) );
   themes.push_back( new Avtk::Theme( this, "yellow.avtk" ) );
   
+  Widget::theme_ = themes.front();
+  
   Avtk::Widget* w = 0;
   
   // group testing
@@ -36,6 +38,9 @@ TestUI::TestUI( PuglNativeWindow parent ):
   group1->add( w );
   w = new Avtk::ListItem( this, 7, 45, 90, 11, "Group Toggle 5" );
   group1->add( w );
+  
+  group1->valueMode( Group::VALUE_SINGLE_CHILD);
+  
   /*
   // group testing
   g = new Avtk::Group( this, 610, 243, 140, 100, "HGroup 1" );

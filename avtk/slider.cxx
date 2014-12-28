@@ -44,7 +44,7 @@ void Slider::draw( cairo_t* cr )
   theme_->color( cr, HIGHLIGHT, 0.2 );
   cairo_fill_preserve(cr);
   theme_->color( cr, HIGHLIGHT );
-  cairo_set_line_width(cr, 2.2);
+  cairo_set_line_width(cr, 1.2);
   cairo_stroke(cr);
 }
 

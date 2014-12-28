@@ -21,7 +21,7 @@ Group::Group( Avtk::UI* ui, int x, int y, int w, int h, std::string label ) :
   Widget( ui, x, y, w, h, label ),
   groupMode( NONE ),
   valueMode_( VALUE_NORMAL ),
-  spacing_( 3 )
+  spacing_( 1 )
 {
   noHandle_ = true;
 }
@@ -164,6 +164,11 @@ void Group::draw( cairo_t* cr )
       children.at( i )->draw( cr );
     }
   }
+  
+  roundedBox(cr, x, y, w, h, theme_->cornerRadius_ );
+  cairo_set_line_width(cr, 1.2);
+  theme_->color( cr, FG );
+  cairo_stroke(cr);
 }
 
 int Group::handle( const PuglEvent* event )
@@ -171,6 +176,7 @@ int Group::handle( const PuglEvent* event )
   if( visible() )
   {
     // TODO: reverse iter here?
+    int childValueTrue = -1;
     for(int i = 0; i < children.size(); i++ )
     {
       int ret = children.at( i )->handle( event );
@@ -179,6 +185,13 @@ int Group::handle( const PuglEvent* event )
         //printf("widget %i handle eventType %i ret\n", i, event->type );
         return ret; // child widget ate event: done :)
       }
+    }
+    
+    // if we haven't returned, the event was not consumed by the children, so we
+    // can check for a scroll event, and if yes, highlight the next item
+    if( valueMode_ == VALUE_SINGLE_CHILD && childValueTrue != -1 )
+    {
+      printf("SCROLL: Value child %i\n", childValueTrue );
     }
   }
   return 0;

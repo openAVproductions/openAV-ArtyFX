@@ -156,7 +156,7 @@ int Widget::handle( const PuglEvent* event )
         if( scTch && !scrollDisable )
         {
 #ifdef AVTK_DEBUG
-          //printf("scroll touch %i, x %lf, y %lf\n", int(scTch), event->scroll.x, event->scroll.y );
+          printf("scroll touch %i, x %lf, y %lf\n", int(scTch), event->scroll.x, event->scroll.y );
 #endif
           float delta = event->scroll.dy / float(scrollDeltaAmount);
           if( scrollInvert )
