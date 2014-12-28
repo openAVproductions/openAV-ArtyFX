@@ -213,12 +213,12 @@ void Group::draw( cairo_t* cr )
     {
       children.at( i )->draw( cr );
     }
+    
+    roundedBox(cr, x_, y_, w_, h_, theme_->cornerRadius_ );
+    theme_->color( cr, FG );
+    cairo_set_line_width(cr, 0.5);
+    cairo_stroke(cr);
   }
-  
-  roundedBox(cr, x_, y_, w_, h_, theme_->cornerRadius_ );
-  theme_->color( cr, FG );
-  cairo_set_line_width(cr, 0.5);
-  cairo_stroke(cr);
 }
 
 int Group::handle( const PuglEvent* event )
