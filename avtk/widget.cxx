@@ -7,6 +7,18 @@
 namespace Avtk
 {
 
+// constructor for top-level windows only
+Widget::Widget( Avtk::UI* ui_ ) :
+  ui( ui_ ),
+  noHandle_( false ),
+  x( -1 ),
+  y( -1 ),
+  w( -1 ),
+  h( -1 ),
+  visible_(true)
+{
+}
+
 Widget::Widget( Avtk::UI* ui_, int x_, int y_, int w_, int h_, std::string label__) :
   ui(ui_),
   parent_( 0 ),
@@ -203,16 +215,28 @@ void Widget::motion( int x, int y )
   }
   
   // handle value() on the widget
+  float delta = 0;
   float dragSpeed = float(h);
-  if( dragSpeed < 100 )
+  if ( dm == DM_DRAG_VERTICAL )
   {
-    dragSpeed = 100; // num of px for "full-scale" drag
-    //printf("dragspeed set to %f\n", dragSpeed);
+    if( dragSpeed < 100 )
+    {
+      dragSpeed = 100; // num of px for "full-scale" drag
+      //printf("dragspeed set to %f\n", dragSpeed);
+    }
+    
+    delta = ( mY - y ) / dragSpeed;
   }
-  
-  float delta = ( mY - y ) / dragSpeed;
-  if ( dm == DM_DRAG_HORIZONTAL )
+  else if ( dm == DM_DRAG_HORIZONTAL )
+  {
+    dragSpeed = float(w);
+    if( dragSpeed < 100 )
+    {
+      dragSpeed = 100; // num of px for "full-scale" drag
+      //printf("dragspeed set to %f\n", dragSpeed);
+    }
     delta = ( x - mX ) / dragSpeed;
+  }
   
   value( value_ + delta );
   //printf("drag(), delta %i, new value %\n", delta, value() );

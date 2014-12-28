@@ -12,6 +12,10 @@
 #include <stdio.h>
 #include <unistd.h>
 
+// the AVTK UI is a group
+#include "group.hxx"
+
+
 namespace Avtk
 {
 
@@ -19,7 +23,7 @@ class Theme;
 class Widget;
 
 
-class UI
+class UI : public Avtk::Group
 {
   public:
     UI( int w, int h, PuglNativeWindow parent = 0 );

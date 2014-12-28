@@ -79,6 +79,9 @@ class Widget
     void* callbackUD;
   
   protected:
+    /// constructor for top level windows
+    Widget( Avtk::UI* ui );
+    
     Avtk::Group* parent_;
     
     /// local Theme pointer: themes are loaded at startup, and maintained until

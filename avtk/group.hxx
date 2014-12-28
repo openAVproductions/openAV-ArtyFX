@@ -57,6 +57,9 @@ class Group : public Widget
     virtual void valueCB( Widget* w );
   
   protected:
+    /// constructor for top-level UI only
+    Group( Avtk::UI* ui );
+    
     std::vector< Widget* > children;
     
     GROUP_MODE groupMode;
