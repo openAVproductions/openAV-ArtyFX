@@ -11,16 +11,16 @@ namespace Avtk
 Widget::Widget( Avtk::UI* ui_ ) :
   ui( ui_ ),
   noHandle_( false ),
-  x( -1 ),
-  y( -1 ),
-  w( -1 ),
-  h( -1 ),
+  x_( -1 ),
+  y_( -1 ),
+  w_( -1 ),
+  h_( -1 ),
   visible_(true),
   parent_( 0x0 ) // top levels don't have a parent
 {
 }
 
-Widget::Widget( Avtk::UI* ui_, int x_, int y_, int w_, int h_, std::string label__) :
+Widget::Widget( Avtk::UI* ui_, int x, int y, int w, int h, std::string label__) :
   ui(ui_),
   parent_( 0 ),
   theme_( ui->theme() ),
@@ -29,10 +29,10 @@ Widget::Widget( Avtk::UI* ui_, int x_, int y_, int w_, int h_, std::string label
   groupChild( false ),
   groupItemNumber_( -1 ),
   
-  x( x_ ),
-  y( y_ ),
-  w( w_ ),
-  h( h_ ),
+  x_( x ),
+  y_( y ),
+  w_( w ),
+  h_( h ),
   label_( label__ ),
   visible_( true ),
   
@@ -97,7 +97,7 @@ int Widget::handle( const PuglEvent* event )
           }
           else if ( cm == CLICK_VALUE_FROM_Y )
           {
-            float tmp = (event->button.y - y) / h/0.92;
+            float tmp = (event->button.y - y_) / h_/0.92;
             value( tmp );
 #ifdef AVTK_DEBUG
             printf("Widget::handle() value from Y, %f\n", tmp);
@@ -199,13 +199,13 @@ int Widget::handle( const PuglEvent* event )
   return 0;
 }
 
-void Widget::motion( int x, int y )
+void Widget::motion( int inX, int inY )
 {
   if ( dm == DM_NONE )
   {
     // if widget is pressed, and mouse moves outside the widget area
     // inform UI of possible drag-drop action
-    if( !touches( x, y ) )
+    if( !touches( inX, inY ) )
     {
       static const char* testData = "DragDropTestPayload";
 #ifdef AVTK_DEBUG
@@ -218,7 +218,7 @@ void Widget::motion( int x, int y )
   
   // handle value() on the widget
   float delta = 0;
-  float dragSpeed = float(h);
+  float dragSpeed = float(h_);
   if ( dm == DM_DRAG_VERTICAL )
   {
     if( dragSpeed < 100 )
@@ -227,24 +227,24 @@ void Widget::motion( int x, int y )
       //printf("dragspeed set to %f\n", dragSpeed);
     }
     
-    delta = ( mY - y ) / dragSpeed;
+    delta = ( mY - inY ) / dragSpeed;
   }
   else if ( dm == DM_DRAG_HORIZONTAL )
   {
-    dragSpeed = float(w);
+    dragSpeed = float(w_);
     if( dragSpeed < 100 )
     {
       dragSpeed = 100; // num of px for "full-scale" drag
       //printf("dragspeed set to %f\n", dragSpeed);
     }
-    delta = ( x - mX ) / dragSpeed;
+    delta = ( inX - mX ) / dragSpeed;
   }
   
   value( value_ + delta );
-  //printf("drag(), delta %i, new value %\n", delta, value() );
+  printf("drag(), delta %f, new value %f\n", delta, value() );
   
-  mX = x;
-  mY = y;
+  mX = inX;
+  mY = inY;
   
   // check types of "when()" here?
   // immidiate
@@ -271,7 +271,7 @@ void Widget::value( float v )
 
 bool Widget::touches( int inx, int iny )
 {
-  return ( inx >= x && inx <= x + w && iny >= y && iny <= y + h);
+  return ( inx >= x_ && inx <= x_ + w_ && iny >= y_ && iny <= y_ + h_);
 }
 
 void Widget::clickMode( ClickMode c )

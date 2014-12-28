@@ -23,7 +23,7 @@ void Slider::draw( cairo_t* cr )
 {
   static const int faderHeight = 16;
   
-  roundedBox(cr, x, y, w, h, theme_->cornerRadius_ );
+  roundedBox(cr, x_, y_, w_, h_, theme_->cornerRadius_ );
   theme_->color( cr, BG_DARK );
   cairo_fill_preserve(cr);
   theme_->color( cr, FG );
@@ -32,13 +32,13 @@ void Slider::draw( cairo_t* cr )
   // fader
   if( dragMode() == DM_DRAG_VERTICAL )
   {
-    const int range = (h-faderHeight-2);
-    roundedBox(cr, x + 1, y + 1 + range - range*value(), w - 2, faderHeight, theme_->cornerRadius_ );
+    const int range = (h_-faderHeight-2);
+    roundedBox(cr, x_+ 1, y_ + 1 + range - range*value(), w_ - 2, faderHeight, theme_->cornerRadius_ );
   }
   else
   {
-    const int range = (w-faderHeight-2);
-    roundedBox(cr, x + 1 + range*value(), y + 1, faderHeight, h - 2, theme_->cornerRadius_ );
+    const int range = (w_-faderHeight-2);
+    roundedBox(cr, x_ + 1 + range*value(), y_ + 1, faderHeight, h_ - 2, theme_->cornerRadius_ );
   }
   
   theme_->color( cr, HIGHLIGHT, 0.2 );

@@ -121,10 +121,10 @@ void TestUI::widgetValueCB( Avtk::Widget* w )
   }
   else if( w == vertSlider )
   {
-    waveform->y = w->value() * 500;
-    group1->y = w->value() * 500;
+    waveform->y( w->value() * 500 );
+    group1->y( w->value() * 500 );
     
-    printf( "%s, value %f : px %f\n", w->label(), w->value(), group1->y );
+    printf( "%s, value %f : px %f\n", w->label(), w->value(), group1->y() );
     redraw();
   }
 }

@@ -18,13 +18,13 @@ void ListItem::draw( cairo_t* cr )
 {
   cairo_save( cr );
   
-  roundedBox(cr, x, y, w, h, 0 );
+  roundedBox(cr, x_, y_, w_, h_, 0 );
   theme_->color( cr, BG, 0.4 );
   cairo_fill(cr);
   
   if( value() > 0.4999 )
   {
-      cairo_rectangle( cr, x, y, w, h );
+      cairo_rectangle( cr, x_, y_, w_, h_ );
       theme_->color( cr, HIGHLIGHT, 1 );
       cairo_fill_preserve( cr );
       cairo_stroke( cr );
@@ -41,7 +41,7 @@ void ListItem::draw( cairo_t* cr )
   cairo_text_extents_t extents;
   cairo_set_font_size(cr, 10.0);
   cairo_text_extents(cr, label(), &extents);
-  cairo_move_to(cr, x + 4, (y + h / 2) + extents.height / 2 - 1.1 );
+  cairo_move_to(cr, x_ + 4, (y_ + h_ / 2) + extents.height / 2 - 1.1 );
   
   cairo_show_text( cr, label() );
   

@@ -68,7 +68,7 @@ void List::draw( cairo_t* cr )
     // have the group draw itself
     Group::draw( cr );
     
-    roundedBox(cr, x, y, w, h, theme_->cornerRadius_ );
+    roundedBox(cr, x_, y_, w_, h_, theme_->cornerRadius_ );
     theme_->color( cr, HIGHLIGHT );
     cairo_stroke( cr );
     

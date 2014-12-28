@@ -18,7 +18,7 @@ void Button::draw( cairo_t* cr )
 {
   cairo_save( cr );
   
-  roundedBox(cr, x, y, w, h, theme_->cornerRadius_ );
+  roundedBox(cr, x_, y_, w_, h_, theme_->cornerRadius_ );
   
   if( value() > 0.4999 )
   {
@@ -42,8 +42,8 @@ void Button::draw( cairo_t* cr )
   cairo_set_font_size(cr, 15.0);
   cairo_text_extents(cr, label(), &extents);
   cairo_move_to(cr,
-                (x + w / 2) - extents.width / 2,
-                (y + h / 2) + extents.height / 2 - 2);
+                (x_ + w_ / 2) - extents.width / 2,
+                (y_ + h_ / 2) + extents.height / 2 - 2);
   
   if( !value() )
   {

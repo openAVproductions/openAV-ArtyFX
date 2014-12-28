@@ -47,24 +47,24 @@ void Group::add( Widget* child )
   // set the child's co-ords
   if( groupMode == WIDTH_EQUAL )
   {
-    child->x = x;
-    child->w = w;
+    child->x( x_ );
+    child->w( w_ );
     
-    int childY = y;
+    int childY = y_;
     for(int i = 0; i < children.size(); i++ )
-      childY += children.at(i)->h + spacing_;
+      childY += children.at(i)->h() + spacing_;
 
-    child->y = childY;
+    child->y( childY );
   }
   else if( groupMode == HEIGHT_EQUAL )
   {
-    child->y = y;
-    child->h = h;
+    child->y( y_ );
+    child->h( h_ );
     
-    int childX = x;
+    int childX = x_;
     for(int i = 0; i < children.size(); i++ )
-      childX += children.at(i)->w + spacing_;
-    child->x = childX;
+      childX += children.at(i)->w() + spacing_;
+    child->x( childX );
   }
   
   children.push_back( child );
@@ -76,11 +76,11 @@ void Group::add( Widget* child )
   ui->redraw();
 }
 
-void Group::remove( Avtk::Widget* w )
+void Group::remove( Avtk::Widget* wid )
 {
   for(int i = 0; i < children.size(); i++ )
   {
-    if( children.at(i) == w )
+    if( children.at(i) == wid )
     {
 #ifdef AVTK_DEBUG
       printf("Group::remove() %s, widget# %i\n", label(), i );
@@ -165,7 +165,7 @@ void Group::draw( cairo_t* cr )
     }
   }
   
-  roundedBox(cr, x, y, w, h, theme_->cornerRadius_ );
+  roundedBox(cr, x_, y_, w_, h_, theme_->cornerRadius_ );
   cairo_set_line_width(cr, 1.2);
   theme_->color( cr, FG );
   cairo_stroke(cr);

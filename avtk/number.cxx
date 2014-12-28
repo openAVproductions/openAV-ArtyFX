@@ -38,7 +38,7 @@ void Number::draw( cairo_t* cr )
   cairo_save( cr );
   
   theme_->color( cr, HIGHLIGHT, 0.8 );
-  roundedBox(cr, x, y, w, h, theme_->cornerRadius_ );
+  roundedBox(cr, x_, y_, w_, h_, theme_->cornerRadius_ );
   cairo_fill_preserve(cr);
   theme_->color( cr, BG_DARK, 1 );
   cairo_set_line_width(cr, theme_->lineWidthWide() );
@@ -64,8 +64,8 @@ void Number::draw( cairo_t* cr )
   cairo_select_font_face(cr, "impact", CAIRO_FONT_SLANT_NORMAL, CAIRO_FONT_WEIGHT_BOLD);
   
   cairo_text_extents(cr, vStr.str().c_str(), &extents);
-  cairo_move_to(cr, (x + w / 2) - extents.width / 2 + offset,
-                    (y + h / 2) + extents.height / 2 );
+  cairo_move_to(cr, (x_ + w_ / 2) - extents.width / 2 + offset,
+                    (y_ + h_ / 2) + extents.height / 2 );
   
   theme_->color( cr, BG_DARK );
   cairo_show_text( cr, vStr.str().c_str() );

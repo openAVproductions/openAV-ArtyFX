@@ -10,8 +10,8 @@ Image::Image( Avtk::UI* ui, int x_, int y_, int w_, int h_, std::string label_) 
   imgSurf(0),
   cairoImgData(0)
 {
-  stride = cairo_format_stride_for_width (CAIRO_FORMAT_ARGB32, w);
-  cairoImgData = malloc (stride * h);
+  stride = cairo_format_stride_for_width (CAIRO_FORMAT_ARGB32, w_);
+  cairoImgData = malloc (stride * h_);
 }
 
 Image::~Image()
@@ -22,10 +22,10 @@ Image::~Image()
 void Image::load( const unsigned char* data )
 {
 #ifdef AVTK_DEBUG
-  printf("w = %i, stride = %i\n", w, stride );
+  printf("w = %i, stride = %i\n", w_, stride );
 #endif // AVTK_DEBUG
-  memcpy( cairoImgData, data, sizeof(unsigned char)*w*h*4 );
-  imgSurf = cairo_image_surface_create_for_data( (unsigned char*)cairoImgData, CAIRO_FORMAT_ARGB32, w, h, stride);
+  memcpy( cairoImgData, data, sizeof(unsigned char) * w_ * h_ * 4 );
+  imgSurf = cairo_image_surface_create_for_data( (unsigned char*)cairoImgData, CAIRO_FORMAT_ARGB32, w_, h_, stride);
 }
 
 void Image::draw( cairo_t* cr )
