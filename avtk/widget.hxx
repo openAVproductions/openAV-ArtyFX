@@ -51,7 +51,7 @@ class Widget
     void motion( int x, int y );
     
     int x, y, w, h;         /// widget co-ords and size
-    std::string label_;      /// widget name - sometimes shown in UI
+    std::string label_;     /// widget name - sometimes shown in UI
     bool  visible_;         /// widget visibility
     
     enum ClickMode {

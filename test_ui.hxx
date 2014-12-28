@@ -27,6 +27,8 @@ class TestUI : public Avtk::UI
     
     Avtk::Group* group1;
     
+    Avtk::Slider* vertSlider;
+    
     Avtk::List* list;
     Avtk::List* list2;
     Avtk::Waveform* waveform;

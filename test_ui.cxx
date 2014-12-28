@@ -53,7 +53,7 @@ TestUI::TestUI( PuglNativeWindow parent ):
   */
   
   // slider vert
-  w = new Avtk::Slider( this, 520, 40, 22, 220, "Vertical Slider" );
+  vertSlider = new Avtk::Slider( this, 520, 40, 22, 220, "Vertical Slider" );
   
   // button
   momentary = new Avtk::Button( this, 7, 45, 90, 22, "Momentary" );
@@ -72,7 +72,7 @@ TestUI::TestUI( PuglNativeWindow parent ):
   w = new Avtk::Number( this, 100, 85, 35, 25, "Number box" );
   
   // list
-  list = new Avtk::List( this, 345, 545, 105, 125, "List (Left)" );
+  list = new Avtk::List( this, 345, 345, 105, 125, "List (Left)" );
   std::vector<std::string> items;
   std::string stripped;
   Avtk::directoryContents(  "/root/openav/content/bips/", items, stripped);
@@ -80,11 +80,11 @@ TestUI::TestUI( PuglNativeWindow parent ):
   
   items.clear();
   Avtk::directoryContents(  "/root/openav/content/bips", items, stripped, true, true );
-  list2 = new Avtk::List( this, 525, 545, 105, 125, "List (Right)" );
+  list2 = new Avtk::List( this, 525, 345, 105, 125, "List (Right)" );
   list2->show( items );
   
   // waveform
-  waveform = new Avtk::Waveform( this, 75, 175, 375, 125, "Waveform" );
+  waveform = new Avtk::Waveform( this, 15, 175, 250, 100, "Waveform" );
   std::vector<float> tmp;
   int error = Avtk::loadSample( "test.wav", tmp );
   waveform->show( tmp );
@@ -96,9 +96,9 @@ TestUI::TestUI( PuglNativeWindow parent ):
   i->load( header.pixel_data );
   
   // slider horizontal
-  w =  new Avtk::Slider( this,  40,350, 350, 22, "Zoom" );
+  w =  new Avtk::Slider( this,  15,350, 250, 22, "Zoom" );
   
-  w =  new Avtk::Slider( this,  40,374, 350, 22, "Vol" );
+  w =  new Avtk::Slider( this,  15,374, 250, 22, "Vol" );
 }
 
 
@@ -114,12 +114,20 @@ void TestUI::widgetValueCB( Avtk::Widget* w )
   {
     
   }
+  else if( w == vertSlider )
+  {
+    waveform->y = w->value() * 500;
+    group1->y = w->value() * 500;
+    
+    printf( "%s, value %f : px %f\n", w->label(), w->value(), group1->y );
+    redraw();
+  }
 }
 
 static void listValueCB( Avtk::Widget* w, void* ud )
 {
   Avtk::List* l = (Avtk::List*)w;
-  printf( "%s, value %f : %s\n", w->label(), w->value(), l->selectedString().c_str() );
+
 }
 
 /*
