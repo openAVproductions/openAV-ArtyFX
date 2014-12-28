@@ -203,10 +203,16 @@ void Widget::motion( int x, int y )
   }
   
   // handle value() on the widget
-  float delta = ( mY - y ) / float(h);
+  float dragSpeed = float(h);
+  if( dragSpeed < 100 )
+  {
+    dragSpeed = 100; // num of px for "full-scale" drag
+    //printf("dragspeed set to %f\n", dragSpeed);
+  }
   
+  float delta = ( mY - y ) / dragSpeed;
   if ( dm == DM_DRAG_HORIZONTAL )
-    delta = ( x - mX ) / float(w);
+    delta = ( x - mX ) / dragSpeed;
   
   value( value_ + delta );
   //printf("drag(), delta %i, new value %\n", delta, value() );
