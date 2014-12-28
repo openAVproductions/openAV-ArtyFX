@@ -37,7 +37,7 @@ class Group : public Widget
     void add    ( Widget* child );
     
     /// removes a Widget from this group: its parent pointer is set to 0.
-    //void remove ( Widget* child );
+    void remove ( Widget* child );
     
     virtual void clear();
     

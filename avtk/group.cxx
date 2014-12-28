@@ -60,6 +60,18 @@ void Group::add( Widget* child )
   ui->redraw();
 }
 
+void Group::remove( Avtk::Widget* w )
+{
+  for(int i = 0; i < children.size(); i++ )
+  {
+    if( children.at(i) == w )
+    {
+      printf("Group::remove() %s, widget# %i\n", label(), i );
+      children.erase( children.begin() + i );
+    }
+  }
+}
+
 void Group::visible( bool vis )
 {
   for(int i = 0; i < children.size(); i++ )
