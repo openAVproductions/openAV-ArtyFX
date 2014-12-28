@@ -22,6 +22,8 @@ class List : public Group
     
     virtual void draw( cairo_t* cr );
     
+    void addItem( std::string newItem );
+    
     void show( std::vector< std::string > data );
     
     virtual void clear();

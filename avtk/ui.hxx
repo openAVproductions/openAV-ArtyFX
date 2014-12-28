@@ -3,7 +3,6 @@
 #define OPENAV_AVTK_UI_HXX
 
 // libs AVTK needs
-#include "yasper.hxx"
 #include "pugl/pugl.h"
 #include <cairo/cairo.h>
 
@@ -12,9 +11,6 @@
 #include <vector>
 #include <stdio.h>
 #include <unistd.h>
-
-using namespace yasper;
-
 
 namespace Avtk
 {
@@ -124,12 +120,10 @@ class UI
     int w_, h_;
     
     /// the list of widgets currently instantiated, in order of being drawn.
-    // Technically this is a list of yasper::ptr<Avtk::Widget> types, but they
-    // act generally like raw pointers would do
     std::list<Avtk::Widget*> widgets;
     
     /// A list of themes, loaded on startup, which widgets can request
-    std::vector< ptr<Avtk::Theme> > themes;
+    std::vector< Avtk::Theme* > themes;
     
     /// pointers that are dynamically switched to represent a widget that could
     /// have a specific action performed with it in the future. These pointers

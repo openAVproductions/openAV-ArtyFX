@@ -16,6 +16,15 @@ List::List( Avtk::UI* ui, int x_, int y_, int w_, int h_, std::string label_) :
   lastClickedItem = -1;
 }
 
+void List::addItem( std::string newItem )
+{
+  items.push_back( newItem );
+  
+  add( new Avtk::ListItem( ui, 0, 0, 11, 11, newItem ) );
+  
+  ui->redraw();
+}
+
 void List::show( std::vector< std::string > data )
 {
   items.swap( data );

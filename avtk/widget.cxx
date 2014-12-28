@@ -234,6 +234,7 @@ void Widget::value( float v )
   if( v < 0.0 ) v = 0.0;
   
   value_ = v;
+  ui->redraw();
 }
 
 bool Widget::touches( int inx, int iny )
@@ -265,6 +266,13 @@ void Widget::addToGroup( Group* p, int gin )
 void Widget::dragMode( DragMode d )
 {
   dm = d;
+}
+
+Widget::~Widget()
+{
+//#ifdef AVTK_DEBUG
+  printf("%s, ~Widget()\n", __PRETTY_FUNCTION__ );
+//#endif // AVTK_DEBUG
 }
 
 }; // Avtk

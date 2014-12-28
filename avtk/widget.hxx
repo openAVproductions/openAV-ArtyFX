@@ -22,7 +22,7 @@ class Widget
 {
   public:
     Widget( Avtk::UI* ui_, int x_, int y_, int w_, int h_, std::string label_);
-    virtual ~Widget(){}
+    virtual ~Widget();
     
     /// returns the name of the Widget
     const char* label(){return label_.c_str();}
