@@ -15,7 +15,7 @@ static void listValueCB(Avtk::Widget* w, void* ud);
 static void toggleCB(Avtk::Widget* w, void* ud);
 
 TestUI::TestUI( PuglNativeWindow parent ):
-  Avtk::UI( 810, 830, parent )
+  Avtk::UI( 810, 530, parent )
 {
   themes.push_back( new Avtk::Theme( this, "orange.avtk" ) );
   themes.push_back( new Avtk::Theme( this, "green.avtk" ) );
@@ -108,6 +108,7 @@ void TestUI::widgetValueCB( Avtk::Widget* w )
   if( w == groupToggler )
   {
     group1->visible( groupToggler->value() );
+    list2->visible( groupToggler->value() );
   }
   else if( w == momentary )
   {

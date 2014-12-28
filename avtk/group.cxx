@@ -10,14 +10,18 @@ namespace Avtk
 
 Group::Group( Avtk::UI* ui ) :
   Widget( ui ),
-  groupMode( NONE )
+  groupMode( NONE ),
+  valueMode_( VALUE_NORMAL ),
+  spacing_( 0 )
 {
   noHandle_ = true;
 }
 
 Group::Group( Avtk::UI* ui, int x, int y, int w, int h, std::string label ) :
   Widget( ui, x, y, w, h, label ),
-  groupMode( NONE )
+  groupMode( NONE ),
+  valueMode_( VALUE_NORMAL ),
+  spacing_( 3 )
 {
   noHandle_ = true;
 }
@@ -40,9 +44,7 @@ void Group::add( Widget* child )
   child->callback   = staticGroupCB;
   child->callbackUD = this;
   
-  // set the child's co-ords 
-  const int border = 0;
-  
+  // set the child's co-ords
   if( groupMode == WIDTH_EQUAL )
   {
     child->x = x;
@@ -50,7 +52,7 @@ void Group::add( Widget* child )
     
     int childY = y;
     for(int i = 0; i < children.size(); i++ )
-      childY += children.at(i)->h + border;
+      childY += children.at(i)->h + spacing_;
 
     child->y = childY;
   }
@@ -61,7 +63,7 @@ void Group::add( Widget* child )
     
     int childX = x;
     for(int i = 0; i < children.size(); i++ )
-      childX += children.at(i)->w + border;
+      childX += children.at(i)->w + spacing_;
     child->x = childX;
   }
   
@@ -80,7 +82,9 @@ void Group::remove( Avtk::Widget* w )
   {
     if( children.at(i) == w )
     {
+#ifdef AVTK_DEBUG
       printf("Group::remove() %s, widget# %i\n", label(), i );
+#endif
       children.erase( children.begin() + i );
     }
   }
@@ -131,7 +135,7 @@ void Group::mode( GROUP_MODE gm )
 void Group::valueCB( Widget* w )
 {
   // only one widget is value( true ) in a group at a time
-  if( false )
+  if( valueMode_ == VALUE_SINGLE_CHILD )
   {
 #ifdef AVTK_DEBUG
     printf("Group child # %i : value : %f\tNow into Normal CB\n", w->groupItemNumber(), w->value() );
