@@ -23,7 +23,7 @@ Group::Group( Avtk::UI* ui, int x, int y, int w, int h, std::string label ) :
   valueMode_( VALUE_NORMAL ),
   spacing_( 1 )
 {
-  noHandle_ = true;
+  noHandle_ = false;
 }
 
 void Group::add( Widget* child )
@@ -166,8 +166,8 @@ void Group::draw( cairo_t* cr )
   }
   
   roundedBox(cr, x_, y_, w_, h_, theme_->cornerRadius_ );
-  cairo_set_line_width(cr, 1.2);
   theme_->color( cr, FG );
+  cairo_set_line_width(cr, 0.5);
   cairo_stroke(cr);
 }
 

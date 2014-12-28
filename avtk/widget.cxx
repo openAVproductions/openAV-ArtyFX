@@ -241,7 +241,7 @@ void Widget::motion( int inX, int inY )
   }
   
   value( value_ + delta );
-  printf("drag(), delta %f, new value %f\n", delta, value() );
+  //printf("drag(), delta %f, new value %f\n", delta, value() );
   
   mX = inX;
   mY = inY;

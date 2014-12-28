@@ -51,17 +51,17 @@ class Widget
     void motion( int x, int y );
     
     /// position of widget functions
-    int  x(){return  x_;}
-    void x(int x__){ x_ = x__; }
+    virtual int  x(){return  x_;}
+    virtual void x(int x__){ x_ = x__; }
     
-    int  y(){return  y_;}
-    void y(int y__){ y_ = y__; }
+    virtual int  y(){return  y_;}
+    virtual void y(int y__){ y_ = y__; }
     
-    int  w(){return w_;}
-    void w(int w__){ w_ = w__; }
+    virtual int  w(){return w_;}
+    virtual void w(int w__){ w_ = w__; }
     
-    int  h(){return h_;}
-    void h(int h__){ h_ = h__; }
+    virtual int  h(){return h_;}
+    virtual void h(int h__){ h_ = h__; }
     
     std::string label_;     /// widget name - sometimes shown in UI
     bool  visible_;         /// widget visibility
