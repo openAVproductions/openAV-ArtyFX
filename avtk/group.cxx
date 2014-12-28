@@ -225,9 +225,8 @@ int Group::handle( const PuglEvent* event )
 {
   if( visible() )
   {
-    // TODO: reverse iter here?
-    int childValueTrue = -1;
-    for(int i = 0; i < children.size(); i++ )
+    // reverse iter over the children: top first
+    for(int i = children.size() - 1; i >= 0 ; i-- )
     {
       int ret = children.at( i )->handle( event );
       if( ret )
@@ -239,9 +238,41 @@ int Group::handle( const PuglEvent* event )
     
     // if we haven't returned, the event was not consumed by the children, so we
     // can check for a scroll event, and if yes, highlight the next item
-    if( valueMode_ == VALUE_SINGLE_CHILD && childValueTrue != -1 )
+    if( event->type == PUGL_SCROLL && 
+        valueMode_ == VALUE_SINGLE_CHILD && 
+        touches( event->scroll.x, event->scroll.y ) )
     {
-      printf("SCROLL: Value child %i\n", childValueTrue );
+      // find value() widget
+      int vw = -1;
+      for(int i = children.size() - 1; i >= 0 ; i-- )
+      {
+        if( children.at(i)->value() > 0.4999 )
+          vw = i;
+      }
+      
+      int d = event->scroll.dy;
+      //printf("SCROLL: Value child %i, delta %i\n", vw, d );
+      
+      // no widget selected
+      if( vw == -1 )
+      {
+        children.at(0)->value( true );
+      }
+      // scroll up
+      else if( vw > 0 && d > 0 )
+      {
+        children.at(vw-1)->value( true  );
+        children.at(vw  )->value( false );
+      }
+      // scroll down
+      else if( vw < children.size()-1 && d < 0 )
+      {
+        children.at(vw  )->value( false );
+        children.at(vw+1)->value( true  );
+      }
+      
+      // handled scroll, so eat event
+      return 1;
     }
   }
   return 0;
