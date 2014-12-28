@@ -211,7 +211,9 @@ void Group::draw( cairo_t* cr )
   {
     for(int i = 0; i < children.size(); i++ )
     {
-      children.at( i )->draw( cr );
+      Widget* c = children.at( i );
+      if( c->visible() )
+        c->draw( cr );
     }
     
     roundedBox(cr, x_, y_, w_, h_, theme_->cornerRadius_ );
