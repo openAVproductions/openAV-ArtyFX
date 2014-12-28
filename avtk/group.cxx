@@ -24,6 +24,13 @@ Group::Group( Avtk::UI* ui, int x, int y, int w, int h, std::string label ) :
 
 void Group::add( Widget* child )
 {
+  // if widget is currently already parented (not a new widget), remove it from
+  // its previous parent group.
+  if( child->parent() )
+  {
+    child->parent()->remove( child );
+  }
+  
 #ifdef AVTK_DEBUG
   printf("Group add: size %i\n", children.size() );
 #endif
@@ -132,12 +139,12 @@ void Group::valueCB( Widget* w )
     }
     
     w->value( true );
-    
-    // optionally continue to normal callback
-    if( false )
-    {
-      Avtk::UI::staticWidgetValueCB( w, ui );
-    }
+  }
+  
+  // continue to widget's callback
+  if( true )
+  {
+    Avtk::UI::staticWidgetValueCB( w, ui );
   }
 }
 

@@ -15,7 +15,8 @@ Widget::Widget( Avtk::UI* ui_ ) :
   y( -1 ),
   w( -1 ),
   h( -1 ),
-  visible_(true)
+  visible_(true),
+  parent_( 0x0 ) // top levels don't have a parent
 {
 }
 
