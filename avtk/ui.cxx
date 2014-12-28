@@ -125,7 +125,8 @@ void UI::redraw()
 
 void UI::redraw( Avtk::Widget* w )
 {
-  puglPostExpose( view, w->x, w->y, w->w, w->h );
+  puglPostRedisplay( view );
+  //puglPostExpose( view, w->x, w->y, w->w, w->h );
 }
 
 void UI::motion(int x, int y)
