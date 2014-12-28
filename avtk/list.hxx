@@ -24,6 +24,9 @@ class List : public Group
     
     void addItem( std::string newItem );
     
+    /// integer input for which item to highlight
+    void value( float v );
+    
     void show( std::vector< std::string > data );
     
     virtual void clear();

@@ -56,7 +56,7 @@ class Group : public Widget
     /// intercept callbacks from a range of widgets
     virtual void valueCB( Widget* w );
   
-  private:
+  protected:
     std::vector< Widget* > children;
     
     GROUP_MODE groupMode;

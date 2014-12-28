@@ -37,6 +37,19 @@ void List::show( std::vector< std::string > data )
   ui->redraw();
 }
 
+void List::value( float v )
+{
+  int item = int(v);
+  for( int i = 0; i < children.size(); i++ )
+  {
+    bool v = false;
+    if( item == i )
+      v = true;
+    
+    children.at(i)->value( v );
+  }
+}
+
 void List::clear()
 {
   // free the widgets
