@@ -88,6 +88,7 @@ void Group::remove( Avtk::Widget* w )
 
 void Group::visible( bool vis )
 {
+  Widget::visible( vis );
   for(int i = 0; i < children.size(); i++ )
   {
     children.at(i)->visible( vis );
@@ -96,12 +97,14 @@ void Group::visible( bool vis )
 
 bool Group::visible()
 {
+  /*
   for(int i = 0; i < children.size(); i++ )
   {
     if( !children.at(i)->visible() )
       return false;
   }
-  return true;
+  */
+  return Widget::visible();
 }
 
 void Group::clear()
@@ -169,7 +172,7 @@ int Group::handle( const PuglEvent* event )
       int ret = children.at( i )->handle( event );
       if( ret )
       {
-        printf("widget %i handle eventType %i ret\n", i, event->type );
+        //printf("widget %i handle eventType %i ret\n", i, event->type );
         return ret; // child widget ate event: done :)
       }
     }

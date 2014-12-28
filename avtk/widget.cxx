@@ -101,7 +101,7 @@ int Widget::handle( const PuglEvent* event )
             value( tmp );
 #ifdef AVTK_DEBUG
             printf("Widget::handle() value from Y, %f\n", tmp);
-#endif // AVTK_DEBUG
+#endif
             callback( this, callbackUD );
             ui->redraw( this );
           }
@@ -141,8 +141,8 @@ int Widget::handle( const PuglEvent* event )
             value( 0 );
             ui->redraw();
 #ifdef AVTK_DEBUG
-            printf("Widget MOMENTARY, redrawn value\n");
-#endif // AVTK_DEBUG
+            //printf("Widget MOMENTARY, redrawn value\n");
+#endif
           }
           return 1;
         }
@@ -156,8 +156,8 @@ int Widget::handle( const PuglEvent* event )
         if( scTch && !scrollDisable )
         {
 #ifdef AVTK_DEBUG
-          printf("scroll touch %i, x %lf, y %lf\n", int(scTch), event->scroll.x, event->scroll.y );
-#endif // AVTK_DEBUG
+          //printf("scroll touch %i, x %lf, y %lf\n", int(scTch), event->scroll.x, event->scroll.y );
+#endif
           float delta = event->scroll.dy / float(scrollDeltaAmount);
           if( scrollInvert )
             delta = -delta;
