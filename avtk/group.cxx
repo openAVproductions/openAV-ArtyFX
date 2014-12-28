@@ -33,7 +33,7 @@ void Group::add( Widget* child )
   child->callback   = staticGroupCB;
   child->callbackUD = this;
   
-  // set the child's co-ords
+  // set the child's co-ords 
   const int border = 0;
   
   if( groupMode == WIDTH_EQUAL )
@@ -102,7 +102,7 @@ void Group::clear()
   while( children.size() > 0 )
   {
 #ifdef AVTK_DEBUG
-    printf("removing child %s from UI\n", children.at(i)->label() );
+    printf("removing child %s from UI\n", children.at(0)->label() );
 #endif
     ui->remove( children.at(0) );
     Avtk::Widget* tmp = children.at(0);
@@ -120,20 +120,24 @@ void Group::mode( GROUP_MODE gm )
 
 void Group::valueCB( Widget* w )
 {
-#ifdef AVTK_DEBUG
-  printf("Group child # %i : value : %f\tNow into Normal CB\n", w->groupItemNumber(), w->value() );
-#endif
-  for(int i = 0; i < children.size(); i++ )
-  {
-    children.at(i)->value( false );
-  }
-  
-  w->value( true );
-  
-  // optionally continue to normal callback
+  // only one widget is value( true ) in a group at a time
   if( false )
   {
-    Avtk::UI::staticWidgetValueCB( w, ui );
+#ifdef AVTK_DEBUG
+    printf("Group child # %i : value : %f\tNow into Normal CB\n", w->groupItemNumber(), w->value() );
+#endif
+    for(int i = 0; i < children.size(); i++ )
+    {
+      children.at(i)->value( false );
+    }
+    
+    w->value( true );
+    
+    // optionally continue to normal callback
+    if( false )
+    {
+      Avtk::UI::staticWidgetValueCB( w, ui );
+    }
   }
 }
 
@@ -148,8 +152,28 @@ void Group::draw( cairo_t* cr )
   }
 }
 
+int Group::handle( const PuglEvent* event )
+{
+  if( visible() )
+  {
+    // TODO: reverse iter here?
+    for(int i = 0; i < children.size(); i++ )
+    {
+      int ret = children.at( i )->handle( event );
+      if( ret )
+      {
+        printf("widget %i handle eventType %i ret\n", i, event->type );
+        return ret; // child widget ate event: done :)
+      }
+    }
+  }
+  return 0;
+}
+
 Group::~Group()
 {
+  // on deletion, clean up all widgets left as children
+  clear();
 }
 
 };

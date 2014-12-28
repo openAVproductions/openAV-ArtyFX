@@ -64,8 +64,9 @@ void Widget::theme( Theme* t )
 
 int Widget::handle( const PuglEvent* event )
 {
-  // eg: groups don't handle input
-  if( noHandle_ )
+  // eg: noHandle means this widget doesn't take any input.
+  //     !visible_ implies the widget isn't shown: so a user can't interact with it
+  if( noHandle_ || !visible_ )
     return 0;
   
   switch (event->type)

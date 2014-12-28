@@ -54,14 +54,9 @@ void UI::display( cairo_t* cr )
   cairo_set_source_rgb( cr, 24/255., 24/255., 24/255. );
   cairo_fill( cr );
   
-  /// iter over widgets, drawing each in the order they were add()-ed
-  int i = 0;
-  for (std::list<Avtk::Widget*>::iterator it = widgets.begin(); it != widgets.end(); it++)
-  {
-    //printf("display() widget # %i\n", i++ );
-    if( (*it)->visible() )
-      (*it)->draw( cr );
-  }
+  /// use the group abstraction to draw the widgets, as the UI class derives
+  /// from a Group, this process is simple.
+  Group::draw( cr );
 }
 
 Theme* UI::theme( int id )
@@ -75,6 +70,22 @@ Theme* UI::theme( int id )
 
 void UI::event( const PuglEvent* event )
 {
+  if( event->type != PUGL_EXPOSE )
+  {
+    //printf("UI::handle() type = %i\n", event->type );
+    int ret = Group::handle( event );
+    if ( ret )
+    {
+      redraw();
+      return;
+    }
+  }
+  else
+  {
+    redraw();
+  }
+  
+  /*
   // reverse iter over widgets (aka starting on "top"), calling handle()
   for (std::list< Avtk::Widget*>::iterator it = widgets.begin(); it != widgets.end(); it++ )
   {
@@ -82,6 +93,7 @@ void UI::event( const PuglEvent* event )
       if( (*it)->handle( event ) )
         return;
   }
+  */
   
   // code is only reached if *none* of the widgets handled an event:
   // we can implement UI wide hotkeys here, handle unknown events
@@ -99,14 +111,11 @@ void UI::event( const PuglEvent* event )
       }
       break;
     
-    case PUGL_EXPOSE:
-      //printf("recieved pugl expose in UI\n");
-      //redraw();
-      break;
-    
     default:
       break;
   }
+  
+  return;
 }
 
 void UI::redraw()

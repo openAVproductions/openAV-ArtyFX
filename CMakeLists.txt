@@ -10,7 +10,7 @@ set(AVTK_VERSION_PATCH "1")
 set(AVTK_VERSION "${AVTK_VERSION_MAJOR}.${AVTK_VERSION_MINOR}.${AVTK_VERSION_PATCH}")
 
 option(AVTK_RELEASE_BUILD   "Build for releasing"         OFF )
-option(AVTK_DEBUG_PRINTS    "Build with debugging prints" OFF )
+option(AVTK_DEBUG_PRINTS    "Build with debugging prints" ON )
 option(AVTK_SNDFILE_SUPPORT "Build with sndfile library"  ON )
 
 

@@ -39,6 +39,9 @@ class Group : public Widget
     /// removes a Widget from this group: its parent pointer is set to 0.
     void remove ( Widget* child );
     
+    /// handles an event, propagating it to all children
+    virtual int handle( const PuglEvent* event );
+    
     virtual void clear();
     
     void draw( cairo_t* cr );
