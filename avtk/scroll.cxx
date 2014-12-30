@@ -45,7 +45,10 @@ void Scroll::set( Widget* child )
   }
   else
   {
+    // set the childs size to the scroll area
+    child->h( h_ );
     scrollV_ = false;
+    scrollY_ = 0;
   }
   
   if( child->w() > w_ )
@@ -57,7 +60,10 @@ void Scroll::set( Widget* child )
   }
   else
   {
+    // set the childs size to the scroll area
+    child->w( w_ );
     scrollH_ = false;
+    scrollX_ = 0;
   }
 }
 

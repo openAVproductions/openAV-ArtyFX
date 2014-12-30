@@ -24,15 +24,14 @@ class EventEditor : public Widget
     {
       if( z > 0.9 )
       {
-        w_ *= 2.0;
-        h_ *= 2.0;
+        w_ *= 1.5;
+        h_ *= 1.5;
       }
       else
       {
-        w_ *= 0.5;
-        h_ *= 0.5;
+        w_ *= 0.75;
+        h_ *= 0.75;
       }
-      
     }
     
     /// sets the data to be displayed in the Editor
