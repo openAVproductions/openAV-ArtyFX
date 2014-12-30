@@ -14,7 +14,9 @@ Scroll::Scroll( Avtk::UI* ui, int x_, int y_, int w_, int h_, std::string label_
   newChildCr( false ),
   childCr( 0x0 ),
   scrollX_( 0 ),
-  scrollY_( 0 )
+  scrollY_( 0 ),
+  scrollV_( false ),
+  scrollH_( false )
 {
 }
 
@@ -22,6 +24,15 @@ void Scroll::set( Widget* child )
 {
   Group::add( child );
   newChildCr = true;
+  
+  if( child->h() > h_ )
+  {
+    // child is bigger than our vertical size:
+    // calculate the scroll amount here
+    scrollV_ = true;
+    
+    scrollVamount = child->h() - h_;
+  }
 }
 
 void Scroll::draw( cairo_t* cr )
@@ -70,19 +81,15 @@ void Scroll::draw( cairo_t* cr )
       printf("cairo redrawing child in scroll group\n");
       redrawChild( cr );
     }
-    cairo_save( cr );
-    cairo_surface_t* s = cairo_get_target( childCr );
-    cairo_surface_flush( s );
     
     // clip the Scroll context, to draw only what will be shown
     cairo_rectangle( cr, x_, y_, w_, h_ );
     cairo_clip( cr );
     
     // paint to the x_,y_ co-ord of the scroll window
+    cairo_surface_t* s = cairo_get_target( childCr );
     cairo_set_source_surface( cr, s, x_ - scrollX_, y_ + scrollY_ );
     cairo_paint( cr );
-    
-    cairo_restore( cr );
     
     // draw box / scroll bars
     roundedBox(cr, x_, y_, w_, h_, theme_->cornerRadius_ );
@@ -96,8 +103,11 @@ void Scroll::draw( cairo_t* cr )
 
 void Scroll::vertical( float v )
 {
-  scrollY_ = v * h_;
-  ui->redraw();
+  if( scrollV_ ) // child->h() > h()
+  {
+    scrollY_ = -( (1-v)*scrollVamount);
+    ui->redraw();
+  }
 }
 
 void Scroll::horizontal( float v )
@@ -108,6 +118,8 @@ void Scroll::horizontal( float v )
 
 void Scroll::redrawChild( cairo_t* cr )
 {
+  cairo_save( cr );
+  
   /// clear the screen
   cairo_rectangle( cr, 0, 0, w_, h_ );
   cairo_set_source_rgb( cr, 24/255., 24/255., 24/255. );
@@ -116,5 +128,10 @@ void Scroll::redrawChild( cairo_t* cr )
   // draw the widget on the childCr cairo_t*
   Group::draw( childCr );
   
+  cairo_surface_t* s = cairo_get_target( childCr );
+  cairo_surface_flush( s );
+  
   redrawChild_ = false;
+  
+  cairo_restore( cr );
 }

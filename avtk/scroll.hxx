@@ -43,6 +43,15 @@ class Scroll : public Group
     void horizontal( float v );
   
   protected:
+    /// when true, child widget is bigger than Scroll, so there is a possibility
+    /// to scroll trough the widget.
+    bool scrollV_;
+    bool scrollH_;
+    
+    /// number of pixels that the child is bigger than the Scroll view
+    int scrollVamount;
+    int scrollHamount;
+    
     bool newChildCr;
     cairo_t* childCr;
     
