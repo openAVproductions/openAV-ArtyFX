@@ -14,6 +14,7 @@
 
 // container class
 #include "group.hxx"
+#include "scroll.hxx"
 
 // widget headers
 #include "list.hxx"

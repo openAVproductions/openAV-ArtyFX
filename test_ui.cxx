@@ -24,7 +24,7 @@ TestUI::TestUI( PuglNativeWindow parent ):
   Widget::theme_ = themes.front();
   
   Avtk::Widget* w = 0;
-  
+  /*
   // group testing
   group1 = new Avtk::Group( this, 610, 43, 140, 400, "Group 1" );
   group1->mode( Avtk::Group::WIDTH_EQUAL );
@@ -40,6 +40,12 @@ TestUI::TestUI( PuglNativeWindow parent ):
   group1->add( w );
   
   group1->valueMode( Group::VALUE_SINGLE_CHILD);
+  */
+  // scroller
+  scroll = new Avtk::Scroll( this, 610, 43, 140, 200, "Scroll 1" );
+  w = new Avtk::Button( this, 0, 0, 140, 400, "Scroll Button" );
+  w->value( true );
+  scroll->set( w );
   
   /*
   // group testing
@@ -121,10 +127,10 @@ void TestUI::widgetValueCB( Avtk::Widget* w )
   }
   else if( w == vertSlider )
   {
-    waveform->y( w->value() * 500 );
-    group1->y( w->value() * 500 );
+    //waveform->y( w->value() * 500 );
+    scroll->value( w->value() );
     
-    printf( "%s, value %f : px %f\n", w->label(), w->value(), group1->y() );
+    printf( "Scroll value %f\n", scroll->value() );
     redraw();
   }
 }

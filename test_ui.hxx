@@ -27,6 +27,8 @@ class TestUI : public Avtk::UI
     
     Avtk::Group* group1;
     
+    Avtk::Scroll* scroll;
+    
     Avtk::Slider* vertSlider;
     
     Avtk::List* list;

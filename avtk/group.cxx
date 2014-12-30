@@ -220,6 +220,8 @@ void Group::draw( cairo_t* cr )
     theme_->color( cr, FG );
     cairo_set_line_width(cr, 0.5);
     cairo_stroke(cr);
+    
+    cairo_surface_write_to_png( cairo_get_target( cr ), "cr.png" );
   }
 }
 
@@ -242,7 +244,8 @@ int Group::handle( const PuglEvent* event )
     // can check for a scroll event, and if yes, highlight the next item
     if( event->type == PUGL_SCROLL && 
         valueMode_ == VALUE_SINGLE_CHILD && 
-        touches( event->scroll.x, event->scroll.y ) )
+        touches( event->scroll.x, event->scroll.y ) &&
+        children.size() > 0 )
     {
       // find value() widget
       int vw = -1;
