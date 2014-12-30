@@ -13,6 +13,9 @@
 namespace Avtk
 {
 
+// for the scroll bars
+class Slider;
+
 /** Scroll
  * A widget that wraps a group, and functions as a scrollable area. This seems
  * a simple task, however in order to appropriately and quickly draw the entire
@@ -64,6 +67,9 @@ class Scroll : public Group
     float scrollY_;
     
     void redrawChild( cairo_t* cr );
+    
+    Avtk::Slider* vSlider;
+    Avtk::Slider* hSlider;
 };
 
 };
