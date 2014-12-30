@@ -24,9 +24,9 @@ TestUI::TestUI( PuglNativeWindow parent ):
   Widget::theme_ = themes.front();
   
   Avtk::Widget* w = 0;
-  /*
+  
   // group testing
-  group1 = new Avtk::Group( this, 610, 43, 140, 400, "Group 1" );
+  group1 = new Avtk::Group( this, 610, 43, 100, 120, "Group 1" );
   group1->mode( Avtk::Group::WIDTH_EQUAL );
   w = new Avtk::ListItem( this, 7, 45, 90, 11, "Group Toggle 1" );
   group1->add( w );
@@ -38,16 +38,32 @@ TestUI::TestUI( PuglNativeWindow parent ):
   group1->add( w );
   w = new Avtk::ListItem( this, 7, 45, 90, 11, "Group Toggle 5" );
   group1->add( w );
+  w = new Avtk::ListItem( this, 7, 45, 90, 11, "Group Toggle 11" );
+  group1->add( w );
+  w = new Avtk::ListItem( this, 7, 45, 90, 11, "Group Toggle 21" );
+  group1->add( w );
+  w = new Avtk::ListItem( this, 7, 45, 90, 11, "Group Toggle 31" );
+  group1->add( w );
+  w = new Avtk::ListItem( this, 7, 45, 90, 11, "Group Toggle 41" );
+  group1->add( w );
+  w = new Avtk::ListItem( this, 7, 45, 90, 11, "Group Toggle 51" );
+  group1->add( w );
   
-  group1->valueMode( Group::VALUE_SINGLE_CHILD);
-  */
+  group1->valueMode ( Group::VALUE_SINGLE_CHILD ); 
+  group1->resizeMode( Group::RESIZE_FIT_TO_CHILDREN );
   
-  // scroller
-  scroll = new Avtk::Scroll( this, 130, 43, 620, 320, "Scroll 1" );
+  
+  // Editor
   int scale = 4;
   editor = new Avtk::EventEditor( this, 0, 0, 240*scale, 250*scale, "EventEditor" );
   editor->value( true );
-  scroll->set( editor );
+  editor->visible( false );
+  
+  // scroller
+  scroll = new Avtk::Scroll( this, 130, 43, 120, 60, "Scroll 1" );
+  
+  //scroll->set( editor );
+  scroll->set( group1 );
   
   // slider vert
   vertSlider = new Avtk::Slider( this, 755,  40, 22, 320, "Vertical   Slider" );

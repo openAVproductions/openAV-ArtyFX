@@ -11,7 +11,7 @@ using namespace Avtk;
 EventEditor::EventEditor( Avtk::UI* ui, int x_, int y_, int w_, int h_, std::string label_) :
   Widget( ui, x_, y_, w_, h_, label_ )
 {
-  clickMode( CLICK_MOMENTARY );
+  //clickMode( CLICK_MOMENTARY );
   
   // piano keyboard starts at 24, has 88
   startKey = 24 + 12 * 1;
@@ -58,7 +58,7 @@ void EventEditor::draw( cairo_t* cr )
   // height of each key, based on current zoom level
   keyHpx = h_ / float(keyCount);
   
-  //drawKeyboard( cr );
+  drawKeyboard( cr );
   
   // bar / beat lines
   int numBeats = events->getLoopLength();
@@ -154,3 +154,21 @@ void EventEditor::draw( cairo_t* cr )
   cairo_restore( cr );
 }
 
+void EventEditor::drawKeyboard( cairo_t* cr )
+{
+  
+  /*
+  // draw keyboard style horizontal sections
+  startKey = 24 + 12 * 1;
+  keyCount = 88;
+  keyHpx
+  */
+  
+  for( int i = 0; i < keyCount; i++)
+  {
+    int notePx = h_ - (i) * keyHpx;
+    cairo_move_to( cr, x_     , notePx );
+    cairo_line_to( cr, x_ + w_, notePx );
+    //cairo_rectangle( cr, x_, notePx, w_, keyHpx - 2);
+  }
+}

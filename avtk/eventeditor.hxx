@@ -46,6 +46,8 @@ class EventEditor : public Widget
     // event vector:
     SeqEventList* events;
     
+    /// convienience functions
+    void drawKeyboard( cairo_t* cr );
 };
 
 };

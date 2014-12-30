@@ -84,6 +84,18 @@ class Group : public Widget
       valueMode_ = gv;
     }
     
+    /// when children are added the group can remain its size, or resize to the
+    /// childrens size
+    enum GROUP_RESIZE {
+      RESIZE_NONE,
+      RESIZE_FIT_TO_CHILDREN,
+    };
+    
+    void resizeMode( GROUP_RESIZE gr )
+    {
+      resizeMode_ = gr;
+    }
+    
     /// virtual so it can be overriden by List and other widgets that want to
     /// intercept callbacks from a range of widgets
     virtual void valueCB( Widget* w );
@@ -96,8 +108,9 @@ class Group : public Widget
     
     int spacing_;
     
-    GROUP_MODE  groupMode;
-    GROUP_VALUE valueMode_;
+    GROUP_MODE   groupMode;
+    GROUP_VALUE  valueMode_;
+    GROUP_RESIZE resizeMode_;
     
     static void staticGroupCB( Widget* w, void* ud )
     {

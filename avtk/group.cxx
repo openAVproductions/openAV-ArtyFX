@@ -12,6 +12,7 @@ Group::Group( Avtk::UI* ui ) :
   Widget( ui ),
   groupMode( NONE ),
   valueMode_( VALUE_NORMAL ),
+  resizeMode_( RESIZE_NONE ),
   spacing_( 0 )
 {
   noHandle_ = true;

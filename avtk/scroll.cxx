@@ -30,6 +30,10 @@ void Scroll::set( Widget* child )
   Group::add( child );
   newChildCr = true;
   
+  // set child to draw at 0,0 of the childCr
+  child->x( 0 );
+  child->y( 0 );
+  
   if( child->parent() == this )
   {
     printf("Scroll child->parent OK!\n");
