@@ -36,6 +36,7 @@ TestUI::TestUI( PuglNativeWindow parent ):
   group1->add( w );
   w = new Avtk::ListItem( this, 7, 45, 90, 11, "Group Toggle 4" );
   group1->add( w );
+  w->value( 1 );
   w = new Avtk::ListItem( this, 7, 45, 90, 11, "Group Toggle 5" );
   group1->add( w );
   w = new Avtk::ListItem( this, 7, 45, 90, 11, "Group Toggle 11" );
@@ -69,9 +70,9 @@ TestUI::TestUI( PuglNativeWindow parent ):
   vertSlider = new Avtk::Slider( this, 755,  40, 22, 320, "Vertical   Slider" );
   horiSlider = new Avtk::Slider( this, 130, 365, 620, 22, "Horizontal Slider" );
   
-  vertSlider->value ( 0.5 );
+  vertSlider->value ( 1.0 );
   horiSlider->value ( 0.5 );
-  scroll->vertical  ( 0.5 );
+  scroll->vertical  ( 1.0 );
   scroll->horizontal( 0.5 );
   
   // button

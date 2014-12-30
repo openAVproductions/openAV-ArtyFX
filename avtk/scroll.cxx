@@ -19,11 +19,13 @@ Scroll::Scroll( Avtk::UI* ui, int x_, int y_, int w_, int h_, std::string label_
   scrollV_( false ),
   scrollH_( false ),
   
-  vSlider( new Avtk::Slider( ui, x_ + w_ - 10, y_, 10, h_, "Scroll VSlider") ),
-  hSlider( new Avtk::Slider( ui, x_ + w_ - 10, y_, 10, h_, "Scroll HSlider") )
+  vSlider( new Avtk::Slider( ui, x_ + w_ - 8, y_, 8, h_, "Scroll VSlider") ),
+  hSlider( new Avtk::Slider( ui, x_ + w_ - 8, y_, 8, h_, "Scroll HSlider") )
 {
   vSlider->visible( false );
   hSlider->visible( false );
+  
+  noHandle_ = false;
 }
 
 void Scroll::childResize( Widget* w )
@@ -39,11 +41,6 @@ void Scroll::set( Widget* child )
   // set child to draw at 0,0 of the childCr
   child->x( 0 );
   child->y( 0 );
-  
-  if( child->parent() == this )
-  {
-    printf("Scroll child->parent OK!\n");
-  }
   
   redrawChild_ = true;
   
@@ -66,6 +63,8 @@ void Scroll::set( Widget* child )
     // child is bigger than our vertical size:
     scrollH_ = true;
     scrollHamount = child->w() - w_;
+    if( scrollV_ )
+      scrollHamount = child->w() - (w_ - 4);
     //printf("Scroll::set() scrollHamount %i\n",scrollHamount);
   }
   else

@@ -63,8 +63,8 @@ class Scroll : public Group
     
     bool redrawChild_;
     
-    float scrollX_;
-    float scrollY_;
+    int scrollX_;
+    int scrollY_;
     
     void redrawChild( cairo_t* cr );
     
