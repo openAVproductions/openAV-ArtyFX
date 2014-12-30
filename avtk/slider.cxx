@@ -14,8 +14,10 @@ Slider::Slider( Avtk::UI* ui, int x_, int y_, int w_, int h_, std::string label_
   dragMode( DM_DRAG_VERTICAL );
   
   if ( w_ > h_ )
+  {
     dragMode( DM_DRAG_HORIZONTAL );
-  
+    scrollInvert = true;
+  }
   scrollDisable = false;
 }
 
