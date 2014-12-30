@@ -28,10 +28,24 @@ void Scroll::set( Widget* child )
   if( child->h() > h_ )
   {
     // child is bigger than our vertical size:
-    // calculate the scroll amount here
     scrollV_ = true;
-    
     scrollVamount = child->h() - h_;
+  }
+  else
+  {
+    scrollV_ = false;
+  }
+  
+  if( child->w() > w_ )
+  {
+    // child is bigger than our vertical size:
+    scrollH_ = true;
+    scrollHamount = child->w() - w_;
+    printf("Scroll::set() scrollHamount %i\n",scrollHamount);
+  }
+  else
+  {
+    scrollH_ = false;
   }
 }
 
@@ -88,7 +102,7 @@ void Scroll::draw( cairo_t* cr )
     
     // paint to the x_,y_ co-ord of the scroll window
     cairo_surface_t* s = cairo_get_target( childCr );
-    cairo_set_source_surface( cr, s, x_ - scrollX_, y_ + scrollY_ );
+    cairo_set_source_surface( cr, s, x_ + scrollX_, y_ + scrollY_ );
     cairo_paint( cr );
     
     // draw box / scroll bars
@@ -112,8 +126,12 @@ void Scroll::vertical( float v )
 
 void Scroll::horizontal( float v )
 {
-  scrollX_ = (1-v) * w_;
-  ui->redraw();
+  if( scrollH_ ) // child->w() > w()
+  {
+    scrollX_ = -( v*scrollHamount );
+    ui->redraw();
+    printf("scrollH_ %i, value %f, scrollHamount %i\n",scrollX_,v, scrollHamount);
+  }
 }
 
 void Scroll::redrawChild( cairo_t* cr )
