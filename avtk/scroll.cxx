@@ -22,8 +22,13 @@ Scroll::Scroll( Avtk::UI* ui, int x_, int y_, int w_, int h_, std::string label_
   vSlider( new Avtk::Slider( ui, x_ + w_ - 8, y_, 8, h_, "Scroll VSlider") ),
   hSlider( new Avtk::Slider( ui, x_ + w_ - 8, y_, 8, h_, "Scroll HSlider") )
 {
+  // deal with sliders: they're a unique case where they're owned by the scroll,
+  // but they are *not* part of the group.
   vSlider->visible( false );
   hSlider->visible( false );
+  // remove the widget from the UI (it auto-registers)
+  vSlider->parent()->remove( vSlider );
+  hSlider->parent()->remove( hSlider );
   
   noHandle_ = false;
 }
@@ -173,6 +178,41 @@ void Scroll::horizontal( float v )
   }
 }
 
+int Scroll::handle( const PuglEvent* event )
+{
+  bool handleThisEvent = false;
+  if( event->type == PUGL_BUTTON_PRESS ||
+      event->type == PUGL_BUTTON_RELEASE )
+  {
+    if( touches( event->button.x, event->button.y ) )
+      handleThisEvent = true;
+  }
+  if( event->type == PUGL_SCROLL )
+  {
+    if( touches( event->scroll.x, event->scroll.y ) )
+      handleThisEvent = true;
+  }
+  
+  if( handleThisEvent )
+  {
+    printf("Scroll handle(), type %i\n", event->type);
+    int ret = vSlider->handle( event );
+    if( ret )
+    {
+      printf("vSlider returning from handle\n");
+      return ret;
+    }
+    ret = hSlider->handle( event );
+    if( ret )
+    {
+      printf("hSlider returning from handle\n");
+      return ret;
+    }
+    return Group::handle( event );
+  }
+  
+}
+
 void Scroll::redrawChild( cairo_t* cr )
 {
   cairo_save( cr );
@@ -191,4 +231,13 @@ void Scroll::redrawChild( cairo_t* cr )
   redrawChild_ = false;
   
   cairo_restore( cr );
+}
+
+Scroll::~Scroll()
+{
+#ifdef AVTK_DEBUG
+  printf("%s\n", __PRETTY_FUNCTION__ );
+#endif
+  delete vSlider;
+  delete hSlider;
 }

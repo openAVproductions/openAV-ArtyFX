@@ -25,6 +25,7 @@ TestUI::TestUI( PuglNativeWindow parent ):
   
   Avtk::Widget* w = 0;
   
+  /*
   // group testing
   group1 = new Avtk::Group( this, 610, 43, 100, 120, "Group 1" );
   group1->mode( Avtk::Group::WIDTH_EQUAL );
@@ -90,7 +91,7 @@ TestUI::TestUI( PuglNativeWindow parent ):
   groupToggler = new Avtk::Button( this, 7 + 100, 45, 130, 22, "Group Toggler" );
   groupToggler->theme( theme( 2 ) );
   groupToggler->clickMode( Avtk::Widget::CLICK_TOGGLE );
-  */
+  *
   
   // dial
   w = new Avtk::Dial( this, 7, 85, 75, 75, "Dial 1" );
@@ -110,7 +111,7 @@ TestUI::TestUI( PuglNativeWindow parent ):
   Avtk::directoryContents(  "/root/openav/content/bips", items, stripped, true, true );
   list2 = new Avtk::List( this, 525, 345, 105, 125, "List (Right)" );
   list2->show( items );
-  */
+  *
   
   // waveform
   waveform = new Avtk::Waveform( this, 15, 415, 250, 100, "Waveform" );
@@ -119,6 +120,7 @@ TestUI::TestUI( PuglNativeWindow parent ):
   waveform->show( tmp );
   
   //w = new Avtk::Envelope( this, 215, 115, 60, 40, "Envelope" );
+  */
   
   // image
   Avtk::Image* i = new Avtk::Image( this, 0, 0, 610, 36, "Image" );
@@ -169,6 +171,11 @@ static void listValueCB( Avtk::Widget* w, void* ud )
 {
   Avtk::List* l = (Avtk::List*)w;
 
+}
+
+TestUI::~TestUI()
+{
+  
 }
 
 /*

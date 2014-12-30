@@ -53,8 +53,8 @@ Widget::Widget( Avtk::UI* ui_, int x, int y, int w, int h, std::string label__) 
   // actual scroll in PX / number == delta
   scrollDeltaAmount( 10 )
 {
-  // FIXME: this will need to read the "parent" group from AVTK or so in order
-  // to implement groups
+  // when created, we register a widget to the top-level UI. Just add() it to a
+  // different Group, and the parent* will be updated
   ui_->add( this );
 }
 

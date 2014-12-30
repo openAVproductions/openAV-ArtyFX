@@ -16,6 +16,7 @@ class TestUI : public Avtk::UI
   public:
     /// Set a NativeWindow for embedding: ignore for standalone 
     TestUI(PuglNativeWindow parent = 0);
+    virtual ~TestUI();
     
     /// demo function, changes all widgets to value
     void setAllWidgets( Avtk::Widget* w, float value );

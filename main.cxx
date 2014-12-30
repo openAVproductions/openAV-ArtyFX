@@ -5,8 +5,9 @@ int main()
 {
   TestUI* ui = new TestUI();
   
-  ui->run();
+  //ui->run();
+  
+  delete ui;
   
   return 0;
-  
 }

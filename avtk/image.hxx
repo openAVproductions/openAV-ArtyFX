@@ -11,7 +11,7 @@ class Image : public Widget
 {
   public:
     Image( Avtk::UI* ui, int x, int y, int w, int h, std::string label);
-    ~Image();
+    virtual ~Image();
     
     /// assumes image is same size as this widget, and 4 bytes per pixel: RGBA
     /// GIMP can save to <filename>.c, then choose (yes) RGBA/RGB, and enter a

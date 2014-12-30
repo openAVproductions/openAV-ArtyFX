@@ -121,16 +121,18 @@ bool Group::visible()
 
 void Group::clear()
 {
+
   while( children.size() > 0 )
   {
 #ifdef AVTK_DEBUG
-    printf("removing child %s from UI\n", children.at(0)->label() );
+    printf("removing child %s from UI : size() %i\n", children.at(0)->label(), children.size() );
 #endif
-    ui->remove( children.at(0) );
     Avtk::Widget* tmp = children.at(0);
-    children.erase( children.begin() );
+    ui->remove( children.at(0) );
     delete tmp;
   }
+  
+  
   // resets size of vector to 0
   children.clear();
 }
@@ -293,6 +295,9 @@ int Group::handle( const PuglEvent* event )
 
 Group::~Group()
 {
+#ifdef AVTK_DEBUG
+  printf("%s\n", __PRETTY_FUNCTION__ );
+#endif
   // on deletion, clean up all widgets left as children
   clear();
 }

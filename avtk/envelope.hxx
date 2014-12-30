@@ -11,6 +11,7 @@ class Envelope : public Widget
 {
   public:
     Envelope( Avtk::UI* ui, int x, int y, int w, int h, std::string label);
+    virtual ~Envelope(){}
     
     virtual void draw( cairo_t* cr );
     

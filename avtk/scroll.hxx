@@ -32,6 +32,7 @@ class Scroll : public Group
 {
   public:
     Scroll( Avtk::UI* ui, int x, int y, int w, int h, std::string label);
+    virtual ~Scroll();
     
     virtual void draw( cairo_t* cr );
     
@@ -47,6 +48,10 @@ class Scroll : public Group
     
     /// called by child widgets when thier size changes
     void childResize( Widget* w );
+    
+    /// handles an event, propagating it to the integrated scroll bars: and if
+    /// not handled, pass on to the child widget
+    virtual int handle( const PuglEvent* event );
   
   protected:
     /// when true, child widget is bigger than Scroll, so there is a possibility

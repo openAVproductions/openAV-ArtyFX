@@ -17,6 +17,7 @@ class EventEditor : public Widget
 {
   public:
     EventEditor( Avtk::UI* ui, int x, int y, int w, int h, std::string label);
+    virtual ~EventEditor(){}
     
     virtual void draw( cairo_t* cr );
     

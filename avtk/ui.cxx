@@ -47,6 +47,23 @@ UI::UI( int w__, int h__, PuglNativeWindow parent ) :
   themes.push_back( new Theme( this, "default.avtk" ) );
 }
 
+UI::~UI()
+{
+#ifdef AVTK_DEBUG
+  printf("%s\n", __PRETTY_FUNCTION__ );
+#endif
+  Group::clear();
+  
+  while( themes.size() > 0 )
+  {
+    Theme* tmp = themes.at(0);
+    themes.erase( themes.begin() );
+    delete tmp;
+  }
+  
+  puglDestroy( view );
+}
+
 void UI::display( cairo_t* cr )
 {
   /// clear the screen
