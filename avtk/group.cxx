@@ -221,7 +221,7 @@ void Group::draw( cairo_t* cr )
     cairo_set_line_width(cr, 0.5);
     cairo_stroke(cr);
     
-    cairo_surface_write_to_png( cairo_get_target( cr ), "cr.png" );
+    //cairo_surface_write_to_png( cairo_get_target( cr ), "cr.png" );
   }
 }
 

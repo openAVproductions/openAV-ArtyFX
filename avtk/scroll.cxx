@@ -12,7 +12,9 @@ using namespace Avtk;
 Scroll::Scroll( Avtk::UI* ui, int x_, int y_, int w_, int h_, std::string label_) :
   Group( ui, x_, y_, w_, h_, label_ ),
   newChildCr( false ),
-  childCr( 0x0 )
+  childCr( 0x0 ),
+  scrollX_( 0 ),
+  scrollY_( 0 )
 {
 }
 
@@ -28,7 +30,7 @@ void Scroll::draw( cairo_t* cr )
   {
     cairo_save( cr );
     
-    if( true /*newChildCr*/ && children.size() )
+    if( newChildCr && children.size() )
     {
       Widget* child = children.at(0);
       
@@ -56,34 +58,30 @@ void Scroll::draw( cairo_t* cr )
         fprintf(stderr, "failed to create child cairo context\n");
       }
       
-      /*
-      // draw box / scroll bars
-      roundedBox(cr, 40, 40, 420, 420, 5 );
-      cairo_set_source_rgb(cr, 1, 0 , 0);
-      cairo_set_line_width(cr, 0.5);
-      cairo_fill( cr );
-      */
-      
-      children.at(0)->draw( childCr );
-      
-      //Group::draw( childCr );
-      cairo_surface_write_to_png( cairo_get_target( childCr ), "childCr.png" );
-    
-      printf("cairo child surface / context created OK.\n");
+      //cairo_surface_write_to_png( cairo_get_target( childCr ), "childCr.png" );
       newChildCr = false;
+      
+      // flag child to be drawn
+      redrawChild_ = true;
     }
     
-    printf("cairo redrawing scroll group\n");
-    
-    // have the group draw itself to the childCr
-    
-    
+    if( redrawChild_ )
+    {
+      printf("cairo redrawing child in scroll group\n");
+      redrawChild( cr );
+    }
     cairo_save( cr );
     cairo_surface_t* s = cairo_get_target( childCr );
     cairo_surface_flush( s );
-    cairo_move_to( cr, x_, y_ );
-    cairo_set_source_surface( cr, s, x_, y_ );
+    
+    // clip the Scroll context, to draw only what will be shown
+    cairo_rectangle( cr, x_, y_, w_, h_ );
+    cairo_clip( cr );
+    
+    // paint to the x_,y_ co-ord of the scroll window
+    cairo_set_source_surface( cr, s, x_ - scrollX_, y_ + scrollY_ );
     cairo_paint( cr );
+    
     cairo_restore( cr );
     
     // draw box / scroll bars
@@ -96,3 +94,27 @@ void Scroll::draw( cairo_t* cr )
   }
 }
 
+void Scroll::vertical( float v )
+{
+  scrollY_ = v * h_;
+  ui->redraw();
+}
+
+void Scroll::horizontal( float v )
+{
+  scrollX_ = (1-v) * w_;
+  ui->redraw();
+}
+
+void Scroll::redrawChild( cairo_t* cr )
+{
+  /// clear the screen
+  cairo_rectangle( cr, 0, 0, w_, h_ );
+  cairo_set_source_rgb( cr, 24/255., 24/255., 24/255. );
+  cairo_fill( cr );
+  
+  // draw the widget on the childCr cairo_t*
+  Group::draw( childCr );
+  
+  redrawChild_ = false;
+}

@@ -43,7 +43,7 @@ TestUI::TestUI( PuglNativeWindow parent ):
   */
   // scroller
   scroll = new Avtk::Scroll( this, 610, 43, 140, 200, "Scroll 1" );
-  w = new Avtk::Button( this, 0, 0, 140, 400, "Scroll Button" );
+  w = new Avtk::Button( this, 0, 20, 140, 40, "Scroll Button" );
   w->value( true );
   scroll->set( w );
   
@@ -128,7 +128,8 @@ void TestUI::widgetValueCB( Avtk::Widget* w )
   else if( w == vertSlider )
   {
     //waveform->y( w->value() * 500 );
-    scroll->value( w->value() );
+    scroll->vertical( w->value() );
+    scroll->horizontal( w->value() );
     
     printf( "Scroll value %f\n", scroll->value() );
     redraw();

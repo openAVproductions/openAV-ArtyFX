@@ -35,10 +35,23 @@ class Scroll : public Group
     /// sets widget to be the child of this scroll. Only one widget can be inside
     /// a scroll at a time: add a group if multiple child-widgets need to scroll
     void set( Widget* child );
+    
+    /// sets the  and horizontal scroll position;
+    /// - vertical  : 0 is top,  1 is bottom
+    /// - horizontal: 0 is left, 1 is right
+    void vertical  ( float v );
+    void horizontal( float v );
   
   protected:
     bool newChildCr;
     cairo_t* childCr;
+    
+    bool redrawChild_;
+    
+    float scrollX_;
+    float scrollY_;
+    
+    void redrawChild( cairo_t* cr );
 };
 
 };
