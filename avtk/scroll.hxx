@@ -41,6 +41,9 @@ class Scroll : public Group
     /// - horizontal: 0 is left, 1 is right
     void vertical  ( float v );
     void horizontal( float v );
+    
+    /// called by child widgets when thier size changes
+    void childResize( Widget* w );
   
   protected:
     /// when true, child widget is bigger than Scroll, so there is a possibility

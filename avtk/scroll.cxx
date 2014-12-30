@@ -20,10 +20,20 @@ Scroll::Scroll( Avtk::UI* ui, int x_, int y_, int w_, int h_, std::string label_
 {
 }
 
+void Scroll::childResize( Widget* w )
+{
+  set( w );
+}
+
 void Scroll::set( Widget* child )
 {
   Group::add( child );
   newChildCr = true;
+  
+  if( child->parent() == this )
+  {
+    printf("Scroll child->parent OK!\n");
+  }
   
   redrawChild_ = true;
   

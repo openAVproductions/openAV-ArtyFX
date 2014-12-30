@@ -90,6 +90,13 @@ void Group::remove( Avtk::Widget* wid )
   }
 }
 
+void Group::resizeNotify( Widget* w )
+{
+#ifdef AVTK_DEBUG
+      printf("Group::resizeNotify() %s, widget %s\n", label(), w->label() );
+#endif
+}
+
 void Group::visible( bool vis )
 {
   Widget::visible( vis );

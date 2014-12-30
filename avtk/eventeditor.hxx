@@ -20,6 +20,21 @@ class EventEditor : public Widget
     
     virtual void draw( cairo_t* cr );
     
+    void zoom( float z )
+    {
+      if( z > 0.9 )
+      {
+        w_ *= 2.0;
+        h_ *= 2.0;
+      }
+      else
+      {
+        w_ *= 0.5;
+        h_ *= 0.5;
+      }
+      
+    }
+    
     /// sets the data to be displayed in the Editor
     void setEvents( SeqEventList* events );
   

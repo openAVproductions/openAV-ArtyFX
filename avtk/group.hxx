@@ -52,8 +52,14 @@ class Group : public Widget
     /// handles an event, propagating it to all children
     virtual int handle( const PuglEvent* event );
     
+    /// when a child resizes itself, it calls the parents resize to inform it.
+    /// The Widget* is of the child that wishes to resize itself
+    virtual void resizeNotify( Widget* w );
+    
+    /// clears all child widgets
     virtual void clear();
     
+    /// draws the contents of the group
     void draw( cairo_t* cr );
     
     /// sets the space between widgets
