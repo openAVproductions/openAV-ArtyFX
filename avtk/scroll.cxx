@@ -25,6 +25,8 @@ void Scroll::set( Widget* child )
   Group::add( child );
   newChildCr = true;
   
+  redrawChild_ = true;
+  
   if( child->h() > h_ )
   {
     // child is bigger than our vertical size:

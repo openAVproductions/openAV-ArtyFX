@@ -42,8 +42,9 @@ TestUI::TestUI( PuglNativeWindow parent ):
   group1->valueMode( Group::VALUE_SINGLE_CHILD);
   */
   // scroller
-  scroll = new Avtk::Scroll( this, 610, 43, 140, 200, "Scroll 1" );
-  w = new Avtk::Button( this, 0, 0, 240, 250, "Scroll Button" );
+  scroll = new Avtk::Scroll( this, 100, 43, 720, 360, "Scroll 1" );
+  int scale = 4;
+  w = new Avtk::EventEditor( this, 0, 0, 240*scale, 250*scale, "EventEditor" );
   w->value( true );
   scroll->set( w );
   
