@@ -47,24 +47,9 @@ TestUI::TestUI( PuglNativeWindow parent ):
   w->value( true );
   scroll->set( w );
   
-  /*
-  // group testing
-  g = new Avtk::Group( this, 610, 243, 140, 100, "HGroup 1" );
-  g->mode( Avtk::Group::HEIGHT_EQUAL );
-  w = new Avtk::ListItem( this, 7, 45, 30, 11, "H1" );
-  g->add( w );
-  w = new Avtk::ListItem( this, 7, 45, 30, 11, "H2" );
-  g->add( w );
-  w = new Avtk::ListItem( this, 7, 45, 30, 11, "H3" );
-  g->add( w );
-  w = new Avtk::ListItem( this, 7, 45, 30, 11, "H4" );
-  g->add( w );
-  w = new Avtk::ListItem( this, 7, 45, 30, 11, "H5" );
-  g->add( w );
-  */
-  
   // slider vert
-  vertSlider = new Avtk::Slider( this, 520, 40, 22, 220, "Vertical Slider" );
+  vertSlider = new Avtk::Slider( this, 760,  40, 22, 200, "Vertical   Slider" );
+  horiSlider = new Avtk::Slider( this, 610, 250, 140, 22, "Horizontal Slider" );
   
   // button
   momentary = new Avtk::Button( this, 7, 45, 90, 22, "Momentary" );
@@ -115,7 +100,6 @@ TestUI::TestUI( PuglNativeWindow parent ):
 
 void TestUI::widgetValueCB( Avtk::Widget* w )
 {
-  printf( "%s, value = %f\n", w->label(), w->value() );
   if( w == groupToggler )
   {
     group1->visible( groupToggler->value() );
@@ -127,12 +111,15 @@ void TestUI::widgetValueCB( Avtk::Widget* w )
   }
   else if( w == vertSlider )
   {
-    //waveform->y( w->value() * 500 );
-    //scroll->vertical( w->value() );
+    scroll->vertical( w->value() );
+  }
+  else if( w == horiSlider )
+  {
     scroll->horizontal( w->value() );
-    
-    printf( "Scroll value %f\n", scroll->value() );
-    redraw();
+  }
+  else
+  {
+    printf( "%s, value = %f\n", w->label(), w->value() );
   }
 }
 

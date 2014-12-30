@@ -30,6 +30,7 @@ class TestUI : public Avtk::UI
     Avtk::Scroll* scroll;
     
     Avtk::Slider* vertSlider;
+    Avtk::Slider* horiSlider;
     
     Avtk::List* list;
     Avtk::List* list2;

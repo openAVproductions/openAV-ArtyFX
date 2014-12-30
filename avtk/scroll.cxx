@@ -41,7 +41,7 @@ void Scroll::set( Widget* child )
     // child is bigger than our vertical size:
     scrollH_ = true;
     scrollHamount = child->w() - w_;
-    printf("Scroll::set() scrollHamount %i\n",scrollHamount);
+    //printf("Scroll::set() scrollHamount %i\n",scrollHamount);
   }
   else
   {
@@ -62,10 +62,9 @@ void Scroll::draw( cairo_t* cr )
       // create a cairo context for the child widgets size
       if( childCr )
       {
-        printf("destroying existing childCr surface + context\n");
+        //printf("destroying existing childCr surface + context\n");
         cairo_surface_destroy( cairo_get_target( childCr ) );
         cairo_destroy( childCr );
-        printf("done.\n");
       }
       
       cairo_surface_t* surface = cairo_surface_create_similar(
@@ -92,7 +91,7 @@ void Scroll::draw( cairo_t* cr )
     
     if( redrawChild_ )
     {
-      printf("cairo redrawing child in scroll group\n");
+      //printf("cairo redrawing child in scroll group\n");
       redrawChild( cr );
     }
     
@@ -130,7 +129,7 @@ void Scroll::horizontal( float v )
   {
     scrollX_ = -( v*scrollHamount );
     ui->redraw();
-    printf("scrollH_ %i, value %f, scrollHamount %i\n",scrollX_,v, scrollHamount);
+    //printf("scrollH_ %i, value %f, scrollHamount %i\n",scrollX_,v, scrollHamount);
   }
 }
 
