@@ -16,6 +16,9 @@ Image::Image( Avtk::UI* ui, int x_, int y_, int w_, int h_, std::string label_) 
 
 Image::~Image()
 {
+#ifdef AVTK_DEBUG
+  printf("%s\n", __PRETTY_FUNCTION__ );
+#endif
   cairo_surface_destroy( imgSurf );
   free( cairoImgData );
 }

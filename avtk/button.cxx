@@ -37,14 +37,17 @@ void Button::draw( cairo_t* cr )
     cairo_stroke(cr);
   }
   
-  // Draw label
-  cairo_text_extents_t extents;
-  cairo_set_font_size(cr, 15.0);
-  cairo_text_extents(cr, label(), &extents);
-  cairo_move_to(cr,
-                (x_ + w_ / 2) - extents.width / 2,
-                (y_ + h_ / 2) + extents.height / 2 - 2);
   
+  // Draw label
+  cairo_set_font_size(cr, 15.0);
+  
+  {
+    cairo_text_extents_t extents;
+    cairo_text_extents(cr, label(), &extents);
+    cairo_move_to(cr,
+                  (x_ + w_ / 2) - extents.width / 2,
+                  (y_ + h_ / 2) + extents.height / 2 - 2);
+  }
   if( !value() )
   {
     theme_->color( cr, FG );

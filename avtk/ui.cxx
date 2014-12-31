@@ -50,7 +50,7 @@ UI::UI( int w__, int h__, PuglNativeWindow parent ) :
 UI::~UI()
 {
 #ifdef AVTK_DEBUG
-  printf("%s\n", __PRETTY_FUNCTION__ );
+  printf("%s %s\n", __PRETTY_FUNCTION__, label() );
 #endif
   Group::clear();
   

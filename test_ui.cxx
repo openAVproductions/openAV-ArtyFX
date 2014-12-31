@@ -25,12 +25,20 @@ TestUI::TestUI( PuglNativeWindow parent ):
   
   Avtk::Widget* w = 0;
   
-  /*
+  // button
+  momentary = new Avtk::Button( this, 7, 45, 90, 22, "Zoom In" );
+  momentary->theme( theme( 1 ) );
+  momentary->clickMode( Avtk::Widget::CLICK_MOMENTARY );
+  
   // group testing
-  group1 = new Avtk::Group( this, 610, 43, 100, 120, "Group 1" );
+  group1 = new Avtk::Group( this, 610, 43, 100, 0, "Group 1" );
   group1->mode( Avtk::Group::WIDTH_EQUAL );
+  group1->valueMode ( Group::VALUE_SINGLE_CHILD ); 
+  group1->resizeMode( Group::RESIZE_FIT_TO_CHILDREN );
+  
   w = new Avtk::ListItem( this, 7, 45, 90, 11, "Group Toggle 1" );
   group1->add( w );
+  /*
   w = new Avtk::ListItem( this, 7, 45, 90, 11, "Group Toggle 2" );
   group1->add( w );
   w = new Avtk::ListItem( this, 7, 45, 90, 11, "Group Toggle 3" );
@@ -48,13 +56,9 @@ TestUI::TestUI( PuglNativeWindow parent ):
   group1->add( w );
   w = new Avtk::ListItem( this, 7, 45, 90, 11, "Group Toggle 41" );
   group1->add( w );
-  w = new Avtk::ListItem( this, 7, 45, 90, 11, "Group Toggle 51" );
-  group1->add( w );
+  */
   
-  group1->valueMode ( Group::VALUE_SINGLE_CHILD ); 
-  group1->resizeMode( Group::RESIZE_FIT_TO_CHILDREN );
-  
-  
+  /*
   // Editor
   int scale = 4;
   editor = new Avtk::EventEditor( this, 0, 0, 240*scale, 250*scale, "EventEditor" );
@@ -76,11 +80,7 @@ TestUI::TestUI( PuglNativeWindow parent ):
   scroll->vertical  ( 1.0 );
   scroll->horizontal( 0.5 );
   
-  // button
-  momentary = new Avtk::Button( this, 7, 45, 90, 22, "Zoom In" );
-  momentary->theme( theme( 1 ) );
-  momentary->clickMode( Avtk::Widget::CLICK_TOGGLE );
-  
+
   momentaryOut = new Avtk::Button( this, 7, 69, 90, 22, "Zoom Out" );
   momentaryOut->theme( theme( 2 ) );
   momentaryOut->clickMode( Avtk::Widget::CLICK_TOGGLE );
@@ -124,7 +124,7 @@ TestUI::TestUI( PuglNativeWindow parent ):
   
   // image
   Avtk::Image* i = new Avtk::Image( this, 0, 0, 610, 36, "Image" );
-  i->load( header.pixel_data );
+  //i->load( header.pixel_data );
   
   /*
   // slider horizontal
@@ -143,9 +143,12 @@ void TestUI::widgetValueCB( Avtk::Widget* w )
   }
   else if( w == momentary )
   {
-    editor->zoom( 1 );
-    ((Avtk::Scroll*)editor->parent())->childResize( editor );
-    redraw();
+    //editor->zoom( 1 );
+    //((Avtk::Scroll*)editor->parent())->childResize( editor );
+    //redraw();
+    
+    w = new Avtk::ListItem( this, 7, 45, 90, 11, "Group Toggle dyn" );
+    group1->add( w );
   }
   else if( w == momentaryOut )
   {
@@ -172,86 +175,3 @@ static void listValueCB( Avtk::Widget* w, void* ud )
   Avtk::List* l = (Avtk::List*)w;
 
 }
-
-TestUI::~TestUI()
-{
-  
-}
-
-/*
-static void zoomOffsetCB(Avtk::Widget* w, void* ud)
-{
-  TestUI* ui = (TestUI*)ud;
-  ((Avtk::Waveform*)ui->waveform)->zoomOffset( w->value() );
-}
-
-static void zoomCB(Avtk::Widget* w, void* ud)
-{
-  TestUI* ui = (TestUI*)ud;
-  ((Avtk::Waveform*)ui->waveform)->zoom( 1 + w->value() * 10 );
-}
-
-static void dialCB(Avtk::Widget* w, void* ud)
-{
-  //printf( "dialCB(), rad = %i\n", w->value() );
-}
-
-static void listCB(Avtk::Widget* w, void* ud)
-{
-  TestUI* ui = (TestUI*)ud;
-  
-  /*
-  int t = w->value();
-  
-  
-  for(int i = 0; i < w->value(); i++ )
-  {
-    std::stringstream s;
-    s << w->value();
-    tmp.push_back( s.str() );
-  }
-  *
-  
-  std::vector< std::string > tmp;
-  
-  int error = Avtk::directoryContents("/root/openav/avtk", tmp );
-  
-  ((Avtk::List*)ui->list2)->show( tmp );
-  
-}
-
-static void widgetCB(Avtk::Widget* w, void* ud)
-{
-  
-  //printf( "widgetCB(), rad = %i\n", w->theme->cornerRadius() );
-  
-  TestUI* ui = (TestUI*)ud;
-  
-  ui->setAllWidgets( w, w->value() );
-  
-  /*
-  std::vector< std::string > files;
-  
-  Avtk::directoryContents( "/root", files );
-  
-  for( int i = 0; i < files.size(); i++)
-    printf("%i : %s\n", i, files.at(i).c_str() );
-  /
-}
-
-void TestUI::setAllWidgets( Avtk::Widget* w, float v )
-{
-  originSetAllWidget = w;
-  
-  for (std::list< ptr<Avtk::Widget> >::iterator it = widgets.begin()++; it != widgets.end(); it++ )
-  {
-    // exclude sliders / drag widgets, since it'll act weird
-    if( (*it) != originSetAllWidget )
-    {
-      (*it)->value( v );
-      (*it)->theme( theme( v * themes.size() ) );
-    }
-  }
-  redraw();
-}
-*/

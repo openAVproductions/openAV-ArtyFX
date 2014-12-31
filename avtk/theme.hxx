@@ -41,6 +41,7 @@ class Theme
 {
   public:
     Theme( Avtk::UI* ui_, std::string path );
+    virtual ~Theme(){}
     
     float lineWidthThin(){ return lineWidthThin_; }
     float lineWidthNorm(){ return lineWidthNorm_; }

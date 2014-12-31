@@ -37,7 +37,7 @@ void Group::add( Widget* child )
   }
   
 #ifdef AVTK_DEBUG
-  printf("Group add: size %i\n", children.size() );
+  //printf("Group add: size %i\n", children.size() );
 #endif
   child->addToGroup( this, children.size() );
   
@@ -54,8 +54,14 @@ void Group::add( Widget* child )
     int childY = y_;
     for(int i = 0; i < children.size(); i++ )
       childY += children.at(i)->h() + spacing_;
-
+    
     child->y( childY );
+    
+    if( resizeMode_ == RESIZE_FIT_TO_CHILDREN )
+    {
+      h( childY );
+      printf("group height %i : child y = %i\n", h_, child->y() );
+    }
   }
   else if( groupMode == HEIGHT_EQUAL )
   {
@@ -66,12 +72,18 @@ void Group::add( Widget* child )
     for(int i = 0; i < children.size(); i++ )
       childX += children.at(i)->w() + spacing_;
     child->x( childX );
+    
+    if( resizeMode_ == RESIZE_FIT_TO_CHILDREN )
+    {
+      w( x_ - (child->w() + child->w()) );
+      //printf("group width set to %i\n", w_ );
+    }
   }
   
   children.push_back( child );
 
 #ifdef AVTK_DEBUG
-  printf("Group after add: size %i\n", children.size() );
+  //printf("Group after add: size %i\n", children.size() );
 #endif
   
   ui->redraw();
@@ -84,7 +96,7 @@ void Group::remove( Avtk::Widget* wid )
     if( children.at(i) == wid )
     {
 #ifdef AVTK_DEBUG
-      printf("Group::remove() %s, widget# %i\n", label(), i );
+      //printf("Group::remove() %s, widget# %i\n", label(), i );
 #endif
       children.erase( children.begin() + i );
     }
@@ -94,7 +106,7 @@ void Group::remove( Avtk::Widget* wid )
 void Group::resizeNotify( Widget* w )
 {
 #ifdef AVTK_DEBUG
-      printf("Group::resizeNotify() %s, widget %s\n", label(), w->label() );
+  printf("Group::resizeNotify() %s, widget %s\n", label(), w->label() );
 #endif
 }
 
@@ -121,17 +133,15 @@ bool Group::visible()
 
 void Group::clear()
 {
-
   while( children.size() > 0 )
   {
 #ifdef AVTK_DEBUG
     printf("removing child %s from UI : size() %i\n", children.at(0)->label(), children.size() );
 #endif
     Avtk::Widget* tmp = children.at(0);
-    ui->remove( children.at(0) );
+    tmp->parent()->remove( tmp );
     delete tmp;
   }
-  
   
   // resets size of vector to 0
   children.clear();
@@ -296,7 +306,7 @@ int Group::handle( const PuglEvent* event )
 Group::~Group()
 {
 #ifdef AVTK_DEBUG
-  printf("%s\n", __PRETTY_FUNCTION__ );
+  printf("%s %s\n", __PRETTY_FUNCTION__, label() );
 #endif
   // on deletion, clean up all widgets left as children
   clear();

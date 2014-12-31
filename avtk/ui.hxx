@@ -131,7 +131,6 @@ class UI : public Avtk::Group
     Avtk::Widget* dragDropOrigin;
     Avtk::Widget* motionUpdateWidget;
     
-    
     bool          dragDropTargetVerified;
     Avtk::Widget* dragDropTargetVerifiedWidget;
     

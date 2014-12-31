@@ -14,6 +14,7 @@ class Waveform : public Widget
 {
   public:
     Waveform( Avtk::UI* ui, int x, int y, int w, int h, std::string label);
+    virtual ~Waveform(){}
     
     virtual void draw( cairo_t* cr );
     
