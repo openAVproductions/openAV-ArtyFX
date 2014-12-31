@@ -99,6 +99,7 @@ class SeqEventList
 {
   public:
     SeqEventList(int scene);
+    ~SeqEventList();
     
     int getLoopLength();
     void setLoopLenght(int l);

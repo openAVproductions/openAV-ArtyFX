@@ -44,6 +44,11 @@ EventEditor::EventEditor( Avtk::UI* ui, int x_, int y_, int w_, int h_, std::str
   events->setLoopLenght( 4 );
 }
 
+EventEditor::~EventEditor()
+{
+  delete events;
+}
+
 void EventEditor::draw( cairo_t* cr )
 {
   cairo_save( cr );

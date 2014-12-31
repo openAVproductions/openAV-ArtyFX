@@ -38,7 +38,6 @@ TestUI::TestUI( PuglNativeWindow parent ):
   
   w = new Avtk::ListItem( this, 7, 45, 90, 11, "Group Toggle 1" );
   group1->add( w );
-  /*
   w = new Avtk::ListItem( this, 7, 45, 90, 11, "Group Toggle 2" );
   group1->add( w );
   w = new Avtk::ListItem( this, 7, 45, 90, 11, "Group Toggle 3" );
@@ -56,9 +55,8 @@ TestUI::TestUI( PuglNativeWindow parent ):
   group1->add( w );
   w = new Avtk::ListItem( this, 7, 45, 90, 11, "Group Toggle 41" );
   group1->add( w );
-  */
   
-  /*
+  
   // Editor
   int scale = 4;
   editor = new Avtk::EventEditor( this, 0, 0, 240*scale, 250*scale, "EventEditor" );
@@ -68,8 +66,9 @@ TestUI::TestUI( PuglNativeWindow parent ):
   // scroller
   scroll = new Avtk::Scroll( this, 130, 43, 120, 60, "Scroll 1" );
   
-  //scroll->set( editor );
-  scroll->set( group1 );
+  scroll->set( editor );
+  //scroll->set( group1 );
+  
   
   // slider vert
   vertSlider = new Avtk::Slider( this, 755,  40, 22, 320, "Vertical   Slider" );
@@ -80,19 +79,19 @@ TestUI::TestUI( PuglNativeWindow parent ):
   scroll->vertical  ( 1.0 );
   scroll->horizontal( 0.5 );
   
-
+  
   momentaryOut = new Avtk::Button( this, 7, 69, 90, 22, "Zoom Out" );
   momentaryOut->theme( theme( 2 ) );
   momentaryOut->clickMode( Avtk::Widget::CLICK_TOGGLE );
   //momentary->clickMode( Avtk::Widget::CLICK_MOMENTARY );
   
-  /*
+  
   // button
   groupToggler = new Avtk::Button( this, 7 + 100, 45, 130, 22, "Group Toggler" );
   groupToggler->theme( theme( 2 ) );
   groupToggler->clickMode( Avtk::Widget::CLICK_TOGGLE );
-  *
   
+  /*
   // dial
   w = new Avtk::Dial( this, 7, 85, 75, 75, "Dial 1" );
   
@@ -124,7 +123,7 @@ TestUI::TestUI( PuglNativeWindow parent ):
   
   // image
   Avtk::Image* i = new Avtk::Image( this, 0, 0, 610, 36, "Image" );
-  //i->load( header.pixel_data );
+  i->load( header.pixel_data );
   
   /*
   // slider horizontal

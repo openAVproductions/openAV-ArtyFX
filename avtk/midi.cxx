@@ -65,6 +65,11 @@ SeqEventList::SeqEventList(int s) :
   events.reserve(DEFAULT_NUM_EVENTS);
 }
 
+SeqEventList::~SeqEventList()
+{
+  nonRtClear();
+}
+
 void SeqEventList::add( MidiEvent* m )
 {
   float t = m->getTime();
@@ -100,11 +105,7 @@ void SeqEventList::nonRtClear()
 {
   for(unsigned int i = 0; i < eventCount; i++)
   {
-    MidiEvent* m = dynamic_cast<MidiEvent*>( events.at(i) );
-    if( m )
-    {
-      delete m;
-    }
+    delete events.at(i);
   }
   eventIndex = 0;
   eventCount = 0;
