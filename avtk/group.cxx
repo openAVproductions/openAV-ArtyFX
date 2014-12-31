@@ -37,6 +37,15 @@ void Group::add( Widget* child )
     child->parent()->remove( child );
   }
   
+  // get the current size of the child widgets
+  int childY = y_;
+  for(int i = 0; i < children.size(); i++ )
+    childY += children.at(i)->h() + spacing_;
+  
+  int childX = x_;
+  for(int i = 0; i < children.size(); i++ )
+    childX += children.at(i)->w() + spacing_;
+  
 #ifdef AVTK_DEBUG
   //printf("Group add: size %i\n", children.size() );
 #endif
@@ -46,22 +55,20 @@ void Group::add( Widget* child )
   child->callback   = staticGroupCB;
   child->callbackUD = this;
   
+  // get the current state 
+  
   // set the child's co-ords
   if( groupMode == WIDTH_EQUAL )
   {
     child->x( x_ );
     child->w( w_ );
     
-    int childY = y_;
-    for(int i = 0; i < children.size(); i++ )
-      childY += children.at(i)->h() + spacing_;
-    
     child->y( childY );
     
     if( resizeMode_ == RESIZE_FIT_TO_CHILDREN )
     {
       h( childY );
-      printf("group height %i : child y = %i\n", h_, child->y() );
+      //printf("group height %i : child y = %i\n", h_, child->y() );
     }
   }
   else if( groupMode == HEIGHT_EQUAL )
@@ -69,9 +76,6 @@ void Group::add( Widget* child )
     child->y( y_ );
     child->h( h_ );
     
-    int childX = x_;
-    for(int i = 0; i < children.size(); i++ )
-      childX += children.at(i)->w() + spacing_;
     child->x( childX );
     
     if( resizeMode_ == RESIZE_FIT_TO_CHILDREN )
@@ -306,7 +310,7 @@ int Group::handle( const PuglEvent* event )
 
 Group::~Group()
 {
-#ifdef AVTK_DEBUG
+#ifdef AVTK_DEBUG_DTOR
   printf("%s %s\n", __PRETTY_FUNCTION__, label() );
 #endif
   // on deletion, clean up all widgets left as children

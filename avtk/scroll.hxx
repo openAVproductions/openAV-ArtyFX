@@ -75,6 +75,13 @@ class Scroll : public Group
     
     Avtk::Slider* vSlider;
     Avtk::Slider* hSlider;
+    
+    // sliderCB functions
+    void sliderCB( Avtk::Widget* w );
+    static void staticSliderCB( Avtk::Widget* w, void* ud )
+    {
+      ((Scroll*)ud)->sliderCB( w );
+    }
 };
 
 };

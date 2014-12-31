@@ -61,10 +61,11 @@ TestUI::TestUI( PuglNativeWindow parent ):
   int scale = 4;
   editor = new Avtk::EventEditor( this, 0, 0, 240*scale, 250*scale, "EventEditor" );
   editor->value( true );
-  editor->visible( false );
+  editor->visible( true );
   
   // scroller
-  scroll = new Avtk::Scroll( this, 130, 43, 120, 60, "Scroll 1" );
+  //scroll = new Avtk::Scroll( this, 130, 43, 120, 60, "Scroll 1" );
+  scroll = new Avtk::Scroll( this, 130, 43, 520, 310, "Scroll 1" );
   
   scroll->set( editor );
   //scroll->set( group1 );
@@ -86,11 +87,12 @@ TestUI::TestUI( PuglNativeWindow parent ):
   //momentary->clickMode( Avtk::Widget::CLICK_MOMENTARY );
   
   
+  /*
+  
   // button
   groupToggler = new Avtk::Button( this, 7 + 100, 45, 130, 22, "Group Toggler" );
   groupToggler->theme( theme( 2 ) );
   groupToggler->clickMode( Avtk::Widget::CLICK_TOGGLE );
-  
   
   // dial
   w = new Avtk::Dial( this, 7, 85, 75, 75, "Dial 1" );
@@ -134,25 +136,17 @@ TestUI::TestUI( PuglNativeWindow parent ):
 
 void TestUI::widgetValueCB( Avtk::Widget* w )
 {
-  if( w == groupToggler )
+  if( w == momentary )
   {
-    //group1->visible( groupToggler->value() );
-    //list2->visible( groupToggler->value() );
-  }
-  else if( w == momentary )
-  {
-    //editor->zoom( 1 );
-    //((Avtk::Scroll*)editor->parent())->childResize( editor );
-    //redraw();
-    
-    w = new Avtk::ListItem( this, 7, 45, 90, 11, "Group Toggle dyn" );
-    group1->add( w );
+    editor->zoom( 1 );
+    ((Avtk::Scroll*)editor->parent())->childResize( editor );
+    //w = new Avtk::ListItem( this, 7, 45, 90, 11, "Group Toggle dyn" );
+    //group1->add( w );
   }
   else if( w == momentaryOut )
   {
     editor->zoom( 0 );
     ((Avtk::Scroll*)editor->parent())->childResize( editor );
-    redraw();
   }
   else if( w == vertSlider )
   {

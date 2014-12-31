@@ -10,6 +10,8 @@
 
 using namespace Avtk;
 
+#define AVTK_SCROLL_BAR_SIZE 15
+
 Scroll::Scroll( Avtk::UI* ui, int x_, int y_, int w_, int h_, std::string label_) :
   Group( ui, x_, y_, w_, h_, label_ ),
   newChildCr( false ),
@@ -19,18 +21,30 @@ Scroll::Scroll( Avtk::UI* ui, int x_, int y_, int w_, int h_, std::string label_
   scrollV_( false ),
   scrollH_( false ),
   
-  vSlider( new Avtk::Slider( ui, x_ + w_ - 8, y_, 8, h_, "Scroll VSlider") ),
-  hSlider( new Avtk::Slider( ui, x_ + w_ - 8, y_, 8, h_, "Scroll HSlider") )
+  vSlider( new Avtk::Slider( ui, x_ + w_ - AVTK_SCROLL_BAR_SIZE, y_, AVTK_SCROLL_BAR_SIZE, h_, "Scroll VSlider") ),
+  hSlider( new Avtk::Slider( ui, x_, y_ - w_ - AVTK_SCROLL_BAR_SIZE, w_, AVTK_SCROLL_BAR_SIZE, "Scroll HSlider") )
 {
   // deal with sliders: they're a unique case where they're owned by the scroll,
-  // but they are *not* part of the group.
-  vSlider->visible( false );
-  hSlider->visible( false );
-  // remove the widget from the UI (it auto-registers)
+  // but they are *not* part of the group. First remove the widget from the UI
   vSlider->parent()->remove( vSlider );
   hSlider->parent()->remove( hSlider );
-  
-  noHandle_ = false;
+  // then set the callbacks to the scoll movement
+  vSlider->callback   = staticSliderCB;
+  vSlider->callbackUD = this;
+  hSlider->callback   = staticSliderCB;
+  hSlider->callbackUD = this;
+}
+
+void Scroll::sliderCB( Widget* w )
+{
+  if( w == vSlider )
+  {
+    vertical( w->value() );
+  }
+  if( w == hSlider )
+  {
+    horizontal( w->value() );
+  }
 }
 
 void Scroll::childResize( Widget* w )
@@ -58,7 +72,7 @@ void Scroll::set( Widget* child )
   else
   {
     // set the childs size to the scroll area
-    child->h( h_ );
+    child->h( h_ - AVTK_SCROLL_BAR_SIZE );
     scrollV_ = false;
     scrollY_ = 0;
   }
@@ -75,13 +89,10 @@ void Scroll::set( Widget* child )
   else
   {
     // set the childs size to the scroll area
-    child->w( w_ );
+    child->w( w_ - AVTK_SCROLL_BAR_SIZE );
     scrollH_ = false;
     scrollX_ = 0;
   }
-  
-  vSlider->visible( scrollY_ );
-  hSlider->visible( scrollX_ );
 }
 
 void Scroll::draw( cairo_t* cr )
@@ -180,6 +191,15 @@ void Scroll::horizontal( float v )
 
 int Scroll::handle( const PuglEvent* event )
 {
+  
+  int ret = vSlider->handle( event );
+  if( ret )
+  {
+    printf("vSlider returning from handle\n");
+    return ret;
+  }
+  
+  /*
   bool handleThisEvent = false;
   if( event->type == PUGL_BUTTON_PRESS ||
       event->type == PUGL_BUTTON_RELEASE )
@@ -210,7 +230,7 @@ int Scroll::handle( const PuglEvent* event )
     }
     return Group::handle( event );
   }
-  
+  */
 }
 
 void Scroll::redrawChild( cairo_t* cr )
@@ -235,9 +255,6 @@ void Scroll::redrawChild( cairo_t* cr )
 
 Scroll::~Scroll()
 {
-#ifdef AVTK_DEBUG
-  printf("%s\n", __PRETTY_FUNCTION__ );
-#endif
   delete vSlider;
   delete hSlider;
 }
