@@ -31,7 +31,7 @@ TestUI::TestUI( PuglNativeWindow parent ):
   momentary->clickMode( Avtk::Widget::CLICK_MOMENTARY );
   
   // group testing
-  group1 = new Avtk::Group( this, 610, 43, 100, 0, "Group 1" );
+  group1 = new Avtk::Group( this, 660, 43, 100, 0, "Group 1" );
   group1->mode( Avtk::Group::WIDTH_EQUAL );
   group1->valueMode ( Group::VALUE_SINGLE_CHILD ); 
   group1->resizeMode( Group::RESIZE_FIT_TO_CHILDREN );
@@ -56,29 +56,31 @@ TestUI::TestUI( PuglNativeWindow parent ):
   w = new Avtk::ListItem( this, 7, 45, 90, 11, "Group Toggle 41" );
   group1->add( w );
   
-  /*
   // Editor
+  //scroll = new Avtk::Scroll( this, 130, 43, 120, 60, "Scroll 1" );
+  /*
   int scale = 4;
   editor = new Avtk::EventEditor( this, 0, 0, 240*scale, 250*scale, "EventEditor" );
   editor->value( true );
   editor->visible( true );
+  /*
   */
-  
-  // scroller
-  //scroll = new Avtk::Scroll( this, 130, 43, 120, 60, "Scroll 1" );
-  scroll = new Avtk::Scroll( this, 130, 43, 520, 310, "Scroll 1" );
-  
   //scroll->set( editor );
   //scroll->set( group1 );
   
+  scroll = new Avtk::Scroll( this, 130, 43, 520, 210, "Scroll 1" );
+  
   // list
-  list = new Avtk::List( this, 345, 345, 105, 125, "List (Left)" );
+  list = new Avtk::List( this, 345, 345, 105, 425, "List (Left)" );
   std::vector<std::string> items;
   std::string stripped;
-  Avtk::directoryContents(  "/root/openav/content/bips/", items, stripped);
+  Avtk::directoryContents(  "/root/openav/content/", items, stripped);
   list->show( items );
+  list->mode      ( Group::WIDTH_EQUAL );
+  list->valueMode ( Group::VALUE_SINGLE_CHILD ); 
+  //list->resizeMode( Group::RESIZE_FIT_TO_CHILDREN );
   
-  //scroll->set( list );
+  scroll->set( list );
   
   /*
   // slider vert
@@ -93,8 +95,8 @@ TestUI::TestUI( PuglNativeWindow parent ):
   
   momentaryOut = new Avtk::Button( this, 7, 69, 90, 22, "Zoom Out" );
   momentaryOut->theme( theme( 2 ) );
-  momentaryOut->clickMode( Avtk::Widget::CLICK_TOGGLE );
-  //momentary->clickMode( Avtk::Widget::CLICK_MOMENTARY );
+  //momentaryOut->clickMode( Avtk::Widget::CLICK_TOGGLE );
+  momentaryOut->clickMode( Avtk::Widget::CLICK_MOMENTARY );
   
   
   /*

@@ -47,7 +47,7 @@ class Scroll : public Group
     void horizontal( float v );
     
     /// called by child widgets when thier size changes
-    void childResize( Widget* w );
+    virtual void childResize( Widget* w );
     
     /// handles an event, propagating it to the integrated scroll bars: and if
     /// not handled, pass on to the child widget

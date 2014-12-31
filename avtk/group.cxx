@@ -91,7 +91,16 @@ void Group::add( Widget* child )
   //printf("Group after add: size %i\n", children.size() );
 #endif
   
+  // notify parent that the size of this widget has changed
+  if( parent() )
+    parent()->childResize( this );
+  
   ui->redraw();
+}
+
+void Group::childResize( Widget* w )
+{
+  
 }
 
 void Group::remove( Avtk::Widget* wid )

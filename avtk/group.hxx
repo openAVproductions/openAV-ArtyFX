@@ -96,6 +96,9 @@ class Group : public Widget
       resizeMode_ = gr;
     }
     
+    /// called by child widgets when thier size changes
+    virtual void childResize( Widget* w );
+    
     /// virtual so it can be overriden by List and other widgets that want to
     /// intercept callbacks from a range of widgets
     virtual void valueCB( Widget* w );

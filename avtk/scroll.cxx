@@ -207,38 +207,6 @@ int Scroll::handle( const PuglEvent* event )
     printf("scroll children handle ret true\n");
     ui->redraw();
   }
-  /*
-  bool handleThisEvent = false;
-  if( event->type == PUGL_BUTTON_PRESS ||
-      event->type == PUGL_BUTTON_RELEASE )
-  {
-    if( touches( event->button.x, event->button.y ) )
-      handleThisEvent = true;
-  }
-  if( event->type == PUGL_SCROLL )
-  {
-    if( touches( event->scroll.x, event->scroll.y ) )
-      handleThisEvent = true;
-  }
-  
-  if( handleThisEvent )
-  {
-    printf("Scroll handle(), type %i\n", event->type);
-    int ret = vSlider->handle( event );
-    if( ret )
-    {
-      printf("vSlider returning from handle\n");
-      return ret;
-    }
-    ret = hSlider->handle( event );
-    if( ret )
-    {
-      printf("hSlider returning from handle\n");
-      return ret;
-    }
-    return Group::handle( event );
-  }
-  */
 }
 
 void Scroll::redrawChild( cairo_t* cr )
