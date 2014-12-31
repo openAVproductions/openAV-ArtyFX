@@ -91,14 +91,14 @@ TestUI::TestUI( PuglNativeWindow parent ):
   groupToggler->theme( theme( 2 ) );
   groupToggler->clickMode( Avtk::Widget::CLICK_TOGGLE );
   
-  /*
+  
   // dial
   w = new Avtk::Dial( this, 7, 85, 75, 75, "Dial 1" );
   
   // number
   w = new Avtk::Number( this, 85, 85, 35, 25, "Number box" );
   
-  /*
+  
   // list
   list = new Avtk::List( this, 345, 345, 105, 125, "List (Left)" );
   std::vector<std::string> items;
@@ -110,7 +110,7 @@ TestUI::TestUI( PuglNativeWindow parent ):
   Avtk::directoryContents(  "/root/openav/content/bips", items, stripped, true, true );
   list2 = new Avtk::List( this, 525, 345, 105, 125, "List (Right)" );
   list2->show( items );
-  *
+  
   
   // waveform
   waveform = new Avtk::Waveform( this, 15, 415, 250, 100, "Waveform" );
@@ -118,8 +118,7 @@ TestUI::TestUI( PuglNativeWindow parent ):
   int error = Avtk::loadSample( "test.wav", tmp );
   waveform->show( tmp );
   
-  //w = new Avtk::Envelope( this, 215, 115, 60, 40, "Envelope" );
-  */
+  w = new Avtk::Envelope( this, 215, 115, 60, 40, "Envelope" );
   
   // image
   Avtk::Image* i = new Avtk::Image( this, 0, 0, 610, 36, "Image" );

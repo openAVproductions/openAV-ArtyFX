@@ -222,6 +222,8 @@ int directoryContents( std::string d, std::vector< std::string >& files, std::st
   // sort them alphabetically
   std::sort( files.begin(), files.end() );
   
+  tinydir_close(&dir);
+  
   return OPENAV_OK;
 }
 
