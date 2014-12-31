@@ -135,21 +135,23 @@ void Scroll::draw( cairo_t* cr )
       redrawChild_ = true;
     }
     
-    if( redrawChild_ )
+    if( childCr )
     {
-      //printf("cairo redrawing child in scroll group\n");
-      redrawChild( cr );
+      if( redrawChild_ )
+      {
+        //printf("cairo redrawing child in scroll group\n");
+        redrawChild( cr );
+      }
+      
+      // clip the Scroll context, to draw only what will be shown
+      cairo_rectangle( cr, x_, y_, w_, h_ );
+      cairo_clip( cr );
+      
+      // paint to the x_,y_ co-ord of the scroll window
+      cairo_surface_t* s = cairo_get_target( childCr );
+      cairo_set_source_surface( cr, s, x_ + scrollX_, y_ + scrollY_ );
+      cairo_paint( cr );
     }
-    
-    // clip the Scroll context, to draw only what will be shown
-    cairo_rectangle( cr, x_, y_, w_, h_ );
-    cairo_clip( cr );
-    
-    // paint to the x_,y_ co-ord of the scroll window
-    cairo_surface_t* s = cairo_get_target( childCr );
-    cairo_set_source_surface( cr, s, x_ + scrollX_, y_ + scrollY_ );
-    cairo_paint( cr );
-    
     // draw box / scroll bars
     roundedBox(cr, x_, y_, w_, h_, theme_->cornerRadius_ );
     theme_->color( cr, FG );
@@ -191,7 +193,6 @@ void Scroll::horizontal( float v )
 
 int Scroll::handle( const PuglEvent* event )
 {
-  
   int ret = vSlider->handle( event );
   if( ret )
   {
@@ -199,6 +200,13 @@ int Scroll::handle( const PuglEvent* event )
     return ret;
   }
   
+  // pass event on to children
+  ret = Group::handle( event );
+  if( ret )
+  {
+    printf("scroll children handle ret true\n");
+    ui->redraw();
+  }
   /*
   bool handleThisEvent = false;
   if( event->type == PUGL_BUTTON_PRESS ||
@@ -235,6 +243,11 @@ int Scroll::handle( const PuglEvent* event )
 
 void Scroll::redrawChild( cairo_t* cr )
 {
+  if( !childCr )
+  {
+    redrawChild_ = false;
+    return;
+  }
   cairo_save( cr );
   
   /// clear the screen

@@ -56,21 +56,31 @@ TestUI::TestUI( PuglNativeWindow parent ):
   w = new Avtk::ListItem( this, 7, 45, 90, 11, "Group Toggle 41" );
   group1->add( w );
   
-  
+  /*
   // Editor
   int scale = 4;
   editor = new Avtk::EventEditor( this, 0, 0, 240*scale, 250*scale, "EventEditor" );
   editor->value( true );
   editor->visible( true );
+  */
   
   // scroller
   //scroll = new Avtk::Scroll( this, 130, 43, 120, 60, "Scroll 1" );
   scroll = new Avtk::Scroll( this, 130, 43, 520, 310, "Scroll 1" );
   
-  scroll->set( editor );
+  //scroll->set( editor );
   //scroll->set( group1 );
   
+  // list
+  list = new Avtk::List( this, 345, 345, 105, 125, "List (Left)" );
+  std::vector<std::string> items;
+  std::string stripped;
+  Avtk::directoryContents(  "/root/openav/content/bips/", items, stripped);
+  list->show( items );
   
+  //scroll->set( list );
+  
+  /*
   // slider vert
   vertSlider = new Avtk::Slider( this, 755,  40, 22, 320, "Vertical   Slider" );
   horiSlider = new Avtk::Slider( this, 130, 365, 620, 22, "Horizontal Slider" );
@@ -79,7 +89,7 @@ TestUI::TestUI( PuglNativeWindow parent ):
   horiSlider->value ( 0.5 );
   scroll->vertical  ( 1.0 );
   scroll->horizontal( 0.5 );
-  
+  */
   
   momentaryOut = new Avtk::Button( this, 7, 69, 90, 22, "Zoom Out" );
   momentaryOut->theme( theme( 2 ) );
@@ -99,14 +109,6 @@ TestUI::TestUI( PuglNativeWindow parent ):
   
   // number
   w = new Avtk::Number( this, 85, 85, 35, 25, "Number box" );
-  
-  
-  // list
-  list = new Avtk::List( this, 345, 345, 105, 125, "List (Left)" );
-  std::vector<std::string> items;
-  std::string stripped;
-  Avtk::directoryContents(  "/root/openav/content/bips/", items, stripped);
-  list->show( items );
   
   items.clear();
   Avtk::directoryContents(  "/root/openav/content/bips", items, stripped, true, true );
