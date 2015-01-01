@@ -233,6 +233,7 @@ int Scroll::handle( const PuglEvent* event )
       // pass event on to children
       if( Group::handle( &childEvent ) )
       {
+        newChildCr = true;
         ui->redraw();
         return 1;
       }

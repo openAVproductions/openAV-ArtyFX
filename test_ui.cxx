@@ -25,16 +25,31 @@ TestUI::TestUI( PuglNativeWindow parent ):
   
   Avtk::Widget* w = 0;
   
-  // button
-  momentary = new Avtk::Button( this, 7, 45, 90, 22, "Zoom In" );
-  momentary->theme( theme( 1 ) );
-  momentary->clickMode( Avtk::Widget::CLICK_MOMENTARY );
-  
   // group testing
   group1 = new Avtk::Group( this, 660, 43, 100, 0, "Group 1" );
   group1->mode( Avtk::Group::WIDTH_EQUAL );
   group1->valueMode ( Group::VALUE_SINGLE_CHILD );
   group1->resizeMode( Group::RESIZE_FIT_TO_CHILDREN );
+  
+  w = new Avtk::ListItem( this, 7, 45, 90, 11, "Group Toggle 1" );
+  group1->add( w );
+  w = new Avtk::ListItem( this, 7, 45, 90, 11, "Group Toggle 2" );
+  group1->add( w );
+  w = new Avtk::ListItem( this, 7, 45, 90, 11, "Group Toggle 3" );
+  group1->add( w );
+  w = new Avtk::ListItem( this, 7, 45, 90, 11, "Group Toggle 4" );
+  group1->add( w );
+  w->value( 1 );
+  w = new Avtk::ListItem( this, 7, 45, 90, 11, "Group Toggle 5" );
+  group1->add( w );
+  w = new Avtk::ListItem( this, 7, 45, 90, 11, "Group Toggle 11" );
+  group1->add( w );
+  w = new Avtk::ListItem( this, 7, 45, 90, 11, "Group Toggle 21" );
+  group1->add( w );
+  w = new Avtk::ListItem( this, 7, 45, 90, 11, "Group Toggle 31" );
+  group1->add( w );
+  w = new Avtk::ListItem( this, 7, 45, 90, 11, "Group Toggle 41" );
+  group1->add( w );
   
   w = new Avtk::ListItem( this, 7, 45, 90, 11, "Group Toggle 1" );
   group1->add( w );
@@ -77,7 +92,7 @@ TestUI::TestUI( PuglNativeWindow parent ):
   Avtk::directoryContents(  "/root/openav/content/", items, stripped);
   list->show( items );
   list->mode      ( Group::WIDTH_EQUAL );
-  //list->valueMode ( Group::VALUE_SINGLE_CHILD ); 
+  list->valueMode ( Group::VALUE_SINGLE_CHILD );
   //list->resizeMode( Group::RESIZE_FIT_TO_CHILDREN );
   
   //scroll->set( list );
@@ -93,6 +108,13 @@ TestUI::TestUI( PuglNativeWindow parent ):
   scroll->vertical  ( 1.0 );
   scroll->horizontal( 0.5 );
   */
+  
+  
+  // button
+  momentary = new Avtk::Button( this, 7, 45, 90, 22, "Zoom In" );
+  momentary->theme( theme( 1 ) );
+  momentary->clickMode( Avtk::Widget::CLICK_MOMENTARY );
+  
   
   momentaryOut = new Avtk::Button( this, 7, 69, 90, 22, "Zoom Out" );
   momentaryOut->theme( theme( 2 ) );
