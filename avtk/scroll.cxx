@@ -223,18 +223,23 @@ int Scroll::handle( const PuglEvent* event )
   if( event->type == PUGL_BUTTON_PRESS ||
       event->type == PUGL_BUTTON_RELEASE )
   {
-    PuglEvent childEvent;
-    childEvent = *event;
-    childEvent.button.x += 0; // scroll position horizontal
-    childEvent.button.y -= ( y_ + scrollY_); // position + scroll px
-    
-    // pass event on to children
-    if( Group::handle( &childEvent ) )
+    if( touches( event->button.x, event->button.y ) )
     {
-      ui->redraw();
-      return 1;
+      PuglEvent childEvent;
+      childEvent = *event;
+      childEvent.button.x += 0; // scroll position horizontal
+      childEvent.button.y -= ( y_ + scrollY_); // position + scroll px
+      
+      // pass event on to children
+      if( Group::handle( &childEvent ) )
+      {
+        ui->redraw();
+        return 1;
+      }
     }
   }
+  
+  return 0;
 }
 
 void Scroll::redrawChild( cairo_t* cr )

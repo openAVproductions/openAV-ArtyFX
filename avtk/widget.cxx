@@ -69,7 +69,9 @@ int Widget::handle( const PuglEvent* event )
   //     !visible_ implies the widget isn't shown: so a user can't interact with it
   if( noHandle_ || !visible_ )
   {
+#ifdef AVTK_DEBUG
     printf("widget %s noHandle (%i) or visible (%i)\n", label(), int(noHandle_), int(visible_) );
+#endif
     return 0;
   }
   switch (event->type)

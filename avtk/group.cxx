@@ -92,7 +92,7 @@ void Group::add( Widget* child )
 #endif
   
   // notify parent that the size of this widget has changed
-  if( parent() )
+  if( resizeMode_ == RESIZE_FIT_TO_CHILDREN && parent() )
     parent()->childResize( this );
   
   ui->redraw();
