@@ -217,9 +217,24 @@ int Scroll::handle( const PuglEvent* event )
     }
   }
   
-  // pass event on to children
-  if( Group::handle( event ) )
-    return 1;
+  // create group event, so we can offset the mouse-click co-ord according to
+  // the scroll position. This might seem a lot of work, but it allows for easy
+  // mouse handling in the child widget, because the co-ords are normal
+  if( event->type == PUGL_BUTTON_PRESS ||
+      event->type == PUGL_BUTTON_RELEASE )
+  {
+    PuglEvent childEvent;
+    childEvent = *event;
+    childEvent.button.x += 0; // scroll position horizontal
+    childEvent.button.y -= ( y_ + scrollY_); // position + scroll px
+    
+    // pass event on to children
+    if( Group::handle( &childEvent ) )
+    {
+      ui->redraw();
+      return 1;
+    }
+  }
 }
 
 void Scroll::redrawChild( cairo_t* cr )

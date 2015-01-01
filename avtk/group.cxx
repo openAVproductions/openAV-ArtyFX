@@ -269,7 +269,7 @@ int Group::handle( const PuglEvent* event )
       int ret = children.at( i )->handle( event );
       if( ret )
       {
-        //printf("widget %i handle eventType %i ret\n", i, event->type );
+        printf("widget %s : handles eventType %i ret = 1\n", children.at(i)->label(), event->type );
         return ret; // child widget ate event: done :)
       }
     }

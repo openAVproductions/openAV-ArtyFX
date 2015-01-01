@@ -33,7 +33,7 @@ TestUI::TestUI( PuglNativeWindow parent ):
   // group testing
   group1 = new Avtk::Group( this, 660, 43, 100, 0, "Group 1" );
   group1->mode( Avtk::Group::WIDTH_EQUAL );
-  group1->valueMode ( Group::VALUE_SINGLE_CHILD ); 
+  group1->valueMode ( Group::VALUE_SINGLE_CHILD );
   group1->resizeMode( Group::RESIZE_FIT_TO_CHILDREN );
   
   w = new Avtk::ListItem( this, 7, 45, 90, 11, "Group Toggle 1" );
@@ -77,10 +77,11 @@ TestUI::TestUI( PuglNativeWindow parent ):
   Avtk::directoryContents(  "/root/openav/content/", items, stripped);
   list->show( items );
   list->mode      ( Group::WIDTH_EQUAL );
-  list->valueMode ( Group::VALUE_SINGLE_CHILD ); 
+  //list->valueMode ( Group::VALUE_SINGLE_CHILD ); 
   //list->resizeMode( Group::RESIZE_FIT_TO_CHILDREN );
   
-  scroll->set( list );
+  //scroll->set( list );
+  scroll->set( group1 );
   
   /*
   // slider vert
