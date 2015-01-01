@@ -102,16 +102,6 @@ void UI::event( const PuglEvent* event )
     redraw();
   }
   
-  /*
-  // reverse iter over widgets (aka starting on "top"), calling handle()
-  for (std::list< Avtk::Widget*>::iterator it = widgets.begin(); it != widgets.end(); it++ )
-  {
-    if( (*it)->visible() )
-      if( (*it)->handle( event ) )
-        return;
-  }
-  */
-  
   // code is only reached if *none* of the widgets handled an event:
   // we can implement UI wide hotkeys here, handle unknown events
   switch (event->type)

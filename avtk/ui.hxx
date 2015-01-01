@@ -29,20 +29,12 @@ class UI : public Avtk::Group
     UI( int w, int h, PuglNativeWindow parent = 0 );
     virtual ~UI();
     
-    /*
-    /// adds a widget to the UI, and memory manages it: AKA a smart pointer will
-    /// clean up on close of the UI.
-    void add( Avtk::Widget* w)
+    /// should only be called from event-handlers
+    bool ctrl()
     {
-      //printf("UI::add() pushing back w %i\n", w );
-      widgets.push_back( w );
+      int mods = puglGetModifiers( view );
+      
     }
-    
-    void remove( Avtk::Widget* w )
-    {
-      widgets.remove( w );
-    }
-    */
     
     /// tells the UI a widget has captured a mouse-down event, and
     /// wants to be notified of mouse movement events

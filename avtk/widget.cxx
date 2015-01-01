@@ -270,7 +270,9 @@ void Widget::value( float v )
   if( v < 0.0 ) v = 0.0;
   
   value_ = v;
-  printf("Widget %s  value() %f\n", label_.c_str(), v );
+#ifdef AVTK_DEBUG
+  //printf("Widget %s  value() %f\n", label_.c_str(), v );
+#endif
   ui->redraw();
 }
 

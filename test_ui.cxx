@@ -51,26 +51,6 @@ TestUI::TestUI( PuglNativeWindow parent ):
   w = new Avtk::ListItem( this, 7, 45, 90, 11, "Group Toggle 41" );
   group1->add( w );
   
-  w = new Avtk::ListItem( this, 7, 45, 90, 11, "Group Toggle 1" );
-  group1->add( w );
-  w = new Avtk::ListItem( this, 7, 45, 90, 11, "Group Toggle 2" );
-  group1->add( w );
-  w = new Avtk::ListItem( this, 7, 45, 90, 11, "Group Toggle 3" );
-  group1->add( w );
-  w = new Avtk::ListItem( this, 7, 45, 90, 11, "Group Toggle 4" );
-  group1->add( w );
-  w->value( 1 );
-  w = new Avtk::ListItem( this, 7, 45, 90, 11, "Group Toggle 5" );
-  group1->add( w );
-  w = new Avtk::ListItem( this, 7, 45, 90, 11, "Group Toggle 11" );
-  group1->add( w );
-  w = new Avtk::ListItem( this, 7, 45, 90, 11, "Group Toggle 21" );
-  group1->add( w );
-  w = new Avtk::ListItem( this, 7, 45, 90, 11, "Group Toggle 31" );
-  group1->add( w );
-  w = new Avtk::ListItem( this, 7, 45, 90, 11, "Group Toggle 41" );
-  group1->add( w );
-  
   // Editor
   //scroll = new Avtk::Scroll( this, 130, 43, 120, 60, "Scroll 1" );
   /*
@@ -90,13 +70,16 @@ TestUI::TestUI( PuglNativeWindow parent ):
   std::vector<std::string> items;
   std::string stripped;
   Avtk::directoryContents(  "/root/openav/content/", items, stripped);
-  list->show( items );
+  
+  std::vector<std::string> items2;
+  items2.push_back( items.at(0) );
+  list->show( items2 );
   list->mode      ( Group::WIDTH_EQUAL );
   list->valueMode ( Group::VALUE_SINGLE_CHILD );
   //list->resizeMode( Group::RESIZE_FIT_TO_CHILDREN );
   
-  //scroll->set( list );
-  scroll->set( group1 );
+  scroll->set( list );
+  //scroll->set( group1 );
   
   /*
   // slider vert
