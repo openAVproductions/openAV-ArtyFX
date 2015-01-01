@@ -93,6 +93,10 @@ void Scroll::set( Widget* child )
     scrollH_ = false;
     scrollX_ = 0;
   }
+  
+  // show top left corner or scroll window
+  vertical  ( 1 );
+  horizontal( 0 );
 }
 
 void Scroll::draw( cairo_t* cr )
@@ -193,20 +197,29 @@ void Scroll::horizontal( float v )
 
 int Scroll::handle( const PuglEvent* event )
 {
-  int ret = vSlider->handle( event );
-  if( ret )
+  // handle slider, so slider-click is responeded to
+  if( vSlider->handle( event ) )
+    return 1;
+  
+  // check if the scroll event is in scroll area; if yes scroll action
+  if( event->type == PUGL_SCROLL )
   {
-    printf("vSlider returning from handle\n");
-    return ret;
+    if( touches( event->scroll.x, event->scroll.y ) )
+    {
+      if( event->scroll.dy > 0 )
+        vSlider->value( vSlider->value() + 0.1 );
+      else
+        vSlider->value( vSlider->value() - 0.1 );
+      
+      vertical( vSlider->value() );
+      ui->redraw( this );
+      return 1;
+    }
   }
   
   // pass event on to children
-  ret = Group::handle( event );
-  if( ret )
-  {
-    printf("scroll children handle ret true\n");
-    ui->redraw();
-  }
+  if( Group::handle( event ) )
+    return 1;
 }
 
 void Scroll::redrawChild( cairo_t* cr )
