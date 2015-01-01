@@ -201,6 +201,8 @@ int Scroll::handle( const PuglEvent* event )
   if( vSlider->handle( event ) )
     return 1;
   
+  bool handle = false;
+  
   // check if the scroll event is in scroll area; if yes scroll action
   if( event->type == PUGL_SCROLL )
   {
@@ -220,6 +222,10 @@ int Scroll::handle( const PuglEvent* event )
         // return, eating event, so child group won't react
         return 1;
       }
+      else
+      {
+        handle = true;
+      }
     }
   }
   
@@ -232,9 +238,8 @@ int Scroll::handle( const PuglEvent* event )
     if( touches( event->button.x, event->button.y ) )
     {
       PuglEvent childEvent;
-      childEvent = *event;
-      childEvent.button.x += 0; // scroll position horizontal
-      childEvent.button.y -= ( y_ + scrollY_); // position + scroll px
+      // offset to new location
+      offsetEvent( event, &childEvent );
       // pass event on to children
       if( Group::handle( &childEvent ) )
       {
@@ -246,11 +251,14 @@ int Scroll::handle( const PuglEvent* event )
   }
   
   
-  if( Group::handle( event ) )
+  if( handle )
   {
-    newChildCr = true;
-    ui->redraw();
-    return 1;
+    if( Group::handle( event ) )
+    {
+      newChildCr = true;
+      ui->redraw();
+      return 1;
+    }
   }
   
   return 0;
@@ -285,4 +293,27 @@ Scroll::~Scroll()
 {
   delete vSlider;
   delete hSlider;
+}
+
+void Scroll::offsetEvent( const PuglEvent* inEvent, PuglEvent* outEvent )
+{
+  // copy inEvent to outEvent
+  *outEvent = *inEvent;
+  
+  // adjust properties as needed
+  if( outEvent->type == PUGL_SCROLL )
+  {
+    outEvent->scroll.x += ( x_ + scrollX_ );
+    outEvent->scroll.y -= ( y_ + scrollY_ );
+  }
+  else if( outEvent->type == PUGL_BUTTON_PRESS ||
+           outEvent->type == PUGL_BUTTON_RELEASE )
+  {
+    outEvent->button.x -= ( x_ + scrollX_ );
+    outEvent->button.y -= ( y_ + scrollY_ );
+  }
+  else
+  {
+    printf("%s, event type not handled!\n", __PRETTY_FUNCTION__ );
+  }
 }

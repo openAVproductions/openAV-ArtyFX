@@ -82,6 +82,10 @@ class Scroll : public Group
     {
       ((Scroll*)ud)->sliderCB( w );
     }
+    
+    // convienience function to handle offset from scroll widget position, to
+    // the child widgets co-ordinates on the child-cairo canvas
+    void offsetEvent( const PuglEvent* inEvent, PuglEvent* outEvent );
 };
 
 };
