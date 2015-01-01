@@ -20,9 +20,7 @@ UI::UI( int w__, int h__, PuglNativeWindow parent ) :
   puglInitWindowSize  (view, w_, h_ );
   puglInitResizable   (view, false );
   puglInitContextType (view, PUGL_CAIRO);
-  /*
-  puglIgnoreKeyRepeat (view, ignoreKeyRepeat);
-  */
+  puglIgnoreKeyRepeat (view, true );
   puglSetEventFunc    (view, UI::onEvent  );
   puglSetDisplayFunc  (view, UI::onDisplay);
   puglSetCloseFunc    (view, UI::onClose  );

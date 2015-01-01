@@ -73,7 +73,7 @@ TestUI::TestUI( PuglNativeWindow parent ):
   
   std::vector<std::string> items2;
   items2.push_back( items.at(0) );
-  list->show( items2 );
+  list->show( items );
   list->mode      ( Group::WIDTH_EQUAL );
   list->valueMode ( Group::VALUE_SINGLE_CHILD );
   //list->resizeMode( Group::RESIZE_FIT_TO_CHILDREN );

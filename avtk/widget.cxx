@@ -173,28 +173,28 @@ int Widget::handle( const PuglEvent* event )
       } break;
     
     case PUGL_KEY_PRESS:
-      if (event->key.character == 'w')
       {
-        /*
-        printf("pugl key w\n");
-        float delta = 1 / 10.f;
-        value( value_ + delta );
-        ui->redraw( this );
-        return 1;
-        */
+        PuglEventKey* e = (PuglEventKey*)event;
+        if( touches( e->x, e->y ) )
+        {
+          if (event->key.character == ' ')
+          {
+            printf("pugl space\n");
+            callback( this, callbackUD );
+          }
+          else if (event->key.character == 's')
+          {
+            /*
+            printf("pugl key s\n");
+            float delta = 1 / 10.f;
+            value( value_ - delta );
+            ui->redraw( this );
+            return 1;
+            */
+          }
+          break;
+        }
       }
-      else if (event->key.character == 's')
-      {
-        /*
-        printf("pugl key s\n");
-        float delta = 1 / 10.f;
-        value( value_ - delta );
-        ui->redraw( this );
-        return 1;
-        */
-      }
-      break;
-    
     
     default:
       return 0; break;

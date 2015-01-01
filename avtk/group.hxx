@@ -30,7 +30,8 @@ class Group : public Widget
     
     /// mark all children too
     virtual void visible( bool visibile );
-    /// only returns true if *all* children are visible
+    /// only returns true if group is visible: not all children in group must
+    /// be visible
     virtual bool visible();
     
     /// adds a Widget to this group: its parent pointer is set to this.

@@ -29,12 +29,15 @@ class UI : public Avtk::Group
     UI( int w, int h, PuglNativeWindow parent = 0 );
     virtual ~UI();
     
+    /*
+    WIP: is the mods state passed around with events?
     /// should only be called from event-handlers
     bool ctrl()
     {
       int mods = puglGetModifiers( view );
-      
+      ( PUGL_MOD_CTRL );
     }
+    */
     
     /// tells the UI a widget has captured a mouse-down event, and
     /// wants to be notified of mouse movement events

@@ -206,14 +206,20 @@ int Scroll::handle( const PuglEvent* event )
   {
     if( touches( event->scroll.x, event->scroll.y ) )
     {
-      if( event->scroll.dy > 0 )
-        vSlider->value( vSlider->value() + 0.1 );
-      else
-        vSlider->value( vSlider->value() - 0.1 );
-      
-      vertical( vSlider->value() );
-      ui->redraw( this );
-      return 1;
+      // not control pressed
+      if( !(((PuglEventScroll*)event)->state & PUGL_MOD_CTRL) )
+      {
+        if( event->scroll.dy > 0 )
+          vSlider->value( vSlider->value() + 0.1 );
+        else
+          vSlider->value( vSlider->value() - 0.1 );
+        
+        vertical( vSlider->value() );
+        ui->redraw( this );
+        
+        // return, eating event, so child group won't react
+        return 1;
+      }
     }
   }
   
@@ -229,7 +235,6 @@ int Scroll::handle( const PuglEvent* event )
       childEvent = *event;
       childEvent.button.x += 0; // scroll position horizontal
       childEvent.button.y -= ( y_ + scrollY_); // position + scroll px
-      
       // pass event on to children
       if( Group::handle( &childEvent ) )
       {
@@ -238,6 +243,14 @@ int Scroll::handle( const PuglEvent* event )
         return 1;
       }
     }
+  }
+  
+  
+  if( Group::handle( event ) )
+  {
+    newChildCr = true;
+    ui->redraw();
+    return 1;
   }
   
   return 0;

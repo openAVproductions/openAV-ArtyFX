@@ -135,13 +135,6 @@ void Group::visible( bool vis )
 
 bool Group::visible()
 {
-  /*
-  for(int i = 0; i < children.size(); i++ )
-  {
-    if( !children.at(i)->visible() )
-      return false;
-  }
-  */
   return Widget::visible();
 }
 
