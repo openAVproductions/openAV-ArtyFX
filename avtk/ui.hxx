@@ -80,18 +80,7 @@ class UI : public Avtk::Group
     
     /// when UI is running standalone, call this function to run the UI. When
     /// the function returns, the main window has been closed.
-    virtual int run()
-    {
-      redraw();
-      
-      while ( !quit_ )
-      {
-        puglProcessEvents(view);
-        usleep( 10 );
-      }
-      
-      return 0;
-    }
+    virtual int run();
     
     /// get the theme requested: the themes have ID's defined in theme file.
     /// calling this without a parameter returns the default theme.
@@ -137,7 +126,11 @@ class UI : public Avtk::Group
     void scroll( int x, int y, int dx, int dy );
     void display( cairo_t* cr );
     void motion(int x, int y);
+#ifdef AVTK_TESTER
+    // make event() public when TESTER is on to allow injecting events
+  public:
     void event( const PuglEvent* event );
+#endif
     void close() { quit_ = true; }
     
     // Static Functions for handling PUGL events below

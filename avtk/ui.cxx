@@ -91,6 +91,24 @@ Theme* UI::theme( int id )
   return themes.at( 0 );
 }
 
+int UI::run()
+{
+  redraw();
+  
+  while ( !quit_ )
+  {
+    puglProcessEvents(view);
+    usleep( 10 );
+    
+#ifdef AVTK_TESTER
+    tester->process();
+#endif
+    
+  }
+  
+  return 0;
+}
+
 void UI::event( const PuglEvent* event )
 {
   if( event->type != PUGL_EXPOSE )
@@ -101,8 +119,8 @@ void UI::event( const PuglEvent* event )
     if( event->type == PUGL_KEY_PRESS )
     {
       // ^1 pressed (Ctrl and number 1)
-      if( event->key.character == '1' &&
-         (((PuglEventKey*)event)->state & PUGL_MOD_CTRL) )
+      if( event->key.character == 'a' )
+        //&& (((PuglEventKey*)event)->state & PUGL_MOD_CTRL) )
       {
         if( !tester->recording() )
         {
@@ -111,12 +129,24 @@ void UI::event( const PuglEvent* event )
         }
         else
         {
-          printf("AVTK: Tester stopping!\n");
           tester->recordStop();
         }
+        return;
+      }
+      
+      // replay on Ctrl^2
+      if( event->key.character == 's' )
+        // && (((PuglEventKey*)event)->state & PUGL_MOD_CTRL) )
+      {
+        printf("run test!\n");
+        tester->runTest( "test1" );
+        return;
       }
     }
-    tester->handle( event );
+    else
+    {
+      tester->handle( event );
+    }
 #endif
     int ret = Group::handle( event );
     if ( ret )
