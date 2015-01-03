@@ -8,13 +8,17 @@ namespace Avtk
 {
 
 // constructor for top-level windows only
-Widget::Widget( Avtk::UI* ui_ ) :
+Widget::Widget( Avtk::UI* ui_, int w, int h ) :
   ui( ui_ ),
   noHandle_( false ),
-  x_( -1 ),
-  y_( -1 ),
-  w_( -1 ),
-  h_( -1 ),
+  x_( 0 ),
+  y_( 0 ),
+  w_( w ),
+  h_( h ),
+  initX( 0 ),
+  initY( 0 ),
+  initW( w ),
+  initH( h ),
   visible_(true),
   parent_( 0x0 ) // top levels don't have a parent
 {
@@ -33,6 +37,11 @@ Widget::Widget( Avtk::UI* ui_, int x, int y, int w, int h, std::string label__) 
   y_( y ),
   w_( w ),
   h_( h ),
+  initX( x ),
+  initY( y ),
+  initW( w ),
+  initH( h ),
+  
   label_( label__ ),
   visible_( true ),
   

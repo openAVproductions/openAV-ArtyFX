@@ -106,7 +106,7 @@ class Group : public Widget
   
   protected:
     /// constructor for top-level UI only
-    Group( Avtk::UI* ui );
+    Group( Avtk::UI* ui, int w, int y );
     
     std::vector< Widget* > children;
     

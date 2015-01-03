@@ -8,8 +8,8 @@ namespace Avtk
 {
 
 
-Group::Group( Avtk::UI* ui ) :
-  Widget( ui ),
+Group::Group( Avtk::UI* ui, int w, int h ) :
+  Widget( ui, w, h ),
   groupMode( NONE ),
   valueMode_( VALUE_NORMAL ),
   resizeMode_( RESIZE_NONE ),

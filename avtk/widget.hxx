@@ -93,12 +93,16 @@ class Widget
   
   protected:
     /// constructor for top level windows
-    Widget( Avtk::UI* ui );
+    Widget( Avtk::UI* ui, int w, int h );
     
     Avtk::Group* parent_;
     
     /// widget co-ords and size
     int x_, y_, w_, h_;
+    
+    /// the original position of the widget. Used to calculate position and size
+    /// of widget when rescaling UI
+    const int initX, initY, initW, initH;
     
     /// local Theme pointer: themes are loaded at startup, and maintained until
     /// quitting, allowing for optimized redraws.

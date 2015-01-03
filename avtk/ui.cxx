@@ -11,7 +11,7 @@
 using namespace Avtk;
 
 UI::UI( int w__, int h__, PuglNativeWindow parent ) :
-  Group( this ),
+  Group( this, w__, h__ ),
   quit_( false ),
   w_( w__ ),
   h_( h__ )
@@ -56,9 +56,12 @@ UI::UI( int w__, int h__, PuglNativeWindow parent ) :
 
 void UI::reshape(int x, int y)
 {
-  printf("reshaping UI to %i %i\n", x, y );
-  Group::w( x );
-  Group::h( y );
+  printf("reshaping UI: scale factor: %f \t%f\n", x/float(initW), y/float(initH) );
+  
+  //Group::resize( );
+  
+  //Group::w( x );
+  //Group::h( y );
 }
 
 UI::~UI()
