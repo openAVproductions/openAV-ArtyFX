@@ -57,11 +57,13 @@ UI::UI( int w__, int h__, PuglNativeWindow parent ) :
 void UI::reshape(int x, int y)
 {
   printf("reshaping UI to %i %i\n", x, y );
+  Group::w( x );
+  Group::h( y );
 }
 
 UI::~UI()
 {
-#ifdef AVTK_DEBUG
+#ifdef AVTK_DEBUG_DTOR
   printf("%s %s\n", __PRETTY_FUNCTION__, label() );
 #endif
   Group::clear();

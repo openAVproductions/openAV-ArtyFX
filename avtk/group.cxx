@@ -143,7 +143,7 @@ void Group::clear()
   while( children.size() > 0 )
   {
 #ifdef AVTK_DEBUG
-    printf("removing child %s from UI : size() %i\n", children.at(0)->label(), children.size() );
+    //printf("removing child %s from UI : size() %i\n", children.at(0)->label(), children.size() );
 #endif
     Avtk::Widget* tmp = children.at(0);
     tmp->parent()->remove( tmp );

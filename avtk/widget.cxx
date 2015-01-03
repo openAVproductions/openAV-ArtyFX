@@ -285,7 +285,7 @@ void Widget::clickMode( ClickMode c )
 {
   cm = c;
 #ifdef AVTK_DEBUG
-  printf("Widget %s  clickMode %i, %i\n", label_.c_str(), cm, c);
+  //printf("Widget %s  clickMode %i, %i\n", label_.c_str(), cm, c);
 #endif // AVTK_DEBUG
 }
 

@@ -135,7 +135,7 @@ int directoryContents( std::string d, std::vector< std::string >& files, std::st
         files.push_back( file.name );
         if( tryCommonStart && commonStart.size() == 0 )
         {
-#ifdef AVTK_DEBUG
+#ifdef AVTK_DEBUG_FILE_OPS
           printf("commonStart init %s\n", file.name );
 #endif
           commonStart = file.name;
@@ -155,7 +155,7 @@ int directoryContents( std::string d, std::vector< std::string >& files, std::st
           {
             if( commonStart[i] != file.name[i] )
             {
-#ifdef AVTK_DEBUG
+#ifdef AVTK_DEBUG_FILE_OPS
               printf("char # %i is not equal!\n", i );
 #endif
               nCharSame = i;
@@ -170,7 +170,7 @@ int directoryContents( std::string d, std::vector< std::string >& files, std::st
           else
           {
             commonStart = commonStart.substr( 0, nCharSame );
-#ifdef AVTK_DEBUG
+#ifdef AVTK_DEBUG_FILE_OPS
             printf("Common chars = %i, %s\n", nCharSame, commonStart.c_str() );
 #endif
           }
@@ -213,7 +213,7 @@ int directoryContents( std::string d, std::vector< std::string >& files, std::st
         printf("dotPos of %s = %i\n", files.at(i).c_str(), dotPos );
       }
       */
-#ifdef AVTK_DEBUG
+#ifdef AVTK_DEBUG_FILE_OPS
       printf("i : %s\n", files.at(i).c_str() );
 #endif
     }
