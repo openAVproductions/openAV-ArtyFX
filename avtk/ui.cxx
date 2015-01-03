@@ -25,7 +25,7 @@ UI::UI( int w__, int h__, PuglNativeWindow parent ) :
     puglInitWindowParent( view, parent );
   
   puglInitWindowSize  (view, w_, h_ );
-  puglInitResizable   (view, false );
+  puglInitResizable   (view, true );
   puglInitContextType (view, PUGL_CAIRO);
   puglIgnoreKeyRepeat (view, true );
   
@@ -33,6 +33,7 @@ UI::UI( int w__, int h__, PuglNativeWindow parent ) :
   puglSetDisplayFunc  (view, UI::onDisplay);
   puglSetCloseFunc    (view, UI::onClose  );
   puglSetMotionFunc   (view, UI::onMotion );
+  puglSetReshapeFunc  (view, UI::onReshape);
   
   puglCreateWindow    (view, "Avtk");
   puglShowWindow      (view);
@@ -51,6 +52,11 @@ UI::UI( int w__, int h__, PuglNativeWindow parent ) :
   dragDropTargetVerifiedWidget = 0;
   
   themes.push_back( new Theme( this, "default.avtk" ) );
+}
+
+void UI::reshape(int x, int y)
+{
+  printf("reshaping UI to %i %i\n", x, y );
 }
 
 UI::~UI()
@@ -148,12 +154,18 @@ void UI::event( const PuglEvent* event )
       tester->handle( event );
     }
 #endif
+    
+    // pass event to group to be handled
     int ret = Group::handle( event );
     if ( ret )
     {
       redraw();
       return;
     }
+  }
+  else if( event->type == PUGL_CONFIGURE )
+  {
+    printf("UI handleing PUGL_CONFIGURE\n");
   }
   else
   {

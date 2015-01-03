@@ -126,12 +126,14 @@ class UI : public Avtk::Group
     void scroll( int x, int y, int dx, int dy );
     void display( cairo_t* cr );
     void motion(int x, int y);
+    void reshape(int x, int y);
+    void close() { quit_ = true; }
 #ifdef AVTK_TESTER
     // make event() public when TESTER is on to allow injecting events
   public:
     void event( const PuglEvent* event );
 #endif
-    void close() { quit_ = true; }
+    
     
     // Static Functions for handling PUGL events below
     static void onMotion(PuglView* view, int x, int y)
@@ -159,6 +161,11 @@ class UI : public Avtk::Group
     {
       UI* ui = (UI*)puglGetHandle( view );
       ui->scroll( x, y, dx, dy );
+    }
+    static void onReshape(PuglView* view, int w, int h)
+    {
+      UI* ui = (UI*)puglGetHandle( view );
+      ui->reshape( w, h );
     }
 };
 
