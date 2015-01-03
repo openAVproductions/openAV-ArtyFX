@@ -4,6 +4,10 @@
 #include "avtk.hxx"
 #include "theme.hxx"
 
+#ifdef AVTK_TESTER
+#include "tester.hxx"
+#endif
+
 using namespace Avtk;
 
 UI::UI( int w__, int h__, PuglNativeWindow parent ) :
@@ -11,6 +15,9 @@ UI::UI( int w__, int h__, PuglNativeWindow parent ) :
   quit_( false ),
   w_( w__ ),
   h_( h__ )
+#ifdef AVTK_TESTER
+  , tester( new Tester( this ) ) // nasty but necessary
+#endif
 {
   view = puglInit(NULL, NULL);
   
@@ -21,6 +28,7 @@ UI::UI( int w__, int h__, PuglNativeWindow parent ) :
   puglInitResizable   (view, false );
   puglInitContextType (view, PUGL_CAIRO);
   puglIgnoreKeyRepeat (view, true );
+  
   puglSetEventFunc    (view, UI::onEvent  );
   puglSetDisplayFunc  (view, UI::onDisplay);
   puglSetCloseFunc    (view, UI::onClose  );
@@ -87,7 +95,29 @@ void UI::event( const PuglEvent* event )
 {
   if( event->type != PUGL_EXPOSE )
   {
-    //printf("UI::handle() type = %i\n", event->type );
+    //printf("UI::handle() type = %i, sending to Tester\n", event->type );
+#ifdef AVTK_TESTER
+    // eat AVTK start record events shortcut: 
+    if( event->type == PUGL_KEY_PRESS )
+    {
+      // ^1 pressed (Ctrl and number 1)
+      if( event->key.character == '1' &&
+         (((PuglEventKey*)event)->state & PUGL_MOD_CTRL) )
+      {
+        if( !tester->recording() )
+        {
+          printf("AVTK: Tester Record Starting!\n");
+          tester->record( "test1" );
+        }
+        else
+        {
+          printf("AVTK: Tester stopping!\n");
+          tester->recordStop();
+        }
+      }
+    }
+    tester->handle( event );
+#endif
     int ret = Group::handle( event );
     if ( ret )
     {

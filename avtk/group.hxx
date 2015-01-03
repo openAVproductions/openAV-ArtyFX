@@ -121,6 +121,10 @@ class Group : public Widget
       Group* g = (Group*)ud;
       g->valueCB( w );
     }
+  
+  private:
+    /// tooltip callback: set it the Group constructor that UI uses
+    
 };
 
 };

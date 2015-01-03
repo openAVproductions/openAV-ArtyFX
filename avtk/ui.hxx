@@ -15,12 +15,12 @@
 // the AVTK UI is a group
 #include "group.hxx"
 
-
 namespace Avtk
 {
 
 class Theme;
 class Widget;
+class Tester;
 
 
 class UI : public Avtk::Group
@@ -28,16 +28,6 @@ class UI : public Avtk::Group
   public:
     UI( int w, int h, PuglNativeWindow parent = 0 );
     virtual ~UI();
-    
-    /*
-    WIP: is the mods state passed around with events?
-    /// should only be called from event-handlers
-    bool ctrl()
-    {
-      int mods = puglGetModifiers( view );
-      ( PUGL_MOD_CTRL );
-    }
-    */
     
     /// tells the UI a widget has captured a mouse-down event, and
     /// wants to be notified of mouse movement events
@@ -76,14 +66,20 @@ class UI : public Avtk::Group
       ui->widgetValueCB( widget );
     }
     
+    /// draws the screen. Passing in will cause a partial redraw if possible
+    /// on the current platform and rendering subsystem.
     void redraw();
     void redraw( Avtk::Widget* w );
     
+    /// when used as a UI plugin, created by a host, this function should be
+    /// called repeatedly at ~30 fps to handle events and redraw if needed.
     int idle()
     {
       puglProcessEvents(view);
     }
     
+    /// when UI is running standalone, call this function to run the UI. When
+    /// the function returns, the main window has been closed.
     virtual int run()
     {
       redraw();
@@ -113,6 +109,11 @@ class UI : public Avtk::Group
     
     bool quit_;
     int w_, h_;
+    
+#ifdef AVTK_TESTER
+    /// for testing the UI, the Tester class can record and playback events.
+    Tester* tester;
+#endif
     
     /// the list of widgets currently instantiated, in order of being drawn.
     std::list<Avtk::Widget*> widgets;

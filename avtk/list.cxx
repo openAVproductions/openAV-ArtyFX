@@ -94,5 +94,8 @@ void List::valueCB( Widget* w )
   printf("list: lastClickedItem# %i, string: %s\n", lastClickedItem, selectedString().c_str() );
   
   // send an event to UI as the list widget
-  Avtk::UI::staticWidgetValueCB( this, ui );
+  if( callback )
+    callback( this, callbackUD );
+  
+  //Avtk::UI::staticWidgetValueCB( this, ui );
 }
