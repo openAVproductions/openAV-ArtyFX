@@ -46,6 +46,9 @@ class Scroll : public Group
     void vertical  ( float v );
     void horizontal( float v );
     
+    /// choose scroll action: pass Ctrl + Scroll wheel on to child, or zoom widget
+    void setCtrlZoom( bool zoom );
+    
     /// called by child widgets when thier size changes
     virtual void childResize( Widget* w );
     
@@ -70,6 +73,8 @@ class Scroll : public Group
     
     int scrollX_;
     int scrollY_;
+    
+    bool setCtrlZoom_;
     
     void redrawChild( cairo_t* cr );
     

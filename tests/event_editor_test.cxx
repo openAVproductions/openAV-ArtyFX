@@ -19,6 +19,7 @@ EventEditorUI::EventEditorUI(PuglNativeWindow parent) :
   
   // Editor
   scroll = new Avtk::Scroll( this, 10, 10, WIDTH-20, HEIGHT-20, "EventEditorScroll" );
+  scroll->setCtrlZoom( true );
   
   int scale = 4;
   editor = new Avtk::EventEditor( this, 0, 0, 240*scale, 240*scale, "EventEditor" );

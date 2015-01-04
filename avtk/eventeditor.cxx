@@ -16,7 +16,7 @@ EventEditor::EventEditor( Avtk::UI* ui, int x_, int y_, int w_, int h_, std::str
   
   // piano keyboard starts at 24, has 88
   startKey = 1;
-  keyCount = 48;
+  keyCount = 88;
   
   // height of each key, based on current zoom level
   keyHpx = h_ / float(keyCount);
@@ -40,7 +40,7 @@ EventEditor::EventEditor( Avtk::UI* ui, int x_, int y_, int w_, int h_, std::str
   events->add( new MidiEvent( 2.00, 0.15, ev5 ) );
   events->add( new MidiEvent( 0.50, 0.15, ev6 ) );
   events->add( new MidiEvent( 1.00, 1.00, ev7 ) );
-  events->add( new MidiEvent( 3.50, 0.2 , ev8 ) );
+  events->add( new MidiEvent( 2.50, 0.2 , ev8 ) );
   
   events->setLoopLenght( 4 );
 }
@@ -93,7 +93,7 @@ void EventEditor::draw( cairo_t* cr )
     return;
   }
   // calculate horizontal pixel count per beat for this zoom level
-  int beatPx = float(w_) / events->getLoopLength();
+  int beatPx = float(w_ - 20) / events->getLoopLength();
   
   /// loop over events: highjacked increment to advance to next note
   for( ; e ; events->moveToNextEvent() , e = events->getNext() )
@@ -113,7 +113,7 @@ void EventEditor::draw( cairo_t* cr )
         
         // draw the note rectangle
         int notePx = h_ - (note) * h_;
-        cairo_rectangle( cr, x_ + beatPx * e->getTime(), y_ + notePx + 1, durationPx, keyHpx - 2);
+        cairo_rectangle( cr, x_ + 20 + beatPx * e->getTime(), y_ + notePx + 1, durationPx, keyHpx - 2);
         
         // per note colour: velocity!
         static const float max[] = {1.0, 0.28, 0.0};
@@ -147,8 +147,8 @@ void EventEditor::draw( cairo_t* cr )
         
         // draw velocity line
         float lineHeight = y_ + notePx + keyHpx/2;
-        cairo_move_to( cr, x_ + 3 + beatPx * e->getTime(), lineHeight );
-        cairo_line_to( cr, x_ + beatPx * e->getTime() + ((durationPx-6) * velo), lineHeight );
+        cairo_move_to( cr, x_ + 20 + 3 + beatPx * e->getTime(), lineHeight );
+        cairo_line_to( cr, x_ + 20 + beatPx * e->getTime() + ((durationPx-6) * velo), lineHeight );
         cairo_set_line_width(cr, 1.3);
         cairo_stroke( cr );
       } // note is in current view
@@ -180,23 +180,39 @@ void EventEditor::drawKeyboard( cairo_t* cr )
   cairo_set_font_size(cr, 14.0);
   cairo_text_extents(cr, "10", &extents);
   
-  for( int i = 0; i < keyCount; i++)
+  int notePx = y_ + h_ - 0 * onKeyPx;
+  
+  for( int i = 0; notePx > y_ ; i++)
   {
-    if( blackKeys[i%13] == 0 )
+    if( blackKeys[i%12] )
     {
-      int notePx = h_ - i * onKeyPx;
-      //cairo_move_to( cr, x_     , notePx );
-      //cairo_line_to( cr, x_ + w_, notePx );
-      cairo_rectangle( cr, x_, notePx + onKeyPx, w_, onKeyPx);
-      cairo_set_source_rgba( cr, 0 / 255.f, 0 / 255.f , 0 / 255.f , 0.8 );
+      cairo_rectangle( cr, x_, y_ + notePx - onKeyPx, w_, onKeyPx);
+      cairo_set_source_rgba( cr, 0 / 255.f, 0 / 255.f , 0 / 255.f , 0.2 );
       cairo_fill( cr );
       
+      /*
+      // MIDI note debugging (shows numbers on keyboard)
       cairo_set_source_rgba( cr, 1 / 255.f, 1 / 255.f , 1 / 255.f , 0.8 );
       std::stringstream s;
       s << i;
-      cairo_show_text( cr, s.str().c_str() );
       cairo_move_to(cr, x_ + 4, notePx );
+      cairo_show_text( cr, s.str().c_str() );
+      */
     }
+    else
+    {
+      cairo_rectangle( cr, x_, y_ + notePx - onKeyPx, 20, onKeyPx);
+      cairo_set_source_rgba( cr, 1 , 1, 1, 0.6 );
+      cairo_fill( cr );
+    }
+    
+    notePx = h_ - i * onKeyPx;
   }
+  
+  // line down past keyboard
+  cairo_move_to( cr, x_ + 20, y_ );
+  cairo_line_to( cr, x_ + 20, y_ + h_ );
+  cairo_set_line_width(cr, 1.3);
+  cairo_stroke( cr );
   
 }
