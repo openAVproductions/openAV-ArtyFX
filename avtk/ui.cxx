@@ -10,7 +10,7 @@
 
 using namespace Avtk;
 
-UI::UI( int w__, int h__, PuglNativeWindow parent ) :
+UI::UI( int w__, int h__, PuglNativeWindow parent, const char* windowName ) :
   Group( this, w__, h__ ),
   quit_( false ),
   w_( w__ ),
@@ -35,7 +35,7 @@ UI::UI( int w__, int h__, PuglNativeWindow parent ) :
   puglSetMotionFunc   (view, UI::onMotion );
   puglSetReshapeFunc  (view, UI::onReshape);
   
-  puglCreateWindow    (view, "Avtk");
+  puglCreateWindow    (view, windowName );
   puglShowWindow      (view);
   
   puglSetHandle       (view, this);

@@ -26,7 +26,7 @@ class Tester;
 class UI : public Avtk::Group
 {
   public:
-    UI( int w, int h, PuglNativeWindow parent = 0 );
+    UI( int w, int h, PuglNativeWindow parent = 0, const char* windowName = "Avtk" );
     virtual ~UI();
     
     /// tells the UI a widget has captured a mouse-down event, and
