@@ -5,6 +5,7 @@
 #include "theme.hxx"
 
 #include <stdio.h>
+#include <sstream>
 
 using namespace Avtk;
 
@@ -14,8 +15,8 @@ EventEditor::EventEditor( Avtk::UI* ui, int x_, int y_, int w_, int h_, std::str
   //clickMode( CLICK_MOMENTARY );
   
   // piano keyboard starts at 24, has 88
-  startKey = 24 + 12 * 1;
-  keyCount = 88;
+  startKey = 1;
+  keyCount = 48;
   
   // height of each key, based on current zoom level
   keyHpx = h_ / float(keyCount);
@@ -28,8 +29,8 @@ EventEditor::EventEditor( Avtk::UI* ui, int x_, int y_, int w_, int h_, std::str
   unsigned char ev3[] = { 0x90, 60, 0x60 };
   unsigned char ev4[] = { 0x90, 48, 0x55 };
   unsigned char ev5[] = { 0x90, 36, 0x4F };
-  unsigned char ev6[] = { 0x90, 44, 0x30 };
-  unsigned char ev7[] = { 0x90, 42, 0x20 };
+  unsigned char ev6[] = { 0x90, 63, 0x30 };
+  unsigned char ev7[] = { 0x90, 54, 0x20 };
   unsigned char ev8[] = { 0x90, 40, 0x00 };
   events->add( new MidiEvent( 0.00, 0.25, ev1 ) );
   events->add( new MidiEvent( 0.50, 0.5 , ev2 ) );
@@ -37,8 +38,8 @@ EventEditor::EventEditor( Avtk::UI* ui, int x_, int y_, int w_, int h_, std::str
   events->add( new MidiEvent( 1.50, 0.5 , ev4 ) );
   events->add( new MidiEvent( 1.50, 0.65, ev1 ) );
   events->add( new MidiEvent( 2.00, 0.15, ev5 ) );
-  events->add( new MidiEvent( 2.50, 0.5 , ev6 ) );
-  events->add( new MidiEvent( 3.00, 0.05, ev7 ) );
+  events->add( new MidiEvent( 0.50, 0.15, ev6 ) );
+  events->add( new MidiEvent( 1.00, 1.00, ev7 ) );
   events->add( new MidiEvent( 3.50, 0.2 , ev8 ) );
   
   events->setLoopLenght( 4 );
@@ -161,7 +162,6 @@ void EventEditor::draw( cairo_t* cr )
 
 void EventEditor::drawKeyboard( cairo_t* cr )
 {
-  
   /*
   // draw keyboard style horizontal sections
   startKey = 24 + 12 * 1;
@@ -169,11 +169,34 @@ void EventEditor::drawKeyboard( cairo_t* cr )
   keyHpx
   */
   
+  int onKeyPx = h_ / keyCount;
+  
+  // h_ == startKey
+  
+  int blackKeys[] = {0, 1, 0, 1, 0, 0, 1, 0, 1, 0, 1, 0};
+  
+  // Draw label
+  cairo_text_extents_t extents;
+  cairo_set_font_size(cr, 14.0);
+  cairo_text_extents(cr, "10", &extents);
+  
   for( int i = 0; i < keyCount; i++)
   {
-    int notePx = h_ - (i) * keyHpx;
-    cairo_move_to( cr, x_     , notePx );
-    cairo_line_to( cr, x_ + w_, notePx );
-    //cairo_rectangle( cr, x_, notePx, w_, keyHpx - 2);
+    if( blackKeys[i%13] == 0 )
+    {
+      int notePx = h_ - i * onKeyPx;
+      //cairo_move_to( cr, x_     , notePx );
+      //cairo_line_to( cr, x_ + w_, notePx );
+      cairo_rectangle( cr, x_, notePx + onKeyPx, w_, onKeyPx);
+      cairo_set_source_rgba( cr, 0 / 255.f, 0 / 255.f , 0 / 255.f , 0.8 );
+      cairo_fill( cr );
+      
+      cairo_set_source_rgba( cr, 1 / 255.f, 1 / 255.f , 1 / 255.f , 0.8 );
+      std::stringstream s;
+      s << i;
+      cairo_show_text( cr, s.str().c_str() );
+      cairo_move_to(cr, x_ + 4, notePx );
+    }
   }
+  
 }
