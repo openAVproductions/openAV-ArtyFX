@@ -53,7 +53,7 @@ link_directories   ( ${X11_LIBRARY_DIRS} )
 
 SET(CMAKE_CXX_FLAGS "-trigraphs -g")
 
-FILE(GLOB src main.cxx test_ui.cxx avtk/*.cxx avtk/pugl/pugl_x11.c )
+FILE(GLOB src main.cxx test_ui.cxx libs/pffft.cxx avtk/*.cxx avtk/pugl/pugl_x11.c )
 ADD_EXECUTABLE( avtk ${src} )
 
 #target_link_libraries( avtk ${GL_LIBRARIES}     )

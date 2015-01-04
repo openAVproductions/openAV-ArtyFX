@@ -38,6 +38,8 @@ class TestUI : public Avtk::UI
     Avtk::List* list;
     Avtk::List* list2;
     Avtk::Waveform* waveform;
+    
+    Avtk::Spectrum* spectrum;
 };
 
 

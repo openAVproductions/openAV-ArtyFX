@@ -3,6 +3,8 @@
 #include "avtk/utils.hxx"
 #include "avtk/theme.hxx"
 
+#include "libs/audioGen.hxx"
+
 #include <sstream>
 
 static void roundCB(Avtk::Widget* w, void* ud);
@@ -129,7 +131,24 @@ TestUI::TestUI( PuglNativeWindow parent ):
   std::vector<float> tmp;
   int error = Avtk::loadSample( "test.wav", tmp );
   waveform->show( tmp );
+  */
   
+  // spectrum
+  spectrum = new Avtk::Spectrum( this, 150, 405, 250, 90, "Spectrum" );
+  
+  std::vector<float> audio;
+  for(int i = 0; i < 44100; i++)
+  {
+    audio.push_back( 0 );
+  }
+  // gen audio
+  sawtooth( 44100, &audio[0], 440, 50 );
+  // analyse it
+  audioDataSpectrum( 44100, &audio[0] );
+  // set it to widget
+  spectrum->show( 422, &audio[0] );
+  
+  /*
   w = new Avtk::Envelope( this, 215, 115, 60, 40, "Envelope" );
   
   // image

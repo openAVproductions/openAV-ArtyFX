@@ -23,6 +23,7 @@
 #include "button.hxx"
 #include "number.hxx"
 #include "slider.hxx"
+#include "spectrum.hxx"
 #include "envelope.hxx"
 #include "waveform.hxx"
 #include "listitem.hxx"
