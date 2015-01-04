@@ -169,7 +169,7 @@ void Scroll::draw( cairo_t* cr )
     }
     if( scrollH_ )
     {
-      //hSlider->draw( cr );
+      hSlider->draw( cr );
     }
     
     cairo_restore( cr );
@@ -217,12 +217,24 @@ int Scroll::handle( const PuglEvent* event )
       // not control pressed
       if( !(((PuglEventScroll*)event)->state & PUGL_MOD_CTRL) )
       {
-        if( event->scroll.dy > 0 )
-          vSlider->value( vSlider->value() + 0.1 );
+        // shift scrolls horizontal
+        if( !(((PuglEventScroll*)event)->state & PUGL_MOD_SHIFT) )
+        {
+          if( event->scroll.dy > 0 )
+            vSlider->value( vSlider->value() + 0.1 );
+          else
+            vSlider->value( vSlider->value() - 0.1 );
+          vertical( vSlider->value() );
+        }
         else
-          vSlider->value( vSlider->value() - 0.1 );
+        {
+          if( event->scroll.dy > 0 )
+            hSlider->value( hSlider->value() - 0.1 );
+          else
+            hSlider->value( hSlider->value() + 0.1 );
+          horizontal( hSlider->value() );
+        }
         
-        vertical( vSlider->value() );
         ui->redraw( this );
         
         // return, eating event, so child group won't react
@@ -247,7 +259,7 @@ int Scroll::handle( const PuglEvent* event )
             int newW = w->w() * scale;
             int newH = w->h() * scale;
             
-            if( newW > 2048 * 2 || newH > 2048 * 2 )
+            if( newW > 2048 * 3 || newH > 2048 * 3 )
               return 1; // no more zooming: cairo_t context gets too big
             
             w->w( newW );

@@ -72,7 +72,7 @@ void EventEditor::draw( cairo_t* cr )
   // FIXME: hardcoded beats-per-bar, get from GUI?
   for(int i = 0; i < numBeats * 4; i++ )
   {
-    int xPx = x_ + w_ * i / numBeats;
+    int xPx = x_ + 20 + (w_-20) * i / numBeats;
     cairo_move_to( cr, xPx, y_ + 0 );
     cairo_line_to( cr, xPx, y_ + h_ );
     
@@ -117,8 +117,8 @@ void EventEditor::draw( cairo_t* cr )
         
         // per note colour: velocity!
         static const float max[] = {1.0, 0.28, 0.0};
-        static const float mid[] = {0.9, 0.90, 0.9};
-        static const float min[] = {0.0, 0.71, 1.0};
+        static const float min[] = {0.9, 0.90, 0.9};
+        static const float mid[] = {0.0, 0.71, 1.0};
         if ( velo > 0.5 )
         {
           float v = (velo-0.5) * 2; // normalize 0-1
