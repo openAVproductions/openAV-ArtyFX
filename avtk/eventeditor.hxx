@@ -42,7 +42,6 @@ class EventEditor : public Widget
     // current view
     int startKey;
     int keyCount;
-    float keyHpx;
     
     // event vector:
     SeqEventList* events;

@@ -6,8 +6,8 @@
 
 #include <sstream>
 
-#define WIDTH  720
-#define HEIGHT 320
+#define WIDTH  920
+#define HEIGHT 520
 
 EventEditorUI::EventEditorUI(PuglNativeWindow parent) :
   Avtk::UI( WIDTH, HEIGHT, parent, "AVTK : Event Editor" )

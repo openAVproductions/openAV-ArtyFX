@@ -259,7 +259,7 @@ int Scroll::handle( const PuglEvent* event )
             int newW = w->w() * scale;
             int newH = w->h() * scale;
             
-            if( newW > 2048 * 3 || newH > 2048 * 3 )
+            if( newW > 2048 * 2 || newH > 2048 * 2 )
               return 1; // no more zooming: cairo_t context gets too big
             
             w->w( newW );
