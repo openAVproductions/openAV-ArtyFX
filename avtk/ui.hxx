@@ -128,12 +128,16 @@ class UI : public Avtk::Group
     void motion(int x, int y);
     void reshape(int x, int y);
     void close() { quit_ = true; }
-#ifdef AVTK_TESTER
-    // make event() public when TESTER is on to allow injecting events
-  public:
-    void event( const PuglEvent* event );
-#endif
     
+#ifdef AVTK_TESTER
+  public: // make event() public when TESTER is on to allow injecting events
+#endif
+    /// the main event function: it handles all event input, and distritbutes it
+    /// to the widgets
+    void event( const PuglEvent* event );
+#ifdef AVTK_TESTER
+  protected:
+#endif
     
     // Static Functions for handling PUGL events below
     static void onMotion(PuglView* view, int x, int y)
