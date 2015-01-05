@@ -17,6 +17,7 @@
 #include "scroll.hxx"
 
 // widget headers
+#include "text.hxx"
 #include "list.hxx"
 #include "dial.hxx"
 #include "image.hxx"
