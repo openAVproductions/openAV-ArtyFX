@@ -184,8 +184,28 @@ void EventEditor::drawKeyboard( cairo_t* cr )
   
   for( int i = 0; notePx > y_ ; i++)
   {
-    if( blackKeys[i%12] )
+    int iMod = i%12;
+    
+    if( iMod == 0 || iMod == 5 )
     {
+      if( iMod == 0 )
+      {
+        cairo_set_line_width(cr, 1.3);
+      }
+      else
+      {
+        cairo_set_line_width(cr, 0.5);
+      }
+      // dark line between B-C and E-F
+      cairo_move_to( cr, x_     , y_ + notePx );
+      cairo_line_to( cr, x_ + w_, y_ + notePx  );
+      cairo_set_source_rgba( cr, 0 / 255.f, 0 / 255.f , 0 / 255.f , 0.8 );
+      cairo_stroke( cr );
+    }
+    
+    if( blackKeys[iMod] )
+    {
+      
       cairo_rectangle( cr, x_, y_ + notePx - onKeyPx, w_, onKeyPx);
       cairo_set_source_rgba( cr, 0 / 255.f, 0 / 255.f , 0 / 255.f , 0.2 );
       cairo_fill( cr );
