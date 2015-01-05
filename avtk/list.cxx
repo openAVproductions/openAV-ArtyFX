@@ -21,7 +21,7 @@ void List::addItem( std::string newItem )
 {
   items.push_back( newItem );
   
-  add( new Avtk::ListItem( ui, 0, 0, 14, 14, newItem ) );
+  add( new Avtk::ListItem( ui, 0, 0, 34, 14, newItem ) );
   
   ui->redraw();
 }
@@ -68,10 +68,12 @@ void List::draw( cairo_t* cr )
     // have the group draw itself
     Group::draw( cr );
     
+    /*
     roundedBox(cr, x_, y_, w_, h_, theme_->cornerRadius_ );
     theme_->color( cr, FG );
     cairo_set_line_width(cr, 0.5);
     cairo_stroke( cr );
+    */
     
     cairo_restore( cr );
   }
@@ -91,6 +93,13 @@ void List::valueCB( Widget* w )
   // call the super valueCB, handles turning off other widgets
   Group::valueCB( w );
   lastClickedItem = w->groupItemNumber();
+  
+  std::string tmp = selectedString();
+  if( !tmp.size() )
+  {
+    return;
+  }
+  
   printf("list: lastClickedItem# %i, string: %s\n", lastClickedItem, selectedString().c_str() );
   
   // send an event to UI as the list widget

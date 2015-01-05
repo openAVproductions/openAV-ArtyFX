@@ -19,3 +19,4 @@ DialUI::DialUI(PuglNativeWindow parent) :
   dial = new Avtk::Dial( this, 10, 10, WIDTH-20, HEIGHT-20, "Dial" );
 }
 
+ 
