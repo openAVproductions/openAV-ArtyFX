@@ -27,6 +27,9 @@ TestUI::TestUI( PuglNativeWindow parent ):
   
   Avtk::Widget* w = 0;
   
+  
+  w = new Avtk::Box( this, 660, 320, 90, 90, "Box 1" );
+  
   // group testing
   group1 = new Avtk::Group( this, 660, 43, 100, 0, "Group 1" );
   group1->mode( Avtk::Group::WIDTH_EQUAL );
@@ -64,6 +67,7 @@ TestUI::TestUI( PuglNativeWindow parent ):
   */
   //scroll->set( editor );
   //scroll->set( group1 );
+  
   
   scroll = new Avtk::Scroll( this, 130, 43, 520, 210, "Scroll 1" );
   
