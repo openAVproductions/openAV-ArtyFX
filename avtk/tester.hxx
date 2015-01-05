@@ -2,6 +2,8 @@
 #ifndef OPENAV_AVTK_TESTER_HXX
 #define OPENAV_AVTK_TESTER_HXX
 
+#ifdef AVTK_TESTER
+
 #include "pugl/pugl.h"
 
 #include <string>
@@ -68,6 +70,8 @@ class Tester
     double getTime();
 };
 
-};
+}; // Avtk
+
+#endif // AVTK_TESTER
 
 #endif // OPENAV_AVTK_TESTER_HXX

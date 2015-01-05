@@ -1,5 +1,7 @@
 
 
+#ifdef AVTK_TESTER
+
 #include "tester.hxx"
 
 #include "ui.hxx"
@@ -181,3 +183,4 @@ double Tester::getTime()
 
 }; // Avtk
 
+#endif // AVTK_TESTER
