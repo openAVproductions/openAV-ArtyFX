@@ -17,6 +17,7 @@ ListUI::ListUI(PuglNativeWindow parent) :
   
   listH = new Avtk::List( this, 10, 10, 100, 30, "List" );
   listH->mode( Group::HEIGHT_EQUAL );
+  listH->resizeMode( Group::RESIZE_FIT_TO_CHILDREN );
   
   Avtk::Widget* w = 0;
   for(int i = 0; i < 5; i++ )

@@ -80,7 +80,7 @@ void Group::add( Widget* child )
     
     if( resizeMode_ == RESIZE_FIT_TO_CHILDREN )
     {
-      w( x_ - (child->w() + child->w()) );
+      w( x_ + (child->w() + child->w()) );
       //printf("group width set to %i\n", w_ );
     }
   }
