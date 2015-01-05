@@ -26,6 +26,7 @@ class Widget
     
     /// returns the name of the Widget
     const char* label(){return label_.c_str();}
+    void label( const char* l ){label_ = l;}
     
     /// returns the widgets parent
     Group* parent(){return parent_;}
