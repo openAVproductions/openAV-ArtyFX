@@ -19,6 +19,7 @@ class ListUI : public Avtk::UI
     virtual void widgetValueCB( Avtk::Widget* widget){}
     
     Avtk::List* listH;
+    Avtk::List* listV;
 };
 
 

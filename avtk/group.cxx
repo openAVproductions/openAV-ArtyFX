@@ -67,7 +67,7 @@ void Group::add( Widget* child )
     
     if( resizeMode_ == RESIZE_FIT_TO_CHILDREN )
     {
-      h( childY );
+      h( childY + child->h() - y_ );
       //printf("group height %i : child y = %i\n", h_, child->y() );
     }
   }
@@ -80,8 +80,8 @@ void Group::add( Widget* child )
     
     if( resizeMode_ == RESIZE_FIT_TO_CHILDREN )
     {
-      w( x_ + (child->w() + child->w()) );
-      //printf("group width set to %i\n", w_ );
+      w( childX + child->w() - x_ );
+      //printf("group width set to %i, childX %i\n", w_ );
     }
   }
   

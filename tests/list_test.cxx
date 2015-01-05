@@ -15,7 +15,7 @@ ListUI::ListUI(PuglNativeWindow parent) :
   Widget::theme_ = themes.front();
   
   
-  listH = new Avtk::List( this, 10, 10, 100, 30, "List" );
+  listH = new Avtk::List( this, 60, 10, 0, 30, "List" );
   listH->mode( Group::HEIGHT_EQUAL );
   listH->resizeMode( Group::RESIZE_FIT_TO_CHILDREN );
   
@@ -23,8 +23,16 @@ ListUI::ListUI(PuglNativeWindow parent) :
   for(int i = 0; i < 5; i++ )
   {
     listH->addItem( "Tst" );
-    //w = new Avtk::Button( this, 10, 10, WIDTH-20, HEIGHT-20, "List" );
-    //listH->add( w );
+  }
+  
+  listV = new Avtk::List( this, 10, 10, 40, 40, "List" );
+  listV->mode( Group::WIDTH_EQUAL );
+  listV->resizeMode( Group::RESIZE_FIT_TO_CHILDREN );
+  
+  w = 0;
+  for(int i = 0; i < 5; i++ )
+  {
+    listV->addItem( "Tst" );
   }
   
 }
