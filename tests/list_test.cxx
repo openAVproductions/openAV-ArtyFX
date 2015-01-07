@@ -8,6 +8,11 @@
 #define WIDTH  500
 #define HEIGHT 200
 
+static void cb( Avtk::Widget* w, void* ud )
+{
+  printf("ListTest - cb value %f\n", ((Avtk::List*)w)->value() );
+}
+
 ListUI::ListUI(PuglNativeWindow parent) :
   Avtk::UI( WIDTH, HEIGHT, parent, "AVTK : List" )
 {
@@ -34,6 +39,9 @@ ListUI::ListUI(PuglNativeWindow parent) :
   {
     listV->addItem( "Tst" );
   }
+  
+  listH->callback = cb;
+  listV->callback = cb;
   
 }
 

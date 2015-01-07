@@ -49,6 +49,7 @@ void List::value( float v )
     
     children.at(i)->value( v );
   }
+  lastClickedItem = item;
 }
 
 void List::clear()

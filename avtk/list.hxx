@@ -26,6 +26,8 @@ class List : public Group
     
     /// integer input for which item to highlight
     void value( float v );
+    /// returns the integer value of the clicked item
+    float value(){return lastClickedItem;}
     
     void show( std::vector< std::string > data );
     
