@@ -30,7 +30,7 @@ void Box::draw( cairo_t* cr )
   
   // draw header
   cairo_rectangle( cr, x_, y_, w_, 14 );
-  theme_->color( cr, HIGHLIGHT, 1 );
+  theme_->color( cr, HIGHLIGHT, 0.8 );
   cairo_fill( cr );
   
   // show the text

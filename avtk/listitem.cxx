@@ -25,7 +25,7 @@ void ListItem::draw( cairo_t* cr )
   if( value() > 0.4999 )
   {
       cairo_rectangle( cr, x_, y_, w_, h_ );
-      theme_->color( cr, HIGHLIGHT, 1 );
+      theme_->color( cr, HIGHLIGHT, 0.8 );
       cairo_fill_preserve( cr );
       cairo_stroke( cr );
       theme_->color( cr, BG_DARK, 0.8 );
