@@ -243,10 +243,13 @@ void Group::draw( cairo_t* cr )
         c->draw( cr );
     }
     
-    roundedBox(cr, x_, y_, w_, h_, theme_->cornerRadius_ );
-    theme_->color( cr, FG );
-    cairo_set_line_width(cr, 0.5);
-    cairo_stroke(cr);
+    if ( false ) // draws group boundary
+    {
+      roundedBox(cr, x_, y_, w_, h_, theme_->cornerRadius_ );
+      theme_->color( cr, FG );
+      cairo_set_line_width(cr, 0.5);
+      cairo_stroke(cr);
+    }
     
     //cairo_surface_write_to_png( cairo_get_target( cr ), "cr.png" );
   }

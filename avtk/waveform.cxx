@@ -124,6 +124,7 @@ void Waveform::draw( cairo_t* cr )
       
       cairo_set_line_join( cr, CAIRO_LINE_JOIN_ROUND);
       cairo_set_source_rgb( waveformCr, 1,1,1 );
+      cairo_set_line_width(cr, theme_->lineWidthThin() );
       
       // loop over each pixel value we need
       for( int p = 0; p < w_; p++ )
@@ -147,7 +148,7 @@ void Waveform::draw( cairo_t* cr )
         
         if( p % 128 == 0 )
         {
-          // stroke the waveform
+          // stroke the waveform, necessary for good anti-aliasing
           cairo_stroke( waveformCr );
           cairo_move_to( waveformCr, p, h_/2.f - average*(h_-40)/2.f  );
         }
