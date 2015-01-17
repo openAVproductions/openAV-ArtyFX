@@ -34,12 +34,12 @@ DialogUI::DialogUI(PuglNativeWindow parent) :
 void DialogUI::widgetValueCB( Avtk::Widget* widget)
 {
   //printf("widget dialog callback\n" );
-  dialog->visible( !dialog->visible() );
-  printf("visible %i\n", dialog->visible() );
+  //dialog->visible( !dialog->visible() );
+  //printf("visible %i\n", dialog->visible() );
   
   if( show )
   {
-    dialog->show( "This is dialog text", Avtk::Dialog::OK_CANCEL );
+    dialog->run( "This is dialog text", Avtk::Dialog::OK_CANCEL );
     printf("visible %i\n", dialog->visible() );
   }
 }

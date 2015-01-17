@@ -2,14 +2,14 @@
 #ifndef OPENAV_AVTK_DIALOG_HXX
 #define OPENAV_AVTK_DIALOG_HXX
 
-#include "widget.hxx"
+#include "group.hxx"
 
 namespace Avtk
 {
 
 class Button;
 
-class Dialog : public Widget
+class Dialog : public Group
 {
   public:
     Dialog( Avtk::UI* ui, int x, int y, int w, int h, std::string label);
@@ -20,14 +20,19 @@ class Dialog : public Widget
       OK_CANCEL,
     };
     
-    void show( const char* text, BUTTONS b = OK );
+    /// returns 1 on OK or YES, 0 on cancel or NO, -1 on error
+    int run( const char* text, BUTTONS b = OK );
     
+    // to highjack the OK / Cancel buttons events
+    virtual void widgetValueCB( Avtk::Widget* widget);
     
     virtual void draw( cairo_t* cr );
   
   private:
     BUTTONS buttons_;
     std::string contents;
+    
+    int returnVal;
     
     Avtk::Button* ok;
     Avtk::Button* cancel;

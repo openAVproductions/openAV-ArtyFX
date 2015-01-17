@@ -15,7 +15,6 @@ class DialogUI : public Avtk::UI
     /// Set a NativeWindow for embedding: ignore for standalone
     DialogUI(PuglNativeWindow parent = 0);
     
-    // ignore widget values, empty function body
     virtual void widgetValueCB( Avtk::Widget* widget);
     
     Avtk::Button* show;
