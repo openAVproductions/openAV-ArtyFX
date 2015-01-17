@@ -11,6 +11,7 @@ namespace Avtk
 Widget::Widget( Avtk::UI* ui_, int w, int h ) :
   ui( ui_ ),
   noHandle_( false ),
+  label_("avtk-top-level"),
   x_( 0 ),
   y_( 0 ),
   w_( w ),

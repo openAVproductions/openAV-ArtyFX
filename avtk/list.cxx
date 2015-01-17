@@ -21,7 +21,10 @@ void List::addItem( std::string newItem )
 {
   items.push_back( newItem );
   
-  add( new Avtk::ListItem( ui, 0, 0, 34, 14, newItem ) );
+  ListItem* li = new Avtk::ListItem( ui, 0, 0, 34, 14, newItem );
+  printf("List::addItem() li parent %i\n", li->parent() );
+  add( li );
+  printf("List::addItem() after add %i\n", li->parent() );
   
   ui->redraw();
 }

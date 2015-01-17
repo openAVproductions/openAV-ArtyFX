@@ -140,14 +140,17 @@ bool Group::visible()
 
 void Group::clear()
 {
-  while( children.size() > 0 )
+  int i = 0;
+  while( i < children.size() )
   {
+    Avtk::Widget* tmp = children.at(i);
 #ifdef AVTK_DEBUG
-    //printf("removing child %s from UI : size() %i\n", children.at(0)->label(), children.size() );
+    printf("removing child %s from %s : size() %i\n", tmp->label(), label(), children.size() );
 #endif
-    Avtk::Widget* tmp = children.at(0);
     tmp->parent()->remove( tmp );
+    
     delete tmp;
+    i++;
   }
   
   // resets size of vector to 0

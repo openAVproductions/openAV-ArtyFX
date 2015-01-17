@@ -39,6 +39,9 @@ class UI : public Avtk::Group
         motionUpdateWidget = 0;
     }
     
+    /// overriden so we can set motion widget etc to null on removal.
+    virtual void remove ( Widget* child );
+    
     /// Initiate a drag-and-drop action, with the widget as the "origin widget",
     /// and the data is copied to the UI instance.
     void dragDropInit( Avtk::Widget* origin, size_t size, void* data );

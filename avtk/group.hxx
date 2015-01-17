@@ -38,7 +38,7 @@ class Group : public Widget
     void add    ( Widget* child );
     
     /// removes a Widget from this group: its parent pointer is set to 0.
-    void remove ( Widget* child );
+    virtual void remove ( Widget* child );
     
     virtual int x(){return Widget::x();}
     virtual int y(){return Widget::y();}

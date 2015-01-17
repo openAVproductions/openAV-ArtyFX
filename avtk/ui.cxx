@@ -70,7 +70,6 @@ UI::~UI()
 #ifdef AVTK_DEBUG_DTOR
   printf("%s %s\n", __PRETTY_FUNCTION__, label() );
 #endif
-  Group::clear();
   
   while( themes.size() > 0 )
   {
@@ -119,6 +118,28 @@ int UI::run()
   }
   
   return 0;
+}
+
+void UI::remove( Avtk::Widget* w )
+{
+  if( w == handleOnlyWidget )
+  {
+    handleOnlyWidget = 0x0;
+  }
+  else if ( w == motionUpdateWidget )
+  {
+    motionUpdateWidget = 0x0;
+  }
+  else if ( w == dragDropOrigin )
+  {
+    dragDropOrigin = 0x0;
+  }
+  else if ( w == dragDropTargetVerifiedWidget )
+  {
+    dragDropTargetVerifiedWidget = 0x0;
+  }
+  
+  
 }
 
 void UI::handleOnly( Widget* wid )
@@ -232,6 +253,8 @@ void UI::motion(int x, int y)
   }
   else if( dragDropOrigin )
   {
+    /*
+    refactor to use GROUP!
     // scan trough widgets on mouse-move, as it *could* be a drag-drop action.
     for (std::list< Avtk::Widget* >::iterator it = widgets.begin(); it != widgets.end(); it++)
     {
@@ -241,6 +264,7 @@ void UI::motion(int x, int y)
         dragDropVerify( (*it) );
       }
     }
+    */
   }
 }
 
