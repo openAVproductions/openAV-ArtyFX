@@ -43,6 +43,7 @@ UI::UI( int w__, int h__, PuglNativeWindow parent, const char* windowName ) :
   //themes.push_back( new Theme( this ) );
   
   motionUpdateWidget = 0;
+  handleOnlyWidget = 0;
   
   dragDropOrigin   = 0;
   dragDropDataSize = 0;
@@ -120,6 +121,11 @@ int UI::run()
   return 0;
 }
 
+void UI::handleOnly( Widget* wid )
+{
+  handleOnlyWidget = wid;
+}
+
 void UI::event( const PuglEvent* event )
 {
   if( event->type != PUGL_EXPOSE )
@@ -160,12 +166,19 @@ void UI::event( const PuglEvent* event )
     }
 #endif
     
-    // pass event to group to be handled
-    int ret = Group::handle( event );
-    if ( ret )
+    if( handleOnlyWidget )
     {
-      redraw();
-      return;
+      handleOnlyWidget->handle( event );
+    }
+    else
+    {
+      // pass event to group to be handled
+      int ret = Group::handle( event );
+      if ( ret )
+      {
+        redraw();
+        return;
+      }
     }
   }
   else if( event->type == PUGL_CONFIGURE )

@@ -28,7 +28,7 @@ DialogUI::DialogUI(PuglNativeWindow parent) :
   
   show = new Avtk::Button( this, 10, 120, 60, 20, "Show Dialog");
   
-  dialog = new Avtk::Dialog( this, 60, 60, WIDTH-60*2, HEIGHT-60*2, "Dialog" );
+  dialog = new Avtk::Dialog( this, 60, 60, WIDTH-60*2, 100, "Dialog" );
 }
 
 void DialogUI::widgetValueCB( Avtk::Widget* widget)
@@ -39,8 +39,8 @@ void DialogUI::widgetValueCB( Avtk::Widget* widget)
   
   if( show )
   {
-    dialog->run( "This is dialog text", Avtk::Dialog::OK_CANCEL );
-    printf("visible %i\n", dialog->visible() );
+    int ret = dialog->run( "This is dialog text", Avtk::Dialog::OK_CANCEL );
+    printf("dialog returned %i\n", ret );
   }
 }
  

@@ -24,7 +24,7 @@ class Dialog : public Group
     int run( const char* text, BUTTONS b = OK );
     
     // to highjack the OK / Cancel buttons events
-    virtual void widgetValueCB( Avtk::Widget* widget);
+    virtual void valueCB( Avtk::Widget* widget);
     
     virtual void draw( cairo_t* cr );
   
