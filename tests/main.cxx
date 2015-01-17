@@ -4,6 +4,7 @@
 #include "list_test.hxx"
 #include "dial_test.hxx"
 #include "resize_test.hxx"
+#include "dialog_test.hxx"
 #include "event_editor_test.hxx"
 
 int main(int argc, char** argv)
@@ -14,7 +15,9 @@ int main(int argc, char** argv)
   {
     if( strcmp( argv[1], "dial") == 0 )
       ui = new DialUI();
-    if( strcmp( argv[1], "resize") == 0 )
+    else if( strcmp( argv[1], "dialog") == 0 )
+      ui = new DialogUI();
+    else if( strcmp( argv[1], "resize") == 0 )
       ui = new ResizeUI();
     else if( strcmp( argv[1], "list") == 0 )
       ui = new ListUI();

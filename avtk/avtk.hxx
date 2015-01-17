@@ -22,6 +22,7 @@
 #include "list.hxx"
 #include "dial.hxx"
 #include "image.hxx"
+#include "dialog.hxx"
 #include "button.hxx"
 #include "number.hxx"
 #include "slider.hxx"
