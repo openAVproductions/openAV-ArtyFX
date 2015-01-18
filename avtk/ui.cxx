@@ -57,7 +57,9 @@ UI::UI( int w__, int h__, PuglNativeWindow parent, const char* windowName ) :
 
 void UI::reshape(int x, int y)
 {
+#ifdef AVTK_DEBUG_DTOR
   printf("reshaping UI: scale factor: %f \t%f\n", x/float(initW), y/float(initH) );
+#endif
   
   //Group::resize( );
   
@@ -204,7 +206,9 @@ void UI::event( const PuglEvent* event )
   }
   else if( event->type == PUGL_CONFIGURE )
   {
+#ifdef AVTK_DEBUG
     printf("UI handleing PUGL_CONFIGURE\n");
+#endif
   }
   else
   {

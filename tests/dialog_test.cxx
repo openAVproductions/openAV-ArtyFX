@@ -37,7 +37,7 @@ void DialogUI::widgetValueCB( Avtk::Widget* widget)
   //dialog->visible( !dialog->visible() );
   //printf("visible %i\n", dialog->visible() );
   
-  if( show )
+  if( widget == show )
   {
     int ret = dialog->run( "This is dialog text", Avtk::Dialog::OK_CANCEL );
     printf("dialog returned %i\n", ret );

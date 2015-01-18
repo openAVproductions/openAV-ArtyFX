@@ -147,13 +147,13 @@ void Group::clear()
   {
     Avtk::Widget* tmp = children.at(0);
 #ifdef AVTK_DEBUG
-    printf("removing child %s from %s : size() %i\n", tmp->label(), label(), children.size() );
+    //printf("removing child %s from %s : size() %i\n", tmp->label(), label(), children.size() );
 #endif
     tmp->parent()->remove( tmp );
     delete tmp;
   }
   
-  printf("done removing, %i\n", children.size() );
+  //printf("done removing, %i\n", children.size() );
   
   // resets size of vector to 0
   children.clear();

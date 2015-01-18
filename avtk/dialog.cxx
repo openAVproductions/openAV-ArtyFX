@@ -104,19 +104,17 @@ void Dialog::valueCB( Avtk::Widget* widget)
 {
   if( widget == ok )
   {
-    printf("setting retrunval\n");
     returnVal = 1;
     visible( false );
   }
   else if( widget == cancel )
   {
-    printf("setting retrunval\n");
     returnVal = 0;
     visible( false );
   }
   else
   {
-    printf("Dialog::widgetValueCB() widget %s\n", widget->label() );
+    //printf("Dialog::widgetValueCB() widget %s\n", widget->label() );
   }
 }
 

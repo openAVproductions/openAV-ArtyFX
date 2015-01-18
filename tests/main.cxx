@@ -1,6 +1,7 @@
 
 #include <stdio.h>
 
+#include "../avtk/widget.hxx"
 #include "list_test.hxx"
 #include "dial_test.hxx"
 #include "resize_test.hxx"
@@ -32,5 +33,13 @@ int main(int argc, char** argv)
     ui->run();
     delete ui;
   }
+
+#ifdef AVTK_DEBUG
+  int widgetsOnExit = Avtk::Widget::widgetCounter;
+  if( widgetsOnExit != 0 )
+  {
+    printf("%s : ERROR : widgetCounter == %i on exit!\n", argv[1], widgetsOnExit );
+  }
+#endif
   return 0;
 }
