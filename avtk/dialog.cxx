@@ -77,7 +77,7 @@ void Dialog::draw( cairo_t* cr )
   cairo_stroke( cr );
   
   // draw diagonal lines
-  int end = w_ + h_ * 4;
+  int end = ui->w() + ui->h();
   for(int i = 0; i < end; i += 40 )
   {
     cairo_move_to( cr,    -10,  i + 10 );
