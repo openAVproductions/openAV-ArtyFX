@@ -52,11 +52,21 @@ void Dialog::draw( cairo_t* cr )
     int xd = mx - (ok->x()+ok->w()/2.f);
     int yd = my - (ok->y()+10);
     
-    //ok->x( ok->x() + xd );
-    //ok->y( ok->y() + yd );
-    printf("%i, %i\n", xd, yd );
-    x( x_ + xd );
-    y( y_ + yd );
+    // clip to *always* show entire dialog (aka, no "off-window" drawing)
+    int diagX = x_ + xd;
+    int diagY = y_ + yd;
+    
+    // clip top left
+    if( diagX < 0 ) diagX = 0;
+    if( diagY < 0 ) diagY = 0;
+    
+    // clip lower right
+    if( diagX + w_ > ui->w() ) diagX = ui->w() - w_;
+    if( diagY + h_ > ui->h() ) diagY = ui->h() - h_;
+    
+    // set
+    x( diagX );
+    y( diagY );
   }
   
   // transparent-out the *entire* UI
@@ -136,16 +146,18 @@ void Dialog::valueCB( Avtk::Widget* widget)
   }
 }
 
-int Dialog::run( const char* text, BUTTONS b, int mx_, int my_ )
+int Dialog::run( const char* header, const char* text, BUTTONS b, int mx_, int my_ )
 {
   // show the dialog
-  buttons_ = b;
+  label( header );
   contents = text;
-  visible( true );
+  buttons_ = b;
   
   ok->value( false );
   cancel->value( false );
-
+  
+  visible( true );
+  
   // position to have OK/YES under mouse cursor. When -1, ignore
   mx = mx_;
   my = my_;

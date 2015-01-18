@@ -210,10 +210,6 @@ void UI::event( const PuglEvent* event )
     printf("UI handleing PUGL_CONFIGURE\n");
 #endif
   }
-  else
-  {
-    redraw();
-  }
   
   // code is only reached if *none* of the widgets handled an event:
   // we can implement UI wide hotkeys here, handle unknown events

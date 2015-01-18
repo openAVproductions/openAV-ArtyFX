@@ -45,7 +45,7 @@ void DialogUI::widgetValueCB( Avtk::Widget* widget)
     int mx = widget->mouseX();
     int my = widget->mouseY();
     
-    int ret = dialog->run( "This is dialog text", Avtk::Dialog::OK_CANCEL, mx, my );
+    int ret = dialog->run( "Header", "This is dialog text", Avtk::Dialog::OK_CANCEL, mx, my );
     printf("dialog returned %i\n", ret );
     
     
