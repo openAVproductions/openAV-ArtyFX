@@ -20,8 +20,10 @@ class Dialog : public Group
       OK_CANCEL,
     };
     
-    /// returns 1 on OK or YES, 0 on cancel or NO, -1 on error
-    int run( const char* text, BUTTONS b = OK );
+    /// returns 1 on OK or YES, 0 on cancel or NO, -1 on error.
+    /// Optionally pass in X,Y co-ords of the mouse, and the OK/YES button will
+    /// be positioned under the mouse cursor.
+    int run( const char* text, BUTTONS b = OK, int x = -1, int y = -1 );
     
     // to highjack the OK / Cancel buttons events
     virtual void valueCB( Avtk::Widget* widget);
@@ -31,6 +33,8 @@ class Dialog : public Group
   private:
     BUTTONS buttons_;
     std::string contents;
+    
+    int mx, my;
     
     int returnVal;
     

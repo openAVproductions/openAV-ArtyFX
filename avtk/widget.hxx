@@ -77,6 +77,8 @@ class Widget
     
     /// 0 when no mouse button is down, otherwise the mouse button pressed
     int mouseButton(){return mouseButtonPressed_;}
+    int mouseX(){return mousePressX;}
+    int mouseY(){return mousePressY;}
     
     /// the Avtk::UI pointer, used to redraw the view etc
     Avtk::UI* ui;
@@ -148,6 +150,8 @@ class Widget
     
     /// holds the currently pressed mouse-button
     int mouseButtonPressed_;
+    int mousePressX;
+    int mousePressY;
     
     float scrollDeltaAmount;
 
