@@ -169,7 +169,7 @@ int Dialog::run( const char* header, const char* text, BUTTONS b, int mx_, int m
   while( returnVal == -2 )
   {
     ui->idle();
-    usleep(10000);
+    usleep( 25000 );
   }
   
   ui->handleOnly( 0x0 );

@@ -111,7 +111,7 @@ int UI::run()
   while ( !quit_ )
   {
     puglProcessEvents(view);
-    usleep( 10 );
+    usleep( 25000 );
     
 #ifdef AVTK_TESTER
     tester->process();
@@ -211,6 +211,12 @@ void UI::event( const PuglEvent* event )
 #endif
   }
   
+  // if no widget handles the event, then we test the main UI shortcuts
+  internalEvent( event );
+}
+
+void UI::internalEvent( const PuglEvent* event )
+{
   // code is only reached if *none* of the widgets handled an event:
   // we can implement UI wide hotkeys here, handle unknown events
   switch (event->type)
@@ -223,7 +229,16 @@ void UI::event( const PuglEvent* event )
           event->key.character == 'Q' ||
           event->key.character == PUGL_CHAR_ESCAPE)
       {
-        quit_ = 1;
+        if( handleOnlyWidget )
+        {
+          handleOnlyWidget->visible( false );
+          handleOnlyWidget = 0x0;
+          redraw();
+        }
+        else
+        {
+          quit_ = 1;
+        }
       }
       break;
     

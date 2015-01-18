@@ -149,6 +149,10 @@ class UI : public Avtk::Group
   protected:
 #endif
     
+    /// internalEvent handles events like ALT-F4, and ESC. Split from the main
+    /// event function so dialog boxes etc can easily support handling these
+    void internalEvent( const PuglEvent* event );
+    
     // Static Functions for handling PUGL events below
     static void onMotion(PuglView* view, int x, int y)
     {
