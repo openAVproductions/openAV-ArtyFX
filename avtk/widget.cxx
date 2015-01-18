@@ -75,7 +75,7 @@ Widget::Widget( Avtk::UI* ui_, int x, int y, int w, int h, std::string label__) 
   
   // when created, we register a widget to the top-level UI. Just add() it to a
   // different Group, and the parent* will be updated
-  ui_->add( this );
+  ui->parentStackTop()->add( this );
 }
 
 void Widget::theme( Theme* t )

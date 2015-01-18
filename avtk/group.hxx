@@ -28,6 +28,9 @@ class Group : public Widget
     Group( Avtk::UI* ui, int x, int y, int w, int h, std::string label );
     virtual ~Group();
     
+    /// must be called to pop this group from the parent stack
+    void end();
+    
     /// mark all children too
     virtual void visible( bool visibile );
     /// only returns true if group is visible: not all children in group must

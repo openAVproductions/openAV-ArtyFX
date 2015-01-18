@@ -21,6 +21,8 @@ UI::UI( int w__, int h__, PuglNativeWindow parent, const char* windowName ) :
 {
   view = puglInit(NULL, NULL);
   
+  parentStack.push( this );
+  
   if( parent != 0 )
     puglInitWindowParent( view, parent );
   
@@ -126,6 +128,22 @@ int UI::run()
   }
   
   return 0;
+}
+
+void UI::pushParent( Avtk::Group* g )
+{
+#ifdef AVTK_DEBUG
+  printf("%s - pushing %s to stack\n", __PRETTY_FUNCTION__, g->label() );
+#endif
+  parentStack.push( g );
+}
+
+void UI::popParent()
+{
+#ifdef AVTK_DEBUG
+  printf("%s - popping %s from stack\n", __PRETTY_FUNCTION__, parentStack.top()->label() );
+#endif
+  parentStack.pop();
 }
 
 void UI::remove( Avtk::Widget* w )

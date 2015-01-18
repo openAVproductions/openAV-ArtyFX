@@ -26,6 +26,13 @@ Group::Group( Avtk::UI* ui, int x, int y, int w, int h, std::string label ) :
   spacing_( 1 )
 {
   noHandle_ = false;
+  ui->pushParent( this );
+}
+
+void Group::end()
+{
+  ui->popParent();
+  printf("Group::end(), num children = %i\n", children.size() );
 }
 
 void Group::add( Widget* child )

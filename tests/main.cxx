@@ -2,8 +2,10 @@
 #include <stdio.h>
 
 #include "../avtk/widget.hxx"
+
 #include "list_test.hxx"
 #include "dial_test.hxx"
+#include "group_test.hxx"
 #include "resize_test.hxx"
 #include "dialog_test.hxx"
 #include "event_editor_test.hxx"
@@ -18,6 +20,8 @@ int main(int argc, char** argv)
       ui = new DialUI();
     else if( strcmp( argv[1], "dialog") == 0 )
       ui = new DialogUI();
+    else if( strcmp( argv[1], "group") == 0 )
+      ui = new GroupUI();
     else if( strcmp( argv[1], "resize") == 0 )
       ui = new ResizeUI();
     else if( strcmp( argv[1], "list") == 0 )

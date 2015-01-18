@@ -8,6 +8,7 @@
 
 // general C++ includes
 #include <list>
+#include <stack>
 #include <vector>
 #include <stdio.h>
 #include <unistd.h>
@@ -96,9 +97,17 @@ class UI : public Avtk::Group
       // returns the X11 handle, or Win32 surface, or Quartz surface
       return puglGetNativeWindow( view );
     }
+    
+    /// sets the passed in Group* as the "parent" for any widgets created
+    /// should only be called by Group widgets
+    void pushParent( Avtk::Group* );
+    void popParent();
+    Avtk::Group* parentStackTop(){return parentStack.top();}
   
   protected:
     PuglView* view;
+    
+    std::stack<Avtk::Group*> parentStack;
     
     bool quit_;
     int w_, h_;
