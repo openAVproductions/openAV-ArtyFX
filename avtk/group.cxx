@@ -140,18 +140,20 @@ bool Group::visible()
 
 void Group::clear()
 {
-  int i = 0;
-  while( i < children.size() )
+  //int i = 0;
+  //for(int i = 0; i < children.size(); ++i)
+  
+  while( children.size() )
   {
-    Avtk::Widget* tmp = children.at(i);
+    Avtk::Widget* tmp = children.at(0);
 #ifdef AVTK_DEBUG
     printf("removing child %s from %s : size() %i\n", tmp->label(), label(), children.size() );
 #endif
     tmp->parent()->remove( tmp );
-    
     delete tmp;
-    i++;
   }
+  
+  printf("done removing, %i\n", children.size() );
   
   // resets size of vector to 0
   children.clear();
@@ -268,7 +270,9 @@ int Group::handle( const PuglEvent* event )
       int ret = children.at( i )->handle( event );
       if( ret )
       {
+#ifdef AVTK_DEBUG
         printf("widget %s : handles eventType %i ret = 1\n", children.at(i)->label(), event->type );
+#endif
         return ret; // child widget ate event: done :)
       }
     }

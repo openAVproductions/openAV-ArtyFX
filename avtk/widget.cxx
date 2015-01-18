@@ -7,6 +7,8 @@
 namespace Avtk
 {
 
+int Widget::widgetCounter = 0;
+
 // constructor for top-level windows only
 Widget::Widget( Avtk::UI* ui_, int w, int h ) :
   ui( ui_ ),
@@ -23,6 +25,7 @@ Widget::Widget( Avtk::UI* ui_, int w, int h ) :
   visible_(true),
   parent_( 0x0 ) // top levels don't have a parent
 {
+  widgetCounter++;
 }
 
 Widget::Widget( Avtk::UI* ui_, int x, int y, int w, int h, std::string label__) :
@@ -63,6 +66,7 @@ Widget::Widget( Avtk::UI* ui_, int x, int y, int w, int h, std::string label__) 
   // actual scroll in PX / number == delta
   scrollDeltaAmount( 10 )
 {
+  widgetCounter++;
   // when created, we register a widget to the top-level UI. Just add() it to a
   // different Group, and the parent* will be updated
   ui_->add( this );
@@ -320,9 +324,11 @@ void Widget::dragMode( DragMode d )
 
 Widget::~Widget()
 {
-#ifdef AVTK_DEBUG_DTOR
+//#ifdef AVTK_DEBUG_DTOR
   printf("%s %s\n", __PRETTY_FUNCTION__, label() );
-#endif // AVTK_DEBUG
+  widgetCounter--;
+  printf("widgetCounter = %i\n", widgetCounter );
+//#endif // AVTK_DEBUG
 }
 
 }; // Avtk

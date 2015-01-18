@@ -23,7 +23,7 @@ DialogUI::DialogUI(PuglNativeWindow parent) :
   Avtk::Widget* w = 0;
   for(int i = 0; i < 5; i++ )
   {
-    listH->addItem( "Tst" );
+    listH->addItem( "Tst-H" );
   }
   
   show = new Avtk::Button( this, 10, 120, 60, 20, "Show Dialog");

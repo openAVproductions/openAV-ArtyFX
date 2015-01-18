@@ -139,7 +139,7 @@ void UI::remove( Avtk::Widget* w )
     dragDropTargetVerifiedWidget = 0x0;
   }
   
-  
+  Group::remove( w );
 }
 
 void UI::handleOnly( Widget* wid )

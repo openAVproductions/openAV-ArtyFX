@@ -25,23 +25,24 @@ ListUI::ListUI(PuglNativeWindow parent) :
   listH->resizeMode( Group::RESIZE_FIT_TO_CHILDREN );
   
   Avtk::Widget* w = 0;
-  for(int i = 0; i < 1; i++ )
+  for(int i = 0; i < 2; i++ )
   {
     listH->addItem( "Tst-H" );
   }
   
+  
   listV = new Avtk::List( this, 10, 10, 40, 40, "ListV" );
   listV->mode( Group::WIDTH_EQUAL );
   listV->resizeMode( Group::RESIZE_FIT_TO_CHILDREN );
-  
+  /*
   w = 0;
-  for(int i = 0; i < 1; i++ )
+  for(int i = 0; i < 5; i++ )
   {
     listV->addItem( "Tst-V" );
   }
+  */
   
   listH->callback = cb;
   listV->callback = cb;
-  
 }
 

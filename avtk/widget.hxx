@@ -150,7 +150,8 @@ class Widget
     int mouseButtonPressed_;
     
     float scrollDeltaAmount;
-
+    
+    static int widgetCounter;
 };
 
 };
