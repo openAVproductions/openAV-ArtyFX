@@ -73,8 +73,10 @@ Widget::Widget( Avtk::UI* ui_, int x, int y, int w, int h, std::string label__) 
   widgetCounter++;
 #endif
   
-  // when created, we register a widget to the top-level UI. Just add() it to a
-  // different Group, and the parent* will be updated
+  
+  /// add the widget to the top of the parentStack
+  /// parentStack is a stack of Group* widgets. group->end() pops from stack
+  //printf("Widget() %s : adding this to %s\n", label(), ui->parentStackTop()->label() );
   ui->parentStackTop()->add( this );
 }
 
@@ -203,7 +205,7 @@ int Widget::handle( const PuglEvent* event )
         {
           if (event->key.character == ' ')
           {
-            printf("pugl space\n");
+            //printf("pugl space\n");
             callback( this, callbackUD );
           }
           else if (event->key.character == 's')
@@ -320,6 +322,9 @@ void Widget::visible( bool v )
 
 void Widget::addToGroup( Group* p, int gin )
 {
+#ifdef AVTK_DEBUG
+  printf("%s adding %s to %s\n", __PRETTY_FUNCTION__, label(), p->label() );
+#endif
   groupChild = true;
   parent_ = p;
   groupItemNumber_ = gin;

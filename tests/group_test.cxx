@@ -20,11 +20,14 @@ GroupUI::GroupUI(PuglNativeWindow parent) :
   group1->mode( Group::WIDTH_EQUAL );
   
   w = new Avtk::Button( this, 0, 0, 120, 20, "GrpBtn1" );
+  printf("group button 1 parent : %s\n", w->parent()->label() );
   w = new Avtk::Button( this, 0, 0, 120, 20, "GrpBtn2" );
-  
+  printf("group button 2 parent : %s\n", w->parent()->label() );
   group1->end();
   
   w = new Avtk::Button( this, 86, 60, 120, 20, "No-Group-Btn" );
+  printf("no group button parent : %s\n", w->parent()->label() );
+  
 }
 
  

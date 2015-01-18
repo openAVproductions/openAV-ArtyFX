@@ -32,7 +32,7 @@ Group::Group( Avtk::UI* ui, int x, int y, int w, int h, std::string label ) :
 void Group::end()
 {
   ui->popParent();
-  printf("Group::end(), num children = %i\n", children.size() );
+  //printf("Group::end(), num children = %i\n", children.size() );
 }
 
 void Group::add( Widget* child )
@@ -41,8 +41,10 @@ void Group::add( Widget* child )
   // its previous parent group.
   if( child->parent() )
   {
+    //printf("Group add: child parent was true, removing %s from %s\n", child->label(), child->parent()->label() );
     child->parent()->remove( child );
   }
+  
   
   // get the current size of the child widgets
   int childY = y_;
@@ -54,7 +56,7 @@ void Group::add( Widget* child )
     childX += children.at(i)->w() + spacing_;
   
 #ifdef AVTK_DEBUG
-  //printf("Group add: size %i\n", children.size() );
+  printf("Group %s add: size %i\n", label(), children.size() );
 #endif
   child->addToGroup( this, children.size() );
   
@@ -93,16 +95,14 @@ void Group::add( Widget* child )
   }
   
   children.push_back( child );
-
+  
 #ifdef AVTK_DEBUG
-  //printf("Group after add: size %i\n", children.size() );
+  printf("Group after add: size %i\n", children.size() );
 #endif
   
   // notify parent that the size of this widget has changed
   if( resizeMode_ == RESIZE_FIT_TO_CHILDREN && parent() )
     parent()->childResize( this );
-  
-  ui->redraw();
 }
 
 void Group::childResize( Widget* w )
