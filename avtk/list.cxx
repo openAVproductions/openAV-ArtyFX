@@ -93,6 +93,11 @@ void List::valueCB( Widget* w )
   Group::valueCB( w );
   lastClickedItem = w->groupItemNumber();
   
+  // copy mouse event co-ords to List widget
+  mouseButtonPressed_ = w->mouseButton();
+  mousePressX = w->mouseX();
+  mousePressY = w->mouseY();
+  
   std::string tmp = selectedString();
   if( !tmp.size() )
   {

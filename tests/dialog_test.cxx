@@ -34,7 +34,7 @@ DialogUI::DialogUI(PuglNativeWindow parent) :
 
 void DialogUI::widgetValueCB( Avtk::Widget* widget)
 {
-  //printf("widget dialog callback\n" );
+  printf("widget dialog callback, mousebutton %i\n" );
   //dialog->visible( !dialog->visible() );
   //printf("visible %i\n", dialog->visible() );
   

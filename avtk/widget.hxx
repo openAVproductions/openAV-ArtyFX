@@ -132,6 +132,12 @@ class Widget
     /// used for mouse-drag
     int mX, mY;
     
+    /// holds the currently pressed mouse-button, protected so group widgets can
+    /// update their own button press etc
+    int mouseButtonPressed_;
+    int mousePressX;
+    int mousePressY;
+    
     /// control scroll operations
     bool scrollDisable;
     bool scrollInvert;
@@ -147,11 +153,6 @@ class Widget
     
     /// widgets current value, to get/set use value() and value( float )
     float value_;
-    
-    /// holds the currently pressed mouse-button
-    int mouseButtonPressed_;
-    int mousePressX;
-    int mousePressY;
     
     float scrollDeltaAmount;
 
