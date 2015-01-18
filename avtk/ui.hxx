@@ -76,10 +76,7 @@ class UI : public Avtk::Group
     
     /// when used as a UI plugin, created by a host, this function should be
     /// called repeatedly at ~30 fps to handle events and redraw if needed.
-    int idle()
-    {
-      puglProcessEvents(view);
-    }
+    int idle();
     
     /// when UI is running standalone, call this function to run the UI. When
     /// the function returns, the main window has been closed.

@@ -104,6 +104,12 @@ Theme* UI::theme( int id )
   return themes.at( 0 );
 }
 
+int UI::idle()
+{
+  puglProcessEvents(view);
+  return quit_;
+}
+
 int UI::run()
 {
   redraw();
@@ -192,17 +198,22 @@ void UI::event( const PuglEvent* event )
     if( handleOnlyWidget )
     {
       handleOnlyWidget->handle( event );
+      internalEvent( event );
+      return;
     }
-    else
+    
+  
+    // pass event to group to be handled
+    int ret = Group::handle( event );
+    if ( ret )
     {
-      // pass event to group to be handled
-      int ret = Group::handle( event );
-      if ( ret )
-      {
-        redraw();
-        return;
-      }
+      redraw();
+      return;
     }
+    
+    // if no widget handles the event, then we test the main UI shortcuts
+    internalEvent( event );
+    
   }
   else if( event->type == PUGL_CONFIGURE )
   {
@@ -210,9 +221,6 @@ void UI::event( const PuglEvent* event )
     printf("UI handleing PUGL_CONFIGURE\n");
 #endif
   }
-  
-  // if no widget handles the event, then we test the main UI shortcuts
-  internalEvent( event );
 }
 
 void UI::internalEvent( const PuglEvent* event )

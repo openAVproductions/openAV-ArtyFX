@@ -168,7 +168,10 @@ int Dialog::run( const char* header, const char* text, BUTTONS b, int mx_, int m
   returnVal = -2;
   while( returnVal == -2 )
   {
-    ui->idle();
+    bool quit = ui->idle();
+    if( quit )
+      break;
+    
     usleep( 25000 );
   }
   
