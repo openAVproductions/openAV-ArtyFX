@@ -6,6 +6,7 @@
 #include "list_test.hxx"
 #include "dial_test.hxx"
 #include "group_test.hxx"
+#include "number_test.hxx"
 #include "resize_test.hxx"
 #include "dialog_test.hxx"
 #include "event_editor_test.hxx"
@@ -22,6 +23,8 @@ int main(int argc, char** argv)
       ui = new DialogUI();
     else if( strcmp( argv[1], "group") == 0 )
       ui = new GroupUI();
+    else if( strcmp( argv[1], "number") == 0 )
+      ui = new NumberUI();
     else if( strcmp( argv[1], "resize") == 0 )
       ui = new ResizeUI();
     else if( strcmp( argv[1], "list") == 0 )

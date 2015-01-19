@@ -27,5 +27,6 @@ EventEditorUI::EventEditorUI(PuglNativeWindow parent) :
   editor->visible( true );
   
   scroll->set( editor );
+  scroll->end();
 }
 

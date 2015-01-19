@@ -11,21 +11,11 @@ using namespace Avtk;
 
 Number::Number( Avtk::UI* ui, int x_, int y_, int w_, int h_, std::string label_) :
   Widget( ui, x_, y_, w_, h_, label_ ),
-  base( 1 ),
-  amount( 9 ),
   blank( 0 )
 {
+  valueMode( VALUE_INT, 1, 9 );
   scrollDisable = false;
   dragMode( DM_DRAG_VERTICAL );
-  setScrollDeltaAmount( amount ); // interger counting
-}
-
-void Number::setRange( int b, int a )
-{
-  base = b;
-  amount = a;
-  setScrollDeltaAmount( amount ); // interger counting
-  ui->redraw();
 }
 
 void Number::blankValue( int b )
@@ -45,7 +35,7 @@ void Number::draw( cairo_t* cr )
   cairo_stroke(cr);
   
   // single int digit shown
-  int v = base + (value() * amount);
+  int v = int( value() );
   
   std::stringstream vStr;
   if( v != blank )

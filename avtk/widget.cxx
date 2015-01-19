@@ -60,8 +60,9 @@ Widget::Widget( Avtk::UI* ui_, int x, int y, int w, int h, std::string label__) 
   mouseButtonPressed_(0),
   
   cm( CLICK_NONE ),
-  
   dm( DM_NONE ),
+  vm( VALUE_FLOAT_0_1 ),
+  
   mX(0),
   mY(0),
   scrollDisable( 1 ),
@@ -191,7 +192,7 @@ int Widget::handle( const PuglEvent* event )
           float delta = event->scroll.dy / float(scrollDeltaAmount);
           if( scrollInvert )
             delta = -delta;
-          value( value_ + delta );
+          value( value() + delta );
           callback( this, callbackUD );
           ui->redraw( this );
           return 1;
@@ -285,19 +286,46 @@ void Widget::motion( int inX, int inY )
   ui->redraw( this );
 }
 
+void Widget::valueMode( ValueMode v, int base, int range )
+{
+  vm = v;
+  valueIntBase = base;
+  valueIntRange = range;
+  setScrollDeltaAmount( 1 );
+}
+
 void Widget::setScrollDeltaAmount( float sda )
 {
   scrollDeltaAmount = sda;
 }
 
+float Widget::value()
+{
+  if( vm == VALUE_FLOAT_0_1 )
+    return value_;
+  
+  return (value_ * valueIntRange) + valueIntBase;
+}
+
 void Widget::value( float v )
 {
+  if( vm == VALUE_INT )
+  {
+    //value_ * valueIntRange + valueIntBase;
+    float tmp = (v-valueIntBase) / float(valueIntRange);
+    
+    printf("VALUE_INT input %f, internal value %f\n", v, tmp );
+    
+    v = tmp;
+  }
+  
   if( v > 1.0 ) v = 1.0;
   if( v < 0.0 ) v = 0.0;
   
   value_ = v;
+  
 #ifdef AVTK_DEBUG
-  //printf("Widget %s  value() %f\n", label_.c_str(), v );
+  printf("Widget %s  value() %f\n", label_.c_str(), v );
 #endif
   ui->redraw();
 }

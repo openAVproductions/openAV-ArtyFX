@@ -166,6 +166,9 @@ int Dialog::run( const char* header, const char* text, BUTTONS b, int mx_, int m
   ui->handleOnly( this );
   
   returnVal = -2;
+  
+  // TODO: refactor: we can't loop wait here for input! it hogs the UI thread
+  
   while( returnVal == -2 )
   {
     bool quit = ui->idle();

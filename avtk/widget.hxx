@@ -36,10 +36,20 @@ class Widget
     virtual bool visible(){return visible_;}
     
     /// get the current value
-    float value() { return value_; }
-    
-    /// set a new value, triggers "new-value" event
+    float value();
+    /// set a new value and redraws widget
     void value( float v );
+    
+    /// can be used to change the way the widget behaves for its value().
+    /// - FLOAT_0_1, value returns float value 0-1 (default)
+    /// - VALUE_INT returns *any* integer value. example: Number, Number::setRange()
+    /// parameters set the range of the widget
+    enum ValueMode {
+      VALUE_FLOAT_0_1 = 0,
+      VALUE_INT,
+    };
+    void valueMode( ValueMode v, int base, int range );
+    
     
     virtual void draw( cairo_t* cr ) = 0;
     
@@ -149,7 +159,11 @@ class Widget
   
   private:
     ClickMode cm;
-    DragMode dm;
+    DragMode  dm;
+    ValueMode vm;
+    
+    int valueIntBase;
+    int valueIntRange;
     
     /// widgets current value, to get/set use value() and value( float )
     float value_;

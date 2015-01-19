@@ -93,12 +93,16 @@ void SeqEventList::add( MidiEvent* m )
   
   eventCount++;
   
+  /*
+  
   //printf("Event list:\n");
   for(unsigned int i = 0; i < eventCount; i++)
   {
-    printf( "%f\n", events.at(i)->getTime() );
+    //printf( "%f\n", events.at(i)->getTime() );
   }
   //printf("\n");
+  
+  */
 }
 
 void SeqEventList::nonRtClear()
