@@ -21,7 +21,6 @@ void List::addItem( std::string newItem )
 {
   items.push_back( newItem );
   add( new Avtk::ListItem( ui, 0, 0, 34, 14, newItem ) );
-  ui->redraw();
 }
 
 void List::show( std::vector< std::string > data )
@@ -32,8 +31,6 @@ void List::show( std::vector< std::string > data )
   {
     add( new Avtk::ListItem( ui, 0, 0, 11, 11, items.at(i) ) );
   }
-  
-  ui->redraw();
 }
 
 void List::value( float v )
@@ -64,15 +61,7 @@ void List::draw( cairo_t* cr )
   {
     cairo_save( cr );
     
-    // have the group draw itself
     Group::draw( cr );
-    
-    /*
-    roundedBox(cr, x_, y_, w_, h_, theme_->cornerRadius_ );
-    theme_->color( cr, FG );
-    cairo_set_line_width(cr, 0.5);
-    cairo_stroke( cr );
-    */
     
     cairo_restore( cr );
   }

@@ -319,10 +319,12 @@ void Scroll::redrawChild( cairo_t* cr )
   }
   cairo_save( cr );
   
+  /*
   /// clear the screen
-  cairo_rectangle( cr, 0, 0, w_, h_ );
-  cairo_set_source_rgb( cr, 24/255., 24/255., 24/255. );
-  cairo_fill( cr );
+  cairo_rectangle( childCr, 0, 0, w_, h_ );
+  cairo_set_source_rgb( childCr, 24/255., 24/255., 24/255. );
+  cairo_fill( childCr );
+  */
   
   // draw the widget on the childCr cairo_t*
   Group::draw( childCr );

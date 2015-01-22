@@ -55,6 +55,7 @@ UI::UI( int w__, int h__, PuglNativeWindow parent, const char* windowName ) :
   dragDropTargetVerifiedWidget = 0;
   
   themes.push_back( new Theme( this, "default.avtk" ) );
+  theme_ = themes.back();
 }
 
 void UI::reshape(int x, int y)
