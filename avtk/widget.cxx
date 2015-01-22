@@ -313,9 +313,7 @@ void Widget::value( float v )
   {
     //value_ * valueIntRange + valueIntBase;
     float tmp = (v-valueIntBase) / float(valueIntRange);
-    
-    printf("VALUE_INT input %f, internal value %f\n", v, tmp );
-    
+    //printf("VALUE_INT input %f, internal value %f\n", v, tmp );
     v = tmp;
   }
   

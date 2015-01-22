@@ -80,7 +80,8 @@ void List::draw( cairo_t* cr )
 
 std::string List::selectedString()
 {
-  if( lastClickedItem == -1 )
+  if( lastClickedItem == -1 ||
+      lastClickedItem >= items.size() )
   {
     return "";
   }
