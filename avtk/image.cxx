@@ -43,7 +43,7 @@ void Image::draw( cairo_t* cr )
   }
   
   cairo_save( cr );
-  cairo_set_source_surface( cr, imgSurf, 0, 0 );
+  cairo_set_source_surface( cr, imgSurf, x_, y_ );
   cairo_paint( cr );
   cairo_restore( cr );
 }
