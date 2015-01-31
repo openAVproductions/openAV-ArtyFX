@@ -51,6 +51,8 @@ class Tester
     /// testing timing-independant UI behaviour. 
     int runTest( const char* testName, bool ignoreTimestamps = false );
     
+    void writeTest( const char* filename );
+    
     /// process gets called by the UI repeatedly, when Tester is playing back,
     /// events are injected to the UI, otherwise no action is taken.
     void process();

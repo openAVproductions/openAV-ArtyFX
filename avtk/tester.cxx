@@ -51,6 +51,23 @@ void Tester::handle( const PuglEvent* event )
   }
 }
 
+void Tester::writeTest( const char* filename )
+{
+  picojson::object test;
+  picojson::object event;
+  
+  test["name"] = picojson::value("Test name");
+  test["version"] = picojson::value(1.66);
+  
+  // for () {
+  event["integer"] =  picojson::value(1.0);
+  test["event"] =  picojson::value(event);
+  // }
+  
+  std::string str = picojson::value(test).serialize();
+  printf("Tester::writeTest() %s\n", str.c_str() );
+}
+
 void Tester::recordStop()
 {
   if( !events.size() )
