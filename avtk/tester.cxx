@@ -7,6 +7,9 @@
 #include "ui.hxx"
 #include "picojson.hxx"
 
+// for converting events -> JSON
+#include "pugl/pugl.h"
+
 #include <list>
 #include <vector>
 
@@ -57,15 +60,32 @@ void Tester::writeTest( const char* filename )
   picojson::object event;
   
   test["name"] = picojson::value("Test name");
-  test["version"] = picojson::value(1.66);
+  test["avtkVersion"] = picojson::value( AVTK_VERSION_STRING );
   
-  // for () {
-  event["integer"] =  picojson::value(1.0);
-  test["event"] =  picojson::value(event);
-  // }
+  picojson::array list = picojson::array();
+  
+  AvtkEvent* e = &events.at(0);
+  for(int i = 0; i < events.size(); i++ )
+  {
+    event["eventType"] =  picojson::value( puglEventGetTypeString( e->event.type ) );
+    event["integer"] =  picojson::value( 1.0 );
+    
+    
+    list.push_back( picojson::value(event) );
+    
+    //printf("Event %i, type %i\n", i, e->event.type );
+    e++;
+  }
+  
+  test["events"] =  picojson::value( list );
   
   std::string str = picojson::value(test).serialize();
-  printf("Tester::writeTest() %s\n", str.c_str() );
+  //printf("Tester::writeTest() %s\n", str.c_str() );
+  
+  std::ofstream out;
+  out.open ( filename );
+  out << str << "\n";
+  out.close();
 }
 
 void Tester::recordStop()
@@ -82,6 +102,8 @@ void Tester::recordStop()
     printf("Event %i, type %i\n", i, e->event.type );
     e++;
   }
+  
+  writeTest( "avtk_test.json" );
   
   printf("%s stopping AVTK TEST %s\n", __PRETTY_FUNCTION__, name.c_str() );
   recording_ = false;

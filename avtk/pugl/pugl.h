@@ -95,7 +95,7 @@ typedef void (*PuglMotionFunc)(PuglView* view, int x, int y);
    @param y The window-relative y coordinate of the pointer.
 */
 typedef void (*PuglMouseFunc)(
-  PuglView* view, int button, bool press, int x, int y);
+	PuglView* view, int button, bool press, int x, int y);
 
 /**
    A function called when the view is resized.
@@ -258,6 +258,13 @@ PUGL_API int
 puglGetModifiers(PuglView* view);
 
 /**
+   Get a string of the event type
+*/
+PUGL_API const char*
+puglEventGetTypeString( PuglEventType type );
+
+
+/**
    Ignore synthetic repeated key events.
 */
 PUGL_API void
@@ -347,13 +354,6 @@ puglProcessEvents(PuglView* view);
 */
 PUGL_API void
 puglPostRedisplay(PuglView* view);
-
-/**
-   Request an expose for the rectangle described on the next call to
-   puglProcessEvents().
-*/
-PUGL_API void
-puglPostExpose(PuglView* view, int x, int y, int w, int h);
 
 /**
    Destroy a GL window.

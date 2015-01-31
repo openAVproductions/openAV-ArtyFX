@@ -19,7 +19,7 @@ option(AVTK_TESTER_SUPPORT  "Build with Tester Rec/Play"  OFF )
 ### Code compilation starts here
 ################################################################################
 
-ADD_DEFINITIONS( "-DAVTK_VERSION_STRING=\"v ${AVTK_VERSION}\"" )
+ADD_DEFINITIONS( "-DAVTK_VERSION_STRING=\"${AVTK_VERSION}\"" )
 
 include_directories ("${PROJECT_SOURCE_DIR}/avtk/")
 
