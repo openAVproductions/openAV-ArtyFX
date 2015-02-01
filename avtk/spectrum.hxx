@@ -4,7 +4,6 @@
 
 #include "widget.hxx"
 
-#include "yasper.hxx"
 #include <vector>
 
 namespace Avtk
