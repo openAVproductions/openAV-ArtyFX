@@ -87,8 +87,14 @@ class Widget
       CLICK_VALUE_FROM_Y,   /// click sets value to mouse Y position / widget Y
     };
     
+    enum RClickMode {
+      RCLICK_NONE,          /// Click has no effect
+      RCLICK_VALUE_DEFAULT, /// Resets the value() to the widgets default
+    };
+    
     /// sets the click mode
-    void clickMode( ClickMode cm );
+    void clickMode ( ClickMode  cm  );
+    void rClickMode( RClickMode rcm );
     
     /// 0 when no mouse button is down, otherwise the mouse button pressed
     int mouseButton(){return mouseButtonPressed_;}
@@ -143,6 +149,7 @@ class Widget
     void dragMode( DragMode cdm );
     DragMode dragMode(){return dm;}
     ClickMode clickMode(){return cm;}
+    RClickMode rclickMode(){return rcm;}
     
     /// used for mouse-drag
     int mX, mY;
@@ -164,6 +171,7 @@ class Widget
   
   private:
     ClickMode cm;
+    RClickMode rcm;
     DragMode  dm;
     ValueMode vm;
     

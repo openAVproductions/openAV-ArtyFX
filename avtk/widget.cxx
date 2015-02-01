@@ -63,6 +63,7 @@ Widget::Widget( Avtk::UI* ui_, int x, int y, int w, int h, std::string label__) 
   cm( CLICK_NONE ),
   dm( DM_NONE ),
   vm( VALUE_FLOAT_0_1 ),
+  rcm(RCLICK_VALUE_DEFAULT),
   
   mX(0),
   mY(0),
@@ -116,7 +117,8 @@ int Widget::handle( const PuglEvent* event )
           printf("click touches %s, clickMode %i, mouseBtn %i\n", label_.c_str(), clickMode(), mouseButton() );
 #endif // AVTK_DEBUG
           
-          if( mouseButtonPressed_ == 3 )
+          if( mouseButtonPressed_ == 3 &&
+              rcm == RCLICK_VALUE_DEFAULT )
           {
 #ifdef AVTK_DEBUG
             printf("rclick - reset to default - value( %f )\n", defaultValue_ );
@@ -354,6 +356,11 @@ void Widget::clickMode( ClickMode c )
 #ifdef AVTK_DEBUG
   //printf("Widget %s  clickMode %i, %i\n", label_.c_str(), cm, c);
 #endif // AVTK_DEBUG
+}
+
+void Widget::rClickMode( RClickMode r )
+{
+  rcm = r;
 }
 
 void Widget::visible( bool v )
