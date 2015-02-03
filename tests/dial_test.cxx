@@ -16,10 +16,11 @@ DialUI::DialUI(PuglNativeWindow parent) :
   
   Avtk::Widget* w = 0;
   
-  dial = new Avtk::Dial( this, 10, 10, WIDTH/2-20, HEIGHT-20, "Dial" );
+  dial1 = new Avtk::Dial( this, 10, 10, WIDTH/2-20, HEIGHT-20, "Dial" );
   
-  dial = new Avtk::Dial( this, WIDTH/2+10, 10, WIDTH/2-20, HEIGHT-20, "Dial" );
-  dial->rClickMode( Widget::RCLICK_NONE );
+  dial2 = new Avtk::Dial( this, WIDTH/2+10, 10, WIDTH/2-20, HEIGHT-20, "Dial" );
+  dial2->rClickMode( Widget::RCLICK_NONE );
+  
+  dial2 = new Avtk::Dial( this, WIDTH/3+00, 10, WIDTH/2-20, HEIGHT-20, "Dial" );
+  dial2->rClickMode( Widget::RCLICK_NONE );
 }
-
- 

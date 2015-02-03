@@ -138,7 +138,6 @@ class UI : public Avtk::Group
     size_t dragDropDataSize;
     char*  dragDropDataPtr;
     
-    
     void scroll( int x, int y, int dx, int dy );
     void display( cairo_t* cr );
     void motion(int x, int y);

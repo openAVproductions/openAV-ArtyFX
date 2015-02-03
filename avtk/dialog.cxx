@@ -12,8 +12,6 @@ using namespace Avtk;
 Dialog::Dialog( Avtk::UI* ui, int x_, int y_, int w_, int h_, std::string label_) :
   Group( ui, x_, y_, w_, h_, label_ )
 {
-  returnVal = 0;
-  
   mx = my = -1;
   
   ok     = new Button( ui, 0, 0, 60, 20, "OK" );
@@ -23,6 +21,8 @@ Dialog::Dialog( Avtk::UI* ui, int x_, int y_, int w_, int h_, std::string label_
   add( cancel );
   
   visible_ = false;
+  
+  end();
 }
 
 void Dialog::draw( cairo_t* cr )
@@ -132,13 +132,19 @@ void Dialog::valueCB( Avtk::Widget* widget)
 {
   if( widget == ok )
   {
-    returnVal = 1;
+    ui->handleOnly( 0x0 );
     visible( false );
+    value( 1.f );
+    
+    callback( this, ui );
   }
   else if( widget == cancel )
   {
-    returnVal = 0;
+    ui->handleOnly( 0x0 );
     visible( false );
+    value( 0.f );
+    
+    callback( this, ui );
   }
   else
   {
@@ -146,7 +152,7 @@ void Dialog::valueCB( Avtk::Widget* widget)
   }
 }
 
-int Dialog::run( const char* header, const char* text, BUTTONS b, int mx_, int my_ )
+void Dialog::run( const char* header, const char* text, BUTTONS b, int mx_, int my_ )
 {
   // show the dialog
   label( header );
@@ -157,28 +163,11 @@ int Dialog::run( const char* header, const char* text, BUTTONS b, int mx_, int m
   cancel->value( false );
   
   visible( true );
-  
   // position to have OK/YES under mouse cursor. When -1, ignore
   mx = mx_;
   my = my_;
   
-  // make UI route all events to here, and stall
+  // make UI route all events to here, and wait for the valueCB to be called to
+  // release the handleOnly
   ui->handleOnly( this );
-  
-  returnVal = -2;
-  
-  // TODO: refactor: we can't loop wait here for input! it hogs the UI thread
-  
-  while( returnVal == -2 )
-  {
-    bool quit = ui->idle();
-    if( quit )
-      break;
-    
-    usleep( 25000 );
-  }
-  
-  ui->handleOnly( 0x0 );
-  
-  return returnVal;
 }

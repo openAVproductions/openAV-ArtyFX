@@ -20,13 +20,9 @@ class Dialog : public Group
       OK_CANCEL,
     };
     
-    /// returns 1 on OK or YES, 0 on cancel or NO, -1 on error.
     /// Optionally pass in X,Y co-ords of the mouse, and the OK/YES button will
     /// be positioned under the mouse cursor.
-    int run( const char* header, const char* content, BUTTONS b = OK, int x = -1, int y = -1 );
-    
-    // to highjack the OK / Cancel buttons events
-    virtual void valueCB( Avtk::Widget* widget);
+    void run( const char* header, const char* content, BUTTONS b = OK, int x = -1, int y = -1 );
     
     virtual void draw( cairo_t* cr );
   
@@ -36,10 +32,11 @@ class Dialog : public Group
     
     int mx, my;
     
-    int returnVal;
-    
     Avtk::Button* ok;
     Avtk::Button* cancel;
+    
+    // internally highjack the OK / Cancel buttons events
+    virtual void valueCB( Avtk::Widget* widget);
 };
 
 };

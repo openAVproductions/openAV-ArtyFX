@@ -335,7 +335,7 @@ void Widget::value( float v )
   value_ = v;
   
 #ifdef AVTK_DEBUG
-  printf("Widget %s  value() %f\n", label_.c_str(), v );
+  //printf("Widget %s  value() %f\n", label_.c_str(), v );
 #endif
   ui->redraw();
 }
