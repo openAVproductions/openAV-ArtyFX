@@ -110,13 +110,13 @@ void Spectrum::draw( cairo_t* cr )
     }
     else
     {
-      // find how many samples per pixel
-      int samplesPerPix = audioData.size() / w_;
+      // find how many samples per pixel:
+      int samplesPerPix = (audioData.size()-3) /2 / w_;
       
-      float withZoomSPP = samplesPerPix / zoom_;
+      float withZoomSPP = samplesPerPix;// / zoom_;
       
       const int totalShownSamples = withZoomSPP * w_;
-      const int sampleOffset = (audioData.size() - totalShownSamples - 1) * zoomOffset_;
+      const int sampleOffset = 0;//(audioData.size() - totalShownSamples - 1) * zoomOffset_;
       
       //printf("sampsPerPx %i, with zoom %i\n",samplesPerPix, withZoomSPP);
       
@@ -133,23 +133,25 @@ void Spectrum::draw( cairo_t* cr )
         // calc value for this pixel
         for( int i = 0; i < withZoomSPP; i++ )
         {
-          float tmp = audioData.at( sampleOffset + i + (p * withZoomSPP) );
-          /*
+          float tmp = audioData.at( (p * withZoomSPP) + sampleOffset + i );
           if ( tmp < 0 )
             tmp = -tmp;
-          */
+          
           average += tmp;
         }
-        average = (average / withZoomSPP);
+        average = (average / withZoomSPP)-1;
+        
+        average = average / 10;
+        //average = pow( 4, average );
         
         //cairo_move_to( waveformCr, p, (h/2) - (averageL * (h/2.2f) )  );
-        cairo_line_to( waveformCr, p, h_ - average*(h_-20) );
+        cairo_line_to( waveformCr, p, h_ - average*(h_-20) / 2.f );
         
         if( p % 128 == 0 )
         {
           // stroke the waveform
           cairo_stroke( waveformCr );
-          cairo_move_to( waveformCr, p, h_/2.f - average*(h_-40)/2.f  );
+          cairo_move_to( waveformCr, p, h_/2.f - average*(h_-40)  );
         }
       }
       
@@ -178,6 +180,7 @@ void Spectrum::draw( cairo_t* cr )
   cairo_paint(cr);
   cairo_stroke( cr );
   
+  /*
   // new path, drawing start line
   cairo_new_sub_path( cr );
   cairo_move_to( cr, x_ + startPoint * w_, y_ + 0  );
@@ -185,6 +188,7 @@ void Spectrum::draw( cairo_t* cr )
   theme_->color( cr, HIGHLIGHT );
   cairo_set_line_width(cr, theme_->lineWidthWide() );
   cairo_stroke( cr );
+  */
   
   cairo_new_sub_path( cr );
   //theme_->color( cr, BG );

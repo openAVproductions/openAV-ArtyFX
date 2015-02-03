@@ -19,7 +19,7 @@ void Dial::draw( cairo_t* cr )
 {
   cairo_save( cr );
   
-  theme_->color( cr, BG, 1 );
+  theme_->color( cr, FG, 0.5 );
   cairo_new_sub_path( cr );
   cairo_arc(cr, x_+w_/2,y_+h_/2,  w_/2.f - 8, 2.46, 2.46 + 4.54 );
   cairo_set_line_width(cr, w_ / 20.f);

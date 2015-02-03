@@ -386,8 +386,8 @@ void Widget::dragMode( DragMode d )
 Widget::~Widget()
 {
 #ifdef AVTK_DEBUG
-  widgetCounter--;
-  printf("widgetCounter = %i\n", widgetCounter );
+  //widgetCounter--;
+  //printf("widgetCounter = %i\n", widgetCounter );
 #endif
   
 #ifdef AVTK_DEBUG_DTOR

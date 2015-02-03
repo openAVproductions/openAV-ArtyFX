@@ -36,10 +36,10 @@ void sawtooth(int count, float* array, float freq, int harmonics)
       if ( harmonicFreq < SAMPLE_RATE / 2.f )
       {
         // formula for sawtooth wave:
-        out += sin( h * (i/wavelength) ) / h;
+        //out += sin( h * (i/wavelength) ) / h;
         
         // formula for square
-        //out += sin( (2*h-1) * (i/wavelength) ) / (2*h-1);
+        out += sin( (2*h-1) * (i/wavelength) ) / (2*h-1);
       }
       else
       {
@@ -84,8 +84,7 @@ void audioDataSpectrum( int size, float* data )
   Plotter::plot( "window", N, window );
   
   // write band-limited saw wave into array
-  sawtooth( N, in, 2220, 50 );
-  
+  sawtooth( N, in, 440, 500 );
   
   {
     PFFFT_Setup *s = pffft_new_setup(N, cplx ? PFFFT_COMPLEX : PFFFT_REAL);
@@ -124,7 +123,7 @@ void audioDataSpectrum( int size, float* data )
       
       //pffft_transform(s, X, Z, Y, PFFFT_BACKWARD);
       
-      pffft_destroy_setup(s);
+      pffft_destroy_setup(s); 
       
       //flops = (max_iter*2) * ((cplx ? 5 : 2.5)*N*log((double)N)/M_LN2); // see http://www.fftw.org/speed/method.html
       //show_output("PFFFT", N, cplx, flops, t0, t1, max_iter);
