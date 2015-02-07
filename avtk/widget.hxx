@@ -181,6 +181,7 @@ class Widget
     /// widgets current value, to get/set use value() and value( float )
     float value_;
     float defaultValue_;
+    float auditionValue_;
     
     float scrollDeltaAmount;
 

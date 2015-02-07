@@ -1,6 +1,8 @@
 
 #include "widget.hxx"
 
+#include <math.h>
+
 #include "ui.hxx"
 #include "theme.hxx"
 
@@ -120,10 +122,24 @@ int Widget::handle( const PuglEvent* event )
           if( mouseButtonPressed_ == 3 &&
               rcm == RCLICK_VALUE_DEFAULT )
           {
+            // check value() - if far from default set default, else set previous
+            if( fabsf(value_ - defaultValue_) > 0.00001 )
+            {
+              auditionValue_ = value_;
+              value( defaultValue_ );
+            }
+            else
+            {
+              value( auditionValue_ );
+            }
+            
 #ifdef AVTK_DEBUG
             printf("rclick - reset to default - value( %f )\n", defaultValue_ );
 #endif // AVTK_DEBUG
-            value( defaultValue_ );
+            // save old value
+            
+            
+            
           }
           
           if( cm == CLICK_TOGGLE )
