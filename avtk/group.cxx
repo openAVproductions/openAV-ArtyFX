@@ -277,9 +277,7 @@ int Group::handle( const PuglEvent* event )
       int ret = children.at( i )->handle( event );
       if( ret )
       {
-#ifdef AVTK_DEBUG
-        printf("widget %s : handles eventType %i ret = 1\n", children.at(i)->label(), event->type );
-#endif
+        //AVTK_DEV("widget %s : handles eventType %i ret = 1\n", children.at(i)->label(), event->type );
         return ret; // child widget ate event: done :)
       }
     }
