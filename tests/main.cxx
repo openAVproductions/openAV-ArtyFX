@@ -35,6 +35,11 @@ int main(int argc, char** argv)
       printf("Invalid option %s\n", argv[1] );
   }
   
+  AVTK_DEV  ( "AVTK Developer print\n" );
+  AVTK_NOTE ( "AVTK Note\n" );
+  AVTK_WARN ( "AVTK Warning\n" );
+  AVTK_ERROR( "AVTK Error\n" );
+  
   if( ui )
   {
     ui->run();

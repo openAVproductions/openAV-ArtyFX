@@ -19,7 +19,6 @@
 #ifndef OPENAV_AVTK_COMMON_HXX
 #define OPENAV_AVTK_COMMON_HXX
 
-#include <stdio.h>
 #include <stdarg.h>
 
 #ifndef OPENAV_NAME
@@ -27,7 +26,8 @@
 #endif
 
 enum DEBUG_LEVEL {
-  DEBUG_LEVEL_NOTE = 0,
+  DEBUG_LEVEL_DEVELOPER = 0, // on #ifdef AVTK_DEBUG at compile time only
+  DEBUG_LEVEL_NOTE,
   DEBUG_LEVEL_WARN,
   DEBUG_LEVEL_ERROR,
 };
@@ -35,6 +35,7 @@ enum DEBUG_LEVEL {
 void avtk_debug( int warnLevel, const char* name, const char* file, const char* func, int line,
                   const char* format = 0, ... );
 
+#define AVTK_DEV( format, args... ) avtk_debug( DEBUG_LEVEL_DEVELOPER, NAME, __FILE__, __FUNCTION__, __LINE__, format, ## args )
 #define AVTK_NOTE( format, args... ) avtk_debug( DEBUG_LEVEL_NOTE, NAME, __FILE__, __FUNCTION__, __LINE__, format, ## args )
 #define AVTK_WARN( format, args... ) avtk_debug( DEBUG_LEVEL_WARN, NAME, __FILE__, __FUNCTION__, __LINE__, format, ## args )
 #define AVTK_ERROR( format, args... ) avtk_debug( DEBUG_LEVEL_ERROR, NAME, __FILE__, __FUNCTION__, __LINE__, format, ## args )

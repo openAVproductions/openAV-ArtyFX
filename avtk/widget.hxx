@@ -2,6 +2,8 @@
 #ifndef OPENAV_AVTK_WIDGET_HXX
 #define OPENAV_AVTK_WIDGET_HXX
 
+#include "common.hxx"
+
 #include <stdio.h>
 #include <string>
 #include <cairo/cairo.h>

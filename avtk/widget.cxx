@@ -56,6 +56,7 @@ Widget::Widget( Avtk::UI* ui_, int x, int y, int w, int h, std::string label__) 
   
   value_( 0 ),
   defaultValue_( 0 ),
+  auditionValue_( 0 ),
   
   callback( Avtk::UI::staticWidgetValueCB ),
   callbackUD( ui_ ),
@@ -81,7 +82,7 @@ Widget::Widget( Avtk::UI* ui_, int x, int y, int w, int h, std::string label__) 
   
   /// add the widget to the top of the parentStack
   /// parentStack is a stack of Group* widgets. group->end() pops from stack
-  //printf("Widget() %s : adding this to %s\n", label(), ui->parentStackTop()->label() );
+  AVTK_DEV("Widget() %s : adding this to %s\n", label(), ui->parentStackTop()->label() );
   ui->parentStackTop()->add( this );
 }
 
@@ -96,9 +97,8 @@ int Widget::handle( const PuglEvent* event )
   //     !visible_ implies the widget isn't shown: so a user can't interact with it
   if( noHandle_ || !visible_ )
   {
-#ifdef AVTK_DEBUG
-    printf("widget %s noHandle (%i) or visible (%i)\n", label(), int(noHandle_), int(visible_) );
-#endif
+    AVTK_DEV("widget %s noHandle (%i) or visible (%i)\n", label(), int(noHandle_), int(visible_) );
+    
     // no point in calling motion() on a widget that isn't shown, or doesn't handle
     ui->wantsMotionUpdates( this, false );
     return 0;
@@ -115,9 +115,7 @@ int Widget::handle( const PuglEvent* event )
           mouseButtonPressed_ = event->button.button;
           mousePressX = event->button.x;
           mousePressY = event->button.y;
-#ifdef AVTK_DEBUG
-          printf("click touches %s, clickMode %i, mouseBtn %i\n", label_.c_str(), clickMode(), mouseButton() );
-#endif // AVTK_DEBUG
+          AVTK_DEV("click touches %s, clickMode %i, mouseBtn %i\n", label_.c_str(), clickMode(), mouseButton() );
           
           if( mouseButtonPressed_ == 3 &&
               rcm == RCLICK_VALUE_DEFAULT )
