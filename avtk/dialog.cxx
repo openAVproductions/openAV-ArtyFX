@@ -72,7 +72,7 @@ void Dialog::draw( cairo_t* cr )
   // transparent-out the *entire* UI
   cairo_rectangle( cr, 0, 0, ui->w(), ui->h() );
   //theme_->color( cr, BG_DARK, 0.8 );
-  cairo_set_source_rgba( cr, 1, 1, 1, 0.1 );
+  cairo_set_source_rgba( cr, 1, 1, 1, 0.2 );
   cairo_fill_preserve( cr );
   cairo_stroke( cr );
   

@@ -52,11 +52,35 @@ TestUI::TestUI( PuglNativeWindow parent ):
   group1->end();
   
   
+  // buttons
+  w = new Avtk::Box( this, 610+100+6, 43, 84, 125, "Buttons" );
+  group1 = new Avtk::Group( this, 610+100+6+2, 43+16+2, 80, 0, "ButtonsGrp" );
+  group1->mode( Avtk::Group::WIDTH_EQUAL );
+  group1->spacing( 5 );
+  
+  momentary = new Avtk::Button( this, 0, 0, 0, 22, "Button" );
+  momentary->theme( theme( 1 ) );
+  //momentary->clickMode( Avtk::Widget::CLICK_MOMENTARY );
+  
+  w = new Avtk::Button( this, 0, 0, 0, 22, "Toggle" );
+  w->theme( theme( 2 ) );
+  w->clickMode( Avtk::Widget::CLICK_TOGGLE );
+  
+  
+  momentary = new Avtk::Button( this, 0, 0, 0, 22, "Button" );
+  momentary->theme( theme( 1 ) );
+  //momentary->clickMode( Avtk::Widget::CLICK_MOMENTARY );
+  
+  w = new Avtk::Button( this, 0, 0, 0, 22, "Toggle" );
+  w->theme( theme( 2 ) );
+  w->clickMode( Avtk::Widget::CLICK_TOGGLE );
+  group1->end();
+  
   
   
   // Editor
   w = new Avtk::Box( this, 130, 43, 120*3, 60*3+14, "MIDI Editor" );
-  scroll = new Avtk::Scroll( this, 130, 43+15, 120*3, 60*3, "Scroll 1" );
+  scroll = new Avtk::Scroll( this, 130, 43+15, 120*3+3, 60*3+6, "Scroll 1" );
   scroll->setCtrlZoom( true );
   int scale = 4;
   editor = new Avtk::EventEditor( this, 0, 0, 240*scale, 250*scale, "EventEditor" );
@@ -64,6 +88,36 @@ TestUI::TestUI( PuglNativeWindow parent ):
   editor->visible( true );
   scroll->set( editor );
   scroll->end();
+  
+  // dial group
+  w = new Avtk::Box( this, 500, 43+130, 210, 68, "Dials" );
+  group1 = new Avtk::Group( this, 500, 43+130+ 19, 212, 50, "DialGroup" );
+  group1->mode( Avtk::Group::HEIGHT_EQUAL );
+  group1->spacing( -2 );
+  
+  int dw = 44;
+  w = new Avtk::Dial( this, 0, 0, dw, dw, "Dial 1" );
+  w = new Avtk::Dial( this, 0, 0, dw, dw, "Dial 2" );
+  w = new Avtk::Dial( this, 0, 0, dw, dw, "Dial 3" );
+  w = new Avtk::Dial( this, 0, 0, dw, dw, "Dial 4" );
+  w = new Avtk::Dial( this, 0, 0, dw, dw, "Dial 5" );
+  
+  group1->end();
+  
+  // number box group
+  w = new Avtk::Box( this, 500+212+3, 43+130, 84, 68, "Number" );
+  
+  //group1 = new Avtk::Group( this, 500+212+2, 43+130+ 19, 90, 40, "NumGroup" );
+  //group1->mode( Avtk::Group::HEIGHT_EQUAL );
+  //group1->spacing( 0 );
+  
+  w = new Avtk::Number( this, 500+212+14, 43+130+ 17, 29, 22, "n1" );
+  w = new Avtk::Number( this, 500+212+48, 43+130+ 17, 29, 22, "n2" );
+  
+  w = new Avtk::Number( this, 500+212+14, 43+130+ 42, 29, 22, "n1" );
+  w = new Avtk::Number( this, 500+212+48, 43+130+ 42, 29, 22, "n2" );
+  
+  //group1->end();
   
   /*
   // slider vert
@@ -88,11 +142,12 @@ TestUI::TestUI( PuglNativeWindow parent ):
   //momentaryOut->clickMode( Avtk::Widget::CLICK_TOGGLE );
   momentaryOut->clickMode( Avtk::Widget::CLICK_MOMENTARY );
   
-  
+  /*
   // button
   groupToggler = new Avtk::Button( this, 25, 245, 130, 22, "Group Toggler" );
   groupToggler->theme( theme( 2 ) );
   groupToggler->clickMode( Avtk::Widget::CLICK_TOGGLE );
+  */
   
   // dial
   w = new Avtk::Dial( this, 7, 85, 75, 75, "Dial 1" );
@@ -133,8 +188,8 @@ TestUI::TestUI( PuglNativeWindow parent ):
   
   
   // ADSR
-  w = new Avtk::Box( this, 640, 250, 120, 14, "Envelope" );
-  w = new Avtk::Envelope( this, 640, 250+16, 120, 100, "Envelope" );
+  w = new Avtk::Box( this, 640, 250, 159, 14, "Envelope" );
+  w = new Avtk::Envelope( this, 640, 250+16, 159, 100, "Envelope" );
   
   /*
   // slider horizontal
@@ -143,7 +198,8 @@ TestUI::TestUI( PuglNativeWindow parent ):
   */
   
   
-  
+  Avtk::Dialog* dialog = new Avtk::Dialog( this, 60, 60, 320, 100, "Dialog" );
+  dialog->run( "Avtk Dialog", "This is the dialog text.", Avtk::Dialog::OK_CANCEL, 119+810/2., 530/2. );
   
   /*
   scroll = new Avtk::Scroll( this, 130, 43, 520, 210, "Scroll 1" );
