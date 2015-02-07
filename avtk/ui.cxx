@@ -61,7 +61,7 @@ UI::UI( int w__, int h__, PuglNativeWindow parent, const char* windowName ) :
 void UI::reshape(int x, int y)
 {
 #ifdef AVTK_DEBUG_DTOR
-  printf("reshaping UI: scale factor: %f \t%f\n", x/float(initW), y/float(initH) );
+  AVTK_DEV("reshaping UI: scale factor: %f \t%f\n", x/float(initW), y/float(initH) );
 #endif
   
   //Group::resize( );
@@ -73,7 +73,7 @@ void UI::reshape(int x, int y)
 UI::~UI()
 {
 #ifdef AVTK_DEBUG_DTOR
-  printf("%s %s\n", __PRETTY_FUNCTION__, label() );
+  AVTK_DEV("%s %s\n", __PRETTY_FUNCTION__, label() );
 #endif
   
   while( themes.size() > 0 )
@@ -133,17 +133,13 @@ int UI::run()
 
 void UI::pushParent( Avtk::Group* g )
 {
-#ifdef AVTK_DEBUG
-  printf("%s - pushing %s to stack\n", __PRETTY_FUNCTION__, g->label() );
-#endif
+  AVTK_DEV("%s - pushing %s to stack\n", __PRETTY_FUNCTION__, g->label() );
   parentStack.push( g );
 }
 
 void UI::popParent()
 {
-#ifdef AVTK_DEBUG
-  printf("%s - popping %s from stack\n", __PRETTY_FUNCTION__, parentStack.top()->label() );
-#endif
+  AVTK_DEV("%s - popping %s from stack\n", __PRETTY_FUNCTION__, parentStack.top()->label() );
   parentStack.pop();
 }
 
@@ -178,7 +174,7 @@ void UI::event( const PuglEvent* event )
 {
   if( event->type != PUGL_EXPOSE )
   {
-    //printf("UI::handle() type = %i, sending to Tester\n", event->type );
+    //AVTK_DEV("UI::handle() type = %i, sending to Tester\n", event->type );
 #ifdef AVTK_TESTER
     // eat AVTK start record events shortcut: 
     if( event->type == PUGL_KEY_PRESS )
@@ -189,7 +185,7 @@ void UI::event( const PuglEvent* event )
       {
         if( !tester->recording() )
         {
-          printf("AVTK: Tester Record Starting!\n");
+          AVTK_DEV("AVTK: Tester Record Starting!\n");
           tester->record( "test1" );
         }
         else
@@ -203,7 +199,7 @@ void UI::event( const PuglEvent* event )
       if( event->key.character == 's' )
         // && (((PuglEventKey*)event)->state & PUGL_MOD_CTRL) )
       {
-        printf("run test!\n");
+        AVTK_DEV("run test!\n");
         tester->runTest( "test1" );
         return;
       }
@@ -236,9 +232,7 @@ void UI::event( const PuglEvent* event )
   }
   else if( event->type == PUGL_CONFIGURE )
   {
-#ifdef AVTK_DEBUG
-    printf("UI handleing PUGL_CONFIGURE\n");
-#endif
+    AVTK_DEV("UI handleing PUGL_CONFIGURE\n");
   }
 }
 
@@ -302,7 +296,7 @@ void UI::motion(int x, int y)
     {
       if( (*it)->touches( x, y ) )
       {
-        //printf("DragDropVerify: Origin %s, Target %s\n", dragDropOrigin->label(), (*it)->label() );
+        //AVTK_DEV("DragDropVerify: Origin %s, Target %s\n", dragDropOrigin->label(), (*it)->label() );
         dragDropVerify( (*it) );
       }
     }
@@ -319,15 +313,11 @@ void UI::dragDropInit( Avtk::Widget* origin, size_t size, void* data )
   
   if( dragDropDataPtr )
   {
-#ifdef AVTK_DEBUG
-    printf("UI delete[] existing dragDropDataPtr\n");
-#endif // AVTK_DEBUG
+    AVTK_DEV("UI delete[] existing dragDropDataPtr\n");
     delete[] dragDropDataPtr;
   }
   
-#ifdef AVTK_DEBUG
-  printf("UI new dragDropDataPtr, size %i\n", size);
-#endif // AVTK_DEBUG
+  AVTK_DEV("UI new dragDropDataPtr, size %i\n", size);
   dragDropDataSize = size;
   dragDropDataPtr  = new char[size];
   
@@ -357,17 +347,13 @@ bool UI::dragDropVerify( Avtk::Widget* target )
       {
         dragDropTargetVerified = true;
         dragDropTargetVerifiedWidget = target;
-#ifdef AVTK_DEBUG
-        printf("DragDropVerify to %s OK: data = %s\n", target->label(), dragDropDataPtr );
-#endif // AVTK_DEBUG
+        AVTK_DEV("DragDropVerify to %s OK: data = %s\n", target->label(), dragDropDataPtr );
         return true;
       }
     }
     
     dragDropTargetVerified = false;
-#ifdef AVTK_DEBUG
-    printf("DragDropVerify Failed no data-type matches\n" );
-#endif // AVTK_DEBUG
+    AVTK_DEV("DragDropVerify Failed no data-type matches\n" );
     return false;
   }
   
