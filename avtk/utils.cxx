@@ -44,6 +44,16 @@ int loadSample( std::string path, std::vector< float >& sample, bool printErrors
 #endif
 }
 
+int fileUpLevel( std::string path, std::string& newPath )
+{
+  int forwardSlash = path.rfind('/');
+  newPath = path.substr( 0, forwardSlash-path.size() );
+  if( newPath[newPath.size()-1] != '/' )
+    newPath += '/';
+  
+  return OPENAV_OK;
+}
+
 
 int directories( std::string d, std::vector< std::string >& files, bool nameOnly, bool printErrors )
 {

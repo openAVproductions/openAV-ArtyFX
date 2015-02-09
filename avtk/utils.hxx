@@ -21,6 +21,8 @@
 
 namespace Avtk
 {
+  int fileUpLevel( std::string path, std::string& newPath );
+  
   int loadSample( std::string path, std::vector< float >& sample, bool printErrors = true );
   int directories( std::string d, std::vector< std::string >& files, bool nameOnly = true, bool printErrors = true );
   
