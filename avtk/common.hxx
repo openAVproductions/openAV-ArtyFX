@@ -35,7 +35,12 @@ enum DEBUG_LEVEL {
 void avtk_debug( int warnLevel, const char* name, const char* file, const char* func, int line,
                   const char* format = 0, ... );
 
+#ifdef AVTK_DEBUG
 #define AVTK_DEV( format, args... ) avtk_debug( DEBUG_LEVEL_DEVELOPER, NAME, __FILE__, __FUNCTION__, __LINE__, format, ## args )
+#else
+#define AVTK_DEV( format, args... ) 
+#endif
+
 #define AVTK_NOTE( format, args... ) avtk_debug( DEBUG_LEVEL_NOTE, NAME, __FILE__, __FUNCTION__, __LINE__, format, ## args )
 #define AVTK_WARN( format, args... ) avtk_debug( DEBUG_LEVEL_WARN, NAME, __FILE__, __FUNCTION__, __LINE__, format, ## args )
 #define AVTK_ERROR( format, args... ) avtk_debug( DEBUG_LEVEL_ERROR, NAME, __FILE__, __FUNCTION__, __LINE__, format, ## args )

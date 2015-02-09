@@ -32,13 +32,11 @@ void avtk_debug( int warnLevel, const char* name, const char* file, const char* 
   {
     printf( "[\033[1;33m%s\033[0m] %s:%i: ", name, func, line );
   }
-#ifdef AVTK_DEBUG
   else if ( warnLevel == DEBUG_LEVEL_DEVELOPER )
   {
     printf( "[\033[1;34m%s\033[0m] %s:%i: ", name, func, line );
   }
-#endif
-  else // NOTE
+  else
   {
     printf( "[\033[1;32m%s\033[0m] %s:%i: ", name, func, line );
   }
