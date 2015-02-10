@@ -42,15 +42,20 @@ class Masher // : Effect
       framesPerBar(22050),
       _activated(false)
     {
-      history = (float*)malloc( sizeof(float) * BUFFER_SIZE ),
+      history = new float[BUFFER_SIZE];
       
       _recording = false;
       playhead   = 0;
       recordHead = sr * 2;
       
+      amp = 1;
       
       duration( 0.5 );
       currentSmashSize = newSmashSize;
+    }
+    ~Masher()
+    {
+      delete[] history;
     }
     
     void active(bool a)

@@ -59,6 +59,10 @@ class Distortion // : Effect
       buffer = new float[BUFFER_SIZE];
       buffer_pos = 0;
     }
+    ~Distortion()
+    {
+      delete[] buffer;
+    }
     
     float getValue()
     {

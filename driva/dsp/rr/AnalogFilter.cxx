@@ -252,21 +252,15 @@ AnalogFilter::computefiltercoefs ()
             sn = sinf (omega);
             cs = cosf (omega);
             tmpq = sqrtf (tmpq);
-            alpha = sn / (2.0f * tmpq);
+            alpha = sn / (2.0f * tmpq); 
             beta = sqrtf (tmpgain) / tmpq;
             tmp = (tmpgain + 1.0f) + (tmpgain - 1.0f) * cs + beta * sn;
 
-            c[0] =
-                tmpgain * ((tmpgain + 1.0f) - (tmpgain - 1.0f) * cs +
-                           beta * sn) / tmp;
-            c[1] =
-                2.0f * tmpgain * ((tmpgain - 1.0f) - (tmpgain + 1.0f) * cs) / tmp;
-            c[2] =
-                tmpgain * ((tmpgain + 1.0f) - (tmpgain - 1.0f) * cs -
-                           beta * sn) / tmp;
+            c[0] = tmpgain * ((tmpgain + 1.0f) - (tmpgain - 1.0f) * cs + beta * sn) / tmp;
+            c[1] = 2.0f * tmpgain * ((tmpgain - 1.0f) - (tmpgain + 1.0f) * cs) / tmp;
+            c[2] = tmpgain * ((tmpgain + 1.0f) - (tmpgain - 1.0f) * cs - beta * sn) / tmp;
             d[1] = -2.0f * ((tmpgain - 1.0f) + (tmpgain + 1.0f) * cs) / tmp * (-1.0f);
-            d[2] =
-                ((tmpgain + 1.0f) + (tmpgain - 1.0f) * cs - beta * sn) / tmp * (-1.0f);
+            d[2] = ((tmpgain + 1.0f) + (tmpgain - 1.0f) * cs - beta * sn) / tmp * (-1.0f);
         } else {
             c[0] = tmpgain;
             c[1] = 0.0;
