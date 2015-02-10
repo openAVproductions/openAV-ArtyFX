@@ -11,7 +11,7 @@ void DrivaWidget::cb_headerImage(Avtk::Image* o, void* v) {
 
 void DrivaWidget::cb_graph_i(Avtk::Drive* o, void*) {
   float tmp = o->value();
-freq->value( tmp );
+distortion->value( tmp );
 writePort(DRIVA_AMOUNT, tmp);
 
 //volume->value( o->getVolume() );
@@ -24,21 +24,21 @@ void DrivaWidget::cb_graph(Avtk::Drive* o, void* v) {
   ((DrivaWidget*)(o->parent()->user_data()))->cb_graph_i(o,v);
 }
 
-void DrivaWidget::cb_freq_i(Avtk::Dial* o, void*) {
+void DrivaWidget::cb_distortion_i(Avtk::Dial* o, void*) {
   float tmp = o->value();
 graph->value( tmp );
 graph->drive( tmp );
 writePort(DRIVA_AMOUNT, tmp);
 //printf("%f\n",tmp);
 }
-void DrivaWidget::cb_freq(Avtk::Dial* o, void* v) {
-  ((DrivaWidget*)(o->parent()->user_data()))->cb_freq_i(o,v);
+void DrivaWidget::cb_distortion(Avtk::Dial* o, void* v) {
+  ((DrivaWidget*)(o->parent()->user_data()))->cb_distortion_i(o,v);
 }
 
 void DrivaWidget::cb_tone_i(Fl_Choice* o, void*) {
   float tmp = o->value() + 1;
 graph->drive( tmp - 1 );
-writePort(WAVE1_TYPE, tmp);
+writePort(DRIVA_TONE, tmp);
 printf("tone selector %f\n",tmp);
 }
 void DrivaWidget::cb_tone(Fl_Choice* o, void* v) {
@@ -79,18 +79,18 @@ DrivaWidget::DrivaWidget() {
       graph->align(Fl_Align(FL_ALIGN_BOTTOM));
       graph->when(FL_WHEN_CHANGED);
     } // Avtk::Drive* graph
-    { freq = new Avtk::Dial(103, 169, 45, 35, "Distortion");
-      freq->box(FL_NO_BOX);
-      freq->color((Fl_Color)90);
-      freq->selection_color(FL_INACTIVE_COLOR);
-      freq->labeltype(FL_NORMAL_LABEL);
-      freq->labelfont(0);
-      freq->labelsize(10);
-      freq->labelcolor(FL_FOREGROUND_COLOR);
-      freq->callback((Fl_Callback*)cb_freq);
-      freq->align(Fl_Align(FL_ALIGN_BOTTOM));
-      freq->when(FL_WHEN_CHANGED);
-    } // Avtk::Dial* freq
+    { distortion = new Avtk::Dial(103, 169, 45, 35, "Distortion");
+      distortion->box(FL_NO_BOX);
+      distortion->color((Fl_Color)90);
+      distortion->selection_color(FL_INACTIVE_COLOR);
+      distortion->labeltype(FL_NORMAL_LABEL);
+      distortion->labelfont(0);
+      distortion->labelsize(10);
+      distortion->labelcolor(FL_FOREGROUND_COLOR);
+      distortion->callback((Fl_Callback*)cb_distortion);
+      distortion->align(Fl_Align(FL_ALIGN_BOTTOM));
+      distortion->when(FL_WHEN_CHANGED);
+    } // Avtk::Dial* distortion
     { tone = new Fl_Choice(12, 189, 80, 25, "Tone");
       tone->down_box(FL_BORDER_BOX);
       tone->callback((Fl_Callback*)cb_tone);

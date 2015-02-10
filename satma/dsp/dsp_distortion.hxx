@@ -108,7 +108,8 @@ class Distortion // : Effect
       if ( true ) // !_active )
       {
         // pass audio trough from in -> out
-        memcpy( output, input, count * sizeof(float) );
+        if( input != output )
+          memcpy( output, input, count * sizeof(float) );
       }
       
       if ( !_active )

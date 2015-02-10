@@ -124,7 +124,8 @@ class Parameteric
     {
       if ( !_active )
       {
-        memcpy( output, input, sizeof(float)*count );
+        if( input != output )
+          memcpy( output, input, sizeof(float)*count );
         return;
       }
       

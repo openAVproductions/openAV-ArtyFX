@@ -129,8 +129,10 @@ class Widener // : Effect
       else
       {
         // set input -> output
-        memcpy( outL, inL, count * sizeof(float) );
-        memcpy( outR, inR, count * sizeof(float) );
+        if( outL != inL )
+          memcpy( outL, inL, count * sizeof(float) );
+        if( outR != inR )
+          memcpy( outR, inR, count * sizeof(float) );
       }
     }
   

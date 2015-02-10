@@ -28,7 +28,8 @@
 <http://www.openavproductions.com/artyfx#della/gui>
   a ui:X11UI;
   ui:binary <artyfx.so>;
-  ui:requiredFeature ui:makeResident.
+  ui:requiredFeature ui:makeResident;
+  lv2:extensionData ui:idleInterface .
 
 <http://www.openavproductions.com/artyfx#della>
   a lv2:Plugin ,

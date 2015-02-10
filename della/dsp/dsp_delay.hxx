@@ -23,6 +23,8 @@
 #ifndef OPENAV_DSP_DELAY_H
 #define OPENAV_DSP_DELAY_H
 
+#include <stdio.h>
+
 #include <cstring>
 #include <cmath>
 #include <math.h>
@@ -54,10 +56,17 @@ class Delay // : Effect
       
       feedback = 0.0f;
       
+      framesPerBeat = 22050;
+      
       timeValue = 0.f;
       
       // allocate 1 second max buffer length
       buffer = new float[ sr ];
+    }
+    
+    ~Delay()
+    {
+      delete[] buffer;
     }
     
     void setBPM(float b)
@@ -111,6 +120,12 @@ class Delay // : Effect
           //memset( &buffer[int(samplerate*0.5)], 0, samplerate-samplerate*0.5);
           break;
       }
+      
+      if( delayTimeSamps >= samplerate )
+      {
+        delayTimeSamps = samplerate - 1;
+        //printf("clipping delayTimeSamps to %i\n", delayTimeSamps );
+      }
     }
     
     void setVolume( float v )
@@ -138,8 +153,9 @@ class Delay // : Effect
     
     void process (long count, float* input, float* output)
     {
-      // set input -> output
-      memcpy( output, input, count * sizeof(float) );
+      // set input -> output, only if not inplace processing
+      if( input != output )
+        memcpy( output, input, count * sizeof(float) );
       
       if ( _active )
       {
@@ -153,9 +169,9 @@ class Delay // : Effect
           if ( readPos < 0 )
             readPos += delayTimeSamps;
           
-          output[i] += buffer[readPos] * DB_CO( (delayVolume-1)*40 );
+          output[i] = input[i] + (buffer[readPos] * DB_CO( (delayVolume-1)*40 ));
           
-          buffer[writeHead] = input[i] + buffer[readPos] * feedback;
+          buffer[writeHead] = input[i] + (buffer[readPos] * feedback);
           writeHead++;
         }
       }

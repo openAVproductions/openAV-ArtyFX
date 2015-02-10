@@ -28,10 +28,10 @@ private:
   void cb_graph_i(Avtk::Drive*, void*);
   static void cb_graph(Avtk::Drive*, void*);
 public:
-  Avtk::Dial *freq;
+  Avtk::Dial *distortion;
 private:
-  void cb_freq_i(Avtk::Dial*, void*);
-  static void cb_freq(Avtk::Dial*, void*);
+  void cb_distortion_i(Avtk::Dial*, void*);
+  static void cb_distortion(Avtk::Dial*, void*);
 public:
   Fl_Choice *tone;
 private:

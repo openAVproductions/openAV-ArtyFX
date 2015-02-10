@@ -181,29 +181,6 @@ class Hold : public Fl_Slider
         cairo_set_source_rgba( cr,  255 / 255.f,  81 / 255.f ,  0 / 255.f , 1 );
         cairo_stroke( cr );
         
-        /*
-        // WAH graph - remove when Hold finished
-        float v = ( value() * 3.1415 ) /2 ;
-        
-        float size = _drive + 0.4;
-        
-        float x1 = - cos( v ) * w / 3 * size;
-        float y1 = - sin( v ) * h / 3 * size;
-        
-        float x2 = - cos( v + 3.1415/2 ) * w / 3 * size;
-        float y2 = - sin( v + 3.1415/2 ) * h / 3 * size;
-        
-        cairo_move_to( cr, x+w/2    , y + h * 2 / 3. );
-        cairo_line_to( cr, x+w/2+x1 , y+h*2/3+y1 );
-        cairo_line_to( cr, x+w/2+x2 , y+h*2/3+y2 );
-        cairo_close_path( cr );
-        cairo_set_line_width( cr, 2.1 );
-        cairo_set_line_join( cr, CAIRO_LINE_JOIN_ROUND );
-        cairo_set_source_rgba( cr,  0 / 255.f,  155 / 255.f ,  255 / 255.f , 0.2 );
-        cairo_fill_preserve( cr );
-        cairo_set_source_rgba( cr,  0 / 255.f,  155 / 255.f ,  255 / 255.f , 0.8 );
-        cairo_stroke( cr );
-        */
         
         // stroke outline
         cairo_rectangle(cr, x+1, y+1, w-2, h-2);

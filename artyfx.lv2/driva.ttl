@@ -20,6 +20,7 @@
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix epp: <http://lv2plug.in/ns/ext/port-props#> .
 @prefix ui: <http://lv2plug.in/ns/extensions/ui#>.
+@prefix pprops:<http://lv2plug.in/ns/ext/port-props#> .
 
 @prefix atom:  <http://lv2plug.in/ns/ext/atom#> .
 @prefix ui: <http://lv2plug.in/ns/extensions/ui#>.
@@ -58,8 +59,8 @@
   ] , [
       a lv2:InputPort, lv2:ControlPort ;
       lv2:index 2 ;
-      lv2:name "Type" ;
-      lv2:symbol "type" ;
+      lv2:name "Tone" ;
+      lv2:symbol "tone" ;
       lv2:default 1.000000 ;
       lv2:minimum 1.000000 ;
       lv2:maximum 8.000000 ;
@@ -75,6 +76,10 @@
       lv2:scalePoint [rdfs:label "Metal"  ; rdf:value 7];
       lv2:scalePoint [rdfs:label "Fuzz"   ; rdf:value 8];
       
+      lv2:portProperty pprops:expensive;
+      
+      rdfs:comment "Changes the order of the waveshapers and eqs, causing a different sonic qualities."
+      
   ] , [
       a lv2:InputPort, lv2:ControlPort ;
       lv2:index 3 ;
@@ -84,11 +89,16 @@
       lv2:minimum 0.000000 ;
       lv2:maximum 1.000000 ;
   ];
+  
   mod:gui [
-        a mod:Gui;
-        mod:resourcesDirectory <modgui>;
-        mod:iconTemplate <modgui/icon-driva.html>;
-        mod:templateData <modgui/data-driva.json>;
-        mod:screenshot <modgui/screenshot-driva.png>;
-        mod:thumbnail <modgui/thumb-driva.png>;
-    ] .
+    a mod:Gui;
+    mod:resourcesDirectory <modgui>;
+    
+    mod:stylesheet    <modgui/artyfx.css>;
+    
+    mod:iconTemplate  <modgui/driva.html>;
+    mod:templateData  <modgui/driva.json>;
+    mod:javascript    <modgui/driva.js>;
+    mod:screenshot    <modgui/driva.png>;
+    mod:thumbnail     <modgui/driva-thumb.png>;
+  ] .

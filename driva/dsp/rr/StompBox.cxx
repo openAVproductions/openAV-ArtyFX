@@ -137,8 +137,8 @@ void StompBox::process (int nframes, float * input, float * output)
       lanti->filterout( nframes, input);
       lpre1->filterout( nframes, input);
       
-      lwshape2->waveshapesmps (nframes, input, 23, Pgain, 1);
-      lwshape2->waveshapesmps (nframes, input, 28, Pgain, 1);
+      lwshape2->waveshapesmps (nframes, input, 23, Pgain * 0.7, 1);
+      lwshape2->waveshapesmps (nframes, input, 28, Pgain * 0.7, 1);
       lpost->filterout( nframes, input);
       
       

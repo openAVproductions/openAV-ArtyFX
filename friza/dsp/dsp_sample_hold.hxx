@@ -57,7 +57,7 @@ class SampleHoldShift
       // for testing, we can put a sin-wave into the buffer, and test playback
       // for glitches / with it. 
       for( int i = 0; i < _length; i++ )
-        buffer[i] = sin( i * 3.1415 * 100 );
+        buffer[i] = sin( i * 3.1415 * 40 );
       
       Plotter::plot( _length, buffer );
 #endif // TESTING
@@ -93,6 +93,8 @@ class SampleHoldShift
     
     void process (long nframes, float* input, float* output )
     {
+      
+      /*
 #ifdef TESTING
 #else
       // copy input material to buffer, unless done
@@ -102,12 +104,14 @@ class SampleHoldShift
         recordHead += nframes;
       }
 #endif // TESTING
+      */
       
       if ( input != output )
       {
         memcpy( output, input, sizeof(float) * nframes );
-        memset( output,     0, sizeof(float) * nframes );
+        //memset( output,     0, sizeof(float) * nframes );
       }
+      
       
       if ( _doIt )
       {
@@ -126,10 +130,16 @@ class SampleHoldShift
         {
           for(int i = 0; i < nframes; i++ )
           {
-            if ( playHead >= _length )
-              playHead = 0;
+            //if ( playHead >= _length )
+            //  playHead = 0;
             
-            output[i] += buffer[playHead++] * _volume;
+            float samples_per_cycle = 44100 / 80;
+            float phase_increment = (1.f / samples_per_cycle);
+            output[i] = sin( playHead * 2 * 3.1415 ) * 0.2;
+            
+            playHead += phase_increment;
+            if ( playHead > 1.0f )
+              playHead = 0.f;
           }
         }
         
@@ -150,7 +160,7 @@ class SampleHoldShift
     float _position;
     
     long recordHead;
-    long playHead;
+    float playHead;
     
     int xfade;
     

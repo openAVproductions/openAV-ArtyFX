@@ -12,7 +12,7 @@ class DrivaWidget {open
   Function {DrivaWidget()} {open
   } {
     Fl_Window window {open
-      xywh {650 456 160 220} type Double
+      xywh {412 376 160 220} type Double
       code0 {\#include "lv2/lv2plug.in/ns/extensions/ui/ui.h"}
       code1 {window->color( fl_rgb_color( 17, 17, 17) );}
       code2 {close_cb( o, 0 );}
@@ -31,20 +31,20 @@ class DrivaWidget {open
       Fl_Dial graph {
         label graph
         callback {float tmp = o->value();
-freq->value( tmp );
+distortion->value( tmp );
 writePort(DRIVA_AMOUNT, tmp);
 
 //volume->value( o->getVolume() );
 
 float a = o->getActive();
 //writePort(BITTA_ACTIVE, a);
-//printf("active %f\\n", a );} selected
+//printf("active %f\\n", a );}
         xywh {5 36 150 126} box UP_BOX color 179 labeltype NO_LABEL
         code1 {using namespace std;}
         code2 {\#include <iostream>}
         class {Avtk::Drive}
       }
-      Fl_Dial freq {
+      Fl_Dial distortion {
         label Distortion
         callback {float tmp = o->value();
 graph->value( tmp );
@@ -58,8 +58,8 @@ writePort(DRIVA_AMOUNT, tmp);
         label Tone
         callback {float tmp = o->value() + 1;
 graph->drive( tmp - 1 );
-writePort(WAVE1_TYPE, tmp);
-printf("tone selector %f\\n",tmp);} open
+writePort(DRIVA_TONE, tmp);
+printf("tone selector %f\\n",tmp);} open selected
         xywh {12 189 80 25} down_box BORDER_BOX align 1 when 1
         code0 {tone->add("Odie"); tone->add("Grunge"); tone->add("Distort"); tone->add("Ratty"); tone->add("Classic"); tone->add("Morbid"); tone->add("Metal"); tone->add("Fuzz");}
         code1 {tone->value( 0 );}

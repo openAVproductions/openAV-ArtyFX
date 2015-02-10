@@ -102,7 +102,8 @@ class BitCrusher // : Effect
       else
       {
         // set input -> output
-        memcpy( out, in, count * sizeof(float) );
+        if( in != out )
+          memcpy( out, in, count * sizeof(float) );
       }
     }
   

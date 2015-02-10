@@ -129,17 +129,14 @@ void driva_port_event(LV2UI_Handle ui,
       case DRIVA_AMOUNT:
           {
             self->widget->graph->value( value );
-            //self->widget->freq->value( value );
+            self->widget->distortion->value( value );
           }
           break;
-      /*
-      case DRIVA_DRIVE:
+      case DRIVA_TONE:
           {
-            self->widget->graph->drive( value );
-            //self->widget->drive->value( value );
+            self->widget->tone->value( value );
           }
           break;
-      */
     }
   }
   

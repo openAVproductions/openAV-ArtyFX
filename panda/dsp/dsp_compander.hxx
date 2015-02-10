@@ -157,7 +157,8 @@ class Compander // : Effect
       else
       {
         // set input -> output
-        memcpy( output0, input0, count * sizeof(float) );
+        if( output0 != input0 )
+          memcpy( output0, input0, count * sizeof(float) );
       }
     }
   

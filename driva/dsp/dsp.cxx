@@ -75,7 +75,7 @@ void Driva::connect_port(LV2_Handle instance, uint32_t port, void *data)
           self->audioOutput     = (float*)data;
           break;
       
-      case WAVE1_TYPE:
+      case DRIVA_TONE:
           self->controlWave1type   = (float*)data;
           break;
       case DRIVA_AMOUNT:

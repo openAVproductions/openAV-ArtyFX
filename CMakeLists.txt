@@ -10,7 +10,7 @@ set(ARTYFX_VERSION_PATCH "0")
 set(ARTYFX_VERSION "${ARTYFX_VERSION_MAJOR}.${ARTYFX_VERSION_MINOR}.${ARTYFX_VERSION_PATCH}")
 
 option(RELEASE_BUILD  "Build for production usage" ON  )
-option(HAVE_NTK       "Build GUI (NTK)"            ON  )
+option(HAVE_NTK       "Build GUI (NTK)"            OFF )
 
 find_package(PkgConfig)
 
@@ -106,5 +106,8 @@ set_target_properties(artyfx PROPERTIES PREFIX "")
 # add the install targets
 install (TARGETS artyfx DESTINATION lib/lv2/artyfx.lv2/)
 
-FILE(GLOB ttls "artyfx.lv2/*")
-install(FILES ${ttls} DESTINATION lib/lv2/artyfx.lv2/)
+FILE(GLOB modF "artyfx.lv2/modgui/*")
+FILE(GLOB ttls "artyfx.lv2/*.ttl"   )
+
+install(FILES     ${modF} DESTINATION lib/lv2/artyfx.lv2/modgui/)
+install(FILES     ${ttls} DESTINATION lib/lv2/artyfx.lv2/)
