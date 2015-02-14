@@ -13,17 +13,18 @@
 # ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
 # OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
-@prefix doap: <http://usefulinc.com/ns/doap#> .
-@prefix foaf: <http://xmlns.com/foaf/0.1/> .
-@prefix lv2: <http://lv2plug.in/ns/lv2core#> .
-@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix epp: <http://lv2plug.in/ns/ext/port-props#> .
-@prefix ui: <http://lv2plug.in/ns/extensions/ui#>.
-
-@prefix atom:  <http://lv2plug.in/ns/ext/atom#> .
-@prefix ui: <http://lv2plug.in/ns/extensions/ui#>.
-@prefix time: <http://lv2plug.in/ns/ext/time#> .
+@prefix doap:   <http://usefulinc.com/ns/doap#> .
+@prefix foaf:   <http://xmlns.com/foaf/0.1/> .
+@prefix lv2:    <http://lv2plug.in/ns/lv2core#> .
+@prefix rdf:    <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:   <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix epp:    <http://lv2plug.in/ns/ext/port-props#> .
+@prefix ui:     <http://lv2plug.in/ns/extensions/ui#>.
+@prefix pprop:  <http://lv2plug.in/ns/ext/port-props#>.
+@prefix atom:   <http://lv2plug.in/ns/ext/atom#> .
+@prefix ui:     <http://lv2plug.in/ns/extensions/ui#>.
+@prefix time:   <http://lv2plug.in/ns/ext/time#> .
+@prefix mod:    <http://portalmod.com/ns/modgui#>.
 
 <http://www.openavproductions.com/artyfx#bitta/gui>
   a ui:X11UI;
@@ -42,7 +43,7 @@
   ui:ui <http://www.openavproductions.com/artyfx#bitta/gui>;
   
   lv2:requiredFeature <http://lv2plug.in/ns/ext/urid#map> ;
-
+  
   lv2:port [
       a lv2:InputPort, lv2:AudioPort ;
       lv2:index 0 ;
@@ -77,6 +78,7 @@
       lv2:default 1.000000 ;
       lv2:minimum 0.000000 ;
       lv2:maximum 1.000000 ;
+      lv2:portProperty pprop:notOnGUI ;
   ]
   ,
   [
