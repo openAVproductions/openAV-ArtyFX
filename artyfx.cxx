@@ -24,6 +24,7 @@
 
 // include each plugin
 #include "bitta/dsp/shared.hxx"
+#include "capta/dsp/shared.hxx"
 #include "della/dsp/shared.hxx"
 #include "driva/dsp/shared.hxx"
 #include "ducka/dsp/shared.hxx"
@@ -48,6 +49,16 @@ static const LV2_Descriptor descriptors[] =
     Bitta::deactivate,
     Bitta::cleanup,
     Bitta::extension_data
+  },
+  {
+    CAPTA_URI,
+    Capta::instantiate,
+    Capta::connect_port,
+    Capta::activate,
+    Capta::run,
+    Capta::deactivate,
+    Capta::cleanup,
+    Capta::extension_data
   },
   {
     DELLA_URI,

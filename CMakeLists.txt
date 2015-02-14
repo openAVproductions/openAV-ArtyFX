@@ -19,6 +19,9 @@ find_package(PkgConfig)
 pkg_check_modules(LV2 lv2>=1.8.0 REQUIRED)
 include_directories( ${LV2_INCLUDE_DIRS}  )
 
+pkg_check_modules(SND sndfile REQUIRED)
+include_directories( ${SND_INCLUDE_DIRS}  )
+
 IF(HAVE_NTK)
   ADD_DEFINITIONS(-DOPENAV_USE_NTK)
   pkg_check_modules(NTK ntk REQUIRED)
@@ -36,6 +39,7 @@ ENDIF()
 FILE(GLOB sources
   artyfx.cxx
   bitta/dsp/*.cxx 
+  capta/dsp/*.cxx 
   della/dsp/*.cxx 
   driva/dsp/*.cxx driva/dsp/rr/*.cxx 
   ducka/dsp/*.cxx 
@@ -95,6 +99,9 @@ COLOR_MESSAGE( "
 ")
 
 ADD_LIBRARY(artyfx SHARED ${sources} )
+
+target_link_libraries( artyfx ${SND_LIBRARIES}   )
+target_link_libraries( artyfx "-lpthread" )
 
 IF(HAVE_NTK)
 target_link_libraries( artyfx ${NTK_LIBRARIES} )
