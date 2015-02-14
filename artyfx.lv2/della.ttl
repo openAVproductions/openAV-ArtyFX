@@ -31,6 +31,8 @@
   a ui:X11UI;
   ui:binary <artyfx.so>;
   ui:requiredFeature ui:makeResident;
+  lv2:optionalFeature ui:noUserResize ;
+  lv2:extensionData   ui:idleInterface ;
   lv2:extensionData ui:idleInterface .
 
 <http://www.openavproductions.com/artyfx#della>

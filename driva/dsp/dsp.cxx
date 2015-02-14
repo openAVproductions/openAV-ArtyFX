@@ -110,8 +110,12 @@ void Driva::run(LV2_Handle instance, uint32_t nframes)
   self->dspStompbox1->process( nframes, in, out );
   
   // FIXME: nuke input to 0 again, due to waveshaper write-issue; possibly due
-  // to inplace processing, which isn't being cleared otherwise.
-  memset( in, 0, sizeof(float) * nframes );
+  // to inplace processing of Stompbox, which isn't cleared by JACK if nothing
+  // is connected -> causes lots of noise on output.
+  if( in != out )
+  {
+    memset( in, 0, sizeof(float) * nframes );
+  }
 }
 
 void Driva::cleanup(LV2_Handle instance)

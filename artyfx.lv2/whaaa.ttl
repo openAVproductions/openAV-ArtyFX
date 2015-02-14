@@ -28,6 +28,8 @@
 <http://www.openavproductions.com/artyfx#whaaa/gui>
   a ui:X11UI;
   ui:binary <artyfx.so>;
+  lv2:optionalFeature ui:noUserResize ;
+  lv2:extensionData   ui:idleInterface ;
   ui:requiredFeature ui:makeResident.
 
 <http://www.openavproductions.com/artyfx#whaaa>
