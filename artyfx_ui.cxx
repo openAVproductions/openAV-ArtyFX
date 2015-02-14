@@ -30,6 +30,9 @@
 #include "bitta/gui/ui.hxx"
 #include "bitta/dsp/shared.hxx"
 
+#include "capta/gui/ui.hxx"
+#include "capta/dsp/shared.hxx"
+
 #include "della/gui/ui.hxx"
 #include "della/dsp/shared.hxx"
 
@@ -74,6 +77,13 @@ static LV2UI_Descriptor descriptors[] =
     bitta_cleanup, 
     bitta_port_event, 
     bitta_extension_data
+  },
+  {
+    CAPTA_UI_URI,
+    capta_instantiate,
+    capta_cleanup, 
+    capta_port_event, 
+    capta_extension_data
   },
   {
     DELLA_UI_URI,

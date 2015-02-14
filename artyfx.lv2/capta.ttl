@@ -25,6 +25,11 @@
 @prefix midi:  <http://lv2plug.in/ns/ext/midi#> .
 @prefix urid:  <http://lv2plug.in/ns/ext/urid#> .
 
+<http://www.openavproductions.com/artyfx#capta/gui>
+  a ui:X11UI;
+  ui:binary <artyfx.so>;
+  ui:requiredFeature ui:makeResident.
+
 <http://www.openavproductions.com/artyfx#capta>
   a lv2:Plugin;
   
@@ -32,6 +37,8 @@
   doap:description "4-track recorder";
   
   lv2:requiredFeature urid:map ;
+  
+  ui:ui <http://www.openavproductions.com/artyfx#capta/gui>;
   
   lv2:optionalFeature lv2:hardRTCapable ;
   

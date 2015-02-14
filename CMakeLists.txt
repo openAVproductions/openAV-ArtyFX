@@ -60,6 +60,7 @@ IF(HAVE_NTK)
     ${sources}
     artyfx_ui.cxx
     bitta/gui/*.cxx
+    capta/gui/*.cxx
     della/gui/*.cxx
     ducka/gui/*.cxx
     driva/gui/*.cxx
