@@ -33,7 +33,11 @@
     lv2:ReverbPlugin ;
   doap:name "Roomy";
   doap:description "Spacious Reverb";
-  doap:maintainer [ foaf:name "OpenAV Productions" ] ;
+  doap:maintainer  [
+      foaf:homepage <http://openavproductions.com>; 
+      foaf:mbox <mailto:harryhaaren@gmail.com>;
+      foaf:name "OpenAV"
+  ];
   lv2:optionalFeature lv2:hardRTCapable ;
   
   ui:ui <http://www.openavproductions.com/artyfx#roomy/gui>;

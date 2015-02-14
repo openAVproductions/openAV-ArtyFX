@@ -20,6 +20,7 @@
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix epp: <http://lv2plug.in/ns/ext/port-props#> .
 @prefix ui: <http://lv2plug.in/ns/extensions/ui#>.
+@prefix pprop:  <http://lv2plug.in/ns/ext/port-props#>.
 
 <http://www.openavproductions.com/artyfx#friza/gui>
   a ui:X11UI;
@@ -32,7 +33,11 @@
   a lv2:Plugin;
   doap:name "Friza";
   doap:description "Sonic-Freezer";
-  doap:maintainer [ foaf:name "OpenAV Productions" ] ;
+  doap:maintainer  [
+      foaf:homepage <http://openavproductions.com>; 
+      foaf:mbox <mailto:harryhaaren@gmail.com>;
+      foaf:name "OpenAV"
+  ];
   lv2:optionalFeature lv2:hardRTCapable ;
   
   ui:ui <http://www.openavproductions.com/artyfx#friza/gui>;

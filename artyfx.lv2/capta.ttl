@@ -44,13 +44,8 @@
   
   lv2:optionalFeature lv2:hardRTCapable ;
   
-  doap:developer  [
-      foaf:homepage <http://openavproductions.com/artyfx#capta>; 
-      foaf:mbox <mailto:harryhaaren@gmail.com>;
-      foaf:name "OpenAV"
-  ];
-  doap:maintainer [ 
-      foaf:homepage <http://openavproductions.com/artyfx#capta>; 
+    doap:maintainer  [
+      foaf:homepage <http://openavproductions.com>; 
       foaf:mbox <mailto:harryhaaren@gmail.com>;
       foaf:name "OpenAV"
   ];

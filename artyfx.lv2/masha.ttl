@@ -19,7 +19,7 @@
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix epp: <http://lv2plug.in/ns/ext/port-props#> .
-
+@prefix pprop:  <http://lv2plug.in/ns/ext/port-props#>.
 @prefix atom:  <http://lv2plug.in/ns/ext/atom#> .
 @prefix ui: <http://lv2plug.in/ns/extensions/ui#>.
 @prefix time: <http://lv2plug.in/ns/ext/time#> .
@@ -36,7 +36,11 @@
     lv2:DelayPlugin ;
   doap:name "Masha";
   doap:description "Beat Smasher";
-  doap:maintainer [ foaf:name "OpenAV Productions" ] ;
+  doap:maintainer  [
+      foaf:homepage <http://openavproductions.com>; 
+      foaf:mbox <mailto:harryhaaren@gmail.com>;
+      foaf:name "OpenAV"
+  ];
   lv2:optionalFeature lv2:hardRTCapable ;
   
   ui:ui <http://www.openavproductions.com/artyfx#masha/gui>;
@@ -109,6 +113,8 @@
     lv2:default 1.0 ;
     lv2:minimum 0.0 ;
     lv2:maximum 1.0 ;
+    lv2:portProperty lv2:toggled ;
+    lv2:portProperty pprop:notOnGUI ;
   ]
   ,
   

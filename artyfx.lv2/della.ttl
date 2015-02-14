@@ -41,7 +41,11 @@
   
   doap:name "Della";
   doap:description "Delay (BPM adjusted)";
-  doap:maintainer [ foaf:name "OpenAV Productions" ] ;
+  doap:maintainer  [
+      foaf:homepage <http://openavproductions.com>; 
+      foaf:mbox <mailto:harryhaaren@gmail.com>;
+      foaf:name "OpenAV"
+  ];
   lv2:optionalFeature lv2:hardRTCapable ;
   
   ui:ui <http://www.openavproductions.com/artyfx#della/gui>;
@@ -90,6 +94,7 @@
       lv2:default 1.000000 ;
       lv2:minimum 0.000000 ;
       lv2:maximum 1.000000 ;
+      lv2:portProperty lv2:toggled ;
       lv2:portProperty pprop:notOnGUI ;
   ]
   ,

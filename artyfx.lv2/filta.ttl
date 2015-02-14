@@ -21,6 +21,7 @@
 @prefix epp: <http://lv2plug.in/ns/ext/port-props#> .
 @prefix ui: <http://lv2plug.in/ns/extensions/ui#>.
 @prefix mod: <http://portalmod.com/ns/modgui#>.
+@prefix pprop:  <http://lv2plug.in/ns/ext/port-props#>.
 
 <http://www.openavproductions.com/artyfx#filta/gui>
   a ui:X11UI;
@@ -36,15 +37,10 @@
   doap:name "Filta";
   doap:description "Lowpass/Highpass Filter";
   
-  doap:developer [
-      foaf:homepage <http://openavproductions.com/artyfx/>; 
+  doap:maintainer  [
+      foaf:homepage <http://openavproductions.com>; 
       foaf:mbox <mailto:harryhaaren@gmail.com>;
-      foaf:name "OpenAV Productions" 
-  ];
-  doap:maintainer [
-      foaf:homepage <http://openavproductions.com/artyfx/>; 
-      foaf:mbox <mailto:harryhaaren@gmail.com>;
-      foaf:name "OpenAV Productions" 
+      foaf:name "OpenAV"
   ];
   
   
@@ -98,18 +94,8 @@
     lv2:default 1.0 ;
     lv2:minimum 0.0 ;
     lv2:maximum 1.0 ;
+    lv2:portProperty lv2:toggled ;
+    lv2:portProperty pprop:notOnGUI ;
   ]
-  ;
   
-  
-  mod:gui [
-    a mod:Gui;
-    mod:resourcesDirectory <modgui>;
-    mod:stylesheet    <modgui/artyfx.css>;
-    
-    mod:iconTemplate  <modgui/filta.html>;
-    mod:templateData  <modgui/filta.json>;
-    mod:javascript    <modgui/filta.js>;
-    mod:screenshot    <modgui/filta.png>;
-    mod:thumbnail     <modgui/filta-thumb.png>;
-  ] .
+  .

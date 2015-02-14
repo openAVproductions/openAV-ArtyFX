@@ -41,7 +41,11 @@
   
   doap:name "Driva";
   doap:description "Distortion";
-  doap:maintainer [ foaf:name "OpenAV Productions" ] ;
+  doap:maintainer  [
+      foaf:homepage <http://openavproductions.com>; 
+      foaf:mbox <mailto:harryhaaren@gmail.com>;
+      foaf:name "OpenAV"
+  ];
   lv2:optionalFeature lv2:hardRTCapable ;
   
   ui:ui <http://www.openavproductions.com/artyfx#driva/gui>;
@@ -92,15 +96,4 @@
       lv2:maximum 1.000000 ;
   ];
   
-  mod:gui [
-    a mod:Gui;
-    mod:resourcesDirectory <modgui>;
-    
-    mod:stylesheet    <modgui/artyfx.css>;
-    
-    mod:iconTemplate  <modgui/driva.html>;
-    mod:templateData  <modgui/driva.json>;
-    mod:javascript    <modgui/driva.js>;
-    mod:screenshot    <modgui/driva.png>;
-    mod:thumbnail     <modgui/driva-thumb.png>;
-  ] .
+  .
