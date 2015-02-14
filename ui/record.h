@@ -56,8 +56,7 @@ class Record : public Fl_Slider
       highlight = false;
       invert = true;
       
-      value( 0.5 );
-      _drive = 0.0;
+      value( 0.0 );
     }
     
     bool active;
@@ -76,23 +75,6 @@ class Record : public Fl_Slider
     float volume;
     float feedback;
     
-    void setFeedback(float f)
-    {
-      feedback = f;
-      redraw();
-    }
-    
-    void setVolume(float e)
-    {
-      volume = e;
-      redraw();
-    }
-    
-    float getVolume()
-    {
-      return volume;
-    }
-    
     void setActive(bool a)
     {
       active = a;
@@ -102,12 +84,6 @@ class Record : public Fl_Slider
     bool getActive()
     {
       return active;
-    }
-    
-    void drive( float d )
-    {
-      _drive = d;
-      redraw();
     }
     
     void draw()
@@ -167,35 +143,13 @@ class Record : public Fl_Slider
         cairo_move_to( cr, x + w     / 4, y + h     / 4 );
         
         
-        float tmp = value() * w/6.5;
-        
-        // top left across
-        cairo_curve_to(cr, x + w * 1.5 / 4, y + h * 1 / 4 + tmp * 2,
-                           x + w * 2 / 4  , y + h * 1 / 4 - tmp,
-                           x + w * 3 / 4  , y + h * 1 / 4 );
-        
-        // top right down
-        cairo_curve_to(cr, x + w * 3 / 4 - tmp * 2, y + h * 1.5 / 4,
-                           x + w * 3 / 4 + tmp    , y + h * 2 / 4,
-                           x + w * 3 / 4          , y + h * 3 / 4 );
-        
-        // bottom right across
-        cairo_curve_to(cr, x + w * 2.5 / 4, y + h * 3 / 4  - tmp * 2,
-                           x + w * 1.5 / 4  , y + h * 3 / 4 + tmp,
-                           x + w * 1   / 4  , y + h * 3 / 4 );
-        
-        // bottom left up
-        cairo_curve_to(cr, x + w * 1 / 4 + tmp * 2, y + h * 2.5 / 4,
-                           x + w * 1 / 4 - tmp    , y + h * 1.5 / 4,
-                           x + w * 1 / 4          , y + h * 1.0 / 4 );
-        
-        
-        cairo_close_path( cr );
-        cairo_set_source_rgba( cr,  0 / 255.f,   155 / 255.f ,  255 / 255.f , 0.2 );
-        cairo_set_line_width(cr, 1.5);
-        cairo_fill_preserve( cr );
-        cairo_set_source_rgba( cr,  0 / 255.f,   155 / 255.f ,  255 / 255.f , 0.8 );
-        cairo_stroke( cr );
+        cairo_arc( cr, x+w/2., y+h/2., 30, 0, 2*3.1415 );
+        cairo_set_source_rgba(cr, 0.2,0.2,0.2, 0.7);
+        if( value() > 0.4999 )
+        {
+          cairo_set_source_rgba(cr, 1.0,0.0,0.0, 0.8);
+        }
+        cairo_fill( cr );
         
         cairo_restore( cr );
         
@@ -237,6 +191,7 @@ class Record : public Fl_Slider
     
     int handle(int event)
     {
+      /*
       switch(event)
       {
         case FL_PUSH:
@@ -309,6 +264,7 @@ class Record : public Fl_Slider
         default:
           return Fl_Widget::handle(event);
       }
+      */
       
       return 0;
     }

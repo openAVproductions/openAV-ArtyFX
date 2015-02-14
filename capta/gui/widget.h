@@ -11,7 +11,6 @@
 #include "header.c"
 using namespace std;
 #include <iostream>
-#include <FL/Fl_Choice.H>
 
 class CaptaWidget {
 public:
@@ -28,15 +27,10 @@ private:
   void cb_graph_i(Avtk::Record*, void*);
   static void cb_graph(Avtk::Record*, void*);
 public:
-  Avtk::Dial *distortion;
+  Avtk::Button *rec;
 private:
-  void cb_distortion_i(Avtk::Dial*, void*);
-  static void cb_distortion(Avtk::Dial*, void*);
-public:
-  Fl_Choice *tone;
-private:
-  void cb_tone_i(Fl_Choice*, void*);
-  static void cb_tone(Fl_Choice*, void*);
+  void cb_rec_i(Avtk::Button*, void*);
+  static void cb_rec(Avtk::Button*, void*);
 public:
   LV2UI_Write_Function write_function; 
   LV2UI_Controller controller; 

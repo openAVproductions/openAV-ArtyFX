@@ -11,7 +11,7 @@ void CaptaWidget::cb_headerImage(Avtk::Image* o, void* v) {
 
 void CaptaWidget::cb_graph_i(Avtk::Record* o, void*) {
   float tmp = o->value();
-distortion->value( tmp );
+//rec->value( tmp );
 //writePort(DRIVA_AMOUNT, tmp);
 
 //volume->value( o->getVolume() );
@@ -24,25 +24,13 @@ void CaptaWidget::cb_graph(Avtk::Record* o, void* v) {
   ((CaptaWidget*)(o->parent()->user_data()))->cb_graph_i(o,v);
 }
 
-void CaptaWidget::cb_distortion_i(Avtk::Dial* o, void*) {
+void CaptaWidget::cb_rec_i(Avtk::Button* o, void*) {
   float tmp = o->value();
-graph->value( tmp );
-graph->drive( tmp );
-//writePort(DRIVA_AMOUNT, tmp);
-//printf("%f\n",tmp);
+graph->value( tmp > 0.4999 ? true : false );
+writePort(CAPTA_RECORD, tmp);
 }
-void CaptaWidget::cb_distortion(Avtk::Dial* o, void* v) {
-  ((CaptaWidget*)(o->parent()->user_data()))->cb_distortion_i(o,v);
-}
-
-void CaptaWidget::cb_tone_i(Fl_Choice* o, void*) {
-  float tmp = o->value() + 1;
-graph->drive( tmp - 1 );
-//writePort(DRIVA_TONE, tmp);
-printf("tone selector %f\n",tmp);
-}
-void CaptaWidget::cb_tone(Fl_Choice* o, void* v) {
-  ((CaptaWidget*)(o->parent()->user_data()))->cb_tone_i(o,v);
+void CaptaWidget::cb_rec(Avtk::Button* o, void* v) {
+  ((CaptaWidget*)(o->parent()->user_data()))->cb_rec_i(o,v);
 }
 
 /**
@@ -79,26 +67,18 @@ CaptaWidget::CaptaWidget() {
       graph->align(Fl_Align(FL_ALIGN_BOTTOM));
       graph->when(FL_WHEN_CHANGED);
     } // Avtk::Record* graph
-    { distortion = new Avtk::Dial(103, 169, 45, 35, "Distortion");
-      distortion->box(FL_NO_BOX);
-      distortion->color((Fl_Color)90);
-      distortion->selection_color(FL_INACTIVE_COLOR);
-      distortion->labeltype(FL_NORMAL_LABEL);
-      distortion->labelfont(0);
-      distortion->labelsize(10);
-      distortion->labelcolor(FL_FOREGROUND_COLOR);
-      distortion->callback((Fl_Callback*)cb_distortion);
-      distortion->align(Fl_Align(FL_ALIGN_BOTTOM));
-      distortion->when(FL_WHEN_CHANGED);
-    } // Avtk::Dial* distortion
-    { tone = new Fl_Choice(12, 189, 80, 25, "Tone");
-      tone->down_box(FL_BORDER_BOX);
-      tone->callback((Fl_Callback*)cb_tone);
-      tone->align(Fl_Align(FL_ALIGN_TOP));
-      tone->when(FL_WHEN_CHANGED);
-      tone->add("Odie"); tone->add("Grunge"); tone->add("Distort"); tone->add("Ratty"); tone->add("Classic"); tone->add("Morbid"); tone->add("Metal"); tone->add("Fuzz");
-      tone->value( 0 );
-    } // Fl_Choice* tone
+    { rec = new Avtk::Button(10, 169, 138, 35, "Record");
+      rec->box(FL_NO_BOX);
+      rec->color((Fl_Color)90);
+      rec->selection_color(FL_INACTIVE_COLOR);
+      rec->labeltype(FL_NORMAL_LABEL);
+      rec->labelfont(0);
+      rec->labelsize(14);
+      rec->labelcolor(FL_FOREGROUND_COLOR);
+      rec->callback((Fl_Callback*)cb_rec);
+      rec->align(Fl_Align(FL_ALIGN_CENTER));
+      rec->when(FL_WHEN_CHANGED);
+    } // Avtk::Button* rec
     window->color( fl_rgb_color( 17, 17, 17) );
     close_cb( o, 0 );
     window->end();

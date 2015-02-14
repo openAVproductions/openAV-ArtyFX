@@ -12,7 +12,7 @@ class CaptaWidget {open
   Function {CaptaWidget()} {open
   } {
     Fl_Window window {open
-      xywh {412 376 160 220} type Double
+      xywh {385 328 160 220} type Double
       code0 {\#include "lv2/lv2plug.in/ns/extensions/ui/ui.h"}
       code1 {window->color( fl_rgb_color( 17, 17, 17) );}
       code2 {close_cb( o, 0 );}
@@ -31,7 +31,7 @@ class CaptaWidget {open
       Fl_Dial graph {
         label graph
         callback {float tmp = o->value();
-distortion->value( tmp );
+//rec->value( tmp );
 //writePort(DRIVA_AMOUNT, tmp);
 
 //volume->value( o->getVolume() );
@@ -44,26 +44,14 @@ float a = o->getActive();
         code2 {\#include <iostream>}
         class {Avtk::Record}
       }
-      Fl_Dial distortion {
-        label Distortion
+      Fl_Dial rec {
+        label Record
         callback {float tmp = o->value();
-graph->value( tmp );
-graph->drive( tmp );
-//writePort(DRIVA_AMOUNT, tmp);
-//printf("%f\\n",tmp);} selected
-        xywh {103 169 45 35} color 90 labelsize 10
-        class {Avtk::Dial}
+graph->value( tmp > 0.4999 ? true : false );
+writePort(CAPTA_RECORD, tmp);} selected
+        xywh {10 169 138 35} color 90 align 0
+        class {Avtk::Button}
       }
-      Fl_Choice tone {
-        label Tone
-        callback {float tmp = o->value() + 1;
-graph->drive( tmp - 1 );
-//writePort(DRIVA_TONE, tmp);
-printf("tone selector %f\\n",tmp);} open
-        xywh {12 189 80 25} down_box BORDER_BOX align 1 when 1
-        code0 {tone->add("Odie"); tone->add("Grunge"); tone->add("Distort"); tone->add("Ratty"); tone->add("Classic"); tone->add("Morbid"); tone->add("Metal"); tone->add("Fuzz");}
-        code1 {tone->value( 0 );}
-      } {}
     }
   }
   decl {LV2UI_Write_Function write_function;} {public local
