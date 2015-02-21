@@ -37,7 +37,7 @@ void FrizaWidget::cb_duration(Avtk::Dial* o, void* v) {
 void FrizaWidget::cb_position_i(Avtk::Dial* o, void*) {
   float tmp = o->value();
 graph->setPosition( tmp );
-//writePort(DRIVA_AMOUNT, tmp);
+writePort( FRIZA_POSITION , tmp);
 //printf("%f\n",tmp);
 }
 void FrizaWidget::cb_position(Avtk::Dial* o, void* v) {

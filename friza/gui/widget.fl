@@ -57,8 +57,8 @@ graph->setDuration( tmp );
         label Position
         callback {float tmp = o->value();
 graph->setPosition( tmp );
-//writePort(DRIVA_AMOUNT, tmp);
-//printf("%f\\n",tmp);}
+writePort( FRIZA_POSITION , tmp);
+//printf("%f\\n",tmp);} selected
         xywh {74 171 34 34} color 90 labelsize 10
         class {Avtk::Dial}
       }
@@ -75,7 +75,7 @@ writePort(FRIZA_DO_IT, tmp);}
         callback {float tmp = o->value();
 graph->setVolume( tmp );
 writePort(FRIZA_VOLUME, tmp);
-//printf("%f\\n",tmp);} selected
+//printf("%f\\n",tmp);}
         xywh {38 173 30 31} color 90 labelsize 10
         class {Avtk::Dial}
       }

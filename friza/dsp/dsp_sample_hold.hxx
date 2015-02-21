@@ -38,18 +38,20 @@
 #define TESTING 1
 
 #include "dsp_plotter.hxx"
+#include "dsp_linearbrown.hxx"
 
 class SampleHoldShift
 {
   public:
     SampleHoldShift( int s ) :
       sr ( s ),
+      _doIt ( 0 ),
       recordHead( 0 ),
       playHead( 0 ),
       xfade( 512 ),
-      
-      buffer( new float[sr] )
+      buffer( 0 )
     {
+      buffer = new float[sr*5];
       _length = 2048;
 
 #ifdef TESTING
@@ -66,9 +68,14 @@ class SampleHoldShift
     /// set to true when the effect should take place
     void doIt( bool d )
     {
-      // triggers the recording of the next ~second of audio
-      recordHead = 0;
-      playHead = 0;
+      if( d && !_doIt )
+      {
+        playHead = 0;
+        // set starting point of _position?
+        //smoother.set_current( _position * (recordHead - nframes) );
+      }
+      if( !d && _doIt )
+        recordHead = 0;
       
       _doIt = d;
     }
@@ -76,7 +83,7 @@ class SampleHoldShift
     /// set the lenght of the sample-and-hold loop
     void length( float l )
     {
-      _length = 2048; //64 + 1024 * 4 * l;
+      _length = 64 + 1024 * 8 * l;//2048; 
     }
     
     /// playback volume of the effect
@@ -106,13 +113,6 @@ class SampleHoldShift
 #endif // TESTING
       */
       
-      if ( input != output )
-      {
-        memcpy( output, input, sizeof(float) * nframes );
-        //memset( output,     0, sizeof(float) * nframes );
-      }
-      
-      
       if ( _doIt )
       {
         /*
@@ -128,31 +128,68 @@ class SampleHoldShift
         else
         */
         {
+          // calculate the start pos for playback of this nframes
+          float ph = _position * (recordHead - nframes - _length);
+          int act = 0;
+          
+          
+          
           for(int i = 0; i < nframes; i++ )
           {
-            //if ( playHead >= _length )
-            //  playHead = 0;
+            smoother.step( ph );
+            act = smoother.get();
             
-            float samples_per_cycle = 44100 / 80;
-            float phase_increment = (1.f / samples_per_cycle);
-            output[i] = sin( playHead * 2 * 3.1415 ) * 0.2;
+            if( act >= 0 && act < recordHead )
+            {
+              output[i] = buffer[act + playHead];
+              playHead++;
+              if( playHead >= _length )
+                playHead = 0;
+            }
             
-            playHead += phase_increment;
-            if ( playHead > 1.0f )
-              playHead = 0.f;
+            
           }
+          
+          printf("%i\n", act );
+          
+          
         }
         
+      }
+      else
+      {
+        // grab audio from input and record into ringbuffer
+        if( recordHead + nframes >= sr * 5 )
+        {
+          recordHead = 0;
+        }
+        
+        {
+          for(int i = 0; i < nframes; i++ )
+          {
+            buffer[recordHead] = input[i];
+            recordHead++;
+          }
+        }
+        /*
+        if ( input != output )
+        {
+          memcpy( output, input, sizeof(float) * nframes );
+        }
+        */
+        memset( output, 0, sizeof(float)*nframes );
       }
     }
     
     ~SampleHoldShift()
     {
-      delete buffer;
+      delete[] buffer;
     }
   
   private:
     int sr;
+    
+    BrownLinearExpo smoother;
     
     bool _doIt;
     long _length;
@@ -160,7 +197,7 @@ class SampleHoldShift
     float _position;
     
     long recordHead;
-    float playHead;
+    long playHead;
     
     int xfade;
     
