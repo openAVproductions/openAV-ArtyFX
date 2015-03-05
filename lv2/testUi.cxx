@@ -47,7 +47,7 @@ static LV2UI_Handle avtk_instantiate(const struct _LV2UI_Descriptor * descriptor
   printf("init() - returning\n");
   
   if (resize) {
-    resize->ui_resize(resize->handle, 610, 430 );
+    resize->ui_resize(resize->handle, t->w(), t->h() );
   }
   
   return t;

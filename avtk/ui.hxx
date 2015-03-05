@@ -103,6 +103,9 @@ class UI : public Avtk::Group
     void pushParent( Avtk::Group* );
     void popParent();
     Avtk::Group* parentStackTop(){return parentStack.top();}
+    
+    int w(){return w_;}
+    int h(){return h_;}
   
   protected:
     PuglView* view;
