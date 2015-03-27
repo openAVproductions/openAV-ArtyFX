@@ -64,7 +64,7 @@ class Theme
     
     Color colors[USE_CASE_COUNT];
     
-    int load( std::string filename );
+    int load( std::string jsonTheme );
 };
 
 };

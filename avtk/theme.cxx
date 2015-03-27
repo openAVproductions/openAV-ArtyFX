@@ -27,7 +27,20 @@ Theme::Theme( Avtk::UI* ui_, std::string filename ) :
   int loadError = true;
   if( strlen( filename.c_str() ) > 0 )
   {
-    loadError = load( filename );
+    std::ifstream ifs;
+    ifs.open ( filename.c_str(), std::ifstream::in);
+    
+    if( ifs.fail() )
+    {
+      printf("Theme::load() %s : File doesn't exist, abort.\n", filename.c_str() );
+      std::cerr << picojson::get_last_error() << std::endl;
+      return;
+    }
+    
+    std::string content;
+    ifs >> content;
+    
+    loadError = load( content );
   }
   if( loadError )
   {
@@ -49,22 +62,12 @@ Theme::Theme( Avtk::UI* ui_, std::string filename ) :
   }
 }
 
-int Theme::load( std::string filename )
+int Theme::load( std::string jsonTheme )
 {
   try
   {
-    std::ifstream ifs;
-    ifs.open ( filename.c_str(), std::ifstream::in);
     
-    picojson::value v;
-    ifs >> v;
-    
-    if( ifs.fail() )
-    {
-      printf("Theme::load() %s : File doesn't exist, abort.\n", filename.c_str() );
-      //std::cerr << picojson::get_last_error() << std::endl;
-      return -1;
-    }
+    picojson::value v( jsonTheme );
     
     const char* items[5] = 
     {
@@ -90,7 +93,7 @@ int Theme::load( std::string filename )
   }
   catch( ... )
   {
-    printf("Theme::load() Error loading theme from %s : falling back to default.Double check file-exists and JSON contents valid.\n", filename.c_str() );
+    printf("Theme::load() Error loading theme from %s : falling back to default.Double check file-exists and JSON contents valid.\n", jsonTheme.c_str() );
     // *any* error, and we don't use the theme
     return -1;
   }
