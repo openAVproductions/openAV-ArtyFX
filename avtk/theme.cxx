@@ -33,17 +33,17 @@ Theme::Theme( Avtk::UI* ui_, std::string filename ) :
     if( ifs.fail() )
     {
       printf("Theme::load() %s : File doesn't exist, abort.\n", filename.c_str() );
-      std::cerr << picojson::get_last_error() << std::endl;
-      return;
+      //return;
     }
     
-    std::string content;
-    ifs >> content;
+    std::stringstream buffer;
+    buffer << ifs.rdbuf();
     
-    loadError = load( content );
+    loadError = load( buffer.str() );
   }
   if( loadError )
   {
+    printf("Theme::Theme() Load error, using defaults\n" );
     // set default values to the colors array
     colors[BG].c[0] = colors[BG].c[1] = colors[BG].c[2] = 34;
     colors[BG_DARK].c[0] = colors[BG_DARK].c[1] = colors[BG_DARK].c[2] = 17;
@@ -64,10 +64,24 @@ Theme::Theme( Avtk::UI* ui_, std::string filename ) :
 
 int Theme::load( std::string jsonTheme )
 {
-  try
+  printf("%s : jsonTheme = %s\n", __FUNCTION__, jsonTheme.c_str() );
+  
+  //try
   {
     
-    picojson::value v( jsonTheme );
+    /*
+    picojson::value v;
+    std::stringstream buffer;
+    buffer << jsonTheme.c_str();
+    buffer >> v;
+    */
+    
+    std::ifstream ifs;
+    ifs.open ( "green.avtk", std::ifstream::in);
+    
+    picojson::value v;
+    ifs >> v;
+    
     
     const char* items[5] = 
     {
@@ -78,25 +92,42 @@ int Theme::load( std::string jsonTheme )
       "highlight"
     };
     
+    printf("value ok\n");
+    
     for( int i = 0; i < 5; i++ )
     {
       // extract the 3 ints from the array, and store into Color array
       int colNum = 0;
-      picojson::array list = v.get( items[i] ).get<picojson::array>();
-      for (picojson::array::iterator iter = list.begin(); iter != list.end(); ++iter)
+      
+      if( !v.is<picojson::object>() )
       {
-        int tmp = (int)(*iter).get("c").get<double>();
-        //printf("%s = %lf\r\n", items[i], tmp );
-        colors[i].c[colNum++] = tmp;
+        printf("Error: v is NOT array\n");
+        return -1;
+      }
+      
+      //else
+      {
+        picojson::array list = v.get( items[i] ).get<picojson::array>();
+        printf("array list ok\n");
+        
+        //std::cerr << picojson::get_last_error() << std::endl;
+        
+        for (picojson::array::iterator iter = list.begin(); iter != list.end(); ++iter)
+        {
+          int tmp = (int)(*iter).get("c").get<double>();
+          printf("%s = %lf\r\n", items[i], tmp );
+          colors[i].c[colNum++] = tmp;
+        }
       }
     }
   }
-  catch( ... )
+  /*catch( ... )
   {
     printf("Theme::load() Error loading theme from %s : falling back to default.Double check file-exists and JSON contents valid.\n", jsonTheme.c_str() );
     // *any* error, and we don't use the theme
     return -1;
   }
+  */
   
   // successful load
   return 0;

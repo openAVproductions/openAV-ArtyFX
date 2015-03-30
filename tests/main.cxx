@@ -10,6 +10,7 @@
 #include "number_test.hxx"
 #include "resize_test.hxx"
 #include "dialog_test.hxx"
+#include "waveform_test.hxx"
 #include "event_editor_test.hxx"
 
 void fileTest()
@@ -35,6 +36,8 @@ int main(int argc, char** argv)
       ui = new DialUI();
     else if( strcmp( argv[1], "dialog") == 0 )
       ui = new DialogUI();
+    else if( strcmp( argv[1], "waveform") == 0 )
+      ui = new WaveformUI();
     else if( strcmp( argv[1], "group") == 0 )
       ui = new GroupUI();
     else if( strcmp( argv[1], "number") == 0 )
