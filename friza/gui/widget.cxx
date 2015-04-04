@@ -27,7 +27,7 @@ void FrizaWidget::cb_graph(Avtk::Hold* o, void* v) {
 void FrizaWidget::cb_duration_i(Avtk::Dial* o, void*) {
   float tmp = o->value();
 graph->setDuration( tmp );
-//writePort(DRIVA_AMOUNT, tmp);
+writePort(FRIZA_LENGTH, tmp);
 //printf("%f\n",tmp);
 }
 void FrizaWidget::cb_duration(Avtk::Dial* o, void* v) {

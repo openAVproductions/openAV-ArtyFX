@@ -23,6 +23,7 @@
 #ifndef AVTK_DIAL_H
 #define AVTK_DIAL_H
 
+#include <cairo.h>
 #include <FL/Fl_Dial.H>
 #include <FL/Fl_Slider.H>
 

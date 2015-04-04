@@ -8,9 +8,10 @@
   lv2:binary <artyfx.so> ;
   rdfs:seeAlso <bitta.ttl> .
 
-<http://www.openavproductions.com/artyfx#capta> a lv2:Plugin ;
-  lv2:binary <artyfx.so> ;
-  rdfs:seeAlso <capta.ttl> .
+# Not tested to standard yet - do not package
+#<http://www.openavproductions.com/artyfx#capta> a lv2:Plugin ;
+#  lv2:binary <artyfx.so> ;
+#  rdfs:seeAlso <capta.ttl> .
 
 <http://www.openavproductions.com/artyfx#della> a lv2:Plugin ;
   lv2:binary <artyfx.so> ;
@@ -28,9 +29,10 @@
   lv2:binary <artyfx.so> ;
   rdfs:seeAlso <filta.ttl> .
 
-<http://www.openavproductions.com/artyfx#friza> a lv2:Plugin ;
-  lv2:binary <artyfx.so> ;
-  rdfs:seeAlso <friza.ttl> .
+# Unfinished for this release - NOT ready for testing / usage.
+#<http://www.openavproductions.com/artyfx#friza> a lv2:Plugin ;
+#  lv2:binary <artyfx.so> ;
+#  rdfs:seeAlso <friza.ttl> .
 
 <http://www.openavproductions.com/artyfx#kuiza> a lv2:Plugin ;
   lv2:binary <artyfx.so> ;

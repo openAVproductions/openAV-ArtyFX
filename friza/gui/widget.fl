@@ -48,7 +48,7 @@ float a = o->getActive();
         label Time
         callback {float tmp = o->value();
 graph->setDuration( tmp );
-//writePort(DRIVA_AMOUNT, tmp);
+writePort(FRIZA_LENGTH, tmp);
 //printf("%f\\n",tmp);}
         xywh {5 172 30 31} color 90 labelsize 10
         class {Avtk::Dial}
@@ -58,7 +58,7 @@ graph->setDuration( tmp );
         callback {float tmp = o->value();
 graph->setPosition( tmp );
 writePort( FRIZA_POSITION , tmp);
-//printf("%f\\n",tmp);} selected
+//printf("%f\\n",tmp);}
         xywh {74 171 34 34} color 90 labelsize 10
         class {Avtk::Dial}
       }
@@ -66,7 +66,7 @@ writePort( FRIZA_POSITION , tmp);
         label {Do it!}
         callback {float tmp = o->value();
 graph->value( tmp );
-writePort(FRIZA_DO_IT, tmp);}
+writePort(FRIZA_DO_IT, tmp);} selected
         xywh {114 173 43 36}
         class {Avtk::Button}
       }

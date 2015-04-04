@@ -33,7 +33,7 @@
 class BrownLinearExpo
 {
   public:
-    BrownLinearExpo(double f = 0.001) :
+    BrownLinearExpo(double f = 0.0003) :
       a( f ),
       estimate( 1 ),
       single_smoothed(0.1),

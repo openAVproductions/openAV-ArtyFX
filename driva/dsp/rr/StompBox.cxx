@@ -231,7 +231,7 @@ void StompBox::process (int nframes, float * input, float * output)
 
       lpre1->filterout( nframes, input);
       linput->filterout( nframes, input);
-      lwshape->waveshapesmps (nframes, input, 19, 25, 1);
+      lwshape->waveshapesmps (nframes, input, 24, 75, 1);
 
       for (i = 0; i<nframes; i++) {
           //left channel

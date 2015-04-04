@@ -45,6 +45,7 @@ class SampleHoldShift
   public:
     SampleHoldShift( int s ) :
       sr ( s ),
+      _playForward( true ),
       _doIt ( 0 ),
       recordHead( 0 ),
       playHead( 0 ),
@@ -71,6 +72,7 @@ class SampleHoldShift
       if( d && !_doIt )
       {
         playHead = 0;
+        _playForward = true;
         // set starting point of _position?
         //smoother.set_current( _position * (recordHead - nframes) );
       }
@@ -83,7 +85,7 @@ class SampleHoldShift
     /// set the lenght of the sample-and-hold loop
     void length( float l )
     {
-      _length = 64 + 1024 * 8 * l;//2048; 
+      _length = 64 + 1024.f * 8.f * l;//2048; 
     }
     
     /// playback volume of the effect
@@ -129,10 +131,11 @@ class SampleHoldShift
         */
         {
           // calculate the start pos for playback of this nframes
-          float ph = _position * (recordHead - nframes - _length);
+          float ph = _position * _length;
+          //float ph = _position * (recordHead - nframes - _length);
           int act = 0;
           
-          
+          int playOffset = 1;
           
           for(int i = 0; i < nframes; i++ )
           {
@@ -142,15 +145,26 @@ class SampleHoldShift
             if( act >= 0 && act < recordHead )
             {
               output[i] = buffer[act + playHead];
-              playHead++;
+              
+              /*
+              playHead += playOffset;
+              
               if( playHead >= _length )
-                playHead = 0;
+              {
+                _playForward = !_playForward;
+                playOffset = -1;
+              }
+              else if( playHead <= 0 )
+              {
+                _playForward = !_playForward;
+                playOffset = 1;
+              }
+              */
             }
-            
             
           }
           
-          printf("%i\n", act );
+          //printf("%i\n", act );
           
           
         }
@@ -171,13 +185,12 @@ class SampleHoldShift
             recordHead++;
           }
         }
-        /*
         if ( input != output )
         {
           memcpy( output, input, sizeof(float) * nframes );
         }
-        */
-        memset( output, 0, sizeof(float)*nframes );
+        
+        //memset( output, 0, sizeof(float)*nframes );
       }
     }
     
@@ -190,6 +203,8 @@ class SampleHoldShift
     int sr;
     
     BrownLinearExpo smoother;
+    
+    bool _playForward;
     
     bool _doIt;
     long _length;

@@ -5,16 +5,16 @@ project (artyfx)
 
 set(ARTYFX_VERSION_MAJOR "1")
 set(ARTYFX_VERSION_MINOR "2")
-set(ARTYFX_VERSION_PATCH "0")
+set(ARTYFX_VERSION_PATCH "1")
 
 set(ARTYFX_VERSION "${ARTYFX_VERSION_MAJOR}.${ARTYFX_VERSION_MINOR}.${ARTYFX_VERSION_PATCH}")
 
 option(RELEASE_BUILD  "Build for production usage" ON  )
-option(HAVE_NTK       "Build GUI (NTK)"            OFF )
+option(HAVE_NTK       "Build GUI (NTK)"            ON )
 
 find_package(PkgConfig)
 
-#SET(CMAKE_INSTALL_PREFIX "/usr" )
+SET(CMAKE_INSTALL_PREFIX "/usr" )
 
 pkg_check_modules(LV2 lv2>=1.8.0 REQUIRED)
 include_directories( ${LV2_INCLUDE_DIRS}  )

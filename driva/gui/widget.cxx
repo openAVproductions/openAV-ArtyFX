@@ -96,7 +96,7 @@ DrivaWidget::DrivaWidget() {
       tone->callback((Fl_Callback*)cb_tone);
       tone->align(Fl_Align(FL_ALIGN_TOP));
       tone->when(FL_WHEN_CHANGED);
-      tone->add("Odie"); tone->add("Grunge"); tone->add("Distort"); tone->add("Ratty"); tone->add("Classic"); tone->add("Morbid"); tone->add("Metal"); tone->add("Fuzz");
+      tone->add("Odie"); tone->add("Grunge"); tone->add("Distort"); tone->add("Ratty"); tone->add("Classic"); tone->add("Morbid"); tone->add("Metal");
       tone->value( 0 );
     } // Fl_Choice* tone
     window->color( fl_rgb_color( 17, 17, 17) );

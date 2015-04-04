@@ -61,7 +61,7 @@ graph->drive( tmp - 1 );
 writePort(DRIVA_TONE, tmp);
 printf("tone selector %f\\n",tmp);} open selected
         xywh {12 189 80 25} down_box BORDER_BOX align 1 when 1
-        code0 {tone->add("Odie"); tone->add("Grunge"); tone->add("Distort"); tone->add("Ratty"); tone->add("Classic"); tone->add("Morbid"); tone->add("Metal"); tone->add("Fuzz");}
+        code0 {tone->add("Odie"); tone->add("Grunge"); tone->add("Distort"); tone->add("Ratty"); tone->add("Classic"); tone->add("Morbid"); tone->add("Metal");}
         code1 {tone->value( 0 );}
       } {}
     }
