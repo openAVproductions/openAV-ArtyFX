@@ -144,8 +144,8 @@ void whaaa_port_event(LV2UI_Handle ui,
           break;
       case WHAAA_DRIVE:
           {
-            self->widget->graph->drive( value );
-            self->widget->drive->value( value );
+            //self->widget->graph->drive( value );
+            //self->widget->drive->value( value );
           }
           break;
       

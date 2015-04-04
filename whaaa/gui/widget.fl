@@ -12,7 +12,7 @@ class WhaaaWidget {open
   Function {WhaaaWidget()} {open
   } {
     Fl_Window window {open
-      xywh {759 277 160 220} type Double
+      xywh {736 222 160 220} type Double
       code0 {\#include "lv2/lv2plug.in/ns/extensions/ui/ui.h"}
       code1 {window->color( fl_rgb_color( 17, 17, 17) );}
       code2 {close_cb( o, 0 );}
@@ -38,20 +38,11 @@ writePort(WHAAA_FREQ, tmp);
 
 float a = o->getActive();
 //writePort(BITTA_ACTIVE, a);
-//printf("active %f\\n", a );}
+//printf("active %f\\n", a );} selected
         xywh {5 36 150 126} box UP_BOX color 179 labeltype NO_LABEL
         code1 {using namespace std;}
         code2 {\#include <iostream>}
         class {Avtk::Wah}
-      }
-      Fl_Dial drive {
-        label Drive
-        callback {float tmp = o->value();
-graph->drive( tmp );
-writePort(WHAAA_DRIVE, tmp);
-//printf("%f\\n",tmp);} selected
-        xywh {3 167 38 38} color 90 labelsize 10
-        class {Avtk::Dial}
       }
       Fl_Dial freq {
         label Wah
@@ -59,7 +50,7 @@ writePort(WHAAA_DRIVE, tmp);
 graph->value( tmp );
 writePort(WHAAA_FREQ, tmp);
 //printf("%f\\n",tmp);}
-        xywh {120 167 38 38} color 90 labelsize 10
+        xywh {113 167 38 38} color 90 labelsize 10
         class {Avtk::Dial}
       }
       Fl_Dial range {
@@ -68,7 +59,7 @@ writePort(WHAAA_FREQ, tmp);
 //graph->value( tmp );
 writePort(WHAAA_RANGE, tmp);
 //printf("%f\\n",tmp);}
-        xywh {44 166 34 34} color 90 labelsize 10
+        xywh {13 166 38 38} color 90 labelsize 10
         class {Avtk::Dial}
       }
       Fl_Dial mix {
@@ -77,7 +68,7 @@ writePort(WHAAA_RANGE, tmp);
 //graph->value( tmp );
 writePort(WHAAA_MIX, tmp);
 //printf("%f\\n",tmp);}
-        xywh {82 167 34 34} color 90 labelsize 10
+        xywh {62 167 38 38} color 90 labelsize 10
         class {Avtk::Dial}
       }
     }

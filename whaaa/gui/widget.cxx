@@ -24,16 +24,6 @@ void WhaaaWidget::cb_graph(Avtk::Wah* o, void* v) {
   ((WhaaaWidget*)(o->parent()->user_data()))->cb_graph_i(o,v);
 }
 
-void WhaaaWidget::cb_drive_i(Avtk::Dial* o, void*) {
-  float tmp = o->value();
-graph->drive( tmp );
-writePort(WHAAA_DRIVE, tmp);
-//printf("%f\n",tmp);
-}
-void WhaaaWidget::cb_drive(Avtk::Dial* o, void* v) {
-  ((WhaaaWidget*)(o->parent()->user_data()))->cb_drive_i(o,v);
-}
-
 void WhaaaWidget::cb_freq_i(Avtk::Dial* o, void*) {
   float tmp = o->value();
 graph->value( tmp );
@@ -98,19 +88,7 @@ WhaaaWidget::WhaaaWidget() {
       graph->align(Fl_Align(FL_ALIGN_BOTTOM));
       graph->when(FL_WHEN_CHANGED);
     } // Avtk::Wah* graph
-    { drive = new Avtk::Dial(3, 167, 38, 38, "Drive");
-      drive->box(FL_NO_BOX);
-      drive->color((Fl_Color)90);
-      drive->selection_color(FL_INACTIVE_COLOR);
-      drive->labeltype(FL_NORMAL_LABEL);
-      drive->labelfont(0);
-      drive->labelsize(10);
-      drive->labelcolor(FL_FOREGROUND_COLOR);
-      drive->callback((Fl_Callback*)cb_drive);
-      drive->align(Fl_Align(FL_ALIGN_BOTTOM));
-      drive->when(FL_WHEN_CHANGED);
-    } // Avtk::Dial* drive
-    { freq = new Avtk::Dial(120, 167, 38, 38, "Wah");
+    { freq = new Avtk::Dial(113, 167, 38, 38, "Wah");
       freq->box(FL_NO_BOX);
       freq->color((Fl_Color)90);
       freq->selection_color(FL_INACTIVE_COLOR);
@@ -122,7 +100,7 @@ WhaaaWidget::WhaaaWidget() {
       freq->align(Fl_Align(FL_ALIGN_BOTTOM));
       freq->when(FL_WHEN_CHANGED);
     } // Avtk::Dial* freq
-    { range = new Avtk::Dial(44, 166, 34, 34, "Range");
+    { range = new Avtk::Dial(13, 166, 38, 38, "Range");
       range->box(FL_NO_BOX);
       range->color((Fl_Color)90);
       range->selection_color(FL_INACTIVE_COLOR);
@@ -134,7 +112,7 @@ WhaaaWidget::WhaaaWidget() {
       range->align(Fl_Align(FL_ALIGN_BOTTOM));
       range->when(FL_WHEN_CHANGED);
     } // Avtk::Dial* range
-    { mix = new Avtk::Dial(82, 167, 34, 34, "Mix");
+    { mix = new Avtk::Dial(62, 167, 38, 38, "Mix");
       mix->box(FL_NO_BOX);
       mix->color((Fl_Color)90);
       mix->selection_color(FL_INACTIVE_COLOR);
