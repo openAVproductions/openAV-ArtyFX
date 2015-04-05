@@ -59,7 +59,9 @@ StompBox::StompBox ( int sr )
   //Classic Fuzz
   Ppreset = 0;
   
-  Pvolume = 120;
+  // volume
+  changepar( 0, 120 );
+  
   Pmode = 0;
   
   // un-init valgrind warnings
