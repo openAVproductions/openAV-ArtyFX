@@ -1,4 +1,9 @@
 
+1.3 Release :
+New plugins
+  - Driva distortion (Based on Rackarack Stompbox)
+  - Whaaa wah pedal (Based on LADSPA WAH-plugins)
+  - Bugfixes in multiple plugins
 
 1.2 Release : 15-09-14
 New plugins and refactor:

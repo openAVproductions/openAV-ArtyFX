@@ -696,6 +696,9 @@ void StompBox::setvolume (int value)
 
 void StompBox::setpreset (int npreset)
 {
+  if( npreset < 0 )
+    return;
+  
   const int PRESET_SIZE = 6;
   const int NUM_PRESETS = 8;
   int presets[NUM_PRESETS][PRESET_SIZE] = {
@@ -717,11 +720,12 @@ void StompBox::setpreset (int npreset)
       {48, 0, 0, 0, 127, 7}
   };
   
+  cleanup();
+  
   for (int n = 0; n < PRESET_SIZE; n++)
       changepar (n, presets[npreset][n]);
 
   Ppreset = npreset;
-  cleanup ();
 };
 
 

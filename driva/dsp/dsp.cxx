@@ -97,8 +97,8 @@ void Driva::run(LV2_Handle instance, uint32_t nframes)
   if ( int(*self->controlWave1type) != self->wave1type )
   {
     // -1 for zero offset
-    printf("Stompbox1: to preset %f\n", *self->controlWave1type - 1);
-    self->dspStompbox1->setpreset( *self->controlWave1type - 1 );
+    printf("Stompbox1: to preset %f\n", *self->controlWave1type );
+    self->dspStompbox1->setpreset( *self->controlWave1type );
     self->wave1type = int(*self->controlWave1type);
   }
   
