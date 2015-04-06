@@ -112,7 +112,7 @@ class Parameteric
     {
       if ( a != _active )
       {
-        printf("active = %i\n", int(a) );
+        //printf("active = %i\n", int(a) );
         _active = a;
       }
     }
