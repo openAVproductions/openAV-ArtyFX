@@ -4,7 +4,7 @@
   
   Modified for rakarrack by Ryan Billing
   
-  Modified to mono and LV2 by Harry van Haaren, 2013
+  Modified to mono and more by Harry van Haaren, 2013
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of version 2 of the GNU General Public License
@@ -59,14 +59,15 @@ StompBox::StompBox ( int sr )
   //Classic Fuzz
   Ppreset = 0;
   
-  // volume
-  changepar( 0, 120 );
   
   Pmode = 0;
   
   // un-init valgrind warnings
   gain = pre1gain = pre2gain = lowb = midb = highb = volume = 0;
   LG = MG = HG = RGP2 = RGPST = pgain = 0;
+  
+  // volume
+  changepar( 0, 120 );
   
   init_mode(Pmode);
   init_tone();
@@ -133,14 +134,14 @@ void StompBox::process (int nframes, float * input, float * output)
       
       lpre2->filterout( nframes, input);
       
-      lwshape->waveshapesmps (nframes, input, 24, 1, 1);
+      lwshape->waveshapesmps (nframes, input, 24, 10, 1);
       lwshape->waveshapesmps (nframes, input, 28, 20, 1);
       
       lanti->filterout( nframes, input);
       lpre1->filterout( nframes, input);
       
-      lwshape2->waveshapesmps (nframes, input, 23, Pgain * 0.7, 1);
-      lwshape2->waveshapesmps (nframes, input, 28, Pgain * 0.7, 1);
+      lwshape2->waveshapesmps (nframes, input, 23, Pgain * 0.1, 1);
+      lwshape2->waveshapesmps (nframes, input, 28, Pgain * 0.1, 1);
       lpost->filterout( nframes, input);
       
       
@@ -149,7 +150,9 @@ void StompBox::process (int nframes, float * input, float * output)
           lfilter =  ltonelw->filterout_s(input[i]);
           mfilter =  ltonemd->filterout_s(input[i]);
           hfilter =  ltonehg->filterout_s(input[i]);
-          output[i] = 0.5f * volume * ( input[i] ); //+ lowb*lfilter);// +*/ midb*mfilter ); // + highb*hfilter);
+          output[i] = 0.8f * volume * ( input[i] );
+          // no longer used - removed for tone
+          //+ lowb*lfilter);// +*/ midb*mfilter ); // + highb*hfilter);
       }
 
       break;
@@ -707,19 +710,19 @@ void StompBox::setpreset (int npreset)
       //Odie
       {80, 32, 0, 32, 10, 0},
       //Grunger
-      {48, 10, -6, 55, 85, 1},
+      {47, 10, -6, 55, 85, 1},
       //Hard Dist.
       {48, -22, -6, 38, 12, 1},
       //Ratty
-      {48, -20, 0, 0, 70, 2},
+      {49, -20, 0, 0, 70, 2},
       //Classic Dist
       {50, 64, 0, 0, 110, 4},
       //Morbid Impalement
-      {38, 6, 6, 6, 105, 5},
+      {50, 6, 6, 6, 105, 5},
       //Sharp Metal
-      {48, 0, -12, 0, 80, 6},
-      //Fuzz
-      {48, 0, 0, 0, 127, 7}
+      {90, 0, -12, 0, 80, 6},
+      // Fuzz - not used
+      {-1, 0, 0, 0, 127, 7}
   };
   
   cleanup();

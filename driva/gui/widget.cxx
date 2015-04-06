@@ -36,8 +36,8 @@ void DrivaWidget::cb_distortion(Avtk::Dial* o, void* v) {
 }
 
 void DrivaWidget::cb_tone_i(Fl_Choice* o, void*) {
-  float tmp = o->value() + 1;
-graph->drive( tmp - 1 );
+  float tmp = o->value();
+graph->drive( tmp );
 writePort(DRIVA_TONE, tmp);
 printf("tone selector %f\n",tmp);
 }

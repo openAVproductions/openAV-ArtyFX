@@ -96,14 +96,17 @@ void Driva::run(LV2_Handle instance, uint32_t nframes)
   /// deal with preset switches
   if ( int(*self->controlWave1type) != self->wave1type )
   {
-    printf("Stompbox1: to preset %f\n", *self->controlWave1type );
     
     self->wave1type = int(*self->controlWave1type);
     self->dspStompbox1->setpreset( self->wave1type );
     
+    //print f("Stompbox1: to preset %f\n", *self->controlWave1type );
+    
     // mute the effect - keeping presets volume
     int oldVol = self->dspStompbox1->getpar( 0 );
     self->dspStompbox1->changepar( 0, 0 );
+    
+    //print f(" changepar vol = %d\n", oldVol );
     
     float tmpIn [nframes];
     float tmpOut[nframes];
@@ -113,10 +116,10 @@ void Driva::run(LV2_Handle instance, uint32_t nframes)
     
     self->dspStompbox1->process( nframes, tmpIn, tmpOut );
     
-    // unmute 
-    printf("Stompbox1: unmute after preset %f : vol %d\n",
+    /* unmute 
+    print f("Stompbox1: unmute after preset %f : vol %d\n",
       *self->controlWave1type, oldVol );
-    
+    */
     self->dspStompbox1->changepar( 0, oldVol );
   }
   
