@@ -103,7 +103,7 @@ void Driva::run(LV2_Handle instance, uint32_t nframes)
     
     // mute the effect - keeping presets volume
     int oldVol = self->dspStompbox1->getpar( 0 );
-    self->dspStompbox1->setvolume( 0 );
+    self->dspStompbox1->changepar( 0, 0 );
     
     float tmpIn [nframes];
     float tmpOut[nframes];
@@ -117,7 +117,7 @@ void Driva::run(LV2_Handle instance, uint32_t nframes)
     printf("Stompbox1: unmute after preset %f : vol %d\n",
       *self->controlWave1type, oldVol );
     
-    self->dspStompbox1->setvolume( oldVol );
+    self->dspStompbox1->changepar( 0, oldVol );
   }
   
   /// set "running variables": range in Stompbox is 0-127, so scale to that
