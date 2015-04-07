@@ -5,7 +5,7 @@
 #include "tester.hxx"
 
 #include "ui.hxx"
-#include "picojson.hxx"
+//#include "picojson.hxx"
 
 // for converting events -> JSON
 #include "pugl/pugl.h"
@@ -56,6 +56,8 @@ void Tester::handle( const PuglEvent* event )
 
 void Tester::writeTest( const char* filename )
 {
+  printf("%s %s : STUB\n", __FILE__, __PRETTY_FUNCTION__ );
+  /*
   picojson::object test;
   picojson::object event;
   
@@ -86,6 +88,7 @@ void Tester::writeTest( const char* filename )
   out.open ( filename );
   out << str << "\n";
   out.close();
+  */
 }
 
 void Tester::recordStop()

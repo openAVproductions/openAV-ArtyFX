@@ -9,7 +9,7 @@
 #include <fstream>
 #include <iostream>
 
-#include "picojson.hxx"
+//#include "picojson.hxx"
 
 namespace Avtk
 {
@@ -66,16 +66,7 @@ int Theme::load( std::string jsonTheme )
 {
   printf("%s : jsonTheme = %s\n", __FUNCTION__, jsonTheme.c_str() );
   
-  //try
-  {
-    
-    /*
-    picojson::value v;
-    std::stringstream buffer;
-    buffer << jsonTheme.c_str();
-    buffer >> v;
-    */
-    
+  /*
     std::ifstream ifs;
     ifs.open ( "green.avtk", std::ifstream::in);
     
@@ -121,7 +112,7 @@ int Theme::load( std::string jsonTheme )
       }
     }
   }
-  /*catch( ... )
+  catch( ... )
   {
     printf("Theme::load() Error loading theme from %s : falling back to default.Double check file-exists and JSON contents valid.\n", jsonTheme.c_str() );
     // *any* error, and we don't use the theme
@@ -129,8 +120,8 @@ int Theme::load( std::string jsonTheme )
   }
   */
   
-  // successful load
-  return 0;
+  // unsuccessful load
+  return -1;
 }
 
 void Theme::cornerRadius( int c )
