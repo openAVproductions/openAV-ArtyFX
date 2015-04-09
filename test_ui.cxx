@@ -131,6 +131,7 @@ TestUI::TestUI( PuglNativeWindow parent ):
   */
   
   
+  /*
   // button
   momentary = new Avtk::Button( this, 7, 45, 90, 22, "Zoom In" );
   momentary->theme( theme( 1 ) );
@@ -141,20 +142,21 @@ TestUI::TestUI( PuglNativeWindow parent ):
   momentaryOut->theme( theme( 2 ) );
   //momentaryOut->clickMode( Avtk::Widget::CLICK_TOGGLE );
   momentaryOut->clickMode( Avtk::Widget::CLICK_MOMENTARY );
-  
-  /*
-  // button
-  groupToggler = new Avtk::Button( this, 25, 245, 130, 22, "Group Toggler" );
-  groupToggler->theme( theme( 2 ) );
-  groupToggler->clickMode( Avtk::Widget::CLICK_TOGGLE );
   */
   
+  
+  // button
+  groupToggler = new Avtk::Button( this, 11, 43, 110, 22, "Show Dialog" );
+  groupToggler->theme( theme( 2 ) );
+  //groupToggler->clickMode( Avtk::Widget::CLICK_TOGGLE );
+  
+  /*
   // dial
   w = new Avtk::Dial( this, 7, 85, 75, 75, "Dial 1" );
   
   // number
   w = new Avtk::Number( this, 85, 85, 35, 25, "Number box" );
-  
+  */
   
   w = new Avtk::Box( this, 500, 43, 105, 125, "Files" );
   std::string stripped;
@@ -198,8 +200,8 @@ TestUI::TestUI( PuglNativeWindow parent ):
   */
   
   
-  Avtk::Dialog* dialog = new Avtk::Dialog( this, 60, 60, 320, 100, "Dialog" );
-  dialog->run( "Avtk Dialog", "This is the dialog text.", Avtk::Dialog::OK_CANCEL, 119+810/2., 530/2. );
+  dialog = new Avtk::Dialog( this, 60, 60, 320, 100, "Dialog" );
+  //dialog->run( "Avtk Dialog", "This is the dialog text.", Avtk::Dialog::OK_CANCEL, 119+810/2., 530/2. );
   
   /*
   scroll = new Avtk::Scroll( this, 130, 43, 520, 210, "Scroll 1" );
@@ -228,6 +230,10 @@ void TestUI::widgetValueCB( Avtk::Widget* w )
     //((Avtk::Scroll*)editor->parent())->childResize( editor );
     //w = new Avtk::ListItem( this, 7, 45, 90, 11, "Group dyn" );
     //group1->add( w );
+  }
+  else if( w == groupToggler )
+  {
+    dialog->run( "Avtk Dialog", "This is the dialog text.", Avtk::Dialog::OK_CANCEL, 119+810/2., 530/2. );
   }
   else if( w == momentaryOut )
   {
