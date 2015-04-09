@@ -12,7 +12,7 @@ set(AVTK_VERSION "${AVTK_VERSION_MAJOR}.${AVTK_VERSION_MINOR}.${AVTK_VERSION_PAT
 option(AVTK_RELEASE_BUILD   "Build for releasing"         ON )
 option(AVTK_DEBUG_PRINTS    "Build with debugging prints" OFF )
 option(AVTK_SNDFILE_SUPPORT "Build with sndfile library"  OFF )
-option(AVTK_TESTER_SUPPORT  "Build with Tester Rec/Play"  OFF )
+option(AVTK_TESTER_SUPPORT  "Build with Tester Rec/Play"  ON )
 
 
 ################################################################################
@@ -25,7 +25,7 @@ include_directories ("${PROJECT_SOURCE_DIR}/avtk/")
 
 find_package(PkgConfig)
 
-IF(AVTK_DEBUG_PRINTS)
+IF(AVTK_TESTER_SUPPORT)
   ADD_DEFINITIONS( "-DAVTK_TESTER" )
 ENDIF()
 

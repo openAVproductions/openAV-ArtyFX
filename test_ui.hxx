@@ -40,6 +40,8 @@ class TestUI : public Avtk::UI
     Avtk::Waveform* waveform;
     
     Avtk::Spectrum* spectrum;
+    
+    Avtk::Dialog* dialog;
 };
 
 
