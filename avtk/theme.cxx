@@ -1,6 +1,8 @@
 
 #include "theme.hxx"
 
+#include "common.hxx"
+
 #include "ui.hxx"
 #include "widget.hxx"
 
@@ -9,7 +11,7 @@
 #include <fstream>
 #include <iostream>
 
-//#include "picojson.hxx"
+#include "picojson.hxx"
 
 namespace Avtk
 {
@@ -25,6 +27,7 @@ Theme::Theme( Avtk::UI* ui_, std::string filename ) :
   lineWidthWide_( 2.1 )
 {
   int loadError = true;
+ 	/* 
   if( strlen( filename.c_str() ) > 0 )
   {
     std::ifstream ifs;
@@ -32,18 +35,27 @@ Theme::Theme( Avtk::UI* ui_, std::string filename ) :
     
     if( ifs.fail() )
     {
-      printf("Theme::load() %s : File doesn't exist, abort.\n", filename.c_str() );
-      //return;
+      printf("Theme::load() %s : File doesn't exist, using default theme instead.\n", filename.c_str() );
     }
-    
-    std::stringstream buffer;
-    buffer << ifs.rdbuf();
-    
-    loadError = load( buffer.str() );
+    else
+    {
+      std::stringstream buffer;
+      buffer << ifs.rdbuf();
+      
+      loadError = load( buffer.str() );
+      
+      printf("Theme() load() returns %i\n", loadError );
+    }
   }
+  else
+  {
+    printf("Avtk:Theme() filename is 0 chars..\n");
+  }
+ 	*/
+	
   if( loadError )
   {
-    printf("Theme::Theme() Load error, using defaults\n" );
+    printf("Theme::Theme() Load error: using hard coded defaults\n" );
     // set default values to the colors array
     colors[BG].c[0] = colors[BG].c[1] = colors[BG].c[2] = 34;
     colors[BG_DARK].c[0] = colors[BG_DARK].c[1] = colors[BG_DARK].c[2] = 17;
@@ -66,7 +78,8 @@ int Theme::load( std::string jsonTheme )
 {
   printf("%s : jsonTheme = %s\n", __FUNCTION__, jsonTheme.c_str() );
   
-  /*
+  try
+  {
     std::ifstream ifs;
     ifs.open ( "green.avtk", std::ifstream::in);
     
@@ -118,10 +131,9 @@ int Theme::load( std::string jsonTheme )
     // *any* error, and we don't use the theme
     return -1;
   }
-  */
   
-  // unsuccessful load
-  return -1;
+  // successful load
+  return 0;
 }
 
 void Theme::cornerRadius( int c )

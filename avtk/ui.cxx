@@ -16,7 +16,7 @@ UI::UI( int w__, int h__, PuglNativeWindow parent, const char* windowName ) :
   w_( w__ ),
   h_( h__ )
 #ifdef AVTK_TESTER
-  , tester( new Tester( this ) ) // nasty but necessary
+  , tester( new Tester( this ) ); 
 #endif
 {
   view = puglInit(NULL, NULL);
@@ -60,7 +60,7 @@ UI::UI( int w__, int h__, PuglNativeWindow parent, const char* windowName ) :
 
 void UI::reshape(int x, int y)
 {
-#ifdef AVTK_DEBUG_DTOR
+#ifdef AVTK_DEBUG
   AVTK_DEV("reshaping UI: scale factor: %f \t%f\n", x/float(initW), y/float(initH) );
 #endif
   
