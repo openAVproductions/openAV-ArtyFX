@@ -10,8 +10,9 @@
 TestUI::TestUI( PuglNativeWindow parent ):
   Avtk::UI( 810, 530, parent )
 {
-  themes.push_back( new Avtk::Theme( this, "orange.avtk" ) );
-  themes.push_back( new Avtk::Theme( this, "green.avtk" ) );
+  //themes.push_back( new Avtk::Theme( this, "default.avtk" ) );
+  //themes.push_back( new Avtk::Theme( this, "orange.avtk" ) );
+  //themes.push_back( new Avtk::Theme( this, "green.avtk" ) );
   themes.push_back( new Avtk::Theme( this, "yellow.avtk" ) );
   
   Widget::theme_ = themes.front();
@@ -198,7 +199,6 @@ TestUI::TestUI( PuglNativeWindow parent ):
   w =  new Avtk::Slider( this,  15,350, 250, 22, "Zoom" );
   w =  new Avtk::Slider( this,  15,374, 250, 22, "Vol" );
   */
-  
   
   dialog = new Avtk::Dialog( this, 60, 60, 320, 100, "Dialog" );
   //dialog->run( "Avtk Dialog", "This is the dialog text.", Avtk::Dialog::OK_CANCEL, 119+810/2., 530/2. );
