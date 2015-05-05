@@ -119,6 +119,7 @@ createContext(PuglView* view, XVisualInfo* vi)
 		impl->ctx = glXCreateContext(impl->display, vi, 0, GL_TRUE);
 	}
 #endif
+	
 #ifdef PUGL_HAVE_CAIRO
 	if (view->ctx_type == PUGL_CAIRO) {
 		impl->surface = cairo_xlib_surface_create(
