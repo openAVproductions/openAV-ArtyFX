@@ -16,7 +16,7 @@ UI::UI( int w__, int h__, PuglNativeWindow parent, const char* windowName ) :
   w_( w__ ),
   h_( h__ )
 #ifdef AVTK_TESTER
-  , tester( new Tester( this ) ); 
+  , tester( new Tester( this ) ) 
 #endif
 {
   view = puglInit(NULL, NULL);
