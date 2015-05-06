@@ -208,7 +208,10 @@ void Masha::run(LV2_Handle instance, uint32_t n_samples)
 
 void Masha::cleanup(LV2_Handle instance)
 {
-  delete ((Masha*) instance);
+  Masha* m = (Masha*)instance;
+  delete m->dspMasherL;
+  delete m->dspMasherR;
+  delete m;
 }
 
 const void* Masha::extension_data(const char* uri)

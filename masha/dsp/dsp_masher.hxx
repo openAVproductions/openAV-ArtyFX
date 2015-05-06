@@ -55,6 +55,7 @@ class Masher // : Effect
     }
     ~Masher()
     {
+      //printf("%s", __PRETTY_FUNCTION__ );
       delete[] history;
     }
     
