@@ -256,6 +256,11 @@ void Widget::motion( int inX, int inY )
       static const char* testData = "DragDropTestPayload";
       AVTK_DEV("motion outside widget -> DND?\n");
       ui->dragDropInit( this, strlen( testData ), (void*)testData );
+      
+      if( cm == CLICK_MOMENTARY )
+      {
+        value( 0 ); // return widget state to normal
+      }
     }
     return;
   }
