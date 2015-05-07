@@ -218,7 +218,11 @@ void UI::event( const PuglEvent* event )
     }
     
   
-    // pass event to group to be handled
+    // pass event to UI handle
+    if( handle( event )  )
+      return;
+    
+    // if not handled, try all child-widgets
     int ret = Group::handle( event );
     if ( ret )
     {

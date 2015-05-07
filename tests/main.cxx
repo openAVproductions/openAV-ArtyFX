@@ -4,6 +4,7 @@
 #include "../avtk/utils.hxx"
 #include "../avtk/widget.hxx"
 
+#include "key_test.hxx"
 #include "list_test.hxx"
 #include "dial_test.hxx"
 #include "group_test.hxx"
@@ -46,6 +47,8 @@ int main(int argc, char** argv)
       ui = new ResizeUI();
     else if( strcmp( argv[1], "list") == 0 )
       ui = new ListUI();
+    else if( strcmp( argv[1], "key") == 0 )
+      ui = new KeyUI();
     else if( strcmp( argv[1], "eventeditor") == 0 )
       ui = new EventEditorUI();
     else
