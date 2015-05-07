@@ -14,7 +14,7 @@ option(HAVE_NTK       "Build GUI (NTK)"            ON )
 
 find_package(PkgConfig)
 
-SET(CMAKE_INSTALL_PREFIX "/usr" )
+#SET(CMAKE_INSTALL_PREFIX "/usr" )
 
 pkg_check_modules(LV2 lv2>=1.8.0 REQUIRED)
 include_directories( ${LV2_INCLUDE_DIRS}  )

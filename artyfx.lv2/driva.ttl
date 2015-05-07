@@ -83,7 +83,7 @@
       
       lv2:portProperty pprops:expensive;
       
-      rdfs:comment "Changes the order of the waveshapers and eqs, causing a different sonic qualities."
+      rdfs:comment "Changes the order of the waveshapers and eqs, creating new sonic qualities."
       
   ] , [
       a lv2:InputPort, lv2:ControlPort ;
