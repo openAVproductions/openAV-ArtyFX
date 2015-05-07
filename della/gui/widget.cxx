@@ -14,7 +14,9 @@ void DellaWidget::cb_graph_i(Avtk::Delaygraph* o, void*) {
 time->value( tmp );
 writePort(DELLA_TIME, tmp);
 
-volume->value( o->getVolume() );
+float vol = o->getVolume();
+volume->value( vol );
+writePort( DELLA_VOLUME, vol ); 
 
 float a = o->getActive();
 writePort(DELLA_ACTIVE, a);

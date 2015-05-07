@@ -2,7 +2,7 @@
 version 1.0300 
 header_name {.h} 
 code_name {.cxx}
-class DellaWidget {open selected
+class DellaWidget {open
 } {
   Function {update_button(int button)} {
     comment {if the type of filter changes, this function will highlight the right button} open return_type void
@@ -12,7 +12,7 @@ class DellaWidget {open selected
   Function {DellaWidget()} {open
   } {
     Fl_Window window {open
-      xywh {596 296 160 220} type Double
+      xywh {731 325 160 220} type Double
       code0 {\#include "lv2/lv2plug.in/ns/extensions/ui/ui.h"}
       code1 {window->color( fl_rgb_color( 17, 17, 17) );}
       code2 {close_cb( o, 0 );}
@@ -34,11 +34,13 @@ class DellaWidget {open selected
 time->value( tmp );
 writePort(DELLA_TIME, tmp);
 
-volume->value( o->getVolume() );
+float vol = o->getVolume();
+volume->value( vol );
+writePort( DELLA_VOLUME, vol ); 
 
 float a = o->getActive();
 writePort(DELLA_ACTIVE, a);
-//printf("active %f\\n", a );}
+//printf("active %f\\n", a );} selected
         xywh {5 36 150 126} box UP_BOX color 179 labeltype NO_LABEL
         code1 {using namespace std;}
         code2 {\#include <iostream>}
