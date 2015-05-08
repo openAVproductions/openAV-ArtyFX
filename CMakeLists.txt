@@ -51,7 +51,7 @@ pkg_check_modules(X11 x11 REQUIRED)
 include_directories( ${X11_INCLUDE_DIRS} )
 link_directories   ( ${X11_LIBRARY_DIRS} )
 
-SET(CMAKE_CXX_FLAGS "-trigraphs -g") # -fsanitize=address
+SET(CMAKE_CXX_FLAGS "-msse -msse2 -mfpmath=sse -g") # -fsanitize=address
 
 FILE(GLOB src libs/pffft.cxx avtk/*.cxx )
 

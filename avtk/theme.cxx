@@ -118,7 +118,7 @@ int Theme::load( std::string jsonTheme )
         
         for (picojson::array::iterator iter = list.begin(); iter != list.end(); ++iter)
         {
-          int tmp = (int)(*iter).get("c").get<double>();
+          double tmp = (int)(*iter).get("c").get<double>();
           printf("%s = %lf\r\n", items[i], tmp );
           colors[i].c[colNum++] = tmp;
         }

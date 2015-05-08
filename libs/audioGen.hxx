@@ -69,7 +69,7 @@ void audioDataSpectrum( int size, float* data )
   
   if ( size < N )
   {
-    printf("%s : Size < FFT Radix, error: abort & return\n" );
+    printf("%s : Size < FFT Radix, error: abort & return\n", __PRETTY_FUNCTION__ );
     return;
   }
   // PFFFT setup code
