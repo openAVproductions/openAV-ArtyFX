@@ -5,7 +5,7 @@
 #include "lv2/lv2plug.in/ns/lv2core/lv2.h"
 #include "lv2/lv2plug.in/ns/extensions/ui/ui.h"
 
-#define AVTK_UI_URI "http://www.openavproductions.com/avtk#testUI"
+#define AVTK_UI_URI "http://www.openavproductions.com/artyfx#della/gui"
 
 #include "../test_ui.hxx"
 
@@ -20,7 +20,7 @@ static LV2UI_Handle avtk_instantiate(const struct _LV2UI_Descriptor * descriptor
 {
   printf("init()\n");
   
-  if (strcmp(plugin_uri, "http://www.openavproductions.com/avtk") != 0)
+  if (strcmp(plugin_uri, "http://www.openavproductions.com/artyfx#della") != 0)
   {
     fprintf(stderr, "AVTK_UI_URI error: this GUI does not support plugin with URI %s\n", plugin_uri);
     return NULL;

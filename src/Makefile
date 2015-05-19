@@ -1,14 +1,18 @@
 
-# Build the AVTK library
-# It outputs a .a static lib
-avtk:
-	cd avtk/build && cmake .. && make -j2
+# Makefile to build the DSP parts of ArtyFX
 
-CFLAGS=-g -fPIC -shared -Wl,-z,nodelete -Wl,--no-undefined
+CC=g++
+CFLAGS=-Wall -fPIC
+LDFLAGS=-lsndfile -lpthread
+SOURCES=$(wildcard artyfx.cxx dsp/*.cxx dsp/eq/*.cc dsp/rr/*.cxx )
+OBJECTS := $(patsubst %.c,%.o, $(SOURCES) )
+	OUTPUT=artyfx.so
 
-dsp:
-	cd dsp && g++ $(CFLAGS) eq/*.cc rr/*.cxx ../artyfx.cxx *.cxx -lsndfile -lpthread -o artyfx.so
+all: $(SOURCES) $(OUTPUT)
+	    
+$(OUTPUT): $(OBJECTS) 
+	    $(CC) -shared -fPIC -Wl,--no-undefined $(LDFLAGS) $(OBJECTS) -o $@
 
-all: avtk roomy
-	echo "Linking DSP .so"
-	#gcc -shared -fPIC
+.cxx.o:
+	    $(CC) $(CFLAGS) $< -o $@
+
