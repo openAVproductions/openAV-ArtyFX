@@ -6,8 +6,8 @@ avtk:
 
 CFLAGS=-g -fPIC -shared -Wl,-z,nodelete -Wl,--no-undefined
 
-roomy:
-	cd dsp && g++ $(CFLAGS) roomy.cxx
+dsp:
+	cd dsp && g++ $(CFLAGS) eq/*.cc rr/*.cxx ../artyfx.cxx *.cxx -lsndfile -lpthread -o artyfx.so
 
 all: avtk roomy
 	echo "Linking DSP .so"

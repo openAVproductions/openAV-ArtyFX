@@ -23,20 +23,20 @@
 #include "lv2/lv2plug.in/ns/lv2core/lv2.h"
 
 // include each plugin
-#include "bitta/dsp/shared.hxx"
-#include "capta/dsp/shared.hxx"
-#include "della/dsp/shared.hxx"
-#include "driva/dsp/shared.hxx"
-#include "ducka/dsp/shared.hxx"
-#include "filta/dsp/shared.hxx"
-#include "friza/dsp/shared.hxx"
-#include "kuiza/dsp/shared.hxx"
-#include "masha/dsp/shared.hxx"
-#include "panda/dsp/shared.hxx"
-#include "roomy/dsp/shared.hxx"
-#include "satma/dsp/shared.hxx"
-#include "vihda/dsp/shared.hxx"
-#include "whaaa/dsp/shared.hxx"
+#include "dsp/bitta.hxx"
+#include "dsp/capta.hxx"
+#include "dsp/della.hxx"
+#include "dsp/driva.hxx"
+#include "dsp/ducka.hxx"
+#include "dsp/filta.hxx"
+//#include "dsp/friza.hxx"
+#include "dsp/kuiza.hxx"
+#include "dsp/masha.hxx"
+#include "dsp/panda.hxx"
+#include "dsp/roomy.hxx"
+#include "dsp/satma.hxx"
+#include "dsp/vihda.hxx"
+#include "dsp/whaaa.hxx"
 
 static const LV2_Descriptor descriptors[] =
 {
@@ -100,7 +100,7 @@ static const LV2_Descriptor descriptors[] =
     Filta::cleanup,
     Filta::extension_data
   },
-  {
+/*  {
     FRIZA_URI,
     Friza::instantiate,
     Friza::connect_port,
@@ -110,6 +110,7 @@ static const LV2_Descriptor descriptors[] =
     Friza::cleanup,
     Friza::extension_data
   },
+*/
   {
     KUIZA_URI,
     Kuiza::instantiate,
