@@ -20,14 +20,24 @@ void Reverb::draw( cairo_t* cr )
   cairo_line_to( cr, x_+w_*0.3+w_*0.7*size, y_+(h_*0.99) );
   
   if( true ) // active 
-    theme_->color( cr, FG, 0.5 );
+    theme_->color( cr, HIGHLIGHT, 0.2 );
   else
     theme_->color( cr, BG_DARK, 0.5 );
   cairo_fill_preserve( cr );
+  theme_->color( cr, HIGHLIGHT, 0.8 );
   cairo_stroke( cr );
 
+  // draw "damping" line
+  int tmpY = y_+h_*0.85 - (h_*0.7*dryWet);
+  cairo_move_to( cr, x_+w_*0.1, tmpY );
+  cairo_line_to( cr, x_+w_*0.1+ damping*w_*0.7, tmpY );
+  cairo_set_source_rgb( cr, 1,1,1 );
+  cairo_stroke( cr );
+ 
+  cairo_rectangle( cr, x_, y_, w_, h_ );
+  theme_->color( cr, FG );
+  cairo_stroke( cr );
 
-   
   /*
   cairo_new_sub_path( cr );
   cairo_arc(cr, x_+w_/2,y_+h_/2,  w_/2.f - 8, 2.46, 2.46 + 4.54 );
