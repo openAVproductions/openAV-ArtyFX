@@ -7,6 +7,7 @@
 namespace Avtk
 {
   class Widget;
+  class Reverb;
 };
 
 class RoomyUI : public Avtk::UI
@@ -16,8 +17,14 @@ class RoomyUI : public Avtk::UI
     virtual ~RoomyUI(){}
     
     // ignore widget values, empty function body
-    virtual void widgetValueCB( Avtk::Widget* widget){}
+    virtual void widgetValueCB( Avtk::Widget* widget);
     
+    virtual void lv2PortEvent(  uint32_t index,
+                                uint32_t buffer_size,
+                                uint32_t format, 
+                                const void* buffer );
+
+    Avtk::Reverb* rev;
     Avtk::Dial* dial1;
     Avtk::Dial* dial2;
     Avtk::Dial* dial3;

@@ -62,6 +62,18 @@ class UI : public Avtk::Group
     /// caused the event.
     virtual void widgetValueCB( Avtk::Widget* widget) = 0;
     
+    /// this function can be overridden by a UI if it wants to function as an
+    /// LV2 plugin UI. The "index" represents the control number, as defined
+    /// in the plugin TTL file. If the port is a control port, casting the
+    /// void* buffer to float* gives the value of that control port.
+    virtual void lv2PortEvent(  uint32_t index,
+                                uint32_t buffer_size,
+                                uint32_t format,
+                                const void* buffer )
+    {
+      // stub implementation - not every UI will override this
+    }
+    
     /// Static function for handling AVTK widget callbacks: is re-directed to
     /// instance-version above.
     static void staticWidgetValueCB( Avtk::Widget* widget, void* userdata)

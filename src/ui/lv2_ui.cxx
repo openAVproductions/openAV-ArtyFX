@@ -88,7 +88,8 @@ static void avtk_port_event(LV2UI_Handle handle,
                const void * buffer)
 {
   Avtk::UI* ui = (Avtk::UI*)handle;
-  printf("port()\n");
+  //printf("port()\n");
+  ui->lv2PortEvent( port_index, buffer_size, format, buffer);
   ui->redraw();
 }
 
