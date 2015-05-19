@@ -1,14 +1,28 @@
 
 #include "../avtk/avtk.hxx"
 
-/// lv2 core / ui includes
 #include "lv2/lv2plug.in/ns/lv2core/lv2.h"
 #include "lv2/lv2plug.in/ns/extensions/ui/ui.h"
 
-#define AVTK_UI_URI "http://www.openavproductions.com/artyfx#della/gui"
-
 #include "../test_ui.hxx"
 
+#include "../dsp/bitta.hxx"
+#include "../dsp/della.hxx"
+/*
+#include "driva.hxx"
+#include "ducka.hxx"
+#include "filta.hxx"
+#include "kuiza.hxx"
+#include "masha.hxx"
+#include "panda.hxx"
+*/
+#include "roomy.hxx"
+#include "../dsp/roomy.hxx"
+/*
+#include "satma.hxx"
+#include "vihda.hxx"
+#include "whaaa.hxx"
+*/
 
 static LV2UI_Handle avtk_instantiate(const struct _LV2UI_Descriptor * descriptor,
                               const char * plugin_uri,
@@ -18,29 +32,37 @@ static LV2UI_Handle avtk_instantiate(const struct _LV2UI_Descriptor * descriptor
                               LV2UI_Widget * widget,
                               const LV2_Feature * const * features)
 {
-  printf("init()\n");
-  
-  if (strcmp(plugin_uri, "http://www.openavproductions.com/artyfx#della") != 0)
-  {
-    fprintf(stderr, "AVTK_UI_URI error: this GUI does not support plugin with URI %s\n", plugin_uri);
-    return NULL;
-  }
-  
   LV2UI_Resize* resize = NULL;
-  PuglNativeWindow parentXwindow = 0;
+  PuglNativeWindow parentHandle = 0;
   for (int i = 0; features[i]; ++i)
   {
     printf("Feature %s\n", features[i]->URI );
     if (!strcmp(features[i]->URI, LV2_UI__parent)) {
-      parentXwindow = (PuglNativeWindow)features[i]->data;
-      printf("\tParent X11 ID %i\n", parentXwindow );
+      parentHandle = (PuglNativeWindow)features[i]->data;
+      printf("\tParent X11 ID %i\n", parentHandle );
     } else if (!strcmp(features[i]->URI, LV2_UI__resize)) {
       resize = (LV2UI_Resize*)features[i]->data;
     }
   }
 
+  Avtk::UI* t = 0x0;
+  
   /// Create the UI based on the URI
-  TestUI* t = new TestUI( parentXwindow );
+  if (strcmp(plugin_uri, "http://www.openavproductions.com/artyfx#roomy") == 0)
+  {
+    t = new RoomyUI( parentHandle );
+  }
+  else if (strcmp(plugin_uri, "http://www.openavproductions.com/artyfx#della") == 0 )
+  {
+    t = new TestUI( parentHandle );
+  }
+  else
+  {
+    fprintf(stderr, "ARTYFX_ROOMY error: this GUI does not support plugin with URI %s\n", plugin_uri);
+    return NULL;
+  }
+  
+  //t = new TestUI( parentHandle );
   
   *widget = (void*)t->getNativeHandle();
   
@@ -89,22 +111,35 @@ avtk_extension_data(const char* uri)
 	return NULL;
 }
 
-static const LV2UI_Descriptor descriptor =
+static const LV2UI_Descriptor descriptor[] = {
 {
-  AVTK_UI_URI,
+  BITTA_UI_URI,
   avtk_instantiate,
   avtk_cleanup, 
   avtk_port_event, 
   avtk_extension_data
+}, {
+  DELLA_UI_URI,
+  avtk_instantiate,
+  avtk_cleanup, 
+  avtk_port_event, 
+  avtk_extension_data
+}, {
+  ROOMY_UI_URI,
+  avtk_instantiate,
+  avtk_cleanup, 
+  avtk_port_event, 
+  avtk_extension_data
+} 
 };
 
 LV2_SYMBOL_EXPORT const LV2UI_Descriptor* lv2ui_descriptor(uint32_t index)
 {
-	switch (index) {
-	case 0:
-		return &descriptor;
-	default:
-		return NULL;
-	}
+  // bit of a hack - to handle multiple UIs at once
+  //if( index >= 0 && index < 2 )
+  {
+		return &descriptor[index];
+  }
+  return NULL;
 }
 
