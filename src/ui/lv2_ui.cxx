@@ -64,6 +64,9 @@ static LV2UI_Handle avtk_instantiate(const struct _LV2UI_Descriptor * descriptor
   
   //t = new TestUI( parentHandle );
   
+  //t->lv2_write_function = write_function;
+  //t->lv2_controller     = controller;
+  
   *widget = (void*)t->getNativeHandle();
   
   printf("init() - returning\n");

@@ -16,6 +16,9 @@
 // the AVTK UI is a group
 #include "group.hxx"
 
+// lv2 ui include
+#include "lv2/lv2plug.in/ns/extensions/ui/ui.h"
+
 namespace Avtk
 {
 
@@ -73,6 +76,9 @@ class UI : public Avtk::Group
     {
       // stub implementation - not every UI will override this
     }
+    // TODO FIXME: jalv.gtk sefaults if these are uncommented??
+    //LV2UI_Write_Function lv2_write_function;
+    //LV2UI_Controller     lv2_controller;
     
     /// Static function for handling AVTK widget callbacks: is re-directed to
     /// instance-version above.
