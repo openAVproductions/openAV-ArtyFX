@@ -1,0 +1,6 @@
+ {
+   <Cairo>
+   Memcheck:Leak
+   ...
+   obj:/usr/*lib*/libcairo*
+}
