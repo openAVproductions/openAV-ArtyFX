@@ -20,6 +20,7 @@ class RoomyUI : public Avtk::UI
     
     Avtk::Dial* dial1;
     Avtk::Dial* dial2;
+    Avtk::Dial* dial3;
 };
 
 

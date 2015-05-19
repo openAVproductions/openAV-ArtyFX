@@ -33,7 +33,13 @@ void Dial::draw( cairo_t* cr )
   theme_->color( cr, HIGHLIGHT, 0.8 );
   cairo_set_line_width(cr, w_ / 7.f);
   cairo_stroke(cr);
-  
+ 
+  if( true ) // show label?
+  {
+    cairo_move_to( cr, x_, y_ );
+    cairo_show_text( cr, label() );
+  }
+
   cairo_restore( cr );
 }
 
