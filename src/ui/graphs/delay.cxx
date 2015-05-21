@@ -18,20 +18,51 @@ Delay::Delay( Avtk::UI* ui, int x_, int y_, int w_, int h_, std::string label_) 
 void Delay::draw( cairo_t* cr )
 {
   cairo_save( cr );
- 
+  
+  cairo_rectangle( cr, x_, y_, w_, h_); 
+  cairo_clip( cr );
+
+  cairo_set_line_width( cr, 18 );
+  cairo_set_line_cap( cr, CAIRO_LINE_CAP_ROUND );
+  theme_->color( cr, HIGHLIGHT, 0.8 );
+  //cairo_set_source_rgba( cr, 0/255., 153/255.f, 1, 0.821 );
+
   float delay = 0;
   int timeQuantize = int(time*3.999);
   if( timeQuantize == 0 ) delay = 0.125;
   if( timeQuantize == 1 ) delay = 0.250;
   if( timeQuantize == 2 ) delay = 0.500;
   if( timeQuantize == 3 ) delay = 1.00f;
-
+  
+  // audio bar
   cairo_move_to( cr, x_ + w_/4, y_+h_-2 );
   cairo_line_to( cr, x_ + w_/4, y_+h_- h_*0.75 );
-  
-  cairo_set_line_width( cr, 18 );
-  cairo_set_line_cap( cr, CAIRO_LINE_CAP_ROUND );
-  cairo_set_source_rgba( cr, 0/255., 153/255.f, 1, 0.21 );
+  cairo_stroke( cr );
+
+  // thin red line
+  cairo_save( cr );
+  cairo_set_source_rgb( cr, 1, 0, 0 ); 
+  cairo_set_line_width( cr, 1.5 );
+  // feedback pointer
+  cairo_move_to( cr, x_+w_/4 + w_/2*delay, y_+h_*3.5/4 );
+  cairo_line_to( cr, x_+w_*3.5/4        , y_+h_*3.5/4 );
+  cairo_line_to( cr, x_+w_*3.5/4        , y_+h_*1.0/4 );
+
+  int w2fb = (w_/2.f)*feedback;
+  cairo_line_to( cr, x_+w_*3.5/4 - w2fb, y_ + h_ * 0.25 );
+  cairo_stroke( cr ); // new path for arrowhead
+
+  // arrowhead
+  cairo_line_to( cr, x_+w_*3.5/4 - w2fb -10, y_ + h_ * 0.25     );
+  cairo_line_to( cr, x_+w_*3.5/4 - w2fb - 2, y_ + h_ * 0.25 + 8 );
+  cairo_line_to( cr, x_+w_*3.5/4 - w2fb - 2, y_ + h_ * 0.25 - 8 );
+  cairo_close_path( cr );
+  cairo_stroke( cr );
+  cairo_restore( cr );
+
+  // delay bar
+  cairo_move_to( cr, x_+w_/4+w_/2*delay, y_+h_-2 );
+  cairo_line_to( cr, x_+w_/4+w_/2*delay, y_+h_- h_*1.8/3.0*volume );
   cairo_stroke( cr );
   /*
   cairo_move_to( cr, x_, y_ + h_ );

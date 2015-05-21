@@ -1,9 +1,9 @@
 
 # Makefile to build the DSP parts of ArtyFX
 
-CC=g++
-CFLAGS=-Wall -fPIC
-LDFLAGS=-lsndfile -lpthread
+#CC=g++
+CFLAGS  += -Wall -fPIC
+LDFLAGS += -lsndfile -lpthread
 SOURCES=$(wildcard artyfx.cxx dsp/*.cxx dsp/eq/*.cc dsp/rr/*.cxx )
 OBJECTS := $(patsubst %.c,%.o, $(SOURCES) )
 	OUTPUT=artyfx.so
