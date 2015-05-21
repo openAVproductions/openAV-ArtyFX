@@ -24,7 +24,7 @@
 #include "whaaa.hxx"
 */
 
-static LV2UI_Handle avtk_instantiate(const struct _LV2UI_Descriptor * descriptor,
+static LV2UI_Handle artyfx_instantiate(const struct _LV2UI_Descriptor * descriptor,
                               const char * plugin_uri,
                               const char * bundle_path,
                               LV2UI_Write_Function write_function,
@@ -36,55 +36,53 @@ static LV2UI_Handle avtk_instantiate(const struct _LV2UI_Descriptor * descriptor
   PuglNativeWindow parentHandle = 0;
   for (int i = 0; features[i]; ++i)
   {
-    printf("Feature %s\n", features[i]->URI );
+    //printf("Feature %s\n", features[i]->URI );
     if (!strcmp(features[i]->URI, LV2_UI__parent)) {
       parentHandle = (PuglNativeWindow)features[i]->data;
-      printf("\tParent X11 ID %i\n", parentHandle );
+      //printf("\tParent X11 ID %i\n", parentHandle );
     } else if (!strcmp(features[i]->URI, LV2_UI__resize)) {
       resize = (LV2UI_Resize*)features[i]->data;
     }
   }
 
-  Avtk::UI* t = 0x0;
+  Avtk::UI* ui = 0;
   
   /// Create the UI based on the URI
   if (strcmp(plugin_uri, "http://www.openavproductions.com/artyfx#roomy") == 0)
   {
-    t = new RoomyUI( parentHandle );
+    ui = new RoomyUI( parentHandle );
   }
   else if (strcmp(plugin_uri, "http://www.openavproductions.com/artyfx#della") == 0 )
   {
-    t = new TestUI( parentHandle );
+    ui = new TestUI( parentHandle );
   }
-  else
+  
+  
+  if( ui == 0 )
   {
-    fprintf(stderr, "ARTYFX_ROOMY error: this GUI does not support plugin with URI %s\n", plugin_uri);
+    fprintf(stderr, "ARTYFX UI error: this GUI does not support plugin with URI %s\n", plugin_uri);
     return NULL;
   }
   
-  //t = new TestUI( parentHandle );
+  ui->write_function = write_function;
+  ui->controller     = controller;
   
-  //t->lv2_write_function = write_function;
-  //t->lv2_controller     = controller;
-  
-  *widget = (void*)t->getNativeHandle();
-  
-  printf("init() - returning\n");
+  *widget = (void*)ui->getNativeHandle();
   
   if (resize) {
-    resize->ui_resize(resize->handle, t->w(), t->h() );
+    resize->ui_resize(resize->handle, ui->w(), ui->h() );
   }
   
-  return t;
+  return ui;
 }
 
-static void avtk_cleanup(LV2UI_Handle ui)
+static void artyfx_cleanup(LV2UI_Handle ui)
 {
   printf("cleanup()\n");
   delete (Avtk::UI*)ui;
 }
 
-static void avtk_port_event(LV2UI_Handle handle,
+static void artyfx_port_event(LV2UI_Handle handle,
                uint32_t port_index,
                uint32_t buffer_size,
                uint32_t format,
@@ -96,7 +94,7 @@ static void avtk_port_event(LV2UI_Handle handle,
   ui->redraw();
 }
 
-static int avtk_idle(LV2UI_Handle handle)
+static int artyfx_idle(LV2UI_Handle handle)
 {
   //printf("idle()\n");
   Avtk::UI* ui = (Avtk::UI*)handle;
@@ -104,10 +102,10 @@ static int avtk_idle(LV2UI_Handle handle)
   return 0;
 }
 
-static const LV2UI_Idle_Interface idle_iface = { avtk_idle };
+static const LV2UI_Idle_Interface idle_iface = { artyfx_idle };
 
 static const void*
-avtk_extension_data(const char* uri)
+artyfx_extension_data(const char* uri)
 {
 	if (!strcmp(uri, LV2_UI__idleInterface)) {
 		return &idle_iface;
@@ -118,22 +116,22 @@ avtk_extension_data(const char* uri)
 static const LV2UI_Descriptor descriptor[] = {
 {
   BITTA_UI_URI,
-  avtk_instantiate,
-  avtk_cleanup, 
-  avtk_port_event, 
-  avtk_extension_data
+  artyfx_instantiate,
+  artyfx_cleanup, 
+  artyfx_port_event, 
+  artyfx_extension_data
 }, {
   DELLA_UI_URI,
-  avtk_instantiate,
-  avtk_cleanup, 
-  avtk_port_event, 
-  avtk_extension_data
+  artyfx_instantiate,
+  artyfx_cleanup, 
+  artyfx_port_event, 
+  artyfx_extension_data
 }, {
   ROOMY_UI_URI,
-  avtk_instantiate,
-  avtk_cleanup, 
-  avtk_port_event, 
-  avtk_extension_data
+  artyfx_instantiate,
+  artyfx_cleanup, 
+  artyfx_port_event, 
+  artyfx_extension_data
 } 
 };
 

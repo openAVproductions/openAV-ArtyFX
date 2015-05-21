@@ -25,11 +25,20 @@ void RoomyUI::widgetValueCB( Avtk::Widget* widget )
   float v = widget->value();
   printf("Widget %s : %f\n", widget->label(), v );
   if( widget == dial1 )
+  {
     rev->size = v;
+    write_function( controller, ROOMY_TIME, sizeof(float), 0, &v );
+  }
   if( widget == dial2 )
+  {
     rev->damping = v;
+    write_function( controller, ROOMY_DAMPING, sizeof(float), 0, &v );
+  }
   if( widget == dial3 )
+  {
     rev->dryWet = v;
+    write_function( controller, ROOMY_DRY_WET, sizeof(float), 0, &v );
+  }
   redraw();
 }
 
