@@ -17,6 +17,7 @@
 #include "panda.hxx"
 */
 #include "roomy.hxx"
+#include "della.hxx"
 #include "../dsp/roomy.hxx"
 /*
 #include "satma.hxx"
@@ -54,7 +55,8 @@ static LV2UI_Handle artyfx_instantiate(const struct _LV2UI_Descriptor * descript
   }
   else if (strcmp(plugin_uri, "http://www.openavproductions.com/artyfx#della") == 0 )
   {
-    ui = new TestUI( parentHandle );
+    printf("avkt dellaUI()\n");
+    ui = new DellaUI( parentHandle );
   }
   
   
