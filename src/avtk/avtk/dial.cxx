@@ -36,7 +36,10 @@ void Dial::draw( cairo_t* cr )
  
   if( true ) // show label?
   {
-    cairo_move_to( cr, x_, y_ );
+    cairo_text_extents_t ext;
+    cairo_text_extents( cr, label(), &ext );
+
+    cairo_move_to( cr, x_+w_/2-ext.width/2., y_+h_+ext.height/2.-3);
     cairo_show_text( cr, label() );
   }
 

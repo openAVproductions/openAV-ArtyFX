@@ -90,7 +90,7 @@ void UI::display( cairo_t* cr )
 {
   /// clear the screen
   cairo_rectangle( cr, 0, 0, w_, h_ );
-  cairo_set_source_rgb( cr, 24/255., 24/255., 24/255. );
+  themes[0]->color( cr, BG_DARK );
   cairo_fill( cr );
   
   /// use the group abstraction to draw the widgets, as the UI class derives
