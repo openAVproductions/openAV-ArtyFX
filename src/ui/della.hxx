@@ -16,7 +16,6 @@ class DellaUI : public Avtk::UI
     DellaUI(PuglNativeWindow parent = 0);
     virtual ~DellaUI(){}
     
-    // ignore widget values, empty function body
     virtual void widgetValueCB( Avtk::Widget* widget);
     
     virtual void lv2PortEvent(  uint32_t index,

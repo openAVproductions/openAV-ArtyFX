@@ -16,9 +16,10 @@ class RoomyUI : public Avtk::UI
     RoomyUI(PuglNativeWindow parent = 0);
     virtual ~RoomyUI(){}
     
-    // ignore widget values, empty function body
+    // handle UI -> LV2 Host changes
     virtual void widgetValueCB( Avtk::Widget* widget);
     
+    // handle LV2 host -> UI changes
     virtual void lv2PortEvent(  uint32_t index,
                                 uint32_t buffer_size,
                                 uint32_t format, 
