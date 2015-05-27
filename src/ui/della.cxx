@@ -15,9 +15,9 @@ DellaUI::DellaUI(PuglNativeWindow parent) :
   
   rev   = new Avtk::Delay( this, 5,36, 150, 126, "graph" );
   
-  dial1 = new Avtk::Dial( this, 15, 172, 45,45, "Feedback" );
-  dial2 = new Avtk::Dial( this, 55, 172, 45,45, "Volume" );
-  dial3 = new Avtk::Dial( this, 95, 172, 45,45, "Time" );
+  dial1 = new Avtk::Dial( this,  8, 172, 45,45, "Feedback" );
+  dial2 = new Avtk::Dial( this, 60, 172, 45,45, "Volume" );
+  dial3 = new Avtk::Dial( this,110, 172, 45,45, "Time" );
 }
 
 void DellaUI::widgetValueCB( Avtk::Widget* widget )

@@ -21,7 +21,13 @@ void Delay::draw( cairo_t* cr )
   
   cairo_rectangle( cr, x_, y_, w_, h_); 
   cairo_clip( cr );
+  theme_->color( cr, BG, 0.4 );
+  cairo_rectangle( cr, x_, y_, w_, h_); 
+  cairo_fill( cr );
 
+  
+  cairo_save( cr );
+  
   cairo_set_line_width( cr, 18 );
   cairo_set_line_cap( cr, CAIRO_LINE_CAP_ROUND );
   theme_->color( cr, HIGHLIGHT, 0.8 );
@@ -62,8 +68,17 @@ void Delay::draw( cairo_t* cr )
 
   // delay bar
   cairo_move_to( cr, x_+w_/4+w_/2*delay, y_+h_-2 );
-  cairo_line_to( cr, x_+w_/4+w_/2*delay, y_+h_- h_*1.8/3.0*volume );
+  cairo_line_to( cr, x_+w_/4+w_/2*delay, y_+h_- h_*0.5*(volume+0.2) );
   cairo_stroke( cr );
+  
+  cairo_restore( cr );
+  
+  // outline
+  cairo_rectangle( cr, x_, y_, w_, h_ );
+  theme_->color( cr, BG );
+  cairo_set_line_width( cr, 4.1 );
+  cairo_stroke( cr );
+  
   /*
   cairo_move_to( cr, x_, y_ + h_ );
   cairo_line_to( cr, x_+w_*0.1, y_+h_*0.85 - (h_*0.7*dryWet) );
