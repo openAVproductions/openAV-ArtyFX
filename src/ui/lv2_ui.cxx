@@ -16,6 +16,7 @@
 #include "masha.hxx"
 #include "panda.hxx"
 */
+#include "bitta.hxx"
 #include "roomy.hxx"
 #include "della.hxx"
 #include "../dsp/roomy.hxx"
@@ -53,9 +54,12 @@ static LV2UI_Handle artyfx_instantiate(const struct _LV2UI_Descriptor * descript
   {
     ui = new RoomyUI( parentHandle );
   }
+  else if (strcmp(plugin_uri, "http://www.openavproductions.com/artyfx#bitta") == 0 )
+  {
+    ui = new BittaUI( parentHandle );
+  }
   else if (strcmp(plugin_uri, "http://www.openavproductions.com/artyfx#della") == 0 )
   {
-    printf("avkt dellaUI()\n");
     ui = new DellaUI( parentHandle );
   }
   
@@ -91,14 +95,12 @@ static void artyfx_port_event(LV2UI_Handle handle,
                const void * buffer)
 {
   Avtk::UI* ui = (Avtk::UI*)handle;
-  //printf("port()\n");
   ui->lv2PortEvent( port_index, buffer_size, format, buffer);
   ui->redraw();
 }
 
 static int artyfx_idle(LV2UI_Handle handle)
 {
-  //printf("idle()\n");
   Avtk::UI* ui = (Avtk::UI*)handle;
   ui->idle();
   return 0;
@@ -140,7 +142,7 @@ static const LV2UI_Descriptor descriptor[] = {
 LV2_SYMBOL_EXPORT const LV2UI_Descriptor* lv2ui_descriptor(uint32_t index)
 {
   // bit of a hack - to handle multiple UIs at once
-  //if( index >= 0 && index < 2 )
+  if( index >= 0 && index < 2 )
   {
 		return &descriptor[index];
   }
