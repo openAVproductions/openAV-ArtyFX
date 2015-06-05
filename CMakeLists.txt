@@ -15,11 +15,8 @@ option(BUILD_GUI      "Build GUI (AVTK based)"     ON  )
 find_package(PkgConfig)
 
 
-# AVTK .a static library build
-add_subdirectory (src/avtk)
-include_directories("src/avtk/avtk/")
 
-#SET(CMAKE_INSTALL_PREFIX "/usr" )
+
 
 pkg_check_modules(LV2 lv2>=1.8.0 REQUIRED)
 include_directories( ${LV2_INCLUDE_DIRS}  )
@@ -85,9 +82,15 @@ target_link_libraries( artyfx LINK_PUBLIC ${SND_LIBRARIES}   )
 target_link_libraries( artyfx LINK_PUBLIC "-lpthread" )
 
 IF(BUILD_GUI)
+  # AVTK .a static library build
+  add_subdirectory (src/avtk)
+  include_directories("src/avtk/avtk/")
+  
   ADD_LIBRARY( artyfx_ui SHARED ${ui_sources} )
+  add_dependencies( artyfx_ui avtk )
   target_link_libraries( artyfx_ui "-lcairo -lX11 -lavtk" )
   set_target_properties( artyfx_ui PROPERTIES PREFIX "")
+  install (TARGETS artyfx_ui DESTINATION lib/lv2/artyfx.lv2/)
 ENDIF()
 
 # Remove "lib" part before name (artyfx.so, not libartyfx.so)
@@ -95,7 +98,6 @@ set_target_properties(artyfx PROPERTIES PREFIX "")
 
 # add the install targets
 install (TARGETS artyfx    DESTINATION lib/lv2/artyfx.lv2/)
-install (TARGETS artyfx_ui DESTINATION lib/lv2/artyfx.lv2/)
 
 FILE(GLOB modF "artyfx.lv2/modgui/*")
 FILE(GLOB ttls "artyfx.lv2/*.ttl"   )
