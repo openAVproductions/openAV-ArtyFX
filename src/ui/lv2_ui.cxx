@@ -8,19 +8,19 @@
 
 #include "../dsp/bitta.hxx"
 #include "../dsp/della.hxx"
-/*
+#include "../dsp/roomy.hxx"
+#include "../dsp/driva.hxx"
+
+#include "bitta.hxx"
 #include "driva.hxx"
+#include "roomy.hxx"
+#include "della.hxx"
+/*
 #include "ducka.hxx"
 #include "filta.hxx"
 #include "kuiza.hxx"
 #include "masha.hxx"
 #include "panda.hxx"
-*/
-#include "bitta.hxx"
-#include "roomy.hxx"
-#include "della.hxx"
-#include "../dsp/roomy.hxx"
-/*
 #include "satma.hxx"
 #include "vihda.hxx"
 #include "whaaa.hxx"
@@ -57,6 +57,10 @@ static LV2UI_Handle artyfx_instantiate(const struct _LV2UI_Descriptor * descript
   else if (strcmp(plugin_uri, "http://www.openavproductions.com/artyfx#bitta") == 0 )
   {
     ui = new BittaUI( parentHandle );
+  }
+  else if (strcmp(plugin_uri, "http://www.openavproductions.com/artyfx#driva") == 0 )
+  {
+    ui = new DrivaUI( parentHandle );
   }
   else if (strcmp(plugin_uri, "http://www.openavproductions.com/artyfx#della") == 0 )
   {
@@ -125,6 +129,12 @@ static const LV2UI_Descriptor descriptor[] = {
   artyfx_port_event, 
   artyfx_extension_data
 }, {
+  DRIVA_UI_URI,
+  artyfx_instantiate,
+  artyfx_cleanup, 
+  artyfx_port_event, 
+  artyfx_extension_data
+}, {
   DELLA_UI_URI,
   artyfx_instantiate,
   artyfx_cleanup, 
@@ -142,7 +152,7 @@ static const LV2UI_Descriptor descriptor[] = {
 LV2_SYMBOL_EXPORT const LV2UI_Descriptor* lv2ui_descriptor(uint32_t index)
 {
   // bit of a hack - to handle multiple UIs at once
-  if( index >= 0 && index < 2 )
+  if( index >= 0 && index < 4 )
   {
 		return &descriptor[index];
   }
