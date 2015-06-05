@@ -54,11 +54,7 @@ FILE(GLOB sources src/dsp/*.cxx src/dsp/rr/*.cxx  src/dsp/eq/*.cc )
 
 # don't compile UI files if we don't have NTK
 IF(BUILD_GUI)
-  FILE(GLOB sources
-    ${sources}
-    src/ui/*.cxx
-    src/ui/graphs/*.cxx
-      )
+  FILE(GLOB ui_sources src/ui/*.cxx src/ui/graphs/*.cxx )
 ENDIF()
 
 
@@ -86,17 +82,20 @@ COLOR_MESSAGE( "
 ADD_LIBRARY(artyfx SHARED ${sources} )
 
 target_link_libraries( artyfx LINK_PUBLIC ${SND_LIBRARIES}   )
-target_link_libraries( artyfx LINK_PUBLIC "-lpthread -lcairo -lX11 -lavtk" )
+target_link_libraries( artyfx LINK_PUBLIC "-lpthread" )
 
 IF(BUILD_GUI)
-target_link_libraries( artyfx ${NTK_LIBRARIES} )
+  ADD_LIBRARY( artyfx_ui SHARED ${ui_sources} )
+  target_link_libraries( artyfx_ui "-lcairo -lX11 -lavtk" )
+  set_target_properties( artyfx_ui PROPERTIES PREFIX "")
 ENDIF()
 
 # Remove "lib" part before name (artyfx.so, not libartyfx.so)
 set_target_properties(artyfx PROPERTIES PREFIX "")
 
 # add the install targets
-install (TARGETS artyfx DESTINATION lib/lv2/artyfx.lv2/)
+install (TARGETS artyfx    DESTINATION lib/lv2/artyfx.lv2/)
+install (TARGETS artyfx_ui DESTINATION lib/lv2/artyfx.lv2/)
 
 FILE(GLOB modF "artyfx.lv2/modgui/*")
 FILE(GLOB ttls "artyfx.lv2/*.ttl"   )

@@ -15,6 +15,8 @@ option(AVTK_SNDFILE_SUPPORT "Build with sndfile library"  OFF )
 option(AVTK_TESTER_SUPPORT  "Build with Tester Rec/Play"  OFF )
 
 
+
+
 ################################################################################
 ### Code compilation starts here
 ################################################################################
@@ -51,18 +53,22 @@ pkg_check_modules(X11 x11 REQUIRED)
 include_directories( ${X11_INCLUDE_DIRS} )
 link_directories   ( ${X11_LIBRARY_DIRS} )
 
+
+SET(CMAKE_C_FLAGS   "-fPIC -msse -msse2 -mfpmath=sse -g") # -fsanitize=address
 SET(CMAKE_CXX_FLAGS "-fPIC -msse -msse2 -mfpmath=sse -g") # -fsanitize=address
 
 FILE(GLOB src libs/pffft.cxx avtk/*.cxx )
 
-ADD_LIBRARY( avtk STATIC ${src} )
+ADD_LIBRARY( avtk STATIC ${src} avtk/pugl/pugl_x11.c)
+target_link_libraries( avtk LINK_PUBLIC ${CAIRO_LIBRARIES}  )
 
+target_include_directories (avtk PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}" )
 
-ADD_EXECUTABLE( avtkDemo test_ui.cxx main.cxx avtk/pugl/pugl_x11.c )
+ADD_EXECUTABLE( avtkDemo test_ui.cxx main.cxx )
 
 FILE(GLOB testSrc tests/*.cxx)
 
-ADD_EXECUTABLE( avtkTests ${testSrc} avtk/pugl/pugl_x11.c )
+ADD_EXECUTABLE( avtkTests ${testSrc} )
 
 #target_link_libraries( avtk ${GL_LIBRARIES}     )
 target_link_libraries( avtkDemo avtk  )

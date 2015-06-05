@@ -2,7 +2,7 @@
 #ifndef OPENAV_ARTYFX_DELLA_UI_HXX
 #define OPENAV_ARTYFX_DELLA_UI_HXX
 
-#include "../avtk/avtk.hxx"
+#include "avtk.hxx"
 
 namespace Avtk
 {

@@ -3,7 +3,7 @@
 #include "../dsp/della.hxx"
 
 #include "common.hxx"
-#include "../avtk/theme.hxx"
+#include "theme.hxx"
 #include "graphs/delay.hxx"
 #include "headers/della.c"
 
