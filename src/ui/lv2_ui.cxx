@@ -13,6 +13,7 @@
 #include "../dsp/ducka.hxx"
 #include "../dsp/kuiza.hxx"
 #include "../dsp/panda.hxx"
+#include "../dsp/satma.hxx"
 
 #include "bitta.hxx"
 #include "driva.hxx"
@@ -21,6 +22,7 @@
 #include "ducka.hxx"
 #include "kuiza.hxx"
 #include "panda.hxx"
+#include "satma.hxx"
 /*
 #include "filta.hxx"
 #include "kuiza.hxx"
@@ -83,7 +85,10 @@ static LV2UI_Handle artyfx_instantiate(const struct _LV2UI_Descriptor * descript
   {
     ui = new PandaUI( parentHandle );
   }
-  
+  else if (strcmp(plugin_uri, "http://www.openavproductions.com/artyfx#satma") == 0 )
+  {
+    ui = new SatmaUI( parentHandle );
+  }
   
   if( ui == 0 )
   {
@@ -140,6 +145,13 @@ artyfx_extension_data(const char* uri)
 
 static const LV2UI_Descriptor descriptor[] = {
 {
+  SATMA_UI_URI,
+  artyfx_instantiate,
+  artyfx_cleanup, 
+  artyfx_port_event, 
+  artyfx_extension_data
+},
+{
   PANDA_UI_URI,
   artyfx_instantiate,
   artyfx_cleanup, 
@@ -188,7 +200,7 @@ static const LV2UI_Descriptor descriptor[] = {
 LV2_SYMBOL_EXPORT const LV2UI_Descriptor* lv2ui_descriptor(uint32_t index)
 {
   // bit of a hack - to handle multiple UIs at once
-  if( index >= 0 && index < 4 )
+  if( index >= 0 && index < 7 )
   {
 		return &descriptor[index];
   }
