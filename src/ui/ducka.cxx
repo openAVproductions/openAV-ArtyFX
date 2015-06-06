@@ -4,7 +4,7 @@
 
 #include "common.hxx"
 #include "../avtk/theme.hxx"
-#include "graphs/delay.hxx"
+#include "graphs/sidechain.hxx"
 #include "headers/ducka.c"
 
 DuckaUI::DuckaUI(PuglNativeWindow parent) :
@@ -13,7 +13,7 @@ DuckaUI::DuckaUI(PuglNativeWindow parent) :
   Avtk::Image* i = new Avtk::Image( this, 0, 0, 160,  29, "header");
   i->load( ducka.pixel_data );
   
-  rev   = new Avtk::Delay( this, 5,36, 150, 126, "graph" );
+  rev   = new Avtk::Sidechain( this, 5,36, 150, 126, "graph" );
   
   dial1 = new Avtk::Dial( this,  8, 172, 45,45, "Feedback" );
   dial2 = new Avtk::Dial( this, 60, 172, 45,45, "Volume" );
@@ -26,12 +26,12 @@ void DuckaUI::widgetValueCB( Avtk::Widget* widget )
   //printf("Widget %s : %f\n", widget->label(), v );
   if( widget == dial1 )
   {
-    rev->feedback = v;
+    rev->threshold = v;
     write_function( controller, DUCKA_THRESHOLD, sizeof(float), 0, &v );
   }
   if( widget == dial2 )
   {
-    rev->volume = v;
+    rev->reduceAmount = v;
     write_function( controller, DUCKA_REDUCTION, sizeof(float), 0, &v );
   }
   if( widget == dial3 )
@@ -66,6 +66,10 @@ void DuckaUI::lv2PortEvent( uint32_t index,
     break;
   case DUCKA_RELEASE_TIME:
     dial3->value( v );
+    //rev->time = v;
+    break;
+  case DUCKA_SIDECHAIN_AMP:
+    rev->value( v );
     //rev->time = v;
     break;
   }

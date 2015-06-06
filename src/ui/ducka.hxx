@@ -7,7 +7,7 @@
 namespace Avtk
 {
   class Widget;
-  class Delay;
+  class Sidechain;
 };
 
 class DuckaUI : public Avtk::UI
@@ -23,7 +23,7 @@ class DuckaUI : public Avtk::UI
                                 uint32_t format, 
                                 const void* buffer );
 
-    Avtk::Delay* rev;
+    Avtk::Sidechain* rev;
     Avtk::Dial* dial1;
     Avtk::Dial* dial2;
     Avtk::Dial* dial3;
