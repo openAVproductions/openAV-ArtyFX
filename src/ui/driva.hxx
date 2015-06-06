@@ -7,7 +7,7 @@
 namespace Avtk
 {
   class Widget;
-  class Delay;
+  class Distortion;
 };
 
 class DrivaUI : public Avtk::UI
@@ -23,7 +23,7 @@ class DrivaUI : public Avtk::UI
                                 uint32_t format, 
                                 const void* buffer );
 
-    Avtk::Delay* rev;
+    Avtk::Distortion* graph;
     Avtk::Dial* dial1;
     Avtk::Dial* dial2;
 };
