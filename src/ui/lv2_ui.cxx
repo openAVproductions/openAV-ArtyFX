@@ -12,6 +12,7 @@
 #include "../dsp/driva.hxx"
 #include "../dsp/ducka.hxx"
 #include "../dsp/kuiza.hxx"
+#include "../dsp/panda.hxx"
 
 #include "bitta.hxx"
 #include "driva.hxx"
@@ -19,6 +20,7 @@
 #include "della.hxx"
 #include "ducka.hxx"
 #include "kuiza.hxx"
+#include "panda.hxx"
 /*
 #include "filta.hxx"
 #include "kuiza.hxx"
@@ -77,6 +79,10 @@ static LV2UI_Handle artyfx_instantiate(const struct _LV2UI_Descriptor * descript
   {
     ui = new KuizaUI( parentHandle );
   }
+  else if (strcmp(plugin_uri, "http://www.openavproductions.com/artyfx#panda") == 0 )
+  {
+    ui = new PandaUI( parentHandle );
+  }
   
   
   if( ui == 0 )
@@ -134,12 +140,20 @@ artyfx_extension_data(const char* uri)
 
 static const LV2UI_Descriptor descriptor[] = {
 {
+  PANDA_UI_URI,
+  artyfx_instantiate,
+  artyfx_cleanup, 
+  artyfx_port_event, 
+  artyfx_extension_data
+},
+{
   KUIZA_UI_URI,
   artyfx_instantiate,
   artyfx_cleanup, 
   artyfx_port_event, 
   artyfx_extension_data
-}, { BITTA_UI_URI,
+},
+{ BITTA_UI_URI,
   artyfx_instantiate,
   artyfx_cleanup, 
   artyfx_port_event, 
