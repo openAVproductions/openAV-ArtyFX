@@ -14,6 +14,7 @@
 #include "../dsp/kuiza.hxx"
 #include "../dsp/panda.hxx"
 #include "../dsp/satma.hxx"
+#include "../dsp/filta.hxx"
 
 #include "bitta.hxx"
 #include "driva.hxx"
@@ -23,6 +24,7 @@
 #include "kuiza.hxx"
 #include "panda.hxx"
 #include "satma.hxx"
+#include "filta.hxx"
 /*
 #include "filta.hxx"
 #include "kuiza.hxx"
@@ -89,7 +91,10 @@ static LV2UI_Handle artyfx_instantiate(const struct _LV2UI_Descriptor * descript
   {
     ui = new SatmaUI( parentHandle );
   }
-  
+  else if (strcmp(plugin_uri, "http://www.openavproductions.com/artyfx#filta") == 0 )
+  {
+    ui = new FiltaUI( parentHandle );
+  }
   if( ui == 0 )
   {
     fprintf(stderr, "ARTYFX UI error: this GUI does not support plugin with URI %s\n", plugin_uri);
@@ -144,6 +149,13 @@ artyfx_extension_data(const char* uri)
 }
 
 static const LV2UI_Descriptor descriptor[] = {
+{
+  FILTA_UI_URI,
+  artyfx_instantiate,
+  artyfx_cleanup, 
+  artyfx_port_event, 
+  artyfx_extension_data
+},
 {
   SATMA_UI_URI,
   artyfx_instantiate,
