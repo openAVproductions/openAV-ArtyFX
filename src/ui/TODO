@@ -1,9 +1,0 @@
-
-Allow all UI's to load via a single API.
-Instantiate the right UI in the contstructor,
-and forward the events as normal.
-
-Improve the build system, current compile command for single LV2 UI:
-
-g++ -shared -fPIC -DPUGL_HAVE_CAIRO -I ../avtk/avtk/ ../avtk/test_ui.cxx ../avtk/avtk/pugl/pugl_x11.c lv2_ui.cxx -Wl,--no-undefined -L../avtk/build/ -lavtk -lcairo -lX11 -o artyfx_ui.so
-
