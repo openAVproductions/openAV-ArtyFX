@@ -10,13 +10,14 @@
 #include "../dsp/della.hxx"
 #include "../dsp/roomy.hxx"
 #include "../dsp/driva.hxx"
+#include "../dsp/ducka.hxx"
 
 #include "bitta.hxx"
 #include "driva.hxx"
 #include "roomy.hxx"
 #include "della.hxx"
-/*
 #include "ducka.hxx"
+/*
 #include "filta.hxx"
 #include "kuiza.hxx"
 #include "masha.hxx"
@@ -65,6 +66,10 @@ static LV2UI_Handle artyfx_instantiate(const struct _LV2UI_Descriptor * descript
   else if (strcmp(plugin_uri, "http://www.openavproductions.com/artyfx#della") == 0 )
   {
     ui = new DellaUI( parentHandle );
+  }
+  else if (strcmp(plugin_uri, "http://www.openavproductions.com/artyfx#ducka") == 0 )
+  {
+    ui = new DuckaUI( parentHandle );
   }
   
   
@@ -124,6 +129,12 @@ artyfx_extension_data(const char* uri)
 static const LV2UI_Descriptor descriptor[] = {
 {
   BITTA_UI_URI,
+  artyfx_instantiate,
+  artyfx_cleanup, 
+  artyfx_port_event, 
+  artyfx_extension_data
+}, {
+  DUCKA_UI_URI,
   artyfx_instantiate,
   artyfx_cleanup, 
   artyfx_port_event, 
