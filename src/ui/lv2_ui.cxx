@@ -15,6 +15,9 @@
 #include "../dsp/panda.hxx"
 #include "../dsp/satma.hxx"
 #include "../dsp/filta.hxx"
+#include "../dsp/masha.hxx"
+#include "../dsp/vihda.hxx"
+#include "../dsp/whaaa.hxx"
 
 #include "bitta.hxx"
 #include "driva.hxx"
@@ -25,15 +28,10 @@
 #include "panda.hxx"
 #include "satma.hxx"
 #include "filta.hxx"
-/*
-#include "filta.hxx"
-#include "kuiza.hxx"
 #include "masha.hxx"
-#include "panda.hxx"
-#include "satma.hxx"
 #include "vihda.hxx"
 #include "whaaa.hxx"
-*/
+
 
 static LV2UI_Handle artyfx_instantiate(const struct _LV2UI_Descriptor * descriptor,
                               const char * plugin_uri,
@@ -95,6 +93,19 @@ static LV2UI_Handle artyfx_instantiate(const struct _LV2UI_Descriptor * descript
   {
     ui = new FiltaUI( parentHandle );
   }
+  else if (strcmp(plugin_uri, "http://www.openavproductions.com/artyfx#masha") == 0 )
+  {
+    ui = new MashaUI( parentHandle );
+  }
+  else if (strcmp(plugin_uri, "http://www.openavproductions.com/artyfx#whaaa") == 0 )
+  {
+    ui = new WhaaaUI( parentHandle );
+  }
+  else if (strcmp(plugin_uri, "http://www.openavproductions.com/artyfx#vihda") == 0 )
+  {
+    ui = new VihdaUI( parentHandle );
+  }
+  
   if( ui == 0 )
   {
     fprintf(stderr, "ARTYFX UI error: this GUI does not support plugin with URI %s\n", plugin_uri);
@@ -150,6 +161,27 @@ artyfx_extension_data(const char* uri)
 
 static const LV2UI_Descriptor descriptor[] = {
 {
+  VIHDA_UI_URI,
+  artyfx_instantiate,
+  artyfx_cleanup, 
+  artyfx_port_event, 
+  artyfx_extension_data
+},
+{
+  WHAAA_UI_URI,
+  artyfx_instantiate,
+  artyfx_cleanup, 
+  artyfx_port_event, 
+  artyfx_extension_data
+},
+{
+  MASHA_UI_URI,
+  artyfx_instantiate,
+  artyfx_cleanup, 
+  artyfx_port_event, 
+  artyfx_extension_data
+},
+{
   FILTA_UI_URI,
   artyfx_instantiate,
   artyfx_cleanup, 
@@ -177,30 +209,35 @@ static const LV2UI_Descriptor descriptor[] = {
   artyfx_port_event, 
   artyfx_extension_data
 },
-{ BITTA_UI_URI,
+{
+  BITTA_UI_URI,
   artyfx_instantiate,
   artyfx_cleanup, 
   artyfx_port_event, 
   artyfx_extension_data
-}, {
+},
+{
   DUCKA_UI_URI,
   artyfx_instantiate,
   artyfx_cleanup, 
   artyfx_port_event, 
   artyfx_extension_data
-}, {
+},
+{
   DRIVA_UI_URI,
   artyfx_instantiate,
   artyfx_cleanup, 
   artyfx_port_event, 
   artyfx_extension_data
-}, {
+},
+{
   DELLA_UI_URI,
   artyfx_instantiate,
   artyfx_cleanup, 
   artyfx_port_event, 
   artyfx_extension_data
-}, {
+},
+{
   ROOMY_UI_URI,
   artyfx_instantiate,
   artyfx_cleanup, 
@@ -212,7 +249,7 @@ static const LV2UI_Descriptor descriptor[] = {
 LV2_SYMBOL_EXPORT const LV2UI_Descriptor* lv2ui_descriptor(uint32_t index)
 {
   // bit of a hack - to handle multiple UIs at once
-  if( index >= 0 && index < 7 )
+  if( index >= 0 && index < 12 )
   {
 		return &descriptor[index];
   }
