@@ -25,8 +25,6 @@ class BittaUI : public Avtk::UI
 
     Avtk::Bitcrusher* graph;
     Avtk::Dial* dial1;
-    Avtk::Dial* dial2;
-    Avtk::Dial* dial3;
 };
 
 
