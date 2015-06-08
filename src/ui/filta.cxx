@@ -4,7 +4,7 @@
 
 #include "common.hxx"
 #include "../avtk/theme.hxx"
-#include "graphs/delay.hxx"
+#include "graphs/filter.hxx"
 #include "headers/filta.c"
 
 FiltaUI::FiltaUI(PuglNativeWindow parent) :
@@ -13,9 +13,9 @@ FiltaUI::FiltaUI(PuglNativeWindow parent) :
   Avtk::Image* i = new Avtk::Image( this, 0, 0, 160,  29, "header");
   i->load( filta.pixel_data );
   
-  rev   = new Avtk::Delay( this, 5,36, 150, 126, "graph" );
+  graph = new Avtk::Filter( this, 5,36, 150, 126, "graph" );
   
-  dial1 = new Avtk::Dial( this,  8, 172, 45,45, "Resonance" );
+  dial1 = new Avtk::Dial( this,  8, 172, 45,45, "Frequency" );
   //dial2 = new Avtk::Dial( this, 60, 172, 45,45, "Volume" );
   //dial3 = new Avtk::Dial( this,110, 172, 45,45, "Time" );
 }
@@ -26,7 +26,7 @@ void FiltaUI::widgetValueCB( Avtk::Widget* widget )
   //printf("Widget %s : %f\n", widget->label(), v );
   if( widget == dial1 )
   {
-    rev->feedback = v;
+    graph->value( v );
     write_function( controller, FILTA_FREQ_CONTROL, sizeof(float), 0, &v );
   }
   redraw();
@@ -48,7 +48,7 @@ void FiltaUI::lv2PortEvent( uint32_t index,
   {
   case FILTA_FREQ_CONTROL:
     dial1->value( v );
-    rev->feedback = v;
+    graph->value( v );
     break;
   }
   redraw();
