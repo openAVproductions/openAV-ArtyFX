@@ -12,11 +12,15 @@ This is the repository of an LV2 plugin suite called Arty FX.
 
 Dependencies
 ------------
-These plugins use NTK for thier interfaces. NTK can be obtained using
-git clone git://git.tuxfamily.org/gitroot/non/fltk.git ntk
+ArtyFX uses AVTK for its user interfaces, and therefore
+depends only on Cairo and X. The LV2 headers are needed
+to build the plugins.
 
-You'll need the LV2 headers to compile these plugins, package name:
-lv2
+On Debian Jessie (current stable) the following will grab
+the dependencies needed to build ArtyFX:
+```
+sudo apt-get install libcairo-dev lv2-dev lv2core
+```
 
 Building
 --------
@@ -37,3 +41,10 @@ with
 ```
 $ lv2ls
 ```
+
+Contact
+-------
+Harry van Haaren   <harryhaaren@gmail.com>
+OpenAV Productions 
+http://www.openavproductions.com
+
