@@ -81,9 +81,10 @@ void Distortion::draw( cairo_t* cr )
     cairo_restore( cr );
   }
  
+
   // outline
   cairo_rectangle( cr, x_, y_, w_, h_ );
-  theme_->color( cr, FG );
+  cairo_set_source_rgb( cr, 0.72, 0.72, 0.72 );
   cairo_stroke( cr );
 
   cairo_restore( cr );
