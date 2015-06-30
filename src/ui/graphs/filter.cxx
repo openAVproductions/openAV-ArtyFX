@@ -128,6 +128,13 @@ void Filter::draw( cairo_t* cr )
     }
   }
 
+  // outline
+  cairo_set_line_width( cr, 1 );
+  cairo_rectangle( cr, x_, y_, w_, h_ );
+  cairo_set_source_rgb( cr, 0.72, 0.72, 0.72 );
+  cairo_stroke( cr );
+
+
   cairo_restore( cr );
 }
 
