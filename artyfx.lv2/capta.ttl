@@ -38,6 +38,10 @@
   doap:name "Capta" ;
   doap:description "4-track recorder";
   
+  lv2:minorVersion 2; lv2:microVersion 0;
+  doap:license <http://usefulinc.com/doap/licenses/gpl> ;
+  lv2:project <http://www.openavproductions.com/artyfx> ;
+  
   lv2:requiredFeature urid:map ;
   
   ui:ui <http://www.openavproductions.com/artyfx#capta/gui>;

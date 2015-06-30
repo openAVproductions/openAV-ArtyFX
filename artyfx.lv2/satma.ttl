@@ -41,7 +41,12 @@
       foaf:name "OpenAV"
   ];
   lv2:optionalFeature lv2:hardRTCapable ;
-  
+  rdfs:comment "A distortion maximizer effect.";
+  lv2:minorVersion 2; lv2:microVersion 0;
+  doap:license <http://usefulinc.com/doap/licenses/gpl> ;
+  lv2:project <http://www.openavproductions.com/artyfx> ;
+
+
   ui:ui <http://www.openavproductions.com/artyfx#satma/gui>;
   
   lv2:optionalFeature <http://lv2plug.in/ns/lv2core#hardRTCapable> ,

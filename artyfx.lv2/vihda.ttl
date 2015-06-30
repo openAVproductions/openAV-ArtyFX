@@ -43,7 +43,12 @@
       foaf:name "OpenAV"
   ];
   lv2:optionalFeature lv2:hardRTCapable ;
-  
+  rdfs:comment "A stereo widener plugin based on a mid-side matrix with inversion of the right channel.";
+  lv2:minorVersion 2; lv2:microVersion 0;
+  doap:license <http://usefulinc.com/doap/licenses/gpl> ;
+  lv2:project <http://www.openavproductions.com/artyfx> ;
+
+
   ui:ui <http://www.openavproductions.com/artyfx#vihda/gui>;
   
   lv2:requiredFeature <http://lv2plug.in/ns/ext/urid#map> ;

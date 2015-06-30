@@ -44,6 +44,11 @@
       foaf:mbox <mailto:harryhaaren@gmail.com>;
       foaf:name "OpenAV"
   ];
+
+  rdfs:comment "Bit crushing causes bit-reduction type distortion";
+  lv2:minorVersion 2; lv2:microVersion 0;
+  doap:license <http://usefulinc.com/doap/licenses/gpl> ;
+  lv2:project <http://www.openavproductions.com/artyfx> ;
   
   lv2:optionalFeature lv2:hardRTCapable ;
   
