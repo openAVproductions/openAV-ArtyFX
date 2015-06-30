@@ -4,7 +4,8 @@
 
 using namespace Avtk;
 
-Distortion::Distortion( Avtk::UI* ui, int x_, int y_, int w_, int h_, std::string label_) :
+Distortion::Distortion( Avtk::UI* ui, int x_, int y_, int w_, int h_, 
+    std::string label_) :
   Widget( ui, x_, y_, w_, h_, label_ )
 {
   dragMode( DM_DRAG_VERTICAL );
@@ -16,8 +17,6 @@ void Distortion::draw( cairo_t* cr )
   cairo_save( cr );
   
   cairo_move_to( cr, x_, y_ + h_ );
-  //cairo_line_to( cr, x_+w_*0.1, y_+h_*0.85 - (h_*0.7*dryWet) );
-  //cairo_line_to( cr, x_+w_*0.3+w_*0.7*size, y_+(h_*0.99) );
   
   if( true ) // active 
     theme_->color( cr, HIGHLIGHT, 0.2 );
@@ -72,10 +71,10 @@ void Distortion::draw( cairo_t* cr )
     
     
     cairo_close_path( cr );
-    cairo_set_source_rgba( cr,  0 / 255.f,   155 / 255.f ,  255 / 255.f , 0.2 );
+    cairo_set_source_rgba( cr,  0/255.f,   155/255.f, 255/255.f, 0.2 );
     cairo_set_line_width(cr, 1.5);
     cairo_fill_preserve( cr );
-    cairo_set_source_rgba( cr,  0 / 255.f,   155 / 255.f ,  255 / 255.f , 0.8 );
+    cairo_set_source_rgba( cr,  0/255.f,   155/255.f, 255/255.f, 0.8 );
     cairo_stroke( cr );
     
     cairo_restore( cr );
@@ -83,6 +82,7 @@ void Distortion::draw( cairo_t* cr )
  
 
   // outline
+  cairo_set_line_width( cr, 1 );
   cairo_rectangle( cr, x_, y_, w_, h_ );
   cairo_set_source_rgb( cr, 0.72, 0.72, 0.72 );
   cairo_stroke( cr );
