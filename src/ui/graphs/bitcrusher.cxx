@@ -4,7 +4,8 @@
 
 using namespace Avtk;
 
-Bitcrusher::Bitcrusher( Avtk::UI* ui, int x_, int y_, int w_, int h_, std::string label_) :
+Bitcrusher::Bitcrusher( Avtk::UI* ui, int x_, int y_, int w_, int h_,
+    std::string label_) :
   Widget( ui, x_, y_, w_, h_, label_ )
 { 
   //dragMode( DM_DRAG_VERTICAL );
@@ -59,7 +60,7 @@ void Bitcrusher::draw( cairo_t* cr )
     cairo_close_path( cr );
     
     if ( active )
-      cairo_set_source_rgba( cr, 0 / 255.f, 153 / 255.f , 255 / 255.f , 0.2 );
+      cairo_set_source_rgba( cr, 0/255.f, 153/255.f, 255/255.f, 0.2 );
     //else
       //setColour(cr, COLOUR_GREY_1, 0.2 );
     cairo_close_path(cr);
@@ -68,9 +69,14 @@ void Bitcrusher::draw( cairo_t* cr )
     // stroke cutoff line
     cairo_set_line_width( cr, 1.5);
     if ( active )
-      cairo_set_source_rgba( cr, 0 / 255.f, 153 / 255.f , 255 / 255.f , 0.8 );
+      cairo_set_source_rgba( cr, 0/255.f, 153/255.f, 255/255.f, 0.8 );
     //else
     //  setColour(cr, COLOUR_GREY_1 );
+    cairo_stroke( cr );
+    
+    // outline
+    cairo_rectangle( cr, x_, y_, w_, h_ );
+    cairo_set_source_rgb( cr, 0.72, 0.72, 0.72 );
     cairo_stroke( cr );
   }
 
