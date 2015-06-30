@@ -23,7 +23,7 @@ class DuckaUI : public Avtk::UI
                                 uint32_t format, 
                                 const void* buffer );
 
-    Avtk::Sidechain* rev;
+    Avtk::Sidechain* graph;
     Avtk::Dial* dial1;
     Avtk::Dial* dial2;
     Avtk::Dial* dial3;

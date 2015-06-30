@@ -13,7 +13,7 @@ DuckaUI::DuckaUI(PuglNativeWindow parent) :
   Avtk::Image* i = new Avtk::Image( this, 0, 0, 160,  29, "header");
   i->load( ducka.pixel_data );
   
-  rev   = new Avtk::Sidechain( this, 5,36, 150, 126, "graph" );
+  graph   = new Avtk::Sidechain( this, 5,36, 150, 126, "graph" );
   
   dial1 = new Avtk::Dial( this,  8, 172, 45,45, "Thresh" );
   dial2 = new Avtk::Dial( this, 60, 172, 45,45, "Drop" );
@@ -26,17 +26,17 @@ void DuckaUI::widgetValueCB( Avtk::Widget* widget )
   //printf("Widget %s : %f\n", widget->label(), v );
   if( widget == dial1 )
   {
-    rev->threshold = v;
+    graph->threshold = v;
     write_function( controller, DUCKA_THRESHOLD, sizeof(float), 0, &v );
   }
   if( widget == dial2 )
   {
-    rev->reduceAmount = v;
+    graph->reduceAmount = v;
     write_function( controller, DUCKA_REDUCTION, sizeof(float), 0, &v );
   }
   if( widget == dial3 )
   {
-    rev->time = v;
+    graph->time = v;
     write_function( controller, DUCKA_RELEASE_TIME, sizeof(float), 0, &v );
   }
   redraw();
@@ -58,19 +58,18 @@ void DuckaUI::lv2PortEvent( uint32_t index,
   {
   case DUCKA_THRESHOLD:
     dial1->value( v );
-    //rev->feedback = v;
+    graph->threshold = v;
     break;
   case DUCKA_REDUCTION:
     dial2->value( v );
-    //rev->volume = v;
+    graph->reduceAmount = v;
     break;
   case DUCKA_RELEASE_TIME:
     dial3->value( v );
-    //rev->time = v;
+    graph->time = v;
     break;
   case DUCKA_SIDECHAIN_AMP:
-    rev->value( v );
-    //rev->time = v;
+    graph->value( v );
     break;
   }
   redraw();
