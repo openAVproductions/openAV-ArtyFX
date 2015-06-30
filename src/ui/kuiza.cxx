@@ -15,11 +15,11 @@ KuizaUI::KuizaUI(PuglNativeWindow parent) :
   
   graph = new Avtk::Eq( this, 5,36, 150, 126, "graph" );
   
-  dial1 = new Avtk::Dial( this,  8, 172, 45,45, "Low" );
-  dial2 = new Avtk::Dial( this, 60, 172, 45,45, "Mid Low" );
-  dial3 = new Avtk::Dial( this,110, 172, 45,45, "Mid High" );
-  dial4 = new Avtk::Dial( this,110, 172, 45,45, "High" );
-  dial5 = new Avtk::Dial( this,110, 172, 45,45, "Gain" );
+  dial1 = new Avtk::Dial( this,  2, 166, 40,26, "Low"  );
+  dial2 = new Avtk::Dial( this, 29, 185, 40,26, "Mid"  );
+  dial3 = new Avtk::Dial( this, 58, 166, 40,26, "Mid"  );
+  dial4 = new Avtk::Dial( this, 90, 185, 40,26, "High" );
+  dial5 = new Avtk::Dial( this,119, 168, 40,36, "Gain" );
 }
 
 void KuizaUI::widgetValueCB( Avtk::Widget* widget )

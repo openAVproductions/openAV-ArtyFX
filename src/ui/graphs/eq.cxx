@@ -7,7 +7,8 @@ using namespace Avtk;
 Eq::Eq( Avtk::UI* ui, int x_, int y_, int w_, int h_, std::string label_) :
   Widget( ui, x_, y_, w_, h_, label_ )
 {
-  memset( gains, 0, sizeof(float)*4 );
+  for(int i = 0; i < 4; i++)
+    gains[i] = 0.5f;
 }
 
 void Eq::draw( cairo_t* cr )
@@ -58,6 +59,12 @@ void Eq::draw( cairo_t* cr )
     cairo_stroke(cr);
     
   }
+
+  // outline
+  cairo_set_line_width( cr, 1 );
+  cairo_rectangle( cr, x_, y_, w_, h_ );
+  cairo_set_source_rgb( cr, 0.72, 0.72, 0.72 );
+  cairo_stroke( cr );
 
   cairo_restore( cr );
 }
