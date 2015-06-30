@@ -2,7 +2,7 @@
 #ifndef OPENAV_AVTK_HELPERS_HXX
 #define OPENAV_AVTK_HELPERS_HXX
 
-#include <cairo.h>
+#include <cairo/cairo.h>
 
 // code aquisited from pugl_cairo_test.c, author David Robillard.
 void roundedBox(cairo_t* cr,
