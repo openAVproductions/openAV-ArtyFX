@@ -24,8 +24,9 @@ class DrivaUI : public Avtk::UI
                                 const void* buffer );
 
     Avtk::Distortion* graph;
-    Avtk::Dial* dial1;
+    Avtk::Button* tone;
     Avtk::Dial* dial2;
+    Avtk::Dialog* dialog;
 };
 
 
