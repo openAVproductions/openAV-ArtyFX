@@ -8,8 +8,8 @@
 
 using namespace Avtk;
 
-Dial::Dial( Avtk::UI* ui, int x_, int y_, int w_, int h_, std::string label_) :
-  Widget( ui, x_, y_, w_, h_, label_ )
+Dial::Dial( Avtk::UI* ui, int x_, int y_, int w_, int h_, std::string l) :
+  Widget( ui, x_, y_, w_, h_, l )
 {
   dragMode( DM_DRAG_VERTICAL );
   scrollDisable = false;
@@ -39,7 +39,8 @@ void Dial::draw( cairo_t* cr )
     cairo_text_extents_t ext;
     cairo_text_extents( cr, label(), &ext );
 
-    cairo_move_to( cr, x_+w_/2-ext.width/2., y_+h_+ext.height/2.-3);
+    cairo_move_to( cr, x_+w_/2-ext.width/2., y_+h_+ext.height/2.-4);
+    cairo_set_source_rgb( cr, 1,1,1 );
     cairo_show_text( cr, label() );
   }
 
