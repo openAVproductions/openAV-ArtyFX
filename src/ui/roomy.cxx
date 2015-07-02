@@ -18,6 +18,14 @@ RoomyUI::RoomyUI(PuglNativeWindow parent) :
   dial1 = new Avtk::Dial( this,  8, 168, 45,45, "Time" );
   dial2 = new Avtk::Dial( this, 60, 168, 45,45, "Damp" );
   dial3 = new Avtk::Dial( this,110, 168, 45,45, "Dry Wet" );
+  
+  dial1->defaultValue( 0.5 );
+  dial2->defaultValue( 0.5 );
+  dial3->defaultValue( 0.5 );
+
+  dial1->value( 0.5 );
+  dial2->value( 0.5 );
+  dial3->value( 0.5 );
 }
 
 void RoomyUI::widgetValueCB( Avtk::Widget* widget )

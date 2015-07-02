@@ -17,6 +17,7 @@ FiltaUI::FiltaUI(PuglNativeWindow parent) :
   
   dial1 = new Avtk::Dial( this,  60, 168, 45,45, "Frequency" );
   dial1->defaultValue( 0.5f );
+  dial1->value( 0.5f );
 }
 
 void FiltaUI::widgetValueCB( Avtk::Widget* widget )
