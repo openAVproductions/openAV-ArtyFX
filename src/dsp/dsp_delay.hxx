@@ -99,7 +99,7 @@ class Delay // : Effect
       
       // FIXME: get BPM & use BPM to calculate delay time
       //int bpm = 120;
-      int delTimeQuantized = int(timeValue * 3.99f);
+      int delTimeQuantized = int(timeValue * 3.98f);
       
       switch( delTimeQuantized )
       {
@@ -118,6 +118,11 @@ class Delay // : Effect
         case 3:
           delayTimeSamps = framesPerBeat * 1;
           //memset( &buffer[int(samplerate*0.5)], 0, samplerate-samplerate*0.5);
+          break;
+
+        // catch all handler
+        default:
+          delayTimeSamps = framesPerBeat * 1;
           break;
       }
       
