@@ -71,20 +71,23 @@ void KuizaUI::lv2PortEvent( uint32_t index,
   {
   case KUIZA_GAIN_S1:
     dial1->value( v );
-    //graph->feedback = v;
+    graph->gains[0] = v;
     break;
   case KUIZA_GAIN_S2:
     dial2->value( v );
-    //graph->volume = v;
+    graph->gains[1] = v;
     break;
   case KUIZA_GAIN_S3:
     dial3->value( v );
+    graph->gains[2] = v;
     break;
   case KUIZA_GAIN_S4:
     dial4->value( v );
+    graph->gains[3] = v;
     break;
   case KUIZA_GAIN:
     dial5->value( v );
+    graph->value( v );
     break;
   }
   redraw();
