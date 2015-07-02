@@ -348,7 +348,9 @@ void Widget::value( float v )
 
 void Widget::defaultValue( float dv )
 {
+  // store new default value as both default and audition
   defaultValue_ = dv;
+  auditionValue_ = dv;
 }
 
 bool Widget::touches( int inx, int iny )
