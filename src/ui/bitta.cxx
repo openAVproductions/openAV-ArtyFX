@@ -15,6 +15,8 @@ BittaUI::BittaUI(PuglNativeWindow parent) :
   
   graph   = new Avtk::Bitcrusher( this, 5,36, 150, 126, "graph" );
   dial1 = new Avtk::Dial( this,  60, 170, 45,45, "Crush" );
+
+  dial1->defaultValue( 0.5 );
 }
 
 void BittaUI::widgetValueCB( Avtk::Widget* widget )

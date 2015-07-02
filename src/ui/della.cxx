@@ -18,6 +18,14 @@ DellaUI::DellaUI(PuglNativeWindow parent) :
   dial1 = new Avtk::Dial( this,  8, 172, 45,45, "Feedback" );
   dial2 = new Avtk::Dial( this, 60, 172, 45,45, "Volume" );
   dial3 = new Avtk::Dial( this,110, 172, 45,45, "Time" );
+
+  dial1->defaultValue( 0.5 );
+  dial2->defaultValue( 0.5 );
+  dial3->defaultValue( 0.5 );
+
+  dial1->value( 0.5 );
+  dial2->value( 0.5 );
+  dial3->value( 0.5 );
 }
 
 void DellaUI::widgetValueCB( Avtk::Widget* widget )

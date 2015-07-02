@@ -8,6 +8,7 @@ Eq::Eq( Avtk::UI* ui, int x_, int y_, int w_, int h_, std::string label_) :
   Widget( ui, x_, y_, w_, h_, label_ )
 {
   value( 0.5 );
+  rClickMode( RCLICK_NONE );
   for(int i = 0; i < 4; i++)
     gains[i] = 0.5f;
 }

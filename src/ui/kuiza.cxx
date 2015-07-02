@@ -20,6 +20,12 @@ KuizaUI::KuizaUI(PuglNativeWindow parent) :
   dial3 = new Avtk::Dial( this, 58, 166, 40,26, "Mid"  );
   dial4 = new Avtk::Dial( this, 90, 185, 40,26, "High" );
   dial5 = new Avtk::Dial( this,119, 168, 40,36, "Gain" );
+
+  dial1->defaultValue( 0.5 );
+  dial2->defaultValue( 0.5 );
+  dial3->defaultValue( 0.5 );
+  dial4->defaultValue( 0.5 );
+  dial5->defaultValue( 0.5 );
 }
 
 void KuizaUI::widgetValueCB( Avtk::Widget* widget )
