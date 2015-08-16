@@ -7,7 +7,8 @@ set(ARTYFX_VERSION_MAJOR "1")
 set(ARTYFX_VERSION_MINOR "3")
 set(ARTYFX_VERSION_PATCH "0")
 
-set(ARTYFX_VERSION "${ARTYFX_VERSION_MAJOR}.${ARTYFX_VERSION_MINOR}.${ARTYFX_VERSION_PATCH}")
+set(ARTYFX_VERSION "${ARTYFX_VERSION_MAJOR}.${ARTYFX_VERSION_MINOR}\
+.${ARTYFX_VERSION_PATCH}")
 
 option(RELEASE_BUILD  "Build for production usage" ON  )
 option(BUILD_GUI      "Build GUI (AVTK based)"     ON  )
@@ -28,12 +29,14 @@ include_directories( ${SND_INCLUDE_DIRS}  )
 
 
 
-SET(CMAKE_SHARED_LINKER_FLAGS "-fPIC -shared -L./src/avtk -Wl,-z,nodelete -Wl,--no-undefined")
-#SET(CMAKE_SHARED_LINKER_FLAGS "-fPIC -shared -Wl,-z,nodelete -Lsrc/avtk/build/ -Wl,--no-undefined")
+SET(CMAKE_SHARED_LINKER_FLAGS "-fPIC -shared -L./src/avtk -Wl,-z,nodelete \
+-Wl,--no-undefined")
+#SET(CMAKE_SHARED_LINKER_FLAGS "-fPIC -shared -Wl,-z,nodelete \
+#-Lsrc/avtk/build/ -Wl,--no-undefined")
 
-SET(CMAKE_C_FLAGS   "-g -Wall -O2 -Wno-unused-variable -msse2 -mfpmath=sse")
-#SET(CMAKE_C_FLAGS   "-I ./src/avtk/avtk/ -I ./src/ui/ -g -Wall -O2 -Wno-unused-variable -msse2 -mfpmath=sse")
-SET(CMAKE_CXX_FLAGS "-g -Wall -O2 -Wno-unused-variable -msse2 -mfpmath=sse")
+SET(CMAKE_C_FLAGS "-g -Wall -O2 -Wno-unused-variable -msse2 -mfpmath=sse")
+SET(CMAKE_CXX_FLAGS "-g -Wall -O2 -Wno-unused-variable -msse2 \
+-mfpmath=sse")
 
 
 IF(BUILD_GUI)
