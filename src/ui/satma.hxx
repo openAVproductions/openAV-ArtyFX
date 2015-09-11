@@ -7,7 +7,7 @@
 namespace Avtk
 {
   class Widget;
-  class Delay;
+  class Maximizer;
 };
 
 class SatmaUI : public Avtk::UI
@@ -23,7 +23,7 @@ class SatmaUI : public Avtk::UI
                                 uint32_t format, 
                                 const void* buffer );
 
-    Avtk::Delay* rev;
+    Avtk::Maximizer* graph;
     Avtk::Dial* dial1;
     Avtk::Dial* dial2;
 };
