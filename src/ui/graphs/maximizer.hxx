@@ -14,6 +14,7 @@ class Maximizer : public Widget
     virtual ~Maximizer(){}
     
     virtual void draw( cairo_t* cr );
+    float tone;
 };
 
 };

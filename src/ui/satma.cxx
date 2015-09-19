@@ -15,8 +15,8 @@ SatmaUI::SatmaUI(PuglNativeWindow parent) :
   
   graph   = new Avtk::Maximizer( this, 5,36, 150, 126, "graph" );
   
-  dial1 = new Avtk::Dial( this,  8, 172, 45,45, "Distortion" );
-  dial2 = new Avtk::Dial( this, 60, 172, 45,45, "Tone" );
+  dial1 = new Avtk::Dial( this, 28, 169, 45,45, "Distortion" );
+  dial2 = new Avtk::Dial( this, 96, 169, 45,45, "Tone" );
 }
 
 void SatmaUI::widgetValueCB( Avtk::Widget* widget )
@@ -25,12 +25,12 @@ void SatmaUI::widgetValueCB( Avtk::Widget* widget )
   //printf("Widget %s : %f\n", widget->label(), v );
   if( widget == dial1 )
   {
-    //graph->feedback = v;
+    graph->value(v);
     write_function( controller, SATMA_DISTORTION, sizeof(float), 0, &v );
   }
   if( widget == dial2 )
   {
-    //graph->volume = v;
+    graph->tone = v;
     write_function( controller, SATMA_TONE, sizeof(float), 0, &v );
   }
   redraw();
@@ -52,11 +52,11 @@ void SatmaUI::lv2PortEvent( uint32_t index,
   {
   case SATMA_DISTORTION:
     dial1->value( v );
-    //graph->feedback = v;
+    graph->value( v );
     break;
   case SATMA_TONE:
     dial2->value( v );
-    //graph->volume = v;
+    graph->tone = v;
     break;
   }
   redraw();
