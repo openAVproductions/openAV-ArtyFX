@@ -6,24 +6,24 @@
 
 namespace Avtk
 {
-  class Widget;
-  class Delay;
+    class Widget;
+    class Widener;
 };
 
 class VihdaUI : public Avtk::UI
 {
-  public:
+public:
     VihdaUI(PuglNativeWindow parent = 0);
-    virtual ~VihdaUI(){}
-    
+    virtual ~VihdaUI() {}
+
     virtual void widgetValueCB( Avtk::Widget* widget);
-    
+
     virtual void lv2PortEvent(  uint32_t index,
                                 uint32_t buffer_size,
-                                uint32_t format, 
+                                uint32_t format,
                                 const void* buffer );
 
-    Avtk::Delay* rev;
+    Avtk::Widener* graph;
     Avtk::Dial* dial1;
     Avtk::Dial* dial2;
 };

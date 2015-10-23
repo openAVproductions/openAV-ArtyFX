@@ -4,7 +4,7 @@
 
 #include "common.hxx"
 #include "../avtk/theme.hxx"
-#include "graphs/delay.hxx"
+#include "graphs/widener.hxx"
 #include "headers/vihda.c"
 
 VihdaUI::VihdaUI(PuglNativeWindow parent) :
@@ -13,7 +13,7 @@ VihdaUI::VihdaUI(PuglNativeWindow parent) :
   Avtk::Image* i = new Avtk::Image( this, 0, 0, 160,  29, "header");
   i->load( vihda.pixel_data );
   
-  rev   = new Avtk::Delay( this, 5,36, 150, 126, "graph" );
+  graph = new Avtk::Widener( this, 5,36, 150, 126, "graph" );
   
   dial1 = new Avtk::Dial( this,  8, 172, 45,45, "Width" );
   dial2 = new Avtk::Dial( this, 60, 172, 45,45, "Invert" );
@@ -22,15 +22,15 @@ VihdaUI::VihdaUI(PuglNativeWindow parent) :
 void VihdaUI::widgetValueCB( Avtk::Widget* widget )
 {
   float v = widget->value();
-  //printf("Widget %s : %f\n", widget->label(), v );
+  
   if( widget == dial1 )
   {
-    rev->feedback = v;
+    graph->width = v;
     write_function( controller, VIHDA_WIDTH, sizeof(float), 0, &v );
   }
   if( widget == dial2 )
   {
-    rev->volume = v;
+    graph->invert = v;
     write_function( controller, VIHDA_INVERT, sizeof(float), 0, &v );
   }
   redraw();
@@ -52,11 +52,11 @@ void VihdaUI::lv2PortEvent( uint32_t index,
   {
   case VIHDA_WIDTH:
     dial1->value( v );
-    rev->feedback = v;
+    graph->width = v;
     break;
   case VIHDA_INVERT:
     dial2->value( v );
-    rev->volume = v;
+    graph->invert = v;
     break;
   }
   redraw();

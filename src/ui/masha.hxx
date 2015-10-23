@@ -7,7 +7,7 @@
 namespace Avtk
 {
   class Widget;
-  class Delay;
+  class Masher;
 };
 
 class MashaUI : public Avtk::UI
@@ -23,7 +23,7 @@ class MashaUI : public Avtk::UI
                                 uint32_t format, 
                                 const void* buffer );
 
-    Avtk::Delay* rev;
+    Avtk::Masher* graph;
     Avtk::Dial* dial1;
     Avtk::Dial* dial2;
     Avtk::Dial* dial3;

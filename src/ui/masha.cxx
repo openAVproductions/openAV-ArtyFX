@@ -4,7 +4,7 @@
 
 #include "common.hxx"
 #include "../avtk/theme.hxx"
-#include "graphs/delay.hxx"
+#include "graphs/masher.hxx"
 #include "headers/masha.c"
 
 MashaUI::MashaUI(PuglNativeWindow parent) :
@@ -13,7 +13,7 @@ MashaUI::MashaUI(PuglNativeWindow parent) :
   Avtk::Image* i = new Avtk::Image( this, 0, 0, 160,  29, "header");
   i->load( masha.pixel_data );
   
-  rev   = new Avtk::Delay( this, 5,36, 150, 126, "graph" );
+  graph = new Avtk::Masher( this, 5,36, 150, 126, "graph" );
   
   dial1 = new Avtk::Dial( this,  8, 172, 45,45, "Feedback" );
   dial2 = new Avtk::Dial( this, 60, 172, 45,45, "Volume" );
@@ -26,17 +26,17 @@ void MashaUI::widgetValueCB( Avtk::Widget* widget )
   //printf("Widget %s : %f\n", widget->label(), v );
   if( widget == dial1 )
   {
-    rev->feedback = v;
+    graph->value(v);
     write_function( controller, MASHA_TIME, sizeof(float), 0, &v );
   }
   if( widget == dial2 )
   {
-    rev->volume = v;
+    graph->volume = v;
     write_function( controller, MASHA_AMP, sizeof(float), 0, &v );
   }
   if( widget == dial3 )
   {
-    rev->time = v;
+    graph->passthrough = v;
     write_function( controller, MASHA_DRY_WET, sizeof(float), 0, &v );
   }
   redraw();
@@ -58,15 +58,15 @@ void MashaUI::lv2PortEvent( uint32_t index,
   {
   case MASHA_TIME:
     dial1->value( v );
-    rev->feedback = v;
+    graph->value(v);
     break;
   case MASHA_AMP:
     dial2->value( v );
-    rev->volume = v;
+    graph->volume = v;
     break;
   case MASHA_DRY_WET:
     dial3->value( v );
-    rev->time = v;
+    graph->passthrough = v;
     break;
   }
   redraw();
