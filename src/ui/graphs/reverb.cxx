@@ -28,6 +28,7 @@ void Reverb::draw( cairo_t* cr )
   cairo_stroke( cr );
 
   // draw "damping" line
+  cairo_set_line_cap( cr, CAIRO_LINE_CAP_ROUND );
   int tmpY = y_+h_*0.85 - (h_*0.7*dryWet);
   cairo_move_to( cr, x_+w_*0.1, tmpY );
   cairo_line_to( cr, x_+w_*0.1+ damping*w_*0.7, tmpY );

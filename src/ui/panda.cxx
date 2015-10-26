@@ -4,7 +4,7 @@
 
 #include "common.hxx"
 #include "../avtk/theme.hxx"
-#include "graphs/delay.hxx"
+#include "graphs/compander.hxx"
 #include "headers/panda.c"
 
 PandaUI::PandaUI(PuglNativeWindow parent) :
@@ -13,10 +13,11 @@ PandaUI::PandaUI(PuglNativeWindow parent) :
   Avtk::Image* i = new Avtk::Image( this, 0, 0, 160,  29, "header");
   i->load( panda.pixel_data );
   
-  rev   = new Avtk::Delay( this, 5,36, 150, 126, "graph" );
+  graph = new Avtk::Compander( this, 5,36, 150, 126, "graph" );
   
   dial1 = new Avtk::Dial( this,  8, 172, 45,45, "Threshold" );
-  dial2 = new Avtk::Dial( this, 60, 172, 45,45, "Factor" );
+  dial3 = new Avtk::Dial( this, 60, 172, 45,45, "Release" );
+  dial2 = new Avtk::Dial( this,112, 172, 45,45, "Factor" );
 }
 
 void PandaUI::widgetValueCB( Avtk::Widget* widget )
@@ -25,13 +26,18 @@ void PandaUI::widgetValueCB( Avtk::Widget* widget )
   //printf("Widget %s : %f\n", widget->label(), v );
   if( widget == dial1 )
   {
-    rev->feedback = v;
+    graph->threshold = v;
     write_function( controller, PANDA_THRESHOLD, sizeof(float), 0, &v );
   }
   if( widget == dial2 )
   {
-    rev->volume = v;
+    graph->value(v);
     write_function( controller, PANDA_FACTOR, sizeof(float), 0, &v );
+  }
+  if( widget == dial3 )
+  {
+    graph->release = v;
+    write_function( controller, PANDA_RELEASE, sizeof(float), 0, &v );
   }
   redraw();
 }
@@ -52,11 +58,15 @@ void PandaUI::lv2PortEvent( uint32_t index,
   {
   case PANDA_THRESHOLD:
     dial1->value( v );
-    rev->feedback = v;
+    graph->threshold = v;
     break;
   case PANDA_FACTOR:
     dial2->value( v );
-    rev->volume = v;
+    graph->value( v );
+    break;
+  case PANDA_RELEASE:
+    dial3->value( v );
+    graph->release = v;
     break;
   }
   redraw();
