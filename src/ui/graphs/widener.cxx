@@ -25,12 +25,13 @@ void Widener::draw( cairo_t* cr )
   
   // left arrow
   {
-    cairo_move_to( cr, x_+w_/2, y_+h_/2 );
-    cairo_line_to( cr, x_+w_/2-w_/3*width, y_+h_/2);
-    cairo_line_to( cr, x_+w_/2-w_/3*width, y_+h_/2-7);   // top
-    cairo_line_to( cr, x_+w_/2-w_/3*width-9, y_+h_/2+2); // left
-    cairo_line_to( cr, x_+w_/2-w_/3*width, y_+h_/2+11);   // low
-    cairo_line_to( cr, x_+w_/2-w_/3*width, y_+h_/2+4);
+    cairo_move_to( cr, -4+x_+w_/2             , y_+h_/2 );
+    cairo_line_to( cr, -4+x_+w_/2-w_/3*width  , y_+h_/2);
+    cairo_line_to( cr, -4+x_+w_/2-w_/3*width  , y_+h_/2-9);   // top
+    cairo_line_to( cr, -4+x_+w_/2-w_/3*width-9, y_+h_/2+3); // left
+    cairo_line_to( cr, -4+x_+w_/2-w_/3*width  , y_+h_/2+15);   // low
+    cairo_line_to( cr, -4+x_+w_/2-w_/3*width  , y_+h_/2+6);
+    cairo_line_to( cr, -4+x_+w_/2             , y_+h_/2+6);
     cairo_close_path( cr );
   }
   
@@ -40,25 +41,19 @@ void Widener::draw( cairo_t* cr )
   theme_->color( cr, HIGHLIGHT, 1 );
   cairo_fill_preserve( cr );
   cairo_stroke( cr );
-
-  cairo_save( cr );
-  //cairo_move_to( cr, x_+w_/2, y_+h_/2 );
-  cairo_translate( cr, -w_/2, -h_/2 );
-  cairo_rotate( cr, 3.1415 * invert );
+  
+  // right arrow
   {
     cairo_move_to( cr, x_+w_/2, y_+h_/2 );
-    cairo_line_to( cr, x_+w_/2-w_/3*width, y_+h_/2);
-    cairo_line_to( cr, x_+w_/2-w_/3*width, y_+h_/2-7);   // top
-    cairo_line_to( cr, x_+w_/2-w_/3*width-9, y_+h_/2+2); // left
-    cairo_line_to( cr, x_+w_/2-w_/3*width, y_+h_/2+11);   // low
-    cairo_line_to( cr, x_+w_/2-w_/3*width, y_+h_/2+4);
+    cairo_line_to( cr, x_+w_/2+w_/3*width  , y_+h_/2);
+    cairo_line_to( cr, x_+w_/2+w_/3*width  , y_+h_/2-9);   // top
+    cairo_line_to( cr, x_+w_/2+w_/3*width+9, y_+h_/2+3);   // right 
+    cairo_line_to( cr, x_+w_/2+w_/3*width  , y_+h_/2+15);  // low
+    cairo_line_to( cr, x_+w_/2+w_/3*width  , y_+h_/2+6);
+    cairo_line_to( cr, x_+w_/2, y_+h_/2+6);
     cairo_close_path( cr );
   }
-  cairo_translate( cr, w_/2, h_/2 );
-  cairo_stroke( cr );
-  cairo_restore( cr );
 
-  
   // outline
   cairo_set_line_width( cr, 1 );
   cairo_rectangle( cr, x_, y_, w_, h_ );
