@@ -15,8 +15,9 @@ VihdaUI::VihdaUI(PuglNativeWindow parent) :
   
   graph = new Avtk::Widener( this, 5,36, 150, 126, "graph" );
   
-  dial1 = new Avtk::Dial( this,  8, 172, 45,45, "Width" );
-  dial2 = new Avtk::Dial( this, 60, 172, 45,45, "Invert" );
+  dial1 = new Avtk::Dial  ( this, 24, 172, 45,45, "Width" );
+  dial2 = new Avtk::Button( this, 80, 178, 60,28, "Invert" );
+  dial2->clickMode( CLICK_TOGGLE );
 }
 
 void VihdaUI::widgetValueCB( Avtk::Widget* widget )

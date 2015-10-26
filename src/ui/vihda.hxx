@@ -25,7 +25,7 @@ public:
 
     Avtk::Widener* graph;
     Avtk::Dial* dial1;
-    Avtk::Dial* dial2;
+    Avtk::Button* dial2;
 };
 
 
