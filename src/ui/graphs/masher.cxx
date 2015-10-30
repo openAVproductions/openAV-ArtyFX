@@ -7,6 +7,7 @@ using namespace Avtk;
 Masher::Masher( Avtk::UI* ui, int x_, int y_, int w_, int h_,
                 std::string label_) :
     Widget( ui, x_, y_, w_, h_, label_ ),
+    time(0),
     volume(0),
     passthrough(0)
 {
@@ -23,7 +24,7 @@ void Masher::draw( cairo_t* cr )
     cairo_fill( cr );
 
     // check that its a new "segment" to redraw
-    int newAngle = ( value() * 4.9f);
+    int newAngle = ( time * 4.9f);
 
     float angle = 0.f;
 

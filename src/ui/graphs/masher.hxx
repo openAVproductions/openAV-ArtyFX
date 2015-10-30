@@ -14,6 +14,8 @@ class Masher : public Widget
     virtual ~Masher(){}
     
     virtual void draw( cairo_t* cr );
+    // value == active
+    float time;
     float volume;
     float passthrough;
 };

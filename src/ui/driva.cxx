@@ -16,10 +16,10 @@ DrivaUI::DrivaUI(PuglNativeWindow parent) :
   graph = new Avtk::Distortion( this, 5,36, 150, 126, "graph" );
   
   //dial1 = new Avtk::Dial( this,  8, 172, 45,45, "Tone");
-  dial2 = new Avtk::Dial( this, 60, 172, 45,45, "Amount" );
+  dial2 = new Avtk::Dial( this, 98, 168, 45,45, "Amount" );
   
-  tone = new Avtk::Button( this, 5, 172, 60, 30, "Tone" );
-  dialog = new Avtk::Dialog( this, 0, 36, 160, 100, "Dialog" );
+  tone = new Avtk::Button( this, 24, 176, 60, 30, "Tone" );
+  dialog = new Avtk::Dialog( this, 0, 36, 150, 100, "Dialog" );
 }
 
 void DrivaUI::widgetValueCB( Avtk::Widget* widget )
@@ -39,6 +39,10 @@ void DrivaUI::widgetValueCB( Avtk::Widget* widget )
   {
     graph->value( v );
     write_function( controller, DRIVA_AMOUNT, sizeof(float), 0, &v );
+  }
+  if( widget == graph )
+  {
+    dial2->value( v );
   }
   redraw();
 }

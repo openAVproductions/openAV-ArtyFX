@@ -48,6 +48,7 @@ void Button::draw( cairo_t* cr )
                   (x_ + w_ / 2) - extents.width / 2,
                   (y_ + h_ / 2) + extents.height / 2 - 2);
   }
+  /*
   if( !value() )
   {
     theme_->color( cr, FG );
@@ -55,7 +56,8 @@ void Button::draw( cairo_t* cr )
   else
   {
     theme_->color( cr, BG_DARK );
-  }
+  }*/
+  cairo_set_source_rgb( cr, 1, 1, 1 );
   cairo_show_text( cr, label() );
   
   cairo_restore( cr );

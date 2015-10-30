@@ -14,10 +14,11 @@ MashaUI::MashaUI(PuglNativeWindow parent) :
   i->load( masha.pixel_data );
   
   graph = new Avtk::Masher( this, 5,36, 150, 126, "graph" );
+  graph->clickMode( CLICK_TOGGLE );
   
-  dial1 = new Avtk::Dial( this,  8, 172, 45,45, "Feedback" );
-  dial2 = new Avtk::Dial( this, 60, 172, 45,45, "Volume" );
-  dial3 = new Avtk::Dial( this,110, 172, 45,45, "Time" );
+  dial1 = new Avtk::Dial( this,  8, 172, 45,45, "Time" );
+  dial2 = new Avtk::Dial( this, 60, 172, 45,45, "Pass" );
+  dial3 = new Avtk::Dial( this,110, 172, 45,45, "Dry/Wet" );
 }
 
 void MashaUI::widgetValueCB( Avtk::Widget* widget )
@@ -26,7 +27,7 @@ void MashaUI::widgetValueCB( Avtk::Widget* widget )
   //printf("Widget %s : %f\n", widget->label(), v );
   if( widget == dial1 )
   {
-    graph->value(v);
+    graph->time = v;
     write_function( controller, MASHA_TIME, sizeof(float), 0, &v );
   }
   if( widget == dial2 )
@@ -58,7 +59,7 @@ void MashaUI::lv2PortEvent( uint32_t index,
   {
   case MASHA_TIME:
     dial1->value( v );
-    graph->value(v);
+    graph->time = v;
     break;
   case MASHA_AMP:
     dial2->value( v );
