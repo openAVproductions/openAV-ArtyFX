@@ -46,10 +46,10 @@ void Eq::draw( cairo_t* cr )
     }
     
     cairo_set_line_cap( cr, CAIRO_LINE_CAP_ROUND );
-    cairo_set_source_rgba( cr, 0 / 255.f, 153 / 255.f , 255 / 255.f , 0.21 );
+    theme_->color( cr, HIGHLIGHT, 0.21 );
     cairo_fill_preserve(cr);
     cairo_set_line_width(cr, 1.8);
-    cairo_set_source_rgba( cr, 0 / 255.f, 153 / 255.f , 255 / 255.f , 1 );
+    theme_->color( cr, HIGHLIGHT );
     cairo_stroke(cr);
     
     // draw "master gain line
