@@ -7,7 +7,7 @@
 namespace Avtk
 {
   class Widget;
-  class Delay;
+  class Wah;
 };
 
 class WhaaaUI : public Avtk::UI
@@ -23,7 +23,7 @@ class WhaaaUI : public Avtk::UI
                                 uint32_t format, 
                                 const void* buffer );
 
-    Avtk::Delay* rev;
+    Avtk::Wah*  graph;
     Avtk::Dial* dial1;
     Avtk::Dial* dial2;
     Avtk::Dial* dial3;
