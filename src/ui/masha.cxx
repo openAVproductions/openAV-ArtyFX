@@ -15,10 +15,11 @@ MashaUI::MashaUI(PuglNativeWindow parent) :
   
   graph = new Avtk::Masher( this, 5,36, 150, 126, "graph" );
   graph->clickMode( CLICK_TOGGLE );
+  graph->rClickMode( RCLICK_NONE );
   
   dial1 = new Avtk::Dial( this,  8, 172, 45,45, "Time" );
-  dial2 = new Avtk::Dial( this, 60, 172, 45,45, "Pass" );
-  dial3 = new Avtk::Dial( this,110, 172, 45,45, "Dry/Wet" );
+  dial2 = new Avtk::Dial( this,110, 172, 45,45, "Vol" );
+  dial3 = new Avtk::Dial( this, 60, 172, 45,45, "Pass" );
 }
 
 void MashaUI::widgetValueCB( Avtk::Widget* widget )
@@ -39,6 +40,10 @@ void MashaUI::widgetValueCB( Avtk::Widget* widget )
   {
     graph->passthrough = v;
     write_function( controller, MASHA_DRY_WET, sizeof(float), 0, &v );
+  }
+  if( widget == graph )
+  {
+    write_function( controller, MASHA_ACTIVE, sizeof(float), 0, &v );
   }
   redraw();
 }

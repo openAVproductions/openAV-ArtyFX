@@ -41,10 +41,10 @@ void Masher::draw( cairo_t* cr )
 
     // replace: middle arc
     cairo_set_line_cap ( cr, CAIRO_LINE_CAP_ROUND );
-    cairo_arc( cr, x_ + w_/2., y_ + h_/2, h_/2 * 6.5 / 14, -(3.1415/2),
+    cairo_arc( cr, x_ + w_/2., y_ + h_/2, h_/2 * 6.5 / 13 + 4, -(3.1415/2),
                passthrough * 6.28 - (3.1415/2) );
-    cairo_set_source_rgba (cr, 0.0, 0.0, 0.0, 0.8 );
-    cairo_set_line_width(cr, 9);
+    cairo_set_source_rgba (cr, 0.0, 0.318, 1.0, 1 );
+    cairo_set_line_width(cr, 7);
     cairo_stroke(cr);
 
     if      ( newAngle == 0 )
@@ -68,12 +68,12 @@ void Masher::draw( cairo_t* cr )
 
 
     // volume: inside circle
-    cairo_set_source_rgba(cr,0.3,0.3,0.3, 0.5);
+    cairo_set_source_rgba(cr, 1, 1, 1, 0.21);
     cairo_arc(cr, x_ + xc, y_ + yc, 25 * volume, 0, 2 * 3.1415);
     cairo_set_line_width(cr, 4.2);
     cairo_fill_preserve(cr);
-    cairo_set_source_rgba (cr, 0.0, 0.0, 0.0, 0.8 );
-    cairo_set_line_width(cr, 2);
+    cairo_set_source_rgba(cr, 1, 1, 1, 0.9);
+    cairo_set_line_width(cr, 1.4);
     cairo_stroke(cr);
 
     
