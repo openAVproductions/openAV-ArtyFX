@@ -7,7 +7,7 @@ Manual: [ArtyFX Manual](https://github.com/harryhaaren/openAV-ArtyFX/blob/master
 
 This is the repository of an LV2 plugin suite called Arty FX.
 
-![ArtyFX screenshot](https://raw.github.com/harryhaaren/openAV-ArtyFX/master/screenshots/artyfx_1.2.png "ArtyFX 1.2 screenshot")
+![ArtyFX screenshot](https://raw.github.com/harryhaaren/openAV-ArtyFX/master/screenshots/artyfx_1.3.png "ArtyFX 1.3 screenshot")
 
 
 Dependencies
