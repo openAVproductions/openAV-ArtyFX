@@ -28,15 +28,15 @@ jalv.gtk http://www.openavproductions.com/artyfx#roomy
 
 Show me the plugins!
 --------------------
-ArtyFX is a growing suite of plugins: right now, there's 7 plugins available:
-![ArtyFX 1.2](screenshots/artyfx_1.2.png)
+![ArtyFX 1.3](screenshots/artyfx_1.3.png)
+ArtyFX is a growing suite of plugins: right now, the following plugins are
+available:
 ```
 - Bitta    (Bitcrusher)
 - Della    (Delay)
 - Ducka    (Sidechain envelope)
 - Driva    (Heavy distortion)
 - Filta    (Low/Hi- pass filter)
-<!--- Friza    (Sound sustain and modulation) -->
 - Kuiza    (4- band EQ)
 - Masha    (Beat grinder)
 - Panda    (Compressor / Expander)
