@@ -55,7 +55,7 @@ Theme::Theme( Avtk::UI* ui_, std::string filename ) :
 	
   if( loadError )
   {
-    printf("Theme::Theme() Load error: using hard coded defaults\n" );
+    AVTK_DEV("Theme::Theme() Load error: using hard coded defaults\n" );
     // set default values to the colors array
     colors[BG].c[0] = colors[BG].c[1] = colors[BG].c[2] = 34;
     colors[BG_DARK].c[0] = colors[BG_DARK].c[1] = colors[BG_DARK].c[2] = 17;
