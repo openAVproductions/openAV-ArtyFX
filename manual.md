@@ -34,6 +34,7 @@ available:
 ```
 - Bitta    (Bitcrusher)
 - Della    (Delay)
+- Driva    (Guitar Distortion)
 - Ducka    (Sidechain envelope)
 - Driva    (Heavy distortion)
 - Filta    (Low/Hi- pass filter)
@@ -63,6 +64,22 @@ useful to maintain punch, but add a nice amount of grit.
 Note that bitcrushing is a process that is dependant on the volume of a signal,
 so check that your levels are good! Quite signals are silence when bitcrushed!
 
+Driva
+-----
+![Driva Screenshot](screenshots/artyfx_driva.png)
+Driva is a multi-distortion unit capable of the most mean and gritty
+distortions.
+```
+-Tone
+-Amount
+```
+
+Click the Tone button, a list of different distortion models are available.
+Just click the desired distortion, and keep rocking out. Cancel at the
+bottom quits the tone-change view.
+
+Amount just cranks up the gain / distortion quanitity. Use at your own
+peril!
 
 Della
 -----
