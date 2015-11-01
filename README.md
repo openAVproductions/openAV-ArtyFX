@@ -39,7 +39,7 @@ After the INSTALL step Ardour3, QTractor, and any other LV2 host should
 automatically find all plugins, and be able to use them. Test availablility
 with 
 ```
-$ lv2ls
+$ lv2ls | grep openav
 ```
 
 Contact

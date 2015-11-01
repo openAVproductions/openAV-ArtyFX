@@ -5,10 +5,10 @@ Welcome to the manual for
 where we'll discuss what each plugin in the ArtyFX
 suite is designed for, and where they can be abused to create even cooler audio!
 
-[OpenAV Productions](http://www.openavproductions.com) develops
-these plugins: and they're released using the
-[OpenAV Release System](http://www.openavproductions.com/release),
-which balances developer effort and financial support.
+[OpenAV Productions](http://www.openavproductions.com) has created these
+plugins during free time, if you like them make a small contribution to
+the project - its great to get feedback from the community :)
+[OpenAV Release System](http://www.openavproductions.com/support),
 
 Introduction
 ------------
@@ -36,7 +36,7 @@ ArtyFX is a growing suite of plugins: right now, there's 7 plugins available:
 - Ducka    (Sidechain envelope)
 - Driva    (Heavy distortion)
 - Filta    (Low/Hi- pass filter)
-- Friza    (Sound sustain and modulation)
+<!--- Friza    (Sound sustain and modulation) -->
 - Kuiza    (4- band EQ)
 - Masha    (Beat grinder)
 - Panda    (Compressor / Expander)
