@@ -99,8 +99,10 @@ int Widget::handle( const PuglEvent* event )
   {
     AVTK_DEV("widget %s noHandle (%i) or visible (%i)\n", label(), int(noHandle_), int(visible_) );
     
+    // FIXME TODO: this causes issues when !visible widgets are overlayed
+    // with widgets that use drag operations
     // no point in calling motion() on a widget that isn't shown, or doesn't handle
-    ui->wantsMotionUpdates( this, false );
+    //ui->wantsMotionUpdates( this, false );
     return 0;
   }
   switch (event->type)
