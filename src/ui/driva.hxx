@@ -27,6 +27,10 @@ class DrivaUI : public Avtk::UI
     Avtk::Button* tone;
     Avtk::Dial* dial2;
     Avtk::Dialog* dialog;
+
+    void show_tones(bool s);
+    Avtk::Button* tones[7];
+    Avtk::Button* cancel;
 };
 
 

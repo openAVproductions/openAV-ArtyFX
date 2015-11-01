@@ -76,10 +76,15 @@ void Distortion::draw( cairo_t* cr )
     cairo_fill_preserve( cr );
     cairo_set_source_rgba( cr,  0/255.f,   155/255.f, 255/255.f, 0.8 );
     cairo_stroke( cr );
-    
+
     cairo_restore( cr );
   }
  
+  // text in bottom left
+  cairo_move_to( cr, x_ + 8, y_ + h_ - 10 );
+  cairo_set_source_rgb( cr, 0.72, 0.72, 0.72 );
+  cairo_show_text( cr, label() );
+    
 
   // outline
   cairo_set_line_width( cr, 1 );
