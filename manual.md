@@ -36,7 +36,6 @@ available:
 - Della    (Delay)
 - Driva    (Guitar Distortion)
 - Ducka    (Sidechain envelope)
-- Driva    (Heavy distortion)
 - Filta    (Low/Hi- pass filter)
 - Kuiza    (4- band EQ)
 - Masha    (Beat grinder)
