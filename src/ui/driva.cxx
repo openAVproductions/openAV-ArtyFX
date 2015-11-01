@@ -23,20 +23,19 @@ DrivaUI::DrivaUI(PuglNativeWindow parent) :
   Avtk::Image* i = new Avtk::Image( this, 0, 0, 160,  29, "header");
   i->load( driva.pixel_data );
   
-  // Name shows up as first distortion model
-  graph = new Avtk::Distortion( this, 5,36, 150, 126, "Odie" );
-
-  tone = new Avtk::Button( this, 24, 176, 60, 30, "Tone" );
-  dial2 = new Avtk::Dial( this, 98, 168, 45,45, "Amount" );
-
   for(int i = 0; i < 7; i++) {
-    tones[i] = new Avtk::Button( this, 13, 36 + 22*i, 135, 18,
-				 toneNames[i] );
-    tones[i]->visible(0);
+   tones[i] = new Avtk::Button( this, 13, 36 + 22*i, 135, 18,
+                                 toneNames[i] );
   }
   cancel = new Avtk::Button( this, 13, 36 + 22*7 + 6, 135, 20, "Cancel");
   cancel->visible(0);
   
+  // Name shows up as first distortion model
+  graph = new Avtk::Distortion( this, 5,36, 150, 126, "Odie" );
+  tone = new Avtk::Button( this, 24, 176, 60, 30, "Tone" );
+  dial2 = new Avtk::Dial( this, 98, 168, 45,45, "Amount" );
+  
+  show_tones( false );
 }
 
 void DrivaUI::show_tones(bool s)
@@ -97,15 +96,13 @@ void DrivaUI::lv2PortEvent( uint32_t index,
     return;
 
   float v = *((float*)buffer);
-  
-  //printf("DrivaUI port() %i : v\n", index, v );
-  
+  int i = 0;
+
   switch( index )
   {
   case DRIVA_TONE:
-    //dial1->value( v );
-    // TODO: map from value -> label here
-    //graph->value( v );
+    i = int(v);
+    graph->label( toneNames[i] );
     break;
   case DRIVA_AMOUNT:
     dial2->value( v );
