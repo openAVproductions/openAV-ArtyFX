@@ -27,16 +27,9 @@ include_directories( ${SND_INCLUDE_DIRS}  )
 #target_link_libraries( avtkDemo ${CAIRO_LIBRARIES}  )
 
 
-
-
-SET(CMAKE_SHARED_LINKER_FLAGS "-fPIC -shared -L./src/avtk -Wl,-z,nodelete \
--Wl,--no-undefined")
-#SET(CMAKE_SHARED_LINKER_FLAGS "-fPIC -shared -Wl,-z,nodelete \
-#-Lsrc/avtk/build/ -Wl,--no-undefined")
-
+SET(CMAKE_SHARED_LINKER_FLAGS "-fPIC -shared -L./src/avtk -Wl,--no-undefined")
 SET(CMAKE_C_FLAGS "-g -Wall -O2 -Wno-unused-variable -msse2 -mfpmath=sse")
-SET(CMAKE_CXX_FLAGS "-g -Wall -O2 -Wno-unused-variable -msse2 \
--mfpmath=sse")
+SET(CMAKE_CXX_FLAGS "-g -Wall -O2 -Wno-unused-variable -msse2 -mfpmath=sse")
 
 
 IF(BUILD_GUI)
