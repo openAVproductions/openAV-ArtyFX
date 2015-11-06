@@ -9,10 +9,11 @@ set(AVTK_VERSION_PATCH "1")
 
 set(AVTK_VERSION "${AVTK_VERSION_MAJOR}.${AVTK_VERSION_MINOR}.${AVTK_VERSION_PATCH}")
 
-option(AVTK_RELEASE_BUILD   "Build for releasing"         ON  )
-option(AVTK_DEBUG_PRINTS    "Build with debugging prints" OFF )
-option(AVTK_SNDFILE_SUPPORT "Build with sndfile library"  OFF )
-option(AVTK_TESTER_SUPPORT  "Build with Tester Rec/Play"  OFF )
+option(AVTK_RELEASE_BUILD   "Build for releasing"          ON  )
+option(AVTK_DEBUG_PRINTS    "Build with debugging prints"  OFF )
+option(AVTK_DEMO_AND_TEST   "Build demo and test programs" OFF )
+option(AVTK_SNDFILE_SUPPORT "Build with sndfile library"   OFF )
+option(AVTK_TESTER_SUPPORT  "Build with Tester Rec/Play"   OFF )
 
 
 ################################################################################
@@ -57,25 +58,24 @@ FILE(GLOB src libs/pffft.cxx avtk/*.cxx )
 
 ADD_LIBRARY( avtk STATIC ${src} )
 
+IF(AVTK_DEMO_AND_TEST)
+  ADD_EXECUTABLE( avtkDemo test_ui.cxx main.cxx avtk/pugl/pugl_x11.c )
+  FILE(GLOB testSrc tests/*.cxx)
+  ADD_EXECUTABLE( avtkTests ${testSrc} avtk/pugl/pugl_x11.c )
 
-ADD_EXECUTABLE( avtkDemo test_ui.cxx main.cxx avtk/pugl/pugl_x11.c )
+  #target_link_libraries( avtk ${GL_LIBRARIES}     )
+  target_link_libraries( avtkDemo avtk  )
+  target_link_libraries( avtkDemo ${CAIRO_LIBRARIES}  )
+  target_link_libraries( avtkDemo ${X11_LIBRARIES}    )
 
-FILE(GLOB testSrc tests/*.cxx)
+  target_link_libraries( avtkTests avtk  )
+  target_link_libraries( avtkTests ${CAIRO_LIBRARIES}  )
+  target_link_libraries( avtkTests ${X11_LIBRARIES}    )
+  target_link_libraries( avtkTests ${SNDFILE_LIBRARIES}    )
 
-ADD_EXECUTABLE( avtkTests ${testSrc} avtk/pugl/pugl_x11.c )
-
-#target_link_libraries( avtk ${GL_LIBRARIES}     )
-target_link_libraries( avtkDemo avtk  )
-target_link_libraries( avtkDemo ${CAIRO_LIBRARIES}  )
-target_link_libraries( avtkDemo ${X11_LIBRARIES}    )
-
-target_link_libraries( avtkTests avtk  )
-target_link_libraries( avtkTests ${CAIRO_LIBRARIES}  )
-target_link_libraries( avtkTests ${X11_LIBRARIES}    )
-target_link_libraries( avtkTests ${SNDFILE_LIBRARIES}    )
-
-IF( AVTK_SNDFILE_SUPPORT )
-  target_link_libraries( avtk ${SNDFILE_LIBRARIES}    )
+  IF( AVTK_SNDFILE_SUPPORT )
+    target_link_libraries( avtk ${SNDFILE_LIBRARIES}    )
+  ENDIF()
 ENDIF()
 
 configure_file( "avtk/themes/default.avtk"  "default.avtk" COPYONLY)
