@@ -33,13 +33,11 @@ LV2_Handle Whaaa::instantiate(const LV2_Descriptor* descriptor,
 Whaaa::Whaaa(int rate)
 {
   wah = new Wah( rate );
-  
+
   audioInput = 0;
   audioOutput = 0;
-  
+
   freq  = 0;
-  range = 0;
-  drive = 0;
   mix   = 0;
 }
 
@@ -61,7 +59,7 @@ void Whaaa::deactivate(LV2_Handle instance)
 void Whaaa::connect_port(LV2_Handle instance, uint32_t port, void *data)
 {
   Whaaa* self = (Whaaa*) instance;
-  
+
   switch (port)
   {
       case WHAAA_INPUT:
@@ -70,15 +68,9 @@ void Whaaa::connect_port(LV2_Handle instance, uint32_t port, void *data)
       case WHAAA_OUTPUT:
           self->audioOutput     = (float*)data;
           break;
-      
+
       case WHAAA_FREQ:
           self->freq   = (float*)data;
-          break;
-      case WHAAA_RANGE:
-          self->range = (float*)data;
-          break;
-      case WHAAA_DRIVE:
-          self->drive = (float*)data;
           break;
       case WHAAA_MIX:
           self->mix = (float*)data;
@@ -89,16 +81,14 @@ void Whaaa::connect_port(LV2_Handle instance, uint32_t port, void *data)
 void Whaaa::run(LV2_Handle instance, uint32_t nframes)
 {
   Whaaa* self = (Whaaa*) instance;
-  
+
   /// audio inputs
   float* in  = self->audioInput;
   float* out = self->audioOutput;
-  
+
   self->wah->setFreq ( *self->freq  );
-  self->wah->setRange( *self->range );
-  self->wah->setDrive( *self->drive );
   self->wah->setMix  ( *self->mix   );
-  
+
   self->wah->process( nframes, in, out );
 }
 

@@ -34,8 +34,6 @@ typedef enum
   
   // Control inputs
   WHAAA_FREQ,
-  WHAAA_RANGE,
-  WHAAA_DRIVE,
   WHAAA_MIX,
 } WhaaaPortIndex;
 
@@ -63,8 +61,6 @@ class Whaaa
     
     /// control values
     float* freq;
-    float* range;
-    float* drive;
     float* mix;
     
   private:
