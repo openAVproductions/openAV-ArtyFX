@@ -17,8 +17,6 @@ find_package(PkgConfig)
 
 
 
-
-
 pkg_check_modules(LV2 lv2>=1.8.0 REQUIRED)
 include_directories( ${LV2_INCLUDE_DIRS}  )
 
@@ -45,11 +43,16 @@ ENDIF()
 # DSP sources
 FILE(GLOB sources src/dsp/*.cxx src/dsp/rr/*.cxx  src/dsp/eq/*.cc )
 
-# don't compile UI files if we don't have NTK
+# don't compile UI files if no UI should be built
 IF(BUILD_GUI)
   FILE(GLOB ui_sources src/ui/*.cxx src/ui/graphs/*.cxx )
 ENDIF()
 
+IF(BUILD_GUI)
+  # AVTK .a static library build
+  add_subdirectory (src/avtk)
+  include_directories("src/avtk/avtk/")
+ENDIF()
 
 string( ASCII 27 _esc)
 function(COLOR_MESSAGE TEXT)
@@ -78,10 +81,6 @@ target_link_libraries( artyfx LINK_PUBLIC ${SND_LIBRARIES}   )
 target_link_libraries( artyfx LINK_PUBLIC "-lpthread" )
 
 IF(BUILD_GUI)
-  # AVTK .a static library build
-  add_subdirectory (src/avtk)
-  include_directories("src/avtk/avtk/")
-  
   ADD_LIBRARY( artyfx_ui SHARED ${ui_sources} )
   add_dependencies( artyfx_ui avtk )
   target_link_libraries( artyfx_ui "-lcairo -lX11 -lavtk" )
