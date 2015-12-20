@@ -14,9 +14,10 @@ WhaaaUI::WhaaaUI(PuglNativeWindow parent) :
   i->load( whaaa.pixel_data );
 
   graph = new Avtk::Wah( this, 5,36, 150, 126, "graph" );
+  graph->drive = 0.5;
 
-  dial1 = new Avtk::Dial( this,  8, 172, 45,45, "Freq" );
-  dial3 = new Avtk::Dial( this,110, 172, 45,45, "Mix" );
+  dial1 = new Avtk::Dial( this, 28, 172, 45,45, "Freq" );
+  dial3 = new Avtk::Dial( this, 90, 172, 45,45, "Mix" );
 }
 
 void WhaaaUI::widgetValueCB( Avtk::Widget* widget )
