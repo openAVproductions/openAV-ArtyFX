@@ -173,6 +173,7 @@ void Masha::run(LV2_Handle instance, uint32_t n_samples)
 	   (*self->controlBpmFromHost) != 1)
 	{
 		self->dspMasherL->bpm( *self->controlBpmManual );
+		self->dspMasherR->bpm( *self->controlBpmManual );
 	}
 	else // if manual BPM, ignore Atoms with BPM info
 	{
@@ -193,7 +194,6 @@ void Masha::run(LV2_Handle instance, uint32_t n_samples)
 			}
 		}
 	}
-
 
 	self->dspMasherL->amplitude( amp    );
 	self->dspMasherL->duration ( time   );

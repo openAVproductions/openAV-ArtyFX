@@ -47,7 +47,7 @@ void MashaUI::widgetValueCB( Avtk::Widget* widget )
 		write_function( controller, MASHA_DRY_WET, sizeof(float), 0, &v );
 	}
 	if( widget == dial4 ) {
-		float bpm = 60 + 120 * v;
+		float bpm = 40 + 200 * v;
 		std::stringstream s;
 		s << "Bpm " << int(bpm);
 		dial4->label( s.str().c_str() );
