@@ -193,6 +193,14 @@ PassThru allows bleeding the normal signal trough.
 Time is a BPM dependant control that changes the loop-record and playback length.
 Gradually reduce this value to get that "standard" DJ stutter effect!
 
+This effect has some special functionality, to allow manual control over
+the BPM. Usually the BPM will be taken from the host program (or JACK
+transport), but it can now be controlled by a dial.
+
+Thl "HostBPM" button controls the BPM source. When the button is blue,
+the HostBPM is enabled. Turning off the button makes the manual BPM dial
+appear. The dial also shows the current BPM.
+
 
 Panda
 -----
