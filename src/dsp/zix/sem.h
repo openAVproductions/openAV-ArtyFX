@@ -106,7 +106,7 @@ static inline ZixStatus
 zix_sem_init(ZixSem* sem, unsigned initial)
 {
 	return semaphore_create(mach_task_self(), &sem->sem, SYNC_POLICY_FIFO, 0)
-		? ZIX_STATUS_ERROR : ZIX_STATUS_SUCCESS;
+	       ? ZIX_STATUS_ERROR : ZIX_STATUS_SUCCESS;
 }
 
 static inline void
@@ -181,7 +181,7 @@ static inline ZixStatus
 zix_sem_init(ZixSem* sem, unsigned initial)
 {
 	return sem_init(&sem->sem, 0, initial)
-		? ZIX_STATUS_ERROR : ZIX_STATUS_SUCCESS;
+	       ? ZIX_STATUS_ERROR : ZIX_STATUS_SUCCESS;
 }
 
 static inline void

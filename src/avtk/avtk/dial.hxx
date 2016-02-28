@@ -9,11 +9,11 @@ namespace Avtk
 
 class Dial : public Widget
 {
-  public:
-    Dial( Avtk::UI* ui, int x, int y, int w, int h, std::string label);
-    virtual ~Dial(){}
-    
-    virtual void draw( cairo_t* cr );
+public:
+	Dial( Avtk::UI* ui, int x, int y, int w, int h, std::string label);
+	virtual ~Dial() {}
+
+	virtual void draw( cairo_t* cr );
 };
 
 };

@@ -6,20 +6,20 @@
 
 namespace Avtk
 {
-  class Widget;
+class Widget;
 };
 
 class ListUI : public Avtk::UI
 {
-  public:
-    /// Set a NativeWindow for embedding: ignore for standalone
-    ListUI(PuglNativeWindow parent = 0);
-    
-    // ignore widget values, empty function body
-    virtual void widgetValueCB( Avtk::Widget* widget){}
-    
-    Avtk::List* listH;
-    Avtk::List* listV;
+public:
+	/// Set a NativeWindow for embedding: ignore for standalone
+	ListUI(PuglNativeWindow parent = 0);
+
+	// ignore widget values, empty function body
+	virtual void widgetValueCB( Avtk::Widget* widget) {}
+
+	Avtk::List* listH;
+	Avtk::List* listV;
 };
 
 

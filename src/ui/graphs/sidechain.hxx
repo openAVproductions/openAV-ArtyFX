@@ -9,16 +9,16 @@ namespace Avtk
 
 class Sidechain : public Widget
 {
-  public:
-    Sidechain( Avtk::UI* ui, int x, int y, int w, int h, std::string label);
-    virtual ~Sidechain(){}
-    
-    virtual void draw( cairo_t* cr );
-    
-    // value() represents current reduction
-    float threshold;
-    float reduceAmount;
-    float time;
+public:
+	Sidechain( Avtk::UI* ui, int x, int y, int w, int h, std::string label);
+	virtual ~Sidechain() {}
+
+	virtual void draw( cairo_t* cr );
+
+	// value() represents current reduction
+	float threshold;
+	float reduceAmount;
+	float time;
 };
 
 };

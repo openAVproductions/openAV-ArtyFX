@@ -80,7 +80,8 @@ getVisual(PuglView* view)
 		                       GLX_GREEN_SIZE, 4,
 		                       GLX_BLUE_SIZE,  4,
 		                       GLX_DEPTH_SIZE, 16,
-		                       None };
+		                       None
+		                     };
 		vi = glXChooseVisual(impl->display, impl->screen, double_attrs);
 		if (!vi) {
 			// Failed, create single-buffered visual
@@ -89,7 +90,8 @@ getVisual(PuglView* view)
 			                       GLX_GREEN_SIZE, 4,
 			                       GLX_BLUE_SIZE,  4,
 			                       GLX_DEPTH_SIZE, 16,
-			                       None };
+			                       None
+			                     };
 			vi = glXChooseVisual(impl->display, impl->screen, single_attrs);
 			impl->doubleBuffered = False;
 		} else {
@@ -119,23 +121,23 @@ createContext(PuglView* view, XVisualInfo* vi)
 		impl->ctx = glXCreateContext(impl->display, vi, 0, GL_TRUE);
 	}
 #endif
-	
+
 #ifdef PUGL_HAVE_CAIRO
 	if (view->ctx_type == PUGL_CAIRO) {
 		impl->surface = cairo_xlib_surface_create(
-			impl->display, impl->win, vi->visual, view->width, view->height);
+		                        impl->display, impl->win, vi->visual, view->width, view->height);
 		if( !(impl->cr = cairo_create( impl->surface )) ) {
 			fprintf(stderr, "failed to create cairo context\n");
 		}
 		impl->surfaceBackBuffer = cairo_surface_create_similar(
-			impl->surface, CAIRO_CONTENT_COLOR_ALPHA, view->width, view->height );
+		                                  impl->surface, CAIRO_CONTENT_COLOR_ALPHA, view->width, view->height );
 		if (!impl->surfaceBackBuffer) {
 			fprintf(stderr, "failed to create cairo back buffer surface\n");
 		}
 		if (!(impl->crBackBuffer = cairo_create(impl->surfaceBackBuffer))) {
 			fprintf(stderr, "failed to create cairo back buffer context\n");
 		}
-		
+
 		// request a redisplay to draw backbuffer to shown buffer
 		puglPostRedisplay( view );
 	}
@@ -197,11 +199,11 @@ puglCreateWindow(PuglView* view, const char* title)
 	}
 
 	Window xParent = view->parent
-		? (Window)view->parent
-		: RootWindow(impl->display, impl->screen);
+	                 ? (Window)view->parent
+	                 : RootWindow(impl->display, impl->screen);
 
 	Colormap cmap = XCreateColormap(
-		impl->display, xParent, vi->visual, AllocNone);
+	                        impl->display, xParent, vi->visual, AllocNone);
 
 	XSetWindowAttributes attr;
 	memset(&attr, 0, sizeof(XSetWindowAttributes));
@@ -215,9 +217,9 @@ puglCreateWindow(PuglView* view, const char* title)
 	                         PointerMotionMask);
 
 	impl->win = XCreateWindow(
-		impl->display, xParent,
-		0, 0, view->width, view->height, 0, vi->depth, InputOutput, vi->visual,
-		CWBackPixel | CWBorderPixel | CWColormap | CWEventMask, &attr);
+	                    impl->display, xParent,
+	                    0, 0, view->width, view->height, 0, vi->depth, InputOutput, vi->visual,
+	                    CWBackPixel | CWBorderPixel | CWColormap | CWEventMask, &attr);
 
 	createContext(view, vi);
 
@@ -276,35 +278,64 @@ static PuglKey
 keySymToSpecial(KeySym sym)
 {
 	switch (sym) {
-	case XK_F1:        return PUGL_KEY_F1;
-	case XK_F2:        return PUGL_KEY_F2;
-	case XK_F3:        return PUGL_KEY_F3;
-	case XK_F4:        return PUGL_KEY_F4;
-	case XK_F5:        return PUGL_KEY_F5;
-	case XK_F6:        return PUGL_KEY_F6;
-	case XK_F7:        return PUGL_KEY_F7;
-	case XK_F8:        return PUGL_KEY_F8;
-	case XK_F9:        return PUGL_KEY_F9;
-	case XK_F10:       return PUGL_KEY_F10;
-	case XK_F11:       return PUGL_KEY_F11;
-	case XK_F12:       return PUGL_KEY_F12;
-	case XK_Left:      return PUGL_KEY_LEFT;
-	case XK_Up:        return PUGL_KEY_UP;
-	case XK_Right:     return PUGL_KEY_RIGHT;
-	case XK_Down:      return PUGL_KEY_DOWN;
-	case XK_Page_Up:   return PUGL_KEY_PAGE_UP;
-	case XK_Page_Down: return PUGL_KEY_PAGE_DOWN;
-	case XK_Home:      return PUGL_KEY_HOME;
-	case XK_End:       return PUGL_KEY_END;
-	case XK_Insert:    return PUGL_KEY_INSERT;
-	case XK_Shift_L:   return PUGL_KEY_SHIFT;
-	case XK_Shift_R:   return PUGL_KEY_SHIFT;
-	case XK_Control_L: return PUGL_KEY_CTRL;
-	case XK_Control_R: return PUGL_KEY_CTRL;
-	case XK_Alt_L:     return PUGL_KEY_ALT;
-	case XK_Alt_R:     return PUGL_KEY_ALT;
-	case XK_Super_L:   return PUGL_KEY_SUPER;
-	case XK_Super_R:   return PUGL_KEY_SUPER;
+	case XK_F1:
+		return PUGL_KEY_F1;
+	case XK_F2:
+		return PUGL_KEY_F2;
+	case XK_F3:
+		return PUGL_KEY_F3;
+	case XK_F4:
+		return PUGL_KEY_F4;
+	case XK_F5:
+		return PUGL_KEY_F5;
+	case XK_F6:
+		return PUGL_KEY_F6;
+	case XK_F7:
+		return PUGL_KEY_F7;
+	case XK_F8:
+		return PUGL_KEY_F8;
+	case XK_F9:
+		return PUGL_KEY_F9;
+	case XK_F10:
+		return PUGL_KEY_F10;
+	case XK_F11:
+		return PUGL_KEY_F11;
+	case XK_F12:
+		return PUGL_KEY_F12;
+	case XK_Left:
+		return PUGL_KEY_LEFT;
+	case XK_Up:
+		return PUGL_KEY_UP;
+	case XK_Right:
+		return PUGL_KEY_RIGHT;
+	case XK_Down:
+		return PUGL_KEY_DOWN;
+	case XK_Page_Up:
+		return PUGL_KEY_PAGE_UP;
+	case XK_Page_Down:
+		return PUGL_KEY_PAGE_DOWN;
+	case XK_Home:
+		return PUGL_KEY_HOME;
+	case XK_End:
+		return PUGL_KEY_END;
+	case XK_Insert:
+		return PUGL_KEY_INSERT;
+	case XK_Shift_L:
+		return PUGL_KEY_SHIFT;
+	case XK_Shift_R:
+		return PUGL_KEY_SHIFT;
+	case XK_Control_L:
+		return PUGL_KEY_CTRL;
+	case XK_Control_R:
+		return PUGL_KEY_CTRL;
+	case XK_Alt_L:
+		return PUGL_KEY_ALT;
+	case XK_Alt_R:
+		return PUGL_KEY_ALT;
+	case XK_Super_L:
+		return PUGL_KEY_SUPER;
+	case XK_Super_R:
+		return PUGL_KEY_SUPER;
 	}
 	return (PuglKey)0;
 }
@@ -385,13 +416,21 @@ translateEvent(PuglView* view, XEvent xevent)
 			event.scroll.dx      = 0.0;
 			event.scroll.dy      = 0.0;
 			switch (xevent.xbutton.button) {
-			case 4: event.scroll.dy =  1.0f; break;
-			case 5: event.scroll.dy = -1.0f; break;
-			case 6: event.scroll.dx = -1.0f; break;
-			case 7: event.scroll.dx =  1.0f; break;
+			case 4:
+				event.scroll.dy =  1.0f;
+				break;
+			case 5:
+				event.scroll.dy = -1.0f;
+				break;
+			case 6:
+				event.scroll.dx = -1.0f;
+				break;
+			case 7:
+				event.scroll.dx =  1.0f;
+				break;
 			}
 		}
-		// nobreak
+	// nobreak
 	case ButtonRelease:
 		if (xevent.xbutton.button < 4 || xevent.xbutton.button > 7) {
 			event.button.type   = ((xevent.type == ButtonPress)
@@ -448,7 +487,7 @@ void
 puglGrabFocus(PuglView* view)
 {
 	XSetInputFocus(
-		view->impl->display, view->impl->win, RevertToPointerRoot, CurrentTime);
+	        view->impl->display, view->impl->win, RevertToPointerRoot, CurrentTime);
 }
 
 PuglStatus
@@ -494,7 +533,7 @@ puglProcessEvents(PuglView* view)
 			PUGL_EXPOSE, view, true, 0, 0, view->width, view->height, 0
 		};
 		puglDispatchEvent(view, (const PuglEvent*)&expose);
-		
+
 		// copy the backbuffer to the frontbuffer cairo context
 		cairo_save( view->impl->cr );
 		cairo_surface_flush( view->impl->surfaceBackBuffer );

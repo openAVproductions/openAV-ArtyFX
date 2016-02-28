@@ -1,17 +1,17 @@
 /*
  * Author: Harry van Haaren 2014
  *         harryhaaren@gmail.com
- * 
+ *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
  * (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
@@ -69,113 +69,111 @@
 #include "whaaa/gui/ui.hxx"
 #include "whaaa/dsp/shared.hxx"
 
-static LV2UI_Descriptor descriptors[] =
-{
-  {
-    BITTA_UI_URI,
-    bitta_instantiate,
-    bitta_cleanup, 
-    bitta_port_event, 
-    bitta_extension_data
-  },
-  {
-    CAPTA_UI_URI,
-    capta_instantiate,
-    capta_cleanup, 
-    capta_port_event, 
-    capta_extension_data
-  },
-  {
-    DELLA_UI_URI,
-    della_instantiate,
-    della_cleanup,
-    della_port_event,
-    della_extension_data
-  },
-  {
-    DUCKA_UI_URI,
-    ducka_instantiate,
-    ducka_cleanup,
-    ducka_port_event,
-    ducka_extension_data
-  },
-  {
-    DRIVA_UI_URI,
-    driva_instantiate,
-    driva_cleanup,
-    driva_port_event,
-    driva_extension_data
-  },
-  {
-    FILTA_UI_URI,
-    filta_instantiate,
-    filta_cleanup,
-    filta_port_event,
-    filta_extension_data
-  },
-  {
-    FRIZA_UI_URI,
-    friza_instantiate,
-    friza_cleanup,
-    friza_port_event,
-    friza_extension_data
-  },
-  {
-    KUIZA_UI_URI,
-    kuiza_instantiate,
-    kuiza_cleanup,
-    kuiza_port_event,
-    kuiza_extension_data
-  },
-  {
-    MASHA_UI_URI,
-    masha_instantiate,
-    masha_cleanup,
-    masha_port_event,
-    masha_extension_data
-  },
-  {
-    PANDA_UI_URI,
-    panda_instantiate,
-    panda_cleanup,
-    panda_port_event,
-    panda_extension_data
-  },
-  {
-    ROOMY_UI_URI,
-    roomy_instantiate,
-    roomy_cleanup,
-    roomy_port_event,
-    roomy_extension_data
-  },
-  {
-    SATMA_UI_URI,
-    satma_instantiate,
-    satma_cleanup,
-    satma_port_event,
-    satma_extension_data
-  },
-  {
-    VIHDA_UI_URI,
-    vihda_instantiate,
-    vihda_cleanup,
-    vihda_port_event,
-    vihda_extension_data
-  },
-  {
-    WHAAA_UI_URI,
-    whaaa_instantiate,
-    whaaa_cleanup,
-    whaaa_port_event,
-    whaaa_extension_data
-  }
+static LV2UI_Descriptor descriptors[] = {
+	{
+		BITTA_UI_URI,
+		bitta_instantiate,
+		bitta_cleanup,
+		bitta_port_event,
+		bitta_extension_data
+	},
+	{
+		CAPTA_UI_URI,
+		capta_instantiate,
+		capta_cleanup,
+		capta_port_event,
+		capta_extension_data
+	},
+	{
+		DELLA_UI_URI,
+		della_instantiate,
+		della_cleanup,
+		della_port_event,
+		della_extension_data
+	},
+	{
+		DUCKA_UI_URI,
+		ducka_instantiate,
+		ducka_cleanup,
+		ducka_port_event,
+		ducka_extension_data
+	},
+	{
+		DRIVA_UI_URI,
+		driva_instantiate,
+		driva_cleanup,
+		driva_port_event,
+		driva_extension_data
+	},
+	{
+		FILTA_UI_URI,
+		filta_instantiate,
+		filta_cleanup,
+		filta_port_event,
+		filta_extension_data
+	},
+	{
+		FRIZA_UI_URI,
+		friza_instantiate,
+		friza_cleanup,
+		friza_port_event,
+		friza_extension_data
+	},
+	{
+		KUIZA_UI_URI,
+		kuiza_instantiate,
+		kuiza_cleanup,
+		kuiza_port_event,
+		kuiza_extension_data
+	},
+	{
+		MASHA_UI_URI,
+		masha_instantiate,
+		masha_cleanup,
+		masha_port_event,
+		masha_extension_data
+	},
+	{
+		PANDA_UI_URI,
+		panda_instantiate,
+		panda_cleanup,
+		panda_port_event,
+		panda_extension_data
+	},
+	{
+		ROOMY_UI_URI,
+		roomy_instantiate,
+		roomy_cleanup,
+		roomy_port_event,
+		roomy_extension_data
+	},
+	{
+		SATMA_UI_URI,
+		satma_instantiate,
+		satma_cleanup,
+		satma_port_event,
+		satma_extension_data
+	},
+	{
+		VIHDA_UI_URI,
+		vihda_instantiate,
+		vihda_cleanup,
+		vihda_port_event,
+		vihda_extension_data
+	},
+	{
+		WHAAA_UI_URI,
+		whaaa_instantiate,
+		whaaa_cleanup,
+		whaaa_port_event,
+		whaaa_extension_data
+	}
 };
 
 const LV2UI_Descriptor * lv2ui_descriptor(uint32_t index)
 {
-  if (index >= sizeof(descriptors) / sizeof(descriptors[0]))
-  {
-      return NULL;
-  }
-  return descriptors + index;
+	if (index >= sizeof(descriptors) / sizeof(descriptors[0])) {
+		return NULL;
+	}
+	return descriptors + index;
 }

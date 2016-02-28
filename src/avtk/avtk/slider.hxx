@@ -9,11 +9,11 @@ namespace Avtk
 
 class Slider : public Widget
 {
-  public:
-    Slider( Avtk::UI* ui, int x, int y, int w, int h, std::string label);
-    virtual ~Slider(){}
-    
-    virtual void draw( cairo_t* cr );
+public:
+	Slider( Avtk::UI* ui, int x, int y, int w, int h, std::string label);
+	virtual ~Slider() {}
+
+	virtual void draw( cairo_t* cr );
 };
 
 };

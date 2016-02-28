@@ -9,15 +9,15 @@ namespace Avtk
 
 class Masher : public Widget
 {
-  public:
-    Masher( Avtk::UI* ui, int x, int y, int w, int h, std::string label);
-    virtual ~Masher(){}
-    
-    virtual void draw( cairo_t* cr );
-    // value == active
-    float time;
-    float volume;
-    float passthrough;
+public:
+	Masher( Avtk::UI* ui, int x, int y, int w, int h, std::string label);
+	virtual ~Masher() {}
+
+	virtual void draw( cairo_t* cr );
+	// value == active
+	float time;
+	float volume;
+	float passthrough;
 };
 
 };

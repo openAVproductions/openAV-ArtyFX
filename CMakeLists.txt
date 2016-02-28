@@ -27,7 +27,7 @@ include_directories( ${SND_INCLUDE_DIRS}  )
 
 SET(CMAKE_SHARED_LINKER_FLAGS "-fPIC -shared -L./src/avtk -Wl,--no-undefined")
 SET(CMAKE_C_FLAGS "-g -Wall -O2 -Wno-unused-variable -msse2 -mfpmath=sse")
-SET(CMAKE_CXX_FLAGS "-g -Wall -O2 -Wno-unused-variable -msse2 -mfpmath=sse")
+SET(CMAKE_CXX_FLAGS "-g -Wall -O2 -Wno-unused-variable -msse2 -mfpmath=sse -ftree-vectorize") # -fopt-info-vec-missed ")
 
 
 IF(BUILD_GUI)

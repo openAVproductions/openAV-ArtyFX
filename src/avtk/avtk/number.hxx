@@ -9,17 +9,17 @@ namespace Avtk
 
 class Number : public Widget
 {
-  public:
-    Number( Avtk::UI* ui, int x, int y, int w, int h, std::string label);
-    virtual ~Number(){}
-    
-    /// shows a single dash - instead of any value for this number
-    void blankValue( int blank );
-    
-    virtual void draw( cairo_t* cr );
-  
-  protected:
-    int blank;
+public:
+	Number( Avtk::UI* ui, int x, int y, int w, int h, std::string label);
+	virtual ~Number() {}
+
+	/// shows a single dash - instead of any value for this number
+	void blankValue( int blank );
+
+	virtual void draw( cairo_t* cr );
+
+protected:
+	int blank;
 };
 
 };

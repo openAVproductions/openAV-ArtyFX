@@ -6,19 +6,19 @@
 
 namespace Avtk
 {
-  class Widget;
+class Widget;
 };
 
 class ResizeUI : public Avtk::UI
 {
-  public:
-    /// Set a NativeWindow for embedding: ignore for standalone
-    ResizeUI(PuglNativeWindow parent = 0);
-    
-    // ignore widget values, empty function body
-    virtual void widgetValueCB( Avtk::Widget* widget){}
-    
-    Avtk::Dial* dial;
+public:
+	/// Set a NativeWindow for embedding: ignore for standalone
+	ResizeUI(PuglNativeWindow parent = 0);
+
+	// ignore widget values, empty function body
+	virtual void widgetValueCB( Avtk::Widget* widget) {}
+
+	Avtk::Dial* dial;
 };
 
 

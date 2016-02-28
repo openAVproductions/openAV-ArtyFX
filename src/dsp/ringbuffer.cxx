@@ -1,21 +1,21 @@
 /*
   Copyright (C) 2000 Paul Davis
   Copyright (C) 2003 Rohan Drape
-    
+
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU Lesser General Public License as published by
   the Free Software Foundation; either version 2.1 of the License, or
   (at your option) any later version.
-    
+
   This program is distributed in the hope that it will be useful,
   but WITHOUT ANY WARRANTY; without even the implied warranty of
   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
   GNU Lesser General Public License for more details.
-    
+
   You should have received a copy of the GNU Lesser General Public License
-  along with this program; if not, write to the Free Software 
+  along with this program; if not, write to the Free Software
   Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
-    
+
   ISO/POSIX C version of Paul Davis's lock free ringbuffer C++ code.
   This is safe for the case of one read thread and one write thread.
 */
@@ -38,13 +38,13 @@ jack_ringbuffer_create (size_t sz)
 {
 	int power_of_two;
 	jack_ringbuffer_t *rb;
-	
+
 	if ((rb = (jack_ringbuffer_t*)malloc (sizeof (jack_ringbuffer_t))) == NULL) {
 		return NULL;
 	}
-	
+
 	for (power_of_two = 1; 1 << power_of_two < (signed int)sz; power_of_two++);
-	
+
 	rb->size = 1 << power_of_two;
 	rb->size_mask = rb->size;
 	rb->size_mask -= 1;
@@ -55,7 +55,7 @@ jack_ringbuffer_create (size_t sz)
 		return NULL;
 	}
 	rb->mlocked = 0;
-	
+
 	return rb;
 }
 
@@ -105,10 +105,10 @@ size_t
 jack_ringbuffer_read_space (const jack_ringbuffer_t * rb)
 {
 	size_t w, r;
-	
+
 	w = rb->write_ptr;
 	r = rb->read_ptr;
-	
+
 	if (w > r) {
 		return w - r;
 	} else {
@@ -175,8 +175,8 @@ jack_ringbuffer_read (jack_ringbuffer_t * rb, char *dest, size_t cnt)
 	return to_read;
 }
 
-/* The copying data reader w/o read pointer advance.  Copy at most 
-   `cnt' bytes from `rb' to `dest'.  Returns the actual number of bytes 
+/* The copying data reader w/o read pointer advance.  Copy at most
+   `cnt' bytes from `rb' to `dest'.  Returns the actual number of bytes
    copied. */
 
 size_t
@@ -280,7 +280,7 @@ jack_ringbuffer_write_advance (jack_ringbuffer_t * rb, size_t cnt)
 
 void
 jack_ringbuffer_get_read_vector (const jack_ringbuffer_t * rb,
-				 jack_ringbuffer_data_t * vec)
+                                 jack_ringbuffer_data_t * vec)
 {
 	size_t free_cnt;
 	size_t cnt2;
@@ -324,7 +324,7 @@ jack_ringbuffer_get_read_vector (const jack_ringbuffer_t * rb,
 
 void
 jack_ringbuffer_get_write_vector (const jack_ringbuffer_t * rb,
-				  jack_ringbuffer_data_t * vec)
+                                  jack_ringbuffer_data_t * vec)
 {
 	size_t free_cnt;
 	size_t cnt2;

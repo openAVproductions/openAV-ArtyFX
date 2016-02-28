@@ -12,49 +12,50 @@
 using namespace std;
 #include <iostream>
 
-class FrizaWidget {
+class FrizaWidget
+{
 public:
-  void update_button(int button);
-  FrizaWidget();
-  Fl_Double_Window *window;
-  Avtk::Image *headerImage;
+	void update_button(int button);
+	FrizaWidget();
+	Fl_Double_Window *window;
+	Avtk::Image *headerImage;
 private:
-  void cb_headerImage_i(Avtk::Image*, void*);
-  static void cb_headerImage(Avtk::Image*, void*);
+	void cb_headerImage_i(Avtk::Image*, void*);
+	static void cb_headerImage(Avtk::Image*, void*);
 public:
-  Avtk::Hold *graph;
+	Avtk::Hold *graph;
 private:
-  void cb_graph_i(Avtk::Hold*, void*);
-  static void cb_graph(Avtk::Hold*, void*);
+	void cb_graph_i(Avtk::Hold*, void*);
+	static void cb_graph(Avtk::Hold*, void*);
 public:
-  Avtk::Dial *duration;
+	Avtk::Dial *duration;
 private:
-  void cb_duration_i(Avtk::Dial*, void*);
-  static void cb_duration(Avtk::Dial*, void*);
+	void cb_duration_i(Avtk::Dial*, void*);
+	static void cb_duration(Avtk::Dial*, void*);
 public:
-  Avtk::Dial *position;
+	Avtk::Dial *position;
 private:
-  void cb_position_i(Avtk::Dial*, void*);
-  static void cb_position(Avtk::Dial*, void*);
-  void cb_Do_i(Avtk::Button*, void*);
-  static void cb_Do(Avtk::Button*, void*);
+	void cb_position_i(Avtk::Dial*, void*);
+	static void cb_position(Avtk::Dial*, void*);
+	void cb_Do_i(Avtk::Button*, void*);
+	static void cb_Do(Avtk::Button*, void*);
 public:
-  Avtk::Dial *vol;
+	Avtk::Dial *vol;
 private:
-  void cb_vol_i(Avtk::Dial*, void*);
-  static void cb_vol(Avtk::Dial*, void*);
+	void cb_vol_i(Avtk::Dial*, void*);
+	static void cb_vol(Avtk::Dial*, void*);
 public:
-  LV2UI_Write_Function write_function; 
-  LV2UI_Controller controller; 
-  void idle();
-  int getWidth();
-  int getHeight();
+	LV2UI_Write_Function write_function;
+	LV2UI_Controller controller;
+	void idle();
+	int getWidth();
+	int getHeight();
 private:
-  float gain; 
-  float cutoff; 
-  float Q; 
+	float gain;
+	float cutoff;
+	float Q;
 public:
-  void writePort(int port, float& value);
-  void close_cb(Fl_Widget* o, void*);
+	void writePort(int port, float& value);
+	void close_cb(Fl_Widget* o, void*);
 };
 #endif

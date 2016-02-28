@@ -95,7 +95,7 @@ typedef void (*PuglMotionFunc)(PuglView* view, int x, int y);
    @param y The window-relative y coordinate of the pointer.
 */
 typedef void (*PuglMouseFunc)(
-	PuglView* view, int button, bool press, int x, int y);
+        PuglView* view, int button, bool press, int x, int y);
 
 /**
    A function called when the view is resized.

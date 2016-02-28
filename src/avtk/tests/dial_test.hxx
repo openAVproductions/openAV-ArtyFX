@@ -6,21 +6,21 @@
 
 namespace Avtk
 {
-  class Widget;
+class Widget;
 };
 
 class DialUI : public Avtk::UI
 {
-  public:
-    /// Set a NativeWindow for embedding: ignore for standalone
-    DialUI(PuglNativeWindow parent = 0);
-    virtual ~DialUI(){}
-    
-    // ignore widget values, empty function body
-    virtual void widgetValueCB( Avtk::Widget* widget){}
-    
-    Avtk::Dial* dial1;
-    Avtk::Dial* dial2;
+public:
+	/// Set a NativeWindow for embedding: ignore for standalone
+	DialUI(PuglNativeWindow parent = 0);
+	virtual ~DialUI() {}
+
+	// ignore widget values, empty function body
+	virtual void widgetValueCB( Avtk::Widget* widget) {}
+
+	Avtk::Dial* dial1;
+	Avtk::Dial* dial2;
 };
 
 

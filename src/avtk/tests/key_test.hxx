@@ -6,16 +6,16 @@
 
 namespace Avtk
 {
-  class Widget;
+class Widget;
 };
 
 class KeyUI : public Avtk::UI
 {
-  public:
-    KeyUI(PuglNativeWindow parent = 0);
-    virtual ~KeyUI(){}
-    int handle( const PuglEvent* e );
-    void widgetValueCB( Avtk::Widget* w ){}
+public:
+	KeyUI(PuglNativeWindow parent = 0);
+	virtual ~KeyUI() {}
+	int handle( const PuglEvent* e );
+	void widgetValueCB( Avtk::Widget* w ) {}
 };
 
 

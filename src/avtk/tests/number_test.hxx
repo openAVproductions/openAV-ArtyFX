@@ -6,19 +6,19 @@
 
 namespace Avtk
 {
-  class Widget;
+class Widget;
 };
 
 class NumberUI : public Avtk::UI
 {
-  public:
-    /// Set a NativeWindow for embedding: ignore for standalone
-    NumberUI(PuglNativeWindow parent = 0);
-    
-    // ignore widget values, empty function body
-    virtual void widgetValueCB( Avtk::Widget* widget);
-    
-    Avtk::Number* number;
+public:
+	/// Set a NativeWindow for embedding: ignore for standalone
+	NumberUI(PuglNativeWindow parent = 0);
+
+	// ignore widget values, empty function body
+	virtual void widgetValueCB( Avtk::Widget* widget);
+
+	Avtk::Number* number;
 };
 
 

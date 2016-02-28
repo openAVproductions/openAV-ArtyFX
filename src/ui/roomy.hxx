@@ -6,29 +6,29 @@
 
 namespace Avtk
 {
-  class Widget;
-  class Reverb;
+class Widget;
+class Reverb;
 };
 
 class RoomyUI : public Avtk::UI
 {
-  public:
-    RoomyUI(PuglNativeWindow parent = 0);
-    virtual ~RoomyUI(){}
-    
-    // handle UI -> LV2 Host changes
-    virtual void widgetValueCB( Avtk::Widget* widget);
-    
-    // handle LV2 host -> UI changes
-    virtual void lv2PortEvent(  uint32_t index,
-                                uint32_t buffer_size,
-                                uint32_t format, 
-                                const void* buffer );
+public:
+	RoomyUI(PuglNativeWindow parent = 0);
+	virtual ~RoomyUI() {}
 
-    Avtk::Reverb* rev;
-    Avtk::Dial* dial1;
-    Avtk::Dial* dial2;
-    Avtk::Dial* dial3;
+	// handle UI -> LV2 Host changes
+	virtual void widgetValueCB( Avtk::Widget* widget);
+
+	// handle LV2 host -> UI changes
+	virtual void lv2PortEvent(  uint32_t index,
+	                            uint32_t buffer_size,
+	                            uint32_t format,
+	                            const void* buffer );
+
+	Avtk::Reverb* rev;
+	Avtk::Dial* dial1;
+	Avtk::Dial* dial2;
+	Avtk::Dial* dial3;
 };
 
 

@@ -9,10 +9,10 @@ namespace Avtk
 
 class Button : public Widget
 {
-  public:
-    Button( Avtk::UI* ui, int x, int y, int w, int h, std::string label);
-    virtual ~Button(){}
-    virtual void draw( cairo_t* cr );
+public:
+	Button( Avtk::UI* ui, int x, int y, int w, int h, std::string label);
+	virtual ~Button() {}
+	virtual void draw( cairo_t* cr );
 };
 
 };

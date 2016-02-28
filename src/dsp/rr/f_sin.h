@@ -21,32 +21,32 @@ static inline float
 f_sin(float x)
 {
 
-    float y;  //function output
-    float tmp;
-    bool sign;
-    if ((x>D_PI) || (x<-D_PI)) x = fmod(x,D_PI);
-    if (x < 0.0f) x+=D_PI;
-    sign = 0;
-    if(x>M_PI) {
-        x = D_PI - x;
-        sign = 1;
-    }
+	float y;  //function output
+	float tmp;
+	bool sign;
+	if ((x>D_PI) || (x<-D_PI)) x = fmod(x,D_PI);
+	if (x < 0.0f) x+=D_PI;
+	sign = 0;
+	if(x>M_PI) {
+		x = D_PI - x;
+		sign = 1;
+	}
 
-    if (x <= p2) y = x - x*x*x*fact3;
-    else {
-        tmp = x - M_PI;
-        y = -tmp + tmp*tmp*tmp*fact3;
-    }
+	if (x <= p2) y = x - x*x*x*fact3;
+	else {
+		tmp = x - M_PI;
+		y = -tmp + tmp*tmp*tmp*fact3;
+	}
 
-    if (sign) y = -y;
+	if (sign) y = -y;
 
-    return y;
+	return y;
 }
 
 static inline float
 f_cos(float x_)
 {
-    return f_sin(p2 + x_);
+	return f_sin(p2 + x_);
 }
 
 #endif

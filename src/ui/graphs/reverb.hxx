@@ -9,15 +9,15 @@ namespace Avtk
 
 class Reverb : public Widget
 {
-  public:
-    Reverb( Avtk::UI* ui, int x, int y, int w, int h, std::string label);
-    virtual ~Reverb(){}
-    
-    virtual void draw( cairo_t* cr );
+public:
+	Reverb( Avtk::UI* ui, int x, int y, int w, int h, std::string label);
+	virtual ~Reverb() {}
 
-    float size;
-    float damping;
-    float dryWet;
+	virtual void draw( cairo_t* cr );
+
+	float size;
+	float damping;
+	float dryWet;
 };
 
 };

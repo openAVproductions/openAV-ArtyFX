@@ -9,12 +9,12 @@ namespace Avtk
 
 class Maximizer : public Widget
 {
-  public:
-    Maximizer(Avtk::UI* ui, int x, int y, int w, int h, std::string label);
-    virtual ~Maximizer(){}
-    
-    virtual void draw( cairo_t* cr );
-    float tone;
+public:
+	Maximizer(Avtk::UI* ui, int x, int y, int w, int h, std::string label);
+	virtual ~Maximizer() {}
+
+	virtual void draw( cairo_t* cr );
+	float tone;
 };
 
 };

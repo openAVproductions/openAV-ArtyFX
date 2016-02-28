@@ -6,27 +6,27 @@
 
 namespace Avtk
 {
-  class Widget;
-  class Sidechain;
+class Widget;
+class Sidechain;
 };
 
 class DuckaUI : public Avtk::UI
 {
-  public:
-    DuckaUI(PuglNativeWindow parent = 0);
-    virtual ~DuckaUI(){}
-    
-    virtual void widgetValueCB( Avtk::Widget* widget);
-    
-    virtual void lv2PortEvent(  uint32_t index,
-                                uint32_t buffer_size,
-                                uint32_t format, 
-                                const void* buffer );
+public:
+	DuckaUI(PuglNativeWindow parent = 0);
+	virtual ~DuckaUI() {}
 
-    Avtk::Sidechain* graph;
-    Avtk::Dial* dial1;
-    Avtk::Dial* dial2;
-    Avtk::Dial* dial3;
+	virtual void widgetValueCB( Avtk::Widget* widget);
+
+	virtual void lv2PortEvent(  uint32_t index,
+	                            uint32_t buffer_size,
+	                            uint32_t format,
+	                            const void* buffer );
+
+	Avtk::Sidechain* graph;
+	Avtk::Dial* dial1;
+	Avtk::Dial* dial2;
+	Avtk::Dial* dial3;
 };
 
 

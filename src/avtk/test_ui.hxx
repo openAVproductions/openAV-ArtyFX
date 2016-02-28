@@ -8,40 +8,40 @@
 
 namespace Avtk
 {
-  class Widget;
+class Widget;
 };
 
 class TestUI : public Avtk::UI
 {
-  public:
-    /// Set a NativeWindow for embedding: ignore for standalone 
-    TestUI(PuglNativeWindow parent = 0);
-    
-    /// demo function, changes all widgets to value
-    void setAllWidgets( Avtk::Widget* w, float value );
-    
-    void widgetValueCB( Avtk::Widget* widget);
-  
-    Avtk::Button* groupToggler;
-    Avtk::Button* momentary;
-    Avtk::Button* momentaryOut;
-    
-    Avtk::Group* group1;
-    
-    Avtk::Scroll* scroll;
-    
-    Avtk::Slider* vertSlider;
-    Avtk::Slider* horiSlider;
-    
-    Avtk::EventEditor* editor;
-    
-    Avtk::List* list;
-    Avtk::List* list2;
-    Avtk::Waveform* waveform;
-    
-    Avtk::Spectrum* spectrum;
-    
-    Avtk::Dialog* dialog;
+public:
+	/// Set a NativeWindow for embedding: ignore for standalone
+	TestUI(PuglNativeWindow parent = 0);
+
+	/// demo function, changes all widgets to value
+	void setAllWidgets( Avtk::Widget* w, float value );
+
+	void widgetValueCB( Avtk::Widget* widget);
+
+	Avtk::Button* groupToggler;
+	Avtk::Button* momentary;
+	Avtk::Button* momentaryOut;
+
+	Avtk::Group* group1;
+
+	Avtk::Scroll* scroll;
+
+	Avtk::Slider* vertSlider;
+	Avtk::Slider* horiSlider;
+
+	Avtk::EventEditor* editor;
+
+	Avtk::List* list;
+	Avtk::List* list2;
+	Avtk::Waveform* waveform;
+
+	Avtk::Spectrum* spectrum;
+
+	Avtk::Dialog* dialog;
 };
 
 

@@ -9,13 +9,13 @@ namespace Avtk
 
 class Widener : public Widget
 {
-  public:
-    Widener( Avtk::UI* ui, int x, int y, int w, int h, std::string label);
-    virtual ~Widener(){}
-    
-    virtual void draw( cairo_t* cr );
-    float width;
-    float invert;
+public:
+	Widener( Avtk::UI* ui, int x, int y, int w, int h, std::string label);
+	virtual ~Widener() {}
+
+	virtual void draw( cairo_t* cr );
+	float width;
+	float invert;
 };
 
 };

@@ -6,27 +6,27 @@
 
 namespace Avtk
 {
-  class Widget;
-  class Masher;
+class Widget;
+class Masher;
 };
 
 class MashaUI : public Avtk::UI
 {
-  public:
-    MashaUI(PuglNativeWindow parent = 0);
-    virtual ~MashaUI(){}
-    
-    virtual void widgetValueCB( Avtk::Widget* widget);
-    
-    virtual void lv2PortEvent(  uint32_t index,
-                                uint32_t buffer_size,
-                                uint32_t format, 
-                                const void* buffer );
+public:
+	MashaUI(PuglNativeWindow parent = 0);
+	virtual ~MashaUI() {}
 
-    Avtk::Masher* graph;
-    Avtk::Dial* dial1;
-    Avtk::Dial* dial2;
-    Avtk::Dial* dial3;
+	virtual void widgetValueCB( Avtk::Widget* widget);
+
+	virtual void lv2PortEvent(  uint32_t index,
+	                            uint32_t buffer_size,
+	                            uint32_t format,
+	                            const void* buffer );
+
+	Avtk::Masher* graph;
+	Avtk::Dial* dial1;
+	Avtk::Dial* dial2;
+	Avtk::Dial* dial3;
 };
 
 

@@ -6,27 +6,27 @@
 
 namespace Avtk
 {
-  class Widget;
-  class Delay;
+class Widget;
+class Delay;
 };
 
 class DellaUI : public Avtk::UI
 {
-  public:
-    DellaUI(PuglNativeWindow parent = 0);
-    virtual ~DellaUI(){}
-    
-    virtual void widgetValueCB( Avtk::Widget* widget);
-    
-    virtual void lv2PortEvent(  uint32_t index,
-                                uint32_t buffer_size,
-                                uint32_t format, 
-                                const void* buffer );
+public:
+	DellaUI(PuglNativeWindow parent = 0);
+	virtual ~DellaUI() {}
 
-    Avtk::Delay* rev;
-    Avtk::Dial* dial1;
-    Avtk::Dial* dial2;
-    Avtk::Dial* dial3;
+	virtual void widgetValueCB( Avtk::Widget* widget);
+
+	virtual void lv2PortEvent(  uint32_t index,
+	                            uint32_t buffer_size,
+	                            uint32_t format,
+	                            const void* buffer );
+
+	Avtk::Delay* rev;
+	Avtk::Dial* dial1;
+	Avtk::Dial* dial2;
+	Avtk::Dial* dial3;
 };
 
 

@@ -6,20 +6,20 @@
 
 namespace Avtk
 {
-  class Widget;
+class Widget;
 };
 
 class DialogUI : public Avtk::UI
 {
-  public:
-    /// Set a NativeWindow for embedding: ignore for standalone
-    DialogUI(PuglNativeWindow parent = 0);
-    virtual ~DialogUI(){}
-    
-    virtual void widgetValueCB( Avtk::Widget* widget);
-    
-    Avtk::Button* show;
-    Avtk::Dialog* dialog;
+public:
+	/// Set a NativeWindow for embedding: ignore for standalone
+	DialogUI(PuglNativeWindow parent = 0);
+	virtual ~DialogUI() {}
+
+	virtual void widgetValueCB( Avtk::Widget* widget);
+
+	Avtk::Button* show;
+	Avtk::Dialog* dialog;
 };
 
 

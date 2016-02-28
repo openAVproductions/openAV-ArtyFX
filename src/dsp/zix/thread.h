@@ -81,7 +81,7 @@ static inline ZixStatus
 zix_thread_join(ZixThread thread, void** retval)
 {
 	return WaitForSingleObject(thread, INFINITE)
-		? ZIX_STATUS_SUCCESS : ZIX_STATUS_ERROR;
+	       ? ZIX_STATUS_SUCCESS : ZIX_STATUS_ERROR;
 }
 
 #else  /* !defined(_WIN32) */
@@ -116,7 +116,7 @@ static inline ZixStatus
 zix_thread_join(ZixThread thread, void** retval)
 {
 	return pthread_join(thread, retval)
-		? ZIX_STATUS_ERROR : ZIX_STATUS_SUCCESS;
+	       ? ZIX_STATUS_ERROR : ZIX_STATUS_SUCCESS;
 }
 
 #endif
