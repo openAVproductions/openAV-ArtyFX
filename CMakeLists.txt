@@ -30,6 +30,9 @@ SET(CMAKE_C_FLAGS "-g -Wall -O2 -Wno-unused-variable -msse2 -mfpmath=sse")
 SET(CMAKE_CXX_FLAGS "-g -Wall -O2 -Wno-unused-variable -msse2 -mfpmath=sse -ftree-vectorize") # -fopt-info-vec-missed ")
 
 
+# DSP sources
+FILE(GLOB sources src/dsp/*.cxx src/dsp/rr/*.cxx  src/dsp/eq/*.cc )
+
 IF(BUILD_GUI)
   # TODO: when building GUI, add platform checks for X11, Win, OsX
   #pkg_check_modules(X11 x11 REQUIRED)
@@ -37,18 +40,7 @@ IF(BUILD_GUI)
   #link_directories   ( ${NTK_LIBRARY_DIRS}  )
   #SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -DPUGL_HAVE_CAIRO")
   #SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DPUGL_HAVE_CAIRO")
-ENDIF()
-
-
-# DSP sources
-FILE(GLOB sources src/dsp/*.cxx src/dsp/rr/*.cxx  src/dsp/eq/*.cc )
-
-# don't compile UI files if no UI should be built
-IF(BUILD_GUI)
   FILE(GLOB ui_sources src/ui/*.cxx src/ui/graphs/*.cxx )
-ENDIF()
-
-IF(BUILD_GUI)
   # AVTK .a static library build
   add_subdirectory (src/avtk)
   include_directories("src/avtk/avtk/")

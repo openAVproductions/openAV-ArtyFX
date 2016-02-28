@@ -6,4 +6,5 @@ planning/*
 *.un~
 *.cxx~
 *.hxx~
+*.orig
 
