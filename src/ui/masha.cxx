@@ -4,6 +4,7 @@
 
 #include "common.hxx"
 #include "../avtk/theme.hxx"
+#include "../avtk/button.hxx"
 #include "graphs/masher.hxx"
 #include "headers/masha.c"
 
@@ -17,9 +18,16 @@ MashaUI::MashaUI(PuglNativeWindow parent) :
 	graph->clickMode( CLICK_TOGGLE );
 	graph->rClickMode( RCLICK_NONE );
 
-	dial1 = new Avtk::Dial( this,  8, 172, 45,45, "Time" );
-	dial2 = new Avtk::Dial( this,110, 172, 45,45, "Vol" );
-	dial3 = new Avtk::Dial( this, 60, 172, 45,45, "Pass" );
+	dial1 = new Avtk::Dial( this,  40, 172, 39,39, "Time" );
+	dial2 = new Avtk::Dial( this, 114, 172, 39,39, "Vol" );
+	dial3 = new Avtk::Dial( this,  78, 172, 39,39, "Pass" );
+	dial4 = new Avtk::Dial( this,   4, 172, 39,39, "BPM " );
+	dial4->visible(false);
+
+	// Optional Connect
+	button= new Avtk::Button( this, 4, 146, 65,25, "HostBPM" );
+	button->clickMode(CLICK_TOGGLE);
+	button->value(true);
 }
 
 void MashaUI::widgetValueCB( Avtk::Widget* widget )
@@ -37,6 +45,17 @@ void MashaUI::widgetValueCB( Avtk::Widget* widget )
 	if( widget == dial3 ) {
 		graph->passthrough = v;
 		write_function( controller, MASHA_DRY_WET, sizeof(float), 0, &v );
+	}
+	if( widget == dial4 ) {
+		float bpm = 60 + 120 * v;
+		std::stringstream s;
+		s << "Bpm " << int(bpm);
+		dial4->label( s.str().c_str() );
+		write_function( controller, MASHA_BPM_MANUAL, sizeof(float), 0, &bpm );
+	}
+	if( widget == button ) {
+		write_function( controller, MASHA_BPM_FROM_HOST, sizeof(float), 0, &v );
+		dial4->visible(!int(v));
 	}
 	if( widget == graph ) {
 		write_function( controller, MASHA_ACTIVE, sizeof(float), 0, &v );

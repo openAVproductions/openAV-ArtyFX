@@ -27,6 +27,8 @@ public:
 	Avtk::Dial* dial1;
 	Avtk::Dial* dial2;
 	Avtk::Dial* dial3;
+	Avtk::Dial* dial4;
+	Avtk::Button* button;
 };
 
 
