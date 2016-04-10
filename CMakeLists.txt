@@ -12,10 +12,9 @@ project (artyfx)
 
 option(RELEASE_BUILD  "Build for production usage" ON  )
 option(BUILD_GUI      "Build GUI (AVTK based)"     ON  )
+option(BUILD_SSE      "Build with SSE flags"       ON  )
 
 find_package(PkgConfig)
-
-
 
 pkg_check_modules(LV2 lv2>=1.8.0 REQUIRED)
 include_directories( ${LV2_INCLUDE_DIRS}  )
@@ -24,14 +23,18 @@ pkg_check_modules(SND sndfile REQUIRED)
 include_directories( ${SND_INCLUDE_DIRS}  )
 #target_link_libraries( avtkDemo ${CAIRO_LIBRARIES}  )
 
-
 SET(CMAKE_SHARED_LINKER_FLAGS "-fPIC -shared -L./src/avtk -Wl,--no-undefined")
-SET(CMAKE_C_FLAGS "-g -Wall -O2 -Wno-unused-variable -msse2 -mfpmath=sse")
-SET(CMAKE_CXX_FLAGS "-g -Wall -O2 -Wno-unused-variable -msse2 -mfpmath=sse -ftree-vectorize") # -fopt-info-vec-missed ")
+SET(CMAKE_C_FLAGS "-g -Wall -O2 -Wno-unused-variable")
+SET(CMAKE_CXX_FLAGS "-g -Wall -O2 -Wno-unused-variable -ftree-vectorize")
 
 
 # DSP sources
 FILE(GLOB sources src/dsp/*.cxx src/dsp/rr/*.cxx  src/dsp/eq/*.cc )
+
+IF(BUILD_SSE)
+  SET(CMAKE_C_FLAGS "-msse2 -mfpmath=sse")
+  SET(CMAKE_CXX_FLAGS "-msse2 -mfpmath=sse")
+ENDIF()
 
 IF(BUILD_GUI)
   # TODO: when building GUI, add platform checks for X11, Win, OsX
