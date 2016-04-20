@@ -119,7 +119,7 @@ public:
 	{
 		if( dw > 1.0 ) dw = 1.0f;
 		if( dw < 0.0 ) dw = 0.0f;
-		_dryWet = dw;
+		_dryWetTarget = dw;
 	}
 
 	void process (int count, float** input, float** output)
@@ -283,6 +283,9 @@ public:
 			float reverb0 = (float)(0.37f * (fRec1[0] + fRec2[0]));
 			float reverb1 = (float)(0.37f * (fRec1[0] - fRec2[0]));
 
+			// TODO: Lowpass this (simple 1 pole) for de-zip
+			_dryWet = (_dryWetTarget);
+
 			output0[i] = (input0[i] * (1-_dryWet)) + (reverb0 * _dryWet );
 			output1[i] = (input1[i] * (1-_dryWet)) + (reverb1 * _dryWet );
 
@@ -333,6 +336,7 @@ public:
 
 private:
 	float _dryWet;
+	float _dryWetTarget;
 	float fslider0;
 	int iConst0;
 	float fConst1;
