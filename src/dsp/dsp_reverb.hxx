@@ -1,7 +1,7 @@
 /*
  * Author: Harry van Haaren 2013
  *         harryhaaren@gmail.com
- *
+ * 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
@@ -119,7 +119,7 @@ public:
 	{
 		if( dw > 1.0 ) dw = 1.0f;
 		if( dw < 0.0 ) dw = 0.0f;
-		_dryWetTarget = dw;
+		_dryWet = dw;
 	}
 
 	void process (int count, float** input, float** output)
@@ -283,11 +283,13 @@ public:
 			float reverb0 = (float)(0.37f * (fRec1[0] + fRec2[0]));
 			float reverb1 = (float)(0.37f * (fRec1[0] - fRec2[0]));
 
-			// TODO: Lowpass this (simple 1 pole) for de-zip
-			_dryWet = (_dryWetTarget);
+			// smoothing algo is a lowpass with denormal protection
+			// output is g2
+			g1 += w * (_dryWet - g1 - a * g2 - 1e-20f);
+			g2 += w * (b * g1 - g2 + 1e-20f);
 
-			output0[i] = (input0[i] * (1-_dryWet)) + (reverb0 * _dryWet );
-			output1[i] = (input1[i] * (1-_dryWet)) + (reverb1 * _dryWet );
+			output0[i] = (input0[i] * (1-g2)) + (reverb0 * g2);
+			output1[i] = (input1[i] * (1-g2)) + (reverb1 * g2);
 
 			// post processing
 			fRec7[2] = fRec7[1];
@@ -336,7 +338,7 @@ public:
 
 private:
 	float _dryWet;
-	float _dryWetTarget;
+	float w, a, b, g1, g2;
 	float fslider0;
 	int iConst0;
 	float fConst1;
@@ -438,6 +440,12 @@ private:
 	/// Long nasty function setting initial values
 	void init(int samplingFreq)
 	{
+		_dryWet = 0.f;
+		w = 10.0f / (samplingFreq * 0.02);
+		a = (0.70f);
+		b = (1.0f / (1.0f - a));
+		g1 = (0.0f);
+		g2 = (0.0f);
 		fslider0 = 3.0f;
 		iConst0 = samplingFreq;
 		fConst1 = floorf((0.5f + (0.174713f * iConst0)));
