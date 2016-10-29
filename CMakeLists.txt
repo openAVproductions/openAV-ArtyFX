@@ -13,6 +13,7 @@ project (artyfx)
 option(RELEASE_BUILD  "Build for production usage" ON  )
 option(BUILD_GUI      "Build GUI (AVTK based)"     ON  )
 option(BUILD_SSE      "Build with SSE flags"       ON  )
+option(BUILD_BENCH    "Build benchmarks binary"    OFF )
 
 find_package(PkgConfig)
 
@@ -24,8 +25,8 @@ include_directories( ${SND_INCLUDE_DIRS}  )
 #target_link_libraries( avtkDemo ${CAIRO_LIBRARIES}  )
 
 SET(CMAKE_SHARED_LINKER_FLAGS "-fPIC -shared -L./src/avtk -Wl,--no-undefined")
-SET(CMAKE_C_FLAGS "-g -Wall -O2 -Wno-unused-variable")
-SET(CMAKE_CXX_FLAGS "-g -Wall -O2 -Wno-unused-variable -ftree-vectorize")
+SET(CMAKE_C_FLAGS "-g -Wall -O1 -Wno-unused-variable")
+SET(CMAKE_CXX_FLAGS "-g -Wall -O1 -Wno-unused-variable -ftree-vectorize")
 
 
 # DSP sources
@@ -68,6 +69,7 @@ COLOR_MESSAGE( "
 -----------------------
 * ${green}Install Directory${reset}               : ${CMAKE_INSTALL_PREFIX}
 * ${green}AVTK GUI${reset}                        : ${BUILD_GUI}
+* ${green}DSP Benchmarks${reset}                  : ${BUILD_BENCH}
 ")
 
 ADD_LIBRARY(artyfx SHARED ${sources} )
@@ -81,6 +83,11 @@ IF(BUILD_GUI)
   target_link_libraries( artyfx_ui "-lavtk -lcairo -lX11" )
   set_target_properties( artyfx_ui PROPERTIES PREFIX "")
   install (TARGETS artyfx_ui DESTINATION lib/lv2/artyfx.lv2/)
+ENDIF()
+
+IF(BUILD_BENCH)
+  add_executable (artyfx_benchmark src/dsp/perf_test.cpp )
+  target_link_libraries(artyfx_benchmark "-lbenchmark -lpthread" )
 ENDIF()
 
 # Remove "lib" part before name (artyfx.so, not libartyfx.so)
