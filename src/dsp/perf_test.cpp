@@ -4,6 +4,7 @@
 #include "dsp_widener.hxx"
 #include "dsp_delay.hxx"
 #include "dsp_masher.hxx"
+#include "dsp_filters.hxx"
 
 #include "benchmark/benchmark.h"
 
@@ -71,6 +72,19 @@ void widener(benchmark::State& state)
 	}
 }
 
+void filters(benchmark::State& state)
+{
+	Filters f(SMPS);
+
+	const uint32_t nf = state.range(0);
+	if(nf > SMPS)
+		return;
+
+	while (state.KeepRunning()) {
+		f.process(nf, ins, outs);
+	}
+}
+
 void delay(benchmark::State& state)
 {
 	Delay d(SMPS);
@@ -104,5 +118,6 @@ BENCHMARK(compander )->Range(8, 1024);
 BENCHMARK(widener   )->Range(8, 1024);
 BENCHMARK(delay     )->Range(8, 1024);
 BENCHMARK(masher    )->Range(8, 1024);
+BENCHMARK(filters   )->Range(8, 1024);
 
 BENCHMARK_MAIN()
