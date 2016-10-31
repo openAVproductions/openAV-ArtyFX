@@ -2,6 +2,7 @@
 #include "dsp_bitcrusher.hxx"
 #include "dsp_compander.hxx"
 #include "dsp_widener.hxx"
+#include "dsp_delay.hxx"
 
 #include "benchmark/benchmark.h"
 
@@ -69,10 +70,24 @@ void widener(benchmark::State& state)
 	}
 }
 
+void delay(benchmark::State& state)
+{
+	Delay d(SMPS);
+
+	const uint32_t nf = state.range(0);
+	if(nf > SMPS)
+		return;
+
+	while (state.KeepRunning()) {
+		d.process(nf, inL, outL);
+	}
+}
+
 
 BENCHMARK(reverb    )->Range(8, 1024);
 BENCHMARK(bitcrusher)->Range(8, 1024);
 BENCHMARK(compander )->Range(8, 1024);
 BENCHMARK(widener   )->Range(8, 1024);
+BENCHMARK(delay     )->Range(8, 1024);
 
 BENCHMARK_MAIN()
