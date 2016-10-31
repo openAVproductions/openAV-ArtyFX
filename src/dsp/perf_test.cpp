@@ -5,6 +5,7 @@
 #include "dsp_delay.hxx"
 #include "dsp_masher.hxx"
 #include "dsp_filters.hxx"
+#include "dsp_wah.hxx"
 
 #include "benchmark/benchmark.h"
 
@@ -112,6 +113,20 @@ void masher(benchmark::State& state)
 }
 
 
+void wah(benchmark::State& state)
+{
+	Wah w(SMPS);
+
+	const uint32_t nf = state.range(0);
+	if(nf > SMPS)
+		return;
+
+	while (state.KeepRunning()) {
+		w.process(nf, inL, outL);
+	}
+}
+
+
 BENCHMARK(reverb    )->Range(8, 1024);
 BENCHMARK(bitcrusher)->Range(8, 1024);
 BENCHMARK(compander )->Range(8, 1024);
@@ -119,5 +134,6 @@ BENCHMARK(widener   )->Range(8, 1024);
 BENCHMARK(delay     )->Range(8, 1024);
 BENCHMARK(masher    )->Range(8, 1024);
 BENCHMARK(filters   )->Range(8, 1024);
+BENCHMARK(wah       )->Range(8, 1024);
 
 BENCHMARK_MAIN()
