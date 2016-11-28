@@ -6,8 +6,8 @@ where they can be abused to create even cooler audio!
 
 [OpenAV Productions](http://www.openavproductions.com) has created these
 plugins during free time, if you like them, make a small contribution to the
-project - its great to get feedback from the community :) [OpenAV Release
-System](http://www.openavproductions.com/support),
+project - its rewarding to get emails, feedback and contributions
+from the community [OpenAV Support Page](http://www.openavproductions.com/support)
 
 Introduction
 ------------
