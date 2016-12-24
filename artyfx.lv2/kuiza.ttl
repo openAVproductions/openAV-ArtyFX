@@ -24,7 +24,7 @@
 
 <http://www.openavproductions.com/artyfx#kuiza/gui>
   a ui:X11UI;
-  ui:binary <artyfx.so>;
+  ui:binary <artyfx_ui.so>;
   lv2:optionalFeature ui:noUserResize ;
   lv2:extensionData   ui:idleInterface ;
   ui:requiredFeature ui:makeResident.
@@ -42,6 +42,11 @@
   ];
   lv2:optionalFeature lv2:hardRTCapable ;
   
+  rdfs:comment "A 4 band equalizer with preset bands.";
+  lv2:minorVersion 2; lv2:microVersion 0;
+  doap:license <http://usefulinc.com/doap/licenses/gpl> ;
+  lv2:project <http://www.openavproductions.com/artyfx> ;
+
   ui:ui <http://www.openavproductions.com/artyfx#kuiza/gui>;
   
   lv2:requiredFeature <http://lv2plug.in/ns/ext/urid#map> ;

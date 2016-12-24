@@ -40,6 +40,12 @@
   ];
   lv2:optionalFeature lv2:hardRTCapable ;
   
+  rdfs:comment "A sonic texture freezer that allows moving over recorded content to achieve an ambient fade effect.";
+  lv2:minorVersion 2; lv2:microVersion 0;
+  doap:license <http://usefulinc.com/doap/licenses/gpl> ;
+  lv2:project <http://www.openavproductions.com/artyfx> ;
+
+
   ui:ui <http://www.openavproductions.com/artyfx#friza/gui>;
   
   lv2:port [

@@ -1,0 +1,6 @@
+build*/
+*.un~
+planning/*
+*.so
+*.cxx~
+*.hxx~

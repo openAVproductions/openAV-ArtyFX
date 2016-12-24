@@ -7,16 +7,20 @@ Manual: [ArtyFX Manual](https://github.com/harryhaaren/openAV-ArtyFX/blob/master
 
 This is the repository of an LV2 plugin suite called Arty FX.
 
-![ArtyFX screenshot](https://raw.github.com/harryhaaren/openAV-ArtyFX/master/screenshots/artyfx_1.2.png "ArtyFX 1.2 screenshot")
+![ArtyFX screenshot](https://raw.github.com/harryhaaren/openAV-ArtyFX/master/screenshots/artyfx_1.3.png "ArtyFX 1.3 screenshot")
 
 
 Dependencies
 ------------
-These plugins use NTK for thier interfaces. NTK can be obtained using
-git clone git://git.tuxfamily.org/gitroot/non/fltk.git ntk
+ArtyFX uses AVTK for its user interfaces, and therefore
+depends only on Cairo and X. The LV2 headers are needed
+to build the plugins.
 
-You'll need the LV2 headers to compile these plugins, package name:
-lv2
+On Debian Jessie (current stable) the following will grab
+the dependencies needed to build ArtyFX:
+```
+sudo apt-get install libcairo-dev lv2-dev lv2core
+```
 
 Building
 --------
@@ -35,5 +39,12 @@ After the INSTALL step Ardour3, QTractor, and any other LV2 host should
 automatically find all plugins, and be able to use them. Test availablility
 with 
 ```
-$ lv2ls
+$ lv2ls | grep openav
 ```
+
+Contact
+-------
+Harry van Haaren   <harryhaaren@gmail.com>
+OpenAV Productions 
+http://www.openavproductions.com
+

@@ -29,7 +29,7 @@
 
 <http://www.openavproductions.com/artyfx#della/gui>
   a ui:X11UI;
-  ui:binary <artyfx.so>;
+  ui:binary <artyfx_ui.so>;
   ui:requiredFeature ui:makeResident;
   lv2:optionalFeature ui:noUserResize ;
   lv2:extensionData   ui:idleInterface ;
@@ -48,6 +48,13 @@
   ];
   lv2:optionalFeature lv2:hardRTCapable ;
   
+  rdfs:comment "BPM dependant delay with feedback";
+  lv2:minorVersion 2; lv2:microVersion 0;
+  doap:license <http://usefulinc.com/doap/licenses/gpl> ;
+  lv2:project <http://www.openavproductions.com/artyfx> ;
+
+
+
   ui:ui <http://www.openavproductions.com/artyfx#della/gui>;
   
   lv2:requiredFeature <http://lv2plug.in/ns/ext/urid#map> ;
@@ -67,7 +74,7 @@
       lv2:index 2 ;
       lv2:name "Time" ;
       lv2:symbol "time" ;
-      lv2:default 0.000000 ;
+      lv2:default 0.500000 ;
       lv2:minimum 0.000000 ;
       lv2:maximum 1.000000 ;
   ] , [
@@ -75,7 +82,7 @@
       lv2:index 3 ;
       lv2:name "Volume" ;
       lv2:symbol "volume" ;
-      lv2:default 0.000000 ;
+      lv2:default 0.500000 ;
       lv2:minimum 0.000000 ;
       lv2:maximum 1.000000 ;
   ] , [
@@ -83,7 +90,7 @@
       lv2:index 4 ;
       lv2:name "Feedback" ;
       lv2:symbol "feedback" ;
-      lv2:default 0.000000 ;
+      lv2:default 0.250000 ;
       lv2:minimum 0.000000 ;
       lv2:maximum 1.000000 ;
   ] , [

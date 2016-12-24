@@ -1,5 +1,0 @@
-
-set terminal pngcairo size 350,262
-set output "plot.png"
-
-plot "out.dat"

@@ -3,82 +3,54 @@ cmake_minimum_required (VERSION 2.6)
 
 project (artyfx)
 
-set(ARTYFX_VERSION_MAJOR "1")
-set(ARTYFX_VERSION_MINOR "2")
-set(ARTYFX_VERSION_PATCH "1")
+#set(ARTYFX_VERSION_MAJOR "1")
+#set(ARTYFX_VERSION_MINOR "3")
+#set(ARTYFX_VERSION_PATCH "0")
 
-set(ARTYFX_VERSION "${ARTYFX_VERSION_MAJOR}.${ARTYFX_VERSION_MINOR}.${ARTYFX_VERSION_PATCH}")
+#set(ARTYFX_VERSION "${ARTYFX_VERSION_MAJOR}.${ARTYFX_VERSION_MINOR}\
+#.${ARTYFX_VERSION_PATCH}")
 
 option(RELEASE_BUILD  "Build for production usage" ON  )
-option(HAVE_NTK       "Build GUI (NTK)"            ON )
+option(BUILD_GUI      "Build GUI (AVTK based)"     ON  )
+option(BUILD_SSE      "Build with SSE flags"       ON  )
+option(BUILD_BENCH    "Build benchmarks binary"    OFF )
 
 find_package(PkgConfig)
-
-#SET(CMAKE_INSTALL_PREFIX "/usr" )
 
 pkg_check_modules(LV2 lv2>=1.8.0 REQUIRED)
 include_directories( ${LV2_INCLUDE_DIRS}  )
 
 pkg_check_modules(SND sndfile REQUIRED)
 include_directories( ${SND_INCLUDE_DIRS}  )
+#target_link_libraries( avtkDemo ${CAIRO_LIBRARIES}  )
 
-IF(HAVE_NTK)
-  ADD_DEFINITIONS(-DOPENAV_USE_NTK)
-  pkg_check_modules(NTK ntk REQUIRED)
-  include_directories( ${NTK_INCLUDE_DIRS}  )
-  link_directories   ( ${NTK_LIBRARY_DIRS}  )
+SET(CMAKE_SHARED_LINKER_FLAGS "-fPIC -shared -L./src/avtk -Wl,--no-undefined")
+SET(CMAKE_C_FLAGS "-g -Wall -O1 -Wno-unused-variable")
+SET(CMAKE_CXX_FLAGS "-g -Wall -O1 -Wno-unused-variable -ftree-vectorize")
+
+
+# DSP sources
+FILE(GLOB sources src/dsp/*.cxx src/dsp/rr/*.cxx  src/dsp/eq/*.cc )
+
+IF(BUILD_SSE)
+  SET(CMAKE_C_FLAGS "-msse2 -mfpmath=sse")
+  SET(CMAKE_CXX_FLAGS "-msse2 -mfpmath=sse")
 ENDIF()
 
-SET(CMAKE_SHARED_LINKER_FLAGS "-fPIC -shared -Wl,-z,nodelete -Wl,--no-undefined")
-
-IF(RELEASE_BUILD)
-  SET(CMAKE_CXX_FLAGS "-g -Wall -Wno-unused-variable -msse2 -mfpmath=sse -ffast-math")
-  SET(CMAKE_C_FLAGS "-g -Wall -W -Wno-unused-variable -msse2 -mfpmath=sse -ffast-math")
+IF(BUILD_GUI)
+  # TODO: when building GUI, add platform checks for X11, Win, OsX
+  #pkg_check_modules(X11 x11 REQUIRED)
+  #include_directories( ${NTK_INCLUDE_DIRS}  )
+  #link_directories   ( ${NTK_LIBRARY_DIRS}  )
+  #SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -DPUGL_HAVE_CAIRO")
+  #SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DPUGL_HAVE_CAIRO")
+  FILE(GLOB ui_sources src/ui/*.cxx src/ui/graphs/*.cxx )
+  # AVTK .a static library build
+  add_subdirectory (src/avtk)
+  include_directories("src/avtk/avtk/")
 ENDIF()
-
-FILE(GLOB sources
-  artyfx.cxx
-  bitta/dsp/*.cxx 
-  capta/dsp/*.cxx 
-  della/dsp/*.cxx 
-  driva/dsp/*.cxx driva/dsp/rr/*.cxx 
-  ducka/dsp/*.cxx 
-  filta/dsp/*.cxx 
-  friza/dsp/*.cxx 
-  kuiza/dsp/*.cxx kuiza/dsp/eq/*.cc
-  masha/dsp/*.cxx 
-  panda/dsp/*.cxx 
-  roomy/dsp/*.cxx 
-  satma/dsp/*.cxx 
-  vihda/dsp/*.cxx 
-  whaaa/dsp/*.cxx 
-  )
-
-# don't compile UI files if we don't have NTK
-IF(HAVE_NTK)
-  FILE(GLOB sources
-    ${sources}
-    artyfx_ui.cxx
-    bitta/gui/*.cxx
-    capta/gui/*.cxx
-    della/gui/*.cxx
-    ducka/gui/*.cxx
-    driva/gui/*.cxx
-    filta/gui/*.cxx
-    friza/gui/*.cxx
-    kuiza/gui/*.cxx
-    masha/gui/*.cxx
-    panda/gui/*.cxx
-    roomy/gui/*.cxx
-    satma/gui/*.cxx
-    vihda/gui/*.cxx
-    whaaa/gui/*.cxx
-     )
-ENDIF()
-
 
 string( ASCII 27 _esc)
-
 function(COLOR_MESSAGE TEXT)
     if(CMAKE_COLOR_MAKEFILE)
         MESSAGE(${TEXT})
@@ -96,23 +68,33 @@ COLOR_MESSAGE( "
   ${blue}ArtyFX Configuration : ${ARTYFX_VERSION}${reset}
 -----------------------
 * ${green}Install Directory${reset}               : ${CMAKE_INSTALL_PREFIX}
-* ${green}GUI (ntk)${reset}                       : ${HAVE_NTK}
+* ${green}AVTK GUI${reset}                        : ${BUILD_GUI}
+* ${green}DSP Benchmarks${reset}                  : ${BUILD_BENCH}
 ")
 
 ADD_LIBRARY(artyfx SHARED ${sources} )
 
-target_link_libraries( artyfx ${SND_LIBRARIES}   )
-target_link_libraries( artyfx "-lpthread" )
+target_link_libraries( artyfx LINK_PUBLIC ${SND_LIBRARIES}   )
+target_link_libraries( artyfx LINK_PUBLIC "-lpthread" )
 
-IF(HAVE_NTK)
-target_link_libraries( artyfx ${NTK_LIBRARIES} )
+IF(BUILD_GUI)
+  ADD_LIBRARY( artyfx_ui SHARED ${ui_sources} )
+  add_dependencies( artyfx_ui avtk )
+  target_link_libraries( artyfx_ui "-lavtk -lcairo -lX11" )
+  set_target_properties( artyfx_ui PROPERTIES PREFIX "")
+  install (TARGETS artyfx_ui DESTINATION lib/lv2/artyfx.lv2/)
+ENDIF()
+
+IF(BUILD_BENCH)
+  add_executable (artyfx_benchmark src/dsp/perf_test.cpp )
+  target_link_libraries(artyfx_benchmark "-lbenchmark -lpthread" )
 ENDIF()
 
 # Remove "lib" part before name (artyfx.so, not libartyfx.so)
 set_target_properties(artyfx PROPERTIES PREFIX "")
 
 # add the install targets
-install (TARGETS artyfx DESTINATION lib/lv2/artyfx.lv2/)
+install (TARGETS artyfx    DESTINATION lib/lv2/artyfx.lv2/)
 
 FILE(GLOB modF "artyfx.lv2/modgui/*")
 FILE(GLOB ttls "artyfx.lv2/*.ttl"   )

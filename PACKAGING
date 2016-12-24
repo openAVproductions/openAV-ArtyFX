@@ -11,7 +11,6 @@ cmake -DCMAKE_INSTALL_PREFIX=/usr ..
 make -j2
 make install
 
-
 GUI-less builds
 ---------------
 Please only don't build the UI's if you have a good reason: in general they are
@@ -20,9 +19,7 @@ a very important part of the plugins, providing a good workflow.
 This switch has been added to ease porting ArtyFX to embedded platforms where
 the UI's aren't shown, as they are hardware. 
 
-
 cmake -DCMAKE_INSTALL_PREFIX=/usr -DHAVE_NTK=OFF ..
-
 
 Contact
 -------

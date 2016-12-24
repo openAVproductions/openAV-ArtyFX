@@ -23,7 +23,7 @@
 
 <http://www.openavproductions.com/artyfx#roomy/gui>
   a ui:X11UI;
-  ui:binary <artyfx.so>;
+  ui:binary <artyfx_ui.so>;
   lv2:optionalFeature ui:noUserResize ;
   lv2:extensionData   ui:idleInterface ;
   ui:requiredFeature ui:makeResident.
@@ -39,7 +39,12 @@
       foaf:name "OpenAV"
   ];
   lv2:optionalFeature lv2:hardRTCapable ;
-  
+  rdfs:comment "A spacious open algorithmic reverb.";
+  lv2:minorVersion 2; lv2:microVersion 0;
+  doap:license <http://usefulinc.com/doap/licenses/gpl> ;
+  lv2:project <http://www.openavproductions.com/artyfx> ;
+
+ 
   ui:ui <http://www.openavproductions.com/artyfx#roomy/gui>;
   
   lv2:port [

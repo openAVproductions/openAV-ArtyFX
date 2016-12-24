@@ -1,4 +1,10 @@
+build*/
+planning/*
+
 *.o
 *.so
+*.un~
+*.cxx~
+*.hxx~
+*.orig
 
-build/*

@@ -1,9 +1,12 @@
 
 1.3 Release :
-New plugins
+ New plugins
   - Driva distortion (Based on Rackarack Stompbox)
   - Whaaa wah pedal (Based on LADSPA WAH-plugins)
+ Improvements:
+  - AVTK User Interfaces
   - Bugfixes in multiple plugins
+
 
 1.2 Release : 15-09-14
 New plugins and refactor:
@@ -11,6 +14,7 @@ New plugins and refactor:
   -Refactored all plugins into one artyfx.lv2 bundle
   -Refactor build system, now uses CMake
   -Updated header graphics
+
 
 1.1 Release : 17-03-14
 Dot release, added Satma, Kuiza and Della.
@@ -43,3 +47,4 @@ Roomy and Ducka.
   -Brendan Jones (#irc bsjones)
   -AV Linux (#irc avlinux)
   -Others
+
