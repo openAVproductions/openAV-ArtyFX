@@ -43,7 +43,7 @@ available:
 - Roomy    (Smooth reverb)
 - Satma    (Crazy distortion)
 - Vihda    (Stereo Widener)
-- Whaaa
+- Whaaa    (Guitar Wah Effect)
 ```
 
 Bitta
@@ -274,7 +274,9 @@ mix due to how the brain interprets audio. Try it and see if it sounds good.
 Whaaa
 -----
 ![Whaaa Screenshot](screenshots/artyfx_whaaa.png)
-Whaaa...
+Whaaa is a guitar wah effect -but is equally effective on synths and
+various other signals! Frequency and Mix dials allow easily shaping the
+sound and adding some wicky-whack-whaa sounds to your mix!
 ```
 - Freq
 - Mix
