@@ -43,22 +43,19 @@ available:
 - Roomy    (Smooth reverb)
 - Satma    (Crazy distortion)
 - Vihda    (Stereo Widener)
+- Whaaa
 ```
 
 Bitta
 -----
 ![Bitta Screenshot](screenshots/artyfx_bitta.png)
-Bitta is a bit-crusher, with a Dry/Wet control.
+Bitta is a bit-crusher.
 ```
 -Crush
--Dry/Wet
 ```
 
 Crush changes the amount of bits the audio is reduced to, turn it up for more
 genuine hip-hop drum crunch.
-
-The Dry/Wet control allows blending of the crushed signal with the original:
-useful to maintain punch, but add a nice amount of grit.
 
 Note that bit-crushing is a process that is dependent on the volume of a
 signal, so check that your levels are good! Quiet signals are silenced when
@@ -142,7 +139,7 @@ Filta
 Filta is a lowpass and highpass filter combination. Useful to remove unwanted
 high and low frequencies from various recordings or instruments.
 
-The controls:
+The control:
 ```
 - Frequency
 ```
@@ -205,16 +202,12 @@ Panda
 Panda is a compressor expander combo, with attack and release controls.
 ```
 -Threshold
--Attack
 -Release
 -Factor
 ```
 
 Threshold: the "turning point" of compression / expansion. Turning down the
 dial expands the signal, turning it up causes compression.
-
-Attack affects the speed at which the compression/expansion starts. Generally
-low settings sound good, unless you need a long attack.
 
 Release changes the time for Panda to fade-out its compression/expansion.
 
@@ -234,10 +227,10 @@ It has three controls:
 - Dry / Wet
 ```
 
-The Time control changes the length of the reverb tail: higher values give will
+The Time control changes the length of the reverb tail: higher values will
 create a bigger and more spacious mix.
 
-Damping controls the high- frequency damping: lower settings gives a spacious
+Damping controls the high-frequency damping: lower settings gives a spacious
 open sound, while a high damping feels small and close.
 
 The Dry/Wet control changes the amount of reverb signal mixed in: useful for
@@ -271,10 +264,21 @@ Vihda is a stereo-enhancer, using a mid-side matrix.
 ```
 
 The Width parameter affects the amount of stereo content in the signal. Note
-that the the mid-side technique only enhances stereo: it does not create it!
+that the mid-side technique only enhances stereo: it does not create it!
 
 The Invert button inverts the right channel, which can cause a perceptual wider
 mix due to how the brain interprets audio. Try it and see if it sounds good.
+
+
+
+Whaaa
+-----
+![Whaaa Screenshot](screenshots/artyfx_whaaa.png)
+Whaaa...
+```
+- Freq
+- Mix
+```
 
 
 Outro
