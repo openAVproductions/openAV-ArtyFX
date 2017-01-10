@@ -61,12 +61,12 @@ public:
 		timeValue = 0.f;
 
 		// allocate 1 second max buffer length
-		buffer = new float[ sr ];
+		buffer = (float *)calloc(1, sizeof(float) * sr);
 	}
 
 	~Delay()
 	{
-		delete[] buffer;
+		free(buffer);
 	}
 
 	void setBPM(float b)
