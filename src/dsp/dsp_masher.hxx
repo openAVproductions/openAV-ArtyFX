@@ -42,7 +42,7 @@ public:
 		framesPerBar(22050),
 		_activated(false)
 	{
-		history = new float[BUFFER_SIZE];
+		history = (float*)calloc(1, sizeof(float) * BUFFER_SIZE);
 
 		_recording = false;
 		playhead   = 0;
@@ -56,7 +56,7 @@ public:
 	~Masher()
 	{
 		//printf("%s", __PRETTY_FUNCTION__ );
-		delete[] history;
+		free(history);
 	}
 
 	void active(bool a)
