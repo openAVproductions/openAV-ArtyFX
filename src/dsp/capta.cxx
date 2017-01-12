@@ -50,7 +50,7 @@ Capta::Capta(int rate) :
 	jack_ringbuffer_mlock( ringbuffer );
 	jack_ringbuffer_reset( ringbuffer );
 
-	tmpAudioBuffer = new float[rate * 4];
+	tmpAudioBuffer = (float *)calloc(1, sizeof(float) * (rate * 4));
 
 	zix_sem_init( &startRec       , 0 );
 	zix_sem_init( &stopRec        , 0 );
@@ -68,7 +68,7 @@ Capta::~Capta()
 	// wait for disk thread to quit
 	zix_thread_join( diskThread, 0 );
 
-	delete tmpAudioBuffer;
+	free(tmpAudioBuffer);
 	jack_ringbuffer_free( ringbuffer );
 }
 
