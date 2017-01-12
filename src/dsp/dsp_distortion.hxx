@@ -56,12 +56,12 @@ public:
 		knee_point = 0.1;
 
 		env = 0.0f;
-		buffer = new float[BUFFER_SIZE];
+		buffer = (float *)calloc(1, sizeof(float) * BUFFER_SIZE);
 		buffer_pos = 0;
 	}
 	~Distortion()
 	{
-		delete[] buffer;
+		free(buffer);
 	}
 
 	float getValue()
