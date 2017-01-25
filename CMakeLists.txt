@@ -11,8 +11,8 @@ project (artyfx)
 #.${ARTYFX_VERSION_PATCH}")
 
 option(RELEASE_BUILD  "Build for production usage" ON  )
-option(BUILD_GUI      "Build GUI (AVTK based)"     OFF  )
-option(BUILD_SSE      "Build with SSE flags"       OFF  )
+option(BUILD_GUI      "Build GUI (AVTK based)"     ON  )
+option(BUILD_SSE      "Build with SSE flags"       ON  )
 option(BUILD_BENCH    "Build benchmarks binary"    OFF )
 
 find_package(PkgConfig)
