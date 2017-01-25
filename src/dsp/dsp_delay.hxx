@@ -195,8 +195,6 @@ private:
 	float* buffer;
 	int writeHead;
 
-	int timeUnit;
-
 	float delayVolume;
 	float feedback;
 	float timeValue;
