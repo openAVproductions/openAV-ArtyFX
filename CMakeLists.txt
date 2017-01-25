@@ -11,8 +11,8 @@ project (artyfx)
 #.${ARTYFX_VERSION_PATCH}")
 
 option(RELEASE_BUILD  "Build for production usage" ON  )
-option(BUILD_GUI      "Build GUI (AVTK based)"     ON  )
-option(BUILD_SSE      "Build with SSE flags"       ON  )
+option(BUILD_GUI      "Build GUI (AVTK based)"     OFF  )
+option(BUILD_SSE      "Build with SSE flags"       OFF  )
 option(BUILD_BENCH    "Build benchmarks binary"    OFF )
 
 find_package(PkgConfig)
@@ -24,17 +24,16 @@ pkg_check_modules(SND sndfile REQUIRED)
 include_directories( ${SND_INCLUDE_DIRS}  )
 #target_link_libraries( avtkDemo ${CAIRO_LIBRARIES}  )
 
-SET(CMAKE_SHARED_LINKER_FLAGS "-fPIC -shared -L./src/avtk -Wl,--no-undefined")
-SET(CMAKE_C_FLAGS "-g -Wall -O1 -Wno-unused-variable")
-SET(CMAKE_CXX_FLAGS "-g -Wall -O1 -Wno-unused-variable -ftree-vectorize")
-
+SET(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -fPIC -shared -L./src/avtk -Wl,--no-undefined")
+SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -g -Wall -O1 -Wno-unused-variable")
+SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -Wall -O1 -Wno-unused-variable -ftree-vectorize")
 
 # DSP sources
 FILE(GLOB sources src/dsp/*.cxx src/dsp/rr/*.cxx  src/dsp/eq/*.cc )
 
 IF(BUILD_SSE)
-  SET(CMAKE_C_FLAGS "-msse2 -mfpmath=sse")
-  SET(CMAKE_CXX_FLAGS "-msse2 -mfpmath=sse")
+  SET(CMAKE_C_FLAGS   "${CMAKE_C_FLAGS} -msse2 -mfpmath=sse")
+  SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -msse2 -mfpmath=sse")
 ENDIF()
 
 IF(BUILD_GUI)
