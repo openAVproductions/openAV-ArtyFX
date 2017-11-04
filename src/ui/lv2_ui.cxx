@@ -101,7 +101,6 @@ static LV2UI_Handle artyfx_instantiate(const struct _LV2UI_Descriptor * descript
 
 static void artyfx_cleanup(LV2UI_Handle ui)
 {
-	printf("cleanup()\n");
 	delete (Avtk::UI*)ui;
 }
 
