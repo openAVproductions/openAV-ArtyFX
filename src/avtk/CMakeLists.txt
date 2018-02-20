@@ -55,8 +55,10 @@ include_directories( ${X11_INCLUDE_DIRS} )
 link_directories   ( ${X11_LIBRARY_DIRS} )
 
 
-SET(CMAKE_C_FLAGS   "-fPIC -msse -msse2 -mfpmath=sse -g") # -fsanitize=address
-SET(CMAKE_CXX_FLAGS "-fPIC -msse -msse2 -mfpmath=sse -g") # -fsanitize=address
+IF(NOT ${CMAKE_SYSTEM_PROCESSOR} MATCHES "arm")
+  SET(CMAKE_C_FLAGS   "-fPIC -msse -msse2 -mfpmath=sse -g") # -fsanitize=address
+  SET(CMAKE_CXX_FLAGS "-fPIC -msse -msse2 -mfpmath=sse -g") # -fsanitize=address
+ENDIF(NOT ${CMAKE_SYSTEM_PROCESSOR} MATCHES "arm")
 
 FILE(GLOB src libs/pffft.cxx avtk/*.cxx )
 
