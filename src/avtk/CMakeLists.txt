@@ -54,10 +54,12 @@ pkg_check_modules(X11 x11 REQUIRED)
 include_directories( ${X11_INCLUDE_DIRS} )
 link_directories   ( ${X11_LIBRARY_DIRS} )
 
-
 IF(NOT ${CMAKE_SYSTEM_PROCESSOR} MATCHES "arm")
   SET(CMAKE_C_FLAGS   "-fPIC -msse -msse2 -mfpmath=sse -g") # -fsanitize=address
   SET(CMAKE_CXX_FLAGS "-fPIC -msse -msse2 -mfpmath=sse -g") # -fsanitize=address
+ELSE()
+    SET(CMAKE_C_FLAGS   "-fPIC -mfpu=neon -g")
+    SET(CMAKE_CXX_FLAGS "-fPIC -mfpu=neon -g")
 ENDIF(NOT ${CMAKE_SYSTEM_PROCESSOR} MATCHES "arm")
 
 FILE(GLOB src libs/pffft.cxx avtk/*.cxx )
