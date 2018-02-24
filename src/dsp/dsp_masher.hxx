@@ -126,6 +126,9 @@ public:
 					_recording = false;
 				}
 
+				if(recordHead >= (BUFFER_SIZE-1))
+					_recording = 0;
+
 				history[ recordHead++ ] = input[i];
 			}
 

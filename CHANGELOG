@@ -2,6 +2,8 @@
  Meson Build System
   - Allows building of multiple variants easier
   - Easier to see enabled optimizations etc
+ Improvements:
+  - Masha: Fix potential array overflow bug
 
 1.3 Release :
  New plugins
