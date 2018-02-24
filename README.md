@@ -24,6 +24,22 @@ sudo apt-get install libcairo-dev lv2-dev lv2core
 
 Building
 --------
+
+The Meson build system is now preferred over the old CMake based system,
+as configuring builds in Meson is easier. The following steps build ArtyFX
+using Meson:
+
+```
+meson build_dir
+cd build_dir
+ninja
+ninja install
+```
+
+Legacy builds
+~~~~~~~~~~~~~
+Previous versions of ArtyFX were built using CMake, which is still working
+but will be deprecated in future. Steps below for the old method:
 Once deps are satisfied, building and installing is easy with CMake:
 ```
 mkdir build
