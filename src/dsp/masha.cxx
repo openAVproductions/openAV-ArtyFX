@@ -175,7 +175,7 @@ void Masha::run(LV2_Handle instance, uint32_t n_samples)
 		self->dspMasherL->bpm( *self->controlBpmManual );
 		self->dspMasherR->bpm( *self->controlBpmManual );
 	}
-	else // if manual BPM, ignore Atoms with BPM info
+	else if (self->atom_port) // if manual BPM, ignore Atoms with BPM info
 	{
 		LV2_ATOM_SEQUENCE_FOREACH(self->atom_port, ev) {
 			if ( ev->body.type == self->atom_Blank ) {
