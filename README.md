@@ -19,7 +19,7 @@ to build the plugins.
 On Debian Jessie (current stable) the following will grab
 the dependencies needed to build ArtyFX:
 ```
-sudo apt-get install libcairo-dev lv2-dev lv2core
+sudo apt-get install libcairo-dev lv2-dev lv2core libsndfile1-dev libsamplerate0-dev
 ```
 
 Building
