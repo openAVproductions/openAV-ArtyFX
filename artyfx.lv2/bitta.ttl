@@ -30,17 +30,16 @@
   a ui:X11UI;
   ui:binary <artyfx_ui.so>;
   lv2:optionalFeature ui:noUserResize ;
-  lv2:extensionData   ui:idleInterface ;
-  ui:requiredFeature ui:makeResident.
+  lv2:extensionData   ui:idleInterface .
 
 <http://www.openavproductions.com/artyfx#bitta>
   a lv2:Plugin,
     lv2:DistortionPlugin;
-  
+
   doap:name "Bitta";
   doap:description "Bit Crusher";
   doap:maintainer  [
-      foaf:homepage <http://openavproductions.com>; 
+      foaf:homepage <http://openavproductions.com>;
       foaf:mbox <mailto:harryhaaren@gmail.com>;
       foaf:name "OpenAV"
   ];
@@ -49,13 +48,13 @@
   lv2:minorVersion 2; lv2:microVersion 0;
   doap:license <http://usefulinc.com/doap/licenses/gpl> ;
   lv2:project <http://www.openavproductions.com/artyfx> ;
-  
+
   lv2:optionalFeature lv2:hardRTCapable ;
-  
+
   ui:ui <http://www.openavproductions.com/artyfx#bitta/gui>;
-  
+
   lv2:requiredFeature <http://lv2plug.in/ns/ext/urid#map> ;
-  
+
   lv2:port [
       a lv2:InputPort, lv2:AudioPort ;
       lv2:index 0 ;

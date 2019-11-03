@@ -32,29 +32,28 @@
   a ui:X11UI;
   ui:binary <artyfx_ui.so>;
   lv2:optionalFeature ui:noUserResize ;
-  lv2:extensionData   ui:idleInterface ;
-  ui:requiredFeature ui:makeResident.
+  lv2:extensionData   ui:idleInterface .
 
 <http://www.openavproductions.com/artyfx#driva>
   a lv2:Plugin,
     lv2:DistortionPlugin;
-  
+
   doap:name "Driva";
   doap:description "Distortion";
   doap:maintainer  [
-      foaf:homepage <http://openavproductions.com>; 
+      foaf:homepage <http://openavproductions.com>;
       foaf:mbox <mailto:harryhaaren@gmail.com>;
       foaf:name "OpenAV"
   ];
   lv2:optionalFeature lv2:hardRTCapable ;
-  
+
   rdfs:comment "Digital guitar distortion, including multiple different tone sorts and waveshaping functions.";
   lv2:minorVersion 2; lv2:microVersion 0;
   doap:license <http://usefulinc.com/doap/licenses/gpl> ;
   lv2:project <http://www.openavproductions.com/artyfx> ;
 
   ui:ui <http://www.openavproductions.com/artyfx#driva/gui>;
-  
+
   lv2:requiredFeature <http://lv2plug.in/ns/ext/urid#map> ;
 
   lv2:port [
@@ -75,7 +74,7 @@
       lv2:default 0.000000 ;
       lv2:minimum 0.000000 ;
       lv2:maximum 6.000000 ;
-      
+
       lv2:portProperty lv2:integer;
       lv2:portProperty lv2:enumeration ;
       lv2:scalePoint [rdfs:label "Odie"   ; rdf:value 0];
@@ -85,11 +84,11 @@
       lv2:scalePoint [rdfs:label "Classic"; rdf:value 4];
       lv2:scalePoint [rdfs:label "Morbid" ; rdf:value 5];
       lv2:scalePoint [rdfs:label "Metal"  ; rdf:value 6];
-      
+
       lv2:portProperty pprops:expensive;
-      
+
       rdfs:comment "Changes the order of the waveshapers and eqs, creating new sonic qualities."
-      
+
   ] , [
       a lv2:InputPort, lv2:ControlPort ;
       lv2:index 3 ;
@@ -99,5 +98,5 @@
       lv2:minimum 0.000000 ;
       lv2:maximum 1.000000 ;
   ];
-  
+
   .

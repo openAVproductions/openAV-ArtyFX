@@ -29,16 +29,15 @@
   a ui:X11UI;
   ui:binary <artyfx_ui.so>;
   lv2:optionalFeature ui:noUserResize ;
-  lv2:extensionData   ui:idleInterface ;
-  ui:requiredFeature ui:makeResident.
+  lv2:extensionData   ui:idleInterface .
 
 <http://www.openavproductions.com/artyfx#panda>
   a lv2:Plugin;
-  
+
   doap:name "Panda";
   doap:description "Compressor/Expander Combo";
   doap:maintainer  [
-      foaf:homepage <http://openavproductions.com>; 
+      foaf:homepage <http://openavproductions.com>;
       foaf:mbox <mailto:harryhaaren@gmail.com>;
       foaf:name "OpenAV"
   ];
@@ -48,9 +47,9 @@
   doap:license <http://usefulinc.com/doap/licenses/gpl> ;
   lv2:project <http://www.openavproductions.com/artyfx> ;
 
- 
+
   ui:ui <http://www.openavproductions.com/artyfx#panda/gui>;
-  
+
   lv2:requiredFeature <http://lv2plug.in/ns/ext/urid#map> ;
 
   lv2:port [
