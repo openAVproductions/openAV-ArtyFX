@@ -27,18 +27,17 @@
   a ui:X11UI;
   ui:binary <artyfx_ui.so>;
   lv2:optionalFeature ui:noUserResize ;
-  lv2:extensionData   ui:idleInterface ;
-  ui:requiredFeature ui:makeResident.
+  lv2:extensionData   ui:idleInterface .
 
 <http://www.openavproductions.com/artyfx#filta>
   a lv2:Plugin ,
     lv2:FilterPlugin ;
-  
+
   doap:name "Filta";
   doap:description "Lowpass/Highpass Filter";
-  
+
   doap:maintainer  [
-      foaf:homepage <http://openavproductions.com>; 
+      foaf:homepage <http://openavproductions.com>;
       foaf:mbox <mailto:harryhaaren@gmail.com>;
       foaf:name "OpenAV"
   ];
@@ -46,11 +45,11 @@
   lv2:minorVersion 2; lv2:microVersion 0;
   doap:license <http://usefulinc.com/doap/licenses/gpl> ;
   lv2:project <http://www.openavproductions.com/artyfx> ;
-  
+
   lv2:optionalFeature lv2:hardRTCapable;
-  
+
   ui:ui <http://www.openavproductions.com/artyfx#filta/gui>;
-  
+
   lv2:port [
     a lv2:AudioPort ,
       lv2:InputPort ;
@@ -76,9 +75,9 @@
     lv2:symbol "out_right" ;
     lv2:name "Output Right";
   ]
-  
+
   ,
-  
+
   [
     a lv2:InputPort ,
       lv2:ControlPort ;
@@ -100,5 +99,5 @@
     lv2:portProperty lv2:toggled ;
     lv2:portProperty pprop:notOnGUI ;
   ]
-  
+
   .

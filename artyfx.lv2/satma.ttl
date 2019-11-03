@@ -26,17 +26,16 @@
   a ui:X11UI;
   ui:binary <artyfx_ui.so>;
   lv2:optionalFeature ui:noUserResize ;
-  lv2:extensionData   ui:idleInterface ;
-  ui:requiredFeature ui:makeResident.
+  lv2:extensionData   ui:idleInterface .
 
 <http://www.openavproductions.com/artyfx#satma>
   a lv2:Plugin ,
     lv2:DistortionPlugin ;
-  
+
   doap:name "Satma";
   doap:description "Distortion Maximizer";
   doap:maintainer  [
-      foaf:homepage <http://openavproductions.com>; 
+      foaf:homepage <http://openavproductions.com>;
       foaf:mbox <mailto:harryhaaren@gmail.com>;
       foaf:name "OpenAV"
   ];
@@ -48,7 +47,7 @@
 
 
   ui:ui <http://www.openavproductions.com/artyfx#satma/gui>;
-  
+
   lv2:optionalFeature <http://lv2plug.in/ns/lv2core#hardRTCapable> ,
                       <http://lv2plug.in/ns/ext/buf-size#boundedBlockLength> ;
 

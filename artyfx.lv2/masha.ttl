@@ -28,8 +28,7 @@
   a ui:X11UI;
   ui:binary <artyfx_ui.so>;
   lv2:optionalFeature ui:noUserResize ;
-  lv2:extensionData   ui:idleInterface ;
-  ui:requiredFeature ui:makeResident.
+  lv2:extensionData   ui:idleInterface .
 
 <http://www.openavproductions.com/artyfx#masha>
   a lv2:Plugin ,
@@ -37,7 +36,7 @@
   doap:name "Masha";
   doap:description "Beat Smasher";
   doap:maintainer  [
-      foaf:homepage <http://openavproductions.com>; 
+      foaf:homepage <http://openavproductions.com>;
       foaf:mbox <mailto:harryhaaren@gmail.com>;
       foaf:name "OpenAV"
   ];
@@ -48,7 +47,7 @@
   lv2:project <http://www.openavproductions.com/artyfx> ;
 
   ui:ui <http://www.openavproductions.com/artyfx#masha/gui>;
-  
+
   lv2:port [
     a lv2:AudioPort ,
       lv2:InputPort ;
@@ -74,9 +73,9 @@
     lv2:symbol "out_right" ;
     lv2:name "Output Right";
   ]
-  
+
   ,
-  
+
   [
     a lv2:InputPort ,
       lv2:ControlPort ;
@@ -105,9 +104,9 @@
     lv2:minimum 0.0 ;
     lv2:maximum 1.0 ;
   ]
-  
+
   ,
-  
+
   [
     a lv2:InputPort ,
       lv2:ControlPort ;
@@ -120,7 +119,7 @@
     lv2:portProperty lv2:toggled ;
   ]
   ,
-  
+
   [
     a lv2:InputPort ,
       atom:AtomPort ;

@@ -26,20 +26,19 @@
   a ui:X11UI;
   ui:binary <artyfx.so>;
   lv2:optionalFeature ui:noUserResize ;
-  lv2:extensionData   ui:idleInterface ;
-  ui:requiredFeature ui:makeResident.
+  lv2:extensionData   ui:idleInterface .
 
 <http://www.openavproductions.com/artyfx#friza>
   a lv2:Plugin;
   doap:name "Friza";
   doap:description "Sonic-Freezer";
   doap:maintainer  [
-      foaf:homepage <http://openavproductions.com>; 
+      foaf:homepage <http://openavproductions.com>;
       foaf:mbox <mailto:harryhaaren@gmail.com>;
       foaf:name "OpenAV"
   ];
   lv2:optionalFeature lv2:hardRTCapable ;
-  
+
   rdfs:comment "A sonic texture freezer that allows moving over recorded content to achieve an ambient fade effect.";
   lv2:minorVersion 2; lv2:microVersion 0;
   doap:license <http://usefulinc.com/doap/licenses/gpl> ;
@@ -47,7 +46,7 @@
 
 
   ui:ui <http://www.openavproductions.com/artyfx#friza/gui>;
-  
+
   lv2:port [
     a lv2:AudioPort ,
       lv2:InputPort ;
@@ -61,9 +60,9 @@
     lv2:symbol "out_left" ;
     lv2:name "Output Left";
   ]
-  
+
   ,
-  
+
   [
     a lv2:InputPort ,
       lv2:ControlPort ;
