@@ -19,3 +19,11 @@ artyfx_dsp_src += files(
 
 subdir('eq')
 subdir('rr')
+
+# compile the benchmark
+gbench = dependency('benchmark')
+sndfile = dependency('sndfile')
+pthreads = dependency('threads')
+
+executable('artyfx_benchmark', artyfx_dsp_src + ['perf_test.cpp'],
+    dependencies: [gbench, sndfile, pthreads])
