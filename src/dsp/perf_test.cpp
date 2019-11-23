@@ -100,6 +100,22 @@ void filter_svf(benchmark::State& state)
 	}
 }
 
+void filter_stereo_svf(benchmark::State& state)
+{
+	FiltersSVF fl(SMPS);
+	FiltersSVF fr(SMPS);
+
+	const uint32_t nf = state.range(0);
+	if(nf > SMPS)
+		return;
+
+	while (state.KeepRunning()) {
+		fl.process(nf, inL, outL);
+		fr.process(nf, inR, outR);
+	}
+}
+
+
 void delay(benchmark::State& state)
 {
 	Delay d(SMPS);
@@ -149,6 +165,7 @@ BENCHMARK(delay     )->Range(8, 1024);
 BENCHMARK(masher    )->Range(8, 1024);
 BENCHMARK(filters   )->Range(8, 1024);
 BENCHMARK(filter_svf)->Range(8, 1024);
+BENCHMARK(filter_stereo_svf)->Range(8, 1024);
 BENCHMARK(wah       )->Range(8, 1024);
 
 BENCHMARK_MAIN()
