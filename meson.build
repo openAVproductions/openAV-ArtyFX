@@ -33,6 +33,3 @@ artyfx_dsp = library('artyfx',
     name_prefix : '', # backwards compatible with old build system
     install_dir : 'lib/lv2/artyfx.lv2/',
     dependencies: deps)
-
-# compile the benchmark
-#executable('artyfx_benchmark', ' ,dependencies: artyfx_dsp)
