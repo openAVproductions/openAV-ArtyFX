@@ -21,9 +21,11 @@ subdir('eq')
 subdir('rr')
 
 # compile the benchmark
-gbench = dependency('benchmark')
+gbench = dependency('benchmark', required: false)
 sndfile = dependency('sndfile')
 pthreads = dependency('threads')
 
-executable('artyfx_benchmark', artyfx_dsp_src + ['perf_test.cpp'],
-    dependencies: [gbench, sndfile, pthreads])
+if gbench.found()
+    executable('artyfx_benchmark', artyfx_dsp_src + ['perf_test.cpp'],
+        dependencies: [gbench, sndfile, pthreads])
+endif
