@@ -24,7 +24,9 @@ subdir('rr')
 sndfile = dependency('sndfile')
 pthreads = dependency('threads')
 
-if get_option('benchmark')
+gbench = dependency('benchmark', required: false)
+
+if gbench.found()
     gbench = dependency('benchmark')
     executable('artyfx_benchmark', artyfx_dsp_src + ['perf_test.cpp'],
         dependencies: [gbench, sndfile, pthreads])

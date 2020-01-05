@@ -1,1 +1,0 @@
-option('benchmark', type:'boolean', value: true, description: 'Build the benchmark program.')
