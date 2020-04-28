@@ -46,7 +46,7 @@ typedef struct {
 	LV2UI_Controller controller;
 } GUI;
 
-LV2UI_Handle friza_instantiate(const struct _LV2UI_Descriptor * descriptor,
+LV2UI_Handle friza_instantiate(const struct LV2UI_Descriptor * descriptor,
                                const char * plugin_uri,
                                const char * bundle_path,
                                LV2UI_Write_Function write_function,
