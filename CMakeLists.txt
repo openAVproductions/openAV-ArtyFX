@@ -24,7 +24,10 @@ pkg_check_modules(SND sndfile REQUIRED)
 include_directories( ${SND_INCLUDE_DIRS}  )
 #target_link_libraries( avtkDemo ${CAIRO_LIBRARIES}  )
 
-SET(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -fPIC -shared -L./src/avtk -Wl,--no-undefined")
+SET(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -fPIC -shared -L./src/avtk")
+if(NOT APPLE)
+  SET(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -Wl,--no-undefined")
+endif()
 SET(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -g -Wall -O1 -Wno-unused-variable")
 SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -g -Wall -O1 -Wno-unused-variable -ftree-vectorize")
 
