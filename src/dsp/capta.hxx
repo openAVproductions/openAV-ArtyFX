@@ -45,6 +45,8 @@ typedef enum {
 #include "zix/sem.h"
 #include "zix/thread.h"
 
+#ifndef _WIN32
+
 class SndfileHandle;
 
 class Capta
@@ -100,5 +102,7 @@ private:
 		return 0;
 	}
 };
+
+#endif
 
 #endif // OPENAV_CAPTA

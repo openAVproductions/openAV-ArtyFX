@@ -29,6 +29,8 @@
 #include <sstream>
 #include <sndfile.hh>
 
+#ifndef _WIN32
+
 LV2_Handle Capta::instantiate(const LV2_Descriptor* descriptor,
                               double samplerate,
                               const char* bundle_path,
@@ -207,3 +209,4 @@ const void* Capta::extension_data(const char* uri)
 	return NULL;
 }
 
+#endif

@@ -26,22 +26,22 @@
 #define DRIVA_URI    "http://www.openavproductions.com/artyfx#driva"
 #define DRIVA_UI_URI "http://www.openavproductions.com/artyfx#driva/gui"
 
-typedef enum {
-	// Audio
-	INPUT = 0,
-	OUTPUT,
-
-	// Top signal
-	DRIVA_TONE,
-	DRIVA_AMOUNT,
-
-} DrivaPortIndex;
-
 class StompBox;
 
 class Driva
 {
 public:
+	typedef enum {
+		// Audio
+		INPUT = 0,
+		OUTPUT,
+
+		// Top signal
+		DRIVA_TONE,
+		DRIVA_AMOUNT,
+
+	} DrivaPortIndex;
+
 	Driva(int rate);
 	~Driva();
 	static LV2_Handle instantiate(const LV2_Descriptor* descriptor,
