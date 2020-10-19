@@ -60,7 +60,7 @@ void DrivaUI::widgetValueCB( Avtk::Widget* widget )
 	}
 	if( widget == dial2 ) {
 		graph->value( v );
-		write_function( controller, DRIVA_AMOUNT, sizeof(float), 0, &v );
+		write_function( controller, Driva::DRIVA_AMOUNT, sizeof(float), 0, &v );
 	}
 	if( widget == graph ) {
 		dial2->value( v );
@@ -73,7 +73,7 @@ void DrivaUI::widgetValueCB( Avtk::Widget* widget )
 		if( widget == tones[i] ) {
 			float t = i;
 			graph->label( toneNames[i] );
-			write_function( controller, DRIVA_TONE, sizeof(float), 0, &t );
+			write_function( controller, Driva::DRIVA_TONE, sizeof(float), 0, &t );
 			show_tones( false );
 			break;
 		}
@@ -94,11 +94,11 @@ void DrivaUI::lv2PortEvent( uint32_t index,
 	int i = 0;
 
 	switch( index ) {
-	case DRIVA_TONE:
+	case Driva::DRIVA_TONE:
 		i = int(v);
 		graph->label( toneNames[i] );
 		break;
-	case DRIVA_AMOUNT:
+	case Driva::DRIVA_AMOUNT:
 		dial2->value( v );
 		graph->value( v );
 		break;

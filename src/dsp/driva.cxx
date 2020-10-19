@@ -67,17 +67,17 @@ void Driva::connect_port(LV2_Handle instance, uint32_t port, void *data)
 	Driva* self = (Driva*) instance;
 
 	switch (port) {
-	case INPUT:
+	case Driva::INPUT:
 		self->audioInput      = (float*)data;
 		break;
-	case OUTPUT:
+	case Driva::OUTPUT:
 		self->audioOutput     = (float*)data;
 		break;
 
-	case DRIVA_TONE:
+	case Driva::DRIVA_TONE:
 		self->controlWave1type   = (float*)data;
 		break;
-	case DRIVA_AMOUNT:
+	case Driva::DRIVA_AMOUNT:
 		self->controlWave1amount = (float*)data;
 		break;
 	}
