@@ -1,8 +1,12 @@
 
 # The manifest file for all OpenAV ArtyFX plugins
 
+@prefix doap: <http://usefulinc.com/ns/doap#> .
 @prefix lv2:  <http://lv2plug.in/ns/lv2core#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+<http://www.openavproductions.com/artyfx> a doap:Project ;
+  doap:name "ArtyFX" .
 
 <http://www.openavproductions.com/artyfx#bitta> a lv2:Plugin ;
   lv2:binary <artyfx.so> ;
