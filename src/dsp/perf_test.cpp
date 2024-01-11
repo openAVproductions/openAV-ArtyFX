@@ -136,4 +136,4 @@ BENCHMARK(masher    )->Range(8, 1024);
 BENCHMARK(filters   )->Range(8, 1024);
 BENCHMARK(wah       )->Range(8, 1024);
 
-BENCHMARK_MAIN()
+BENCHMARK_MAIN();
