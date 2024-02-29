@@ -13,11 +13,11 @@ subdir('src')
 
 dep_names = [
   'lv2',
-  'cairo',
+  #'cairo',
   'sndfile',
   'samplerate',
   'threads',
-  'x11'
+  #'x11'
   ]
 deps = []
 

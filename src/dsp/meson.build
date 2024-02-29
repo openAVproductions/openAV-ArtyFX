@@ -1,7 +1,7 @@
 artyfx_dsp_src += files(
   'bitta.cxx',
   'artyfx.cxx',
-  'capta.cxx',
+  #'capta.cxx',
   'driva.cxx',
   'filta.cxx',
   'masha.cxx',
@@ -22,7 +22,7 @@ subdir('rr')
 
 # compile the benchmark
 gbench = dependency('benchmark', required: false)
-sndfile = dependency('sndfile')
+sndfile = dependency('sndfile', required: false)
 pthreads = dependency('threads')
 
 if gbench.found()

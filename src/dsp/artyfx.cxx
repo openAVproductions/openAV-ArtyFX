@@ -50,6 +50,7 @@ static const LV2_Descriptor descriptors[] = {
 		Bitta::extension_data
 	},
 #ifndef _WIN32
+	/*
 	{
 		CAPTA_URI,
 		Capta::instantiate,
@@ -60,6 +61,7 @@ static const LV2_Descriptor descriptors[] = {
 		Capta::cleanup,
 		Capta::extension_data
 	},
+	*/
 #endif
 	{
 		DELLA_URI,
