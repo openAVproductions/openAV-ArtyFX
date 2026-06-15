@@ -61,12 +61,12 @@ public:
 		timeValue = 0.f;
 
 		// allocate 1 second max buffer length
-		buffer = (float *)calloc(1, sizeof(float) * sr);
+		buffer = new float[sr]();
 	}
 
 	~Delay()
 	{
-		free(buffer);
+		delete[] buffer;
 	}
 
 	void setBPM(float b)
@@ -168,12 +168,16 @@ public:
 		if ( _active ) {
 			// add delayed signal
 			for (int i = 0; i < count; i++) {
-				if ( writeHead > delayTimeSamps )
+				if ( writeHead >= samplerate )
 					writeHead = 0;
 
 				int readPos = writeHead - delayTimeSamps;
 				if ( readPos < 0 )
-					readPos += delayTimeSamps;
+					readPos += samplerate;
+				
+				// Ensure readPos is within buffer bounds
+				if ( readPos >= samplerate )
+					readPos = 0;
 
 				output[i] = input[i] + (buffer[readPos] * DB_CO( (delayVolume-1)*40 ));
 
