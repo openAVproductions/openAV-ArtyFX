@@ -33,18 +33,18 @@ StompBox::StompBox ( int sr )
 
 	// filters
 
-	linput = new AnalogFilter (1, 80.0f, 1.0f, 0);  //  AnalogFilter (unsigned char Ftype, float Ffreq, float Fq,unsigned char Fstages);
-	lpre1 = new AnalogFilter (1, 630.0f, 1.0f, 0);   // LPF = 0, HPF = 1
-	lpre2 = new AnalogFilter (1, 220.0f, 1.0f, 0);
+	linput = new AnalogFilter (1, 80.0f, 1.0f, 0, samplerate);  //  AnalogFilter (unsigned char Ftype, float Ffreq, float Fq,unsigned char Fstages, unsigned int SR);
+	lpre1 = new AnalogFilter (1, 630.0f, 1.0f, 0, samplerate);   // LPF = 0, HPF = 1
+	lpre2 = new AnalogFilter (1, 220.0f, 1.0f, 0, samplerate);
 
-	lpost = new AnalogFilter (0, 720.0f, 1.0f, 0);
+	lpost = new AnalogFilter (0, 720.0f, 1.0f, 0, samplerate);
 
-	ltonehg = new AnalogFilter (1, 1500.0f, 1.0f, 0);
-	ltonemd = new AnalogFilter (4, 1000.0f, 1.0f, 0);
-	ltonelw = new AnalogFilter (0, 500.0f, 1.0, 0);
+	ltonehg = new AnalogFilter (1, 1500.0f, 1.0f, 0, samplerate);
+	ltonemd = new AnalogFilter (4, 1000.0f, 1.0f, 0, samplerate);
+	ltonelw = new AnalogFilter (0, 500.0f, 1.0, 0, samplerate);
 
 	//Anti-aliasing for between stages
-	lanti = new AnalogFilter (0, 6000.0f, 0.707f, 1);
+	lanti = new AnalogFilter (0, 6000.0f, 0.707f, 1, samplerate);
 
 	lwshape  = new Waveshaper( sr );
 	lwshape2 = new Waveshaper( sr );

@@ -31,11 +31,11 @@
 
 
 AnalogFilter::AnalogFilter (unsigned char Ftype, float Ffreq, float Fq,
-                            unsigned char Fstages)
+                            unsigned char Fstages, unsigned int SR = 44100)
 {
-	// FIXME: SR
-	iSAMPLE_RATE= 44100;
-	ifSAMPLE_RATE=44100.f;
+	// Use provided sample rate instead of hardcoded value
+	iSAMPLE_RATE = SR;
+	ifSAMPLE_RATE = (float)SR;
 
 
 	stages = Fstages;
