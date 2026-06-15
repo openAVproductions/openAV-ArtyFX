@@ -88,13 +88,14 @@ public:
 	void process (long count, float* in, float* out)
 	{
 		if ( _active ) {
+			long sampleCounter = 0;
 			for(int i = 0; i < count; i++) {
 				float tmp = 0.f;
 
-				count+=rate;
+				sampleCounter += rate;
 
-				if ( count >= 1) {
-					count -= 1;
+				if ( sampleCounter >= 1) {
+					sampleCounter -= 1;
 
 					tmp=(long int)( *in * m)/(float)m;
 				}
